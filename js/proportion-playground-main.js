@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ProportionPlaygroundScreen = require( 'PROPORTION_PLAYGROUND/proportion-playground/ProportionPlaygroundScreen' );
+  var ProportionPlaygroundScreen = require( 'PROPORTION_PLAYGROUND/explore/ProportionPlaygroundScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
