@@ -24,7 +24,8 @@ define( function( require ) {
       children: [
         new HBox( {
           spacing: 10,
-          y: 500,
+          y: 450,
+          centerX: 0, // position around the origin
           children: [
             roundBeadNumberPicker,
             squareBeadNumberPicker

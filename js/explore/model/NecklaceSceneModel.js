@@ -16,11 +16,14 @@ define( function( require ) {
   function NecklaceSceneModel() {
     PropertySet.call( this, { showBothNecklaces: false } );
 
+    //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
+    this.showBothNecklacesProperty = this.showBothNecklacesProperty || null;
+
     this.necklace1Model = new NecklaceModel();
     this.necklace2Model = new NecklaceModel();
   }
 
   proportionPlayground.register( 'NecklaceSceneModel', NecklaceSceneModel );
-  
+
   return inherit( PropertySet, NecklaceSceneModel, {} );
 } );

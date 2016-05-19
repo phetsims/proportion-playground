@@ -12,15 +12,36 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ControllableNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/ControllableNecklaceNode' );
+  var ABSwitch = require( 'SUN/ABSwitch' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   function NecklaceSceneNode( layoutBounds, necklaceSceneModel ) {
     var firstControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace1Model );
     var secondControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace2Model );
+    var createText = function( text ) {
+      return new Text( text, { fontSize: 22 } );
+    };
+    var abSwitch = new ABSwitch( necklaceSceneModel.showBothNecklacesProperty, false, createText( 'one' ), true, createText( 'two' ) );
 
     Node.call( this, {
-      children: [ firstControllableNecklaceNode, secondControllableNecklaceNode ]
+      children: [ firstControllableNecklaceNode, secondControllableNecklaceNode, abSwitch ]
     } );
     this.necklaceSceneModel = necklaceSceneModel;
+
+    necklaceSceneModel.showBothNecklacesProperty.link( function( showBothNecklaces ) {
+      secondControllableNecklaceNode.visible = showBothNecklaces;
+
+      // Controllable necklace nodes have x=0 at their center
+      if ( showBothNecklaces ) {
+        firstControllableNecklaceNode.x = layoutBounds.width * 1 / 3;
+        secondControllableNecklaceNode.x = layoutBounds.width * 2 / 3;
+      }
+      else {
+        firstControllableNecklaceNode.x = layoutBounds.width / 2;
+      }
+    } );
+    abSwitch.centerX = layoutBounds.centerX;
+    abSwitch.bottom = layoutBounds.bottom;
   }
 
   proportionPlayground.register( 'NecklaceSceneNode', NecklaceSceneNode );
