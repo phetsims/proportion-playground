@@ -17,11 +17,13 @@ define( function( require ) {
     var necklaceNode = this;
     Node.call( this );
 
-    necklaceModel.roundBeadCountProperty.link( function() {
-      necklaceNode.children = [ new StaticNecklaceNode( necklaceModel.roundBeadCountProperty, necklaceModel.squareBeadCountProperty ) ];
+    var updateNecklace = function() {
+      necklaceNode.children = [ new StaticNecklaceNode( necklaceModel.roundBeadCount, necklaceModel.squareBeadCount ) ];
       necklaceNode.centerX = 0;
       necklaceNode.centerY = 300;
-    } );
+    };
+    necklaceModel.roundBeadCountProperty.link( updateNecklace );
+    necklaceModel.squareBeadCountProperty.link( updateNecklace );
   }
 
   proportionPlayground.register( 'NecklaceNode', NecklaceNode );

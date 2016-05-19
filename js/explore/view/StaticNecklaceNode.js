@@ -14,9 +14,9 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
 
-  function StaticNecklaceNode( necklaceModel ) {
+  function StaticNecklaceNode( roundBeadCount, squareBeadCount ) {
     Node.call( this, {
-      children: [ new Text( 'hello from necklace' ) ]
+      children: [ new Text( 'necklace ' + roundBeadCount + ' / ' + squareBeadCount, { fontSize: 30 } ) ]
     } );
   }
 
