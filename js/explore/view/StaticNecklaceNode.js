@@ -12,11 +12,20 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/RoundBeadNode' );
+  var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/SquareBeadNode' );
 
   function StaticNecklaceNode( roundBeadCount, squareBeadCount ) {
+    var children = [];
+    for ( var i = 0; i < roundBeadCount; i++ ) {
+      children.push( new RoundBeadNode( { x: i * 22 } ) );
+    }
+    for ( i = 0; i < squareBeadCount; i++ ) {
+      children.push( new SquareBeadNode( { x: i * 22, y: 22 } ) );
+    }
+
     Node.call( this, {
-      children: [ new Text( 'necklace ' + roundBeadCount + ' / ' + squareBeadCount, { fontSize: 30 } ) ]
+      children: children
     } );
   }
 
