@@ -15,16 +15,16 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ProportionPlaygroundModel() {
+  function ExploreModel() {
 
     PropertySet.call( this, {
       //TODO
     } );
   }
 
-  proportionPlayground.register( 'ProportionPlaygroundModel', ProportionPlaygroundModel );
+  proportionPlayground.register( 'ExploreModel', ExploreModel );
 
-  return inherit( PropertySet, ProportionPlaygroundModel, {
+  return inherit( PropertySet, ExploreModel, {
 
     //TODO Called by the animation loop. Optional, so if your model has no animation, please delete this.
     // @public

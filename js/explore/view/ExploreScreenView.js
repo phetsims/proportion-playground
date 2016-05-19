@@ -17,7 +17,7 @@ define( function( require ) {
    * @param {ProportionPlaygroundModel} proportionPlaygroundModel
    * @constructor
    */
-  function ProportionPlaygroundScreenView( proportionPlaygroundModel ) {
+  function ExploreScreenView( proportionPlaygroundModel ) {
 
     ScreenView.call( this );
 
@@ -32,9 +32,9 @@ define( function( require ) {
     this.addChild( resetAllButton );
   }
 
-  proportionPlayground.register( 'ProportionPlaygroundScreenView', ProportionPlaygroundScreenView );
+  proportionPlayground.register( 'ExploreScreenView', ExploreScreenView );
 
-  return inherit( ScreenView, ProportionPlaygroundScreenView, {
+  return inherit( ScreenView, ExploreScreenView, {
 
     //TODO Called by the animation loop. Optional, so if your view has no animation, please delete this.
     // @public

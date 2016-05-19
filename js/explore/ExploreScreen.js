@@ -8,8 +8,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ProportionPlaygroundModel = require( 'PROPORTION_PLAYGROUND/explore/model/ProportionPlaygroundModel' );
-  var ProportionPlaygroundScreenView = require( 'PROPORTION_PLAYGROUND/explore/view/ProportionPlaygroundScreenView' );
+  var ExploreModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreModel' );
+  var ExploreScreenView = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
@@ -20,20 +20,20 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ProportionPlaygroundScreen() {
+  function ExploreScreen() {
 
     //If this is a single-screen sim, then no icon is necessary.
     //If there are multiple screens, then the icon must be provided here.
     var icon = null;
 
     Screen.call( this, exploreString, icon,
-      function() { return new ProportionPlaygroundModel(); },
-      function( model ) { return new ProportionPlaygroundScreenView( model ); },
+      function() { return new ExploreModel(); },
+      function( model ) { return new ExploreScreenView( model ); },
       { backgroundColor: 'white' }
     );
   }
 
-  proportionPlayground.register( 'ProportionPlaygroundScreen', ProportionPlaygroundScreen );
+  proportionPlayground.register( 'ExploreScreen', ExploreScreen );
 
-  return inherit( Screen, ProportionPlaygroundScreen );
+  return inherit( Screen, ExploreScreen );
 } );

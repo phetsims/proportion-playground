@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ProportionPlaygroundScreen = require( 'PROPORTION_PLAYGROUND/explore/ProportionPlaygroundScreen' );
+  var ExploreScreen = require( 'PROPORTION_PLAYGROUND/explore/ExploreScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
@@ -36,7 +36,7 @@ define( function( require ) {
   }
 
   SimLauncher.launch( function() {
-    var sim = new Sim( proportionPlaygroundTitleString, [ new ProportionPlaygroundScreen() ], simOptions );
+    var sim = new Sim( proportionPlaygroundTitleString, [ new ExploreScreen() ], simOptions );
     sim.start();
   } );
 } );
