@@ -87,9 +87,7 @@ define( function( require ) {
         pairs.push( { start: vertices[ vertices.length - 1 ], end: vertices[ 0 ] } );
       }
 
-      var remainingRoundBeads = roundBeadCount;
       var usedRoundBeads = 0;
-      var usedSquareBeads = 0;
 
       var types = [];
       for ( var j = 1; j < 100; j++ ) {
@@ -98,6 +96,16 @@ define( function( require ) {
             types.push( i % (j + 1) === 0 ? 'square' : 'round' );
           }
           break;
+        }
+      }
+      if ( types.length === 0 ) {
+        for ( j = 1; j < 100; j++ ) {
+          if ( squareBeadCount === roundBeadCount * j ) {
+            for ( i = 0; i < pairs.length; i++ ) {
+              types.push( i % (j + 1) === 0 ? 'round' : 'square' );
+            }
+            break;
+          }
         }
       }
       if ( types.length === 0 ) {
