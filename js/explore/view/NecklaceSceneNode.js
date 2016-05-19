@@ -40,8 +40,7 @@ define( function( require ) {
         firstControllableNecklaceNode.x = layoutBounds.width / 2;
       }
     } );
-    abSwitch.centerX = layoutBounds.centerX;
-    abSwitch.bottom = layoutBounds.bottom;
+    abSwitch.centerBottom = layoutBounds.centerBottom;
   }
 
   proportionPlayground.register( 'NecklaceSceneNode', NecklaceSceneNode );
