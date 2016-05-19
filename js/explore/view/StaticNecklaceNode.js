@@ -92,27 +92,15 @@ define( function( require ) {
       var usedSquareBeads = 0;
 
       var types = [];
-      if ( roundBeadCount === squareBeadCount * 1 ) {
-        for ( i = 0; i < pairs.length; i++ ) {
-          types.push( i % 2 === 0 ? 'square' : 'round' );
+      for ( var j = 1; j < 100; j++ ) {
+        if ( roundBeadCount === squareBeadCount * j ) {
+          for ( i = 0; i < pairs.length; i++ ) {
+            types.push( i % (j + 1) === 0 ? 'square' : 'round' );
+          }
+          break;
         }
       }
-      else if ( roundBeadCount === squareBeadCount * 2 ) {
-        for ( i = 0; i < pairs.length; i++ ) {
-          types.push( i % 3 === 0 ? 'square' : 'round' );
-        }
-      }
-      else if ( roundBeadCount === squareBeadCount * 3 ) {
-        for ( i = 0; i < pairs.length; i++ ) {
-          types.push( i % 4 === 0 ? 'square' : 'round' );
-        }
-      }
-      else if ( roundBeadCount === squareBeadCount * 4 ) {
-        for ( i = 0; i < pairs.length; i++ ) {
-          types.push( i % 5 === 0 ? 'square' : 'round' );
-        }
-      }
-      else {
+      if ( types.length === 0 ) {
         for ( i = 0; i < pairs.length; i++ ) {
           if ( usedRoundBeads < roundBeadCount ) {
             types.push( 'round' );
