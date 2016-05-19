@@ -14,8 +14,8 @@ define( function( require ) {
   var ControllableNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/ControllableNecklaceNode' );
 
   function NecklaceSceneNode( layoutBounds, necklaceSceneModel ) {
-    var firstControllableNecklaceNode = new ControllableNecklaceNode();
-    var secondControllableNecklaceNode = new ControllableNecklaceNode();
+    var firstControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace1Model );
+    var secondControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace2Model );
 
     Node.call( this, {
       children: [ firstControllableNecklaceNode, secondControllableNecklaceNode ]
