@@ -14,15 +14,76 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/RoundBeadNode' );
   var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/SquareBeadNode' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   function StaticNecklaceNode( roundBeadCount, squareBeadCount ) {
+
+    // approximate as polygon, then we can mutate points and curve segments to make it look more like a necklace
+
+    var numBeads = roundBeadCount + squareBeadCount;
+    var numberPoints = numBeads;
+    var angleBetweenPoints = Math.PI * 2 / numberPoints;
+    var sideLength = 24;
     var children = [];
-    for ( var i = 0; i < roundBeadCount; i++ ) {
-      children.push( new RoundBeadNode( { x: i * 22 } ) );
+    var k = 0;
+    if ( numBeads === 1 ) {
+      for ( k = 0; k < roundBeadCount; k++ ) {
+        children.push( new RoundBeadNode() );
+      }
+      for ( k = 0; k < squareBeadCount; k++ ) {
+        children.push( new SquareBeadNode() );
+      }
     }
-    for ( i = 0; i < squareBeadCount; i++ ) {
-      children.push( new SquareBeadNode( { x: i * 22, y: 22 } ) );
+    else if ( numBeads === 2 ) {
+      var x = 0;
+      for ( k = 0; k < roundBeadCount; k++ ) {
+        children.push( new RoundBeadNode( { x: x } ) );
+        x += 22;
+      }
+      for ( k = 0; k < squareBeadCount; k++ ) {
+        children.push( new SquareBeadNode( { x: x } ) );
+        x += 22;
+      }
     }
+    else {
+      // see http://mathworld.wolfram.com/RegularPolygon.html
+      var R = 1 / 2 * sideLength / Math.sin( Math.PI / numberPoints );
+      if ( numberPoints === 3 ) {
+        R = R * 2;
+      }
+      var vertices = [];
+
+      for ( i = 0; i < numberPoints; i++ ) {
+        var point = Vector2.createPolar( R, i * angleBetweenPoints );
+        vertices.push( point );
+      }
+
+      // between each pair of vertices, we must put a bead
+      var pairs = [];
+      for ( i = 0; i < vertices.length - 1; i++ ) {
+        pairs.push( { start: vertices[ i ], end: vertices[ i + 1 ] } );
+      }
+      // join last->first
+      if ( vertices.length > 0 ) {
+        pairs.push( { start: vertices[ vertices.length - 1 ], end: vertices[ 0 ] } );
+      }
+
+      var remainingRoundBeads = roundBeadCount;
+
+      for ( var i = 0; i < pairs.length; i++ ) {
+        var pair = pairs[ i ];
+        var center = pair.start.blend( pair.end, 0.5 );
+        var angle = pair.end.minus( pair.start ).angle();
+        if ( remainingRoundBeads > 0 ) {
+          children.push( new RoundBeadNode( { center: center } ) );
+          remainingRoundBeads--;
+        }
+        else {
+          children.push( new SquareBeadNode( { center: center, rotation: angle } ) );
+        }
+      }
+    }
+
 
     Node.call( this, {
       children: children
