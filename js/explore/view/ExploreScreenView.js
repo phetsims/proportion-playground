@@ -41,7 +41,6 @@ define( function( require ) {
     this.addChild( this.sceneSelectionRadioButtonGroup );
 
     var necklaceSceneNode = new NecklaceSceneNode( this.layoutBounds, exploreModel.necklaceSceneModel );
-    this.addChild( necklaceSceneNode );
 
     var sceneParent = new Node();
     this.addChild( sceneParent );
