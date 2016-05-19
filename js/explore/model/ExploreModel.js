@@ -31,7 +31,10 @@ define( function( require ) {
   proportionPlayground.register( 'ExploreModel', ExploreModel );
 
   return inherit( PropertySet, ExploreModel, {
-
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+      this.necklaceSceneModel.reset();
+    },
     //TODO Called by the animation loop. Optional, so if your model has no animation, please delete this.
     // @public
     step: function( dt ) {

@@ -25,5 +25,11 @@ define( function( require ) {
 
   proportionPlayground.register( 'NecklaceSceneModel', NecklaceSceneModel );
 
-  return inherit( PropertySet, NecklaceSceneModel, {} );
+  return inherit( PropertySet, NecklaceSceneModel, {
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+      this.necklace1Model.reset();
+      this.necklace2Model.reset();
+    }
+  } );
 } );
