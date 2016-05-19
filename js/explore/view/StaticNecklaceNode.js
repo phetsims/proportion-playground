@@ -72,7 +72,7 @@ define( function( require ) {
       }
       var vertices = [];
 
-      for ( i = 0; i < numberPoints; i++ ) {
+      for ( var i = 0; i < numberPoints; i++ ) {
         var point = Vector2.createPolar( R, i * angleBetweenPoints );
         vertices.push( point );
       }
@@ -91,18 +91,48 @@ define( function( require ) {
       var usedRoundBeads = 0;
       var usedSquareBeads = 0;
 
-      for ( var i = 0; i < pairs.length; i++ ) {
+      var types = [];
+      if ( roundBeadCount === squareBeadCount * 1 ) {
+        for ( i = 0; i < pairs.length; i++ ) {
+          types.push( i % 2 === 0 ? 'square' : 'round' );
+        }
+      }
+      else if ( roundBeadCount === squareBeadCount * 2 ) {
+        for ( i = 0; i < pairs.length; i++ ) {
+          types.push( i % 3 === 0 ? 'square' : 'round' );
+        }
+      }
+      else if ( roundBeadCount === squareBeadCount * 3 ) {
+        for ( i = 0; i < pairs.length; i++ ) {
+          types.push( i % 4 === 0 ? 'square' : 'round' );
+        }
+      }
+      else if ( roundBeadCount === squareBeadCount * 4 ) {
+        for ( i = 0; i < pairs.length; i++ ) {
+          types.push( i % 5 === 0 ? 'square' : 'round' );
+        }
+      }
+      else {
+        for ( i = 0; i < pairs.length; i++ ) {
+          if ( usedRoundBeads < roundBeadCount ) {
+            types.push( 'round' );
+            usedRoundBeads++;
+          }
+          else {
+            types.push( 'square' );
+          }
+        }
+      }
+
+      for ( i = 0; i < pairs.length; i++ ) {
         var pair = pairs[ i ];
         var center = pair.start.blend( pair.end, 0.5 );
         var angle = pair.end.minus( pair.start ).angle();
-        var nextBeadRound = usedRoundBeads < roundBeadCount;
-        if ( nextBeadRound ) {
+        if ( types[ i ] === 'round' ) {
           children.push( new RoundBeadNode( { center: center } ) );
-          usedRoundBeads++;
         }
         else {
           children.push( new SquareBeadNode( { center: center, rotation: angle } ) );
-          usedSquareBeads++;
         }
       }
     }
