@@ -22,6 +22,10 @@ define( function( require ) {
       scene: 0
     } );
     this.necklaceSceneModel = new NecklaceSceneModel();
+
+    // This line provided for code highlighting and navigation in IntelliJ IDEA
+    // TODO: Delete this line
+    this.sceneProperty = this.sceneProperty || null;
   }
 
   proportionPlayground.register( 'ExploreModel', ExploreModel );

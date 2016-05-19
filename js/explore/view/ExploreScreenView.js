@@ -13,6 +13,8 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SceneSelectionRadioButtonGroup = require( 'PROPORTION_PLAYGROUND/explore/view/SceneSelectionRadioButtonGroup' );
+  var NecklaceSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/NecklaceSceneNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
   /**
    * @param {ExploreModel} exploreModel
@@ -37,6 +39,18 @@ define( function( require ) {
       top: 5
     } );
     this.addChild( this.sceneSelectionRadioButtonGroup );
+
+    var necklaceSceneNode = new NecklaceSceneNode( this.layoutBounds );
+    this.addChild( necklaceSceneNode );
+
+    var sceneParent = new Node();
+    this.addChild( sceneParent );
+
+    exploreModel.sceneProperty.link( function( scene ) {
+      var sceneNode = scene === 0 ? necklaceSceneNode :
+                      new Node();
+      sceneParent.children = [ sceneNode ];
+    } );
   }
 
   proportionPlayground.register( 'ExploreScreenView', ExploreScreenView );
