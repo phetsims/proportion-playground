@@ -15,6 +15,7 @@ define( function( require ) {
   var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/RoundBeadNode' );
   var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/SquareBeadNode' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Fraction = require( 'PHETCOMMON/model/Fraction' );
 
   function StaticNecklaceNode( roundBeadCount, squareBeadCount ) {
 
@@ -46,6 +47,24 @@ define( function( require ) {
       }
     }
     else {
+
+      var reduced = new Fraction( roundBeadCount, squareBeadCount );
+      reduced.reduce();
+      var wholePart = reduced.denominator > 0 ? Math.floor( reduced.numerator / reduced.denominator ) : 0;
+      var remainingFraction = new Fraction( reduced.numerator - wholePart * reduced.denominator, reduced.denominator );
+      console.log( wholePart + ' ' + remainingFraction.numerator + '/' + remainingFraction.denominator );
+
+      var interleave = false;
+      var ratio = wholePart;
+      if ( remainingFraction.numerator === 0 ) {
+        // OK to interleave
+        interleave = true;
+
+      }
+
+      // TODO: Also do the reverse, denominator/numerator
+
+
       // see http://mathworld.wolfram.com/RegularPolygon.html
       var R = 1 / 2 * sideLength / Math.sin( Math.PI / numberPoints );
       if ( numberPoints === 3 ) {
@@ -69,17 +88,21 @@ define( function( require ) {
       }
 
       var remainingRoundBeads = roundBeadCount;
+      var usedRoundBeads = 0;
+      var usedSquareBeads = 0;
 
       for ( var i = 0; i < pairs.length; i++ ) {
         var pair = pairs[ i ];
         var center = pair.start.blend( pair.end, 0.5 );
         var angle = pair.end.minus( pair.start ).angle();
-        if ( remainingRoundBeads > 0 ) {
+        var nextBeadRound = usedRoundBeads < roundBeadCount;
+        if ( nextBeadRound ) {
           children.push( new RoundBeadNode( { center: center } ) );
-          remainingRoundBeads--;
+          usedRoundBeads++;
         }
         else {
           children.push( new SquareBeadNode( { center: center, rotation: angle } ) );
+          usedSquareBeads++;
         }
       }
     }
