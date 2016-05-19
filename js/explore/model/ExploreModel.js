@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var NecklaceSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/NecklaceSceneModel' );
 
   /**
    * @constructor
@@ -20,6 +21,7 @@ define( function( require ) {
     PropertySet.call( this, {
       scene: 0
     } );
+    this.necklaceSceneModel = new NecklaceSceneModel();
   }
 
   proportionPlayground.register( 'ExploreModel', ExploreModel );
