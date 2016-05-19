@@ -115,7 +115,6 @@ define( function( require ) {
       }
     }
 
-
     Node.call( this, {
       children: children
     } );
