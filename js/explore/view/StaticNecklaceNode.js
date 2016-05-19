@@ -11,11 +11,16 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   function StaticNecklaceNode( necklaceModel ) {
+    Node.call( this, {
+      children: [ new Text( 'hello from necklace' ) ]
+    } );
   }
 
   proportionPlayground.register( 'StaticNecklaceNode', StaticNecklaceNode );
 
-  return inherit( Object, StaticNecklaceNode, {} );
+  return inherit( Node, StaticNecklaceNode, {} );
 } );
