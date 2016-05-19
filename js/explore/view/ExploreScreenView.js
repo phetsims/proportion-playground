@@ -12,24 +12,31 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var SceneSelectionRadioButtonGroup = require( 'PROPORTION_PLAYGROUND/explore/view/SceneSelectionRadioButtonGroup' );
 
   /**
-   * @param {ProportionPlaygroundModel} proportionPlaygroundModel
+   * @param {ExploreModel} exploreModel
    * @constructor
    */
-  function ExploreScreenView( proportionPlaygroundModel ) {
+  function ExploreScreenView( exploreModel ) {
 
     ScreenView.call( this );
 
     // Reset All button
     var resetAllButton = new ResetAllButton( {
       listener: function() {
-        proportionPlaygroundModel.reset();
+        exploreModel.reset();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
     } );
     this.addChild( resetAllButton );
+
+    this.sceneSelectionRadioButtonGroup = new SceneSelectionRadioButtonGroup( exploreModel.sceneProperty, {
+      centerX: this.layoutBounds.centerX,
+      top: 5
+    } );
+    this.addChild( this.sceneSelectionRadioButtonGroup );
   }
 
   proportionPlayground.register( 'ExploreScreenView', ExploreScreenView );

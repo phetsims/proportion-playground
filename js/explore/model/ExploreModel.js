@@ -18,7 +18,7 @@ define( function( require ) {
   function ExploreModel() {
 
     PropertySet.call( this, {
-      //TODO
+      scene: 0
     } );
   }
 
