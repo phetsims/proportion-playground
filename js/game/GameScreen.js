@@ -8,33 +8,33 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ExploreModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreModel' );
-  var ExploreScreenView = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreScreenView' );
+  var GameModel = require( 'PROPORTION_PLAYGROUND/game/model/GameModel' );
+  var GameScreenView = require( 'PROPORTION_PLAYGROUND/game/view/GameScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  
+
   // strings
-  var exploreString = require( 'string!PROPORTION_PLAYGROUND/explore' );
+  var gameString = require( 'string!PROPORTION_PLAYGROUND/game' );
 
   /**
    * @constructor
    */
-  function ExploreScreen() {
+  function GameScreen() {
 
     //If this is a single-screen sim, then no icon is necessary.
     //If there are multiple screens, then the icon must be provided here.
-    var icon = new Rectangle( 0, 0, 548, 373, { fill: 'red' } );
+    var icon = new Rectangle( 0, 0, 548, 373, { fill: 'view' } );
 
-    Screen.call( this, exploreString, icon,
-      function() { return new ExploreModel(); },
-      function( model ) { return new ExploreScreenView( model ); },
+    Screen.call( this, gameString, icon,
+      function() { return new GameModel(); },
+      function( model ) { return new GameScreenView( model ); },
       { backgroundColor: 'white' }
     );
   }
 
-  proportionPlayground.register( 'ExploreScreen', ExploreScreen );
+  proportionPlayground.register( 'GameScreen', GameScreen );
 
-  return inherit( Screen, ExploreScreen );
+  return inherit( Screen, GameScreen );
 } );

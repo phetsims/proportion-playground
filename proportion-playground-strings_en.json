@@ -4,5 +4,11 @@
   },
   "explore": {
     "value": "Explore"
+  },
+  "predict": {
+    "value": "Predict"
+  },
+  "game": {
+    "value": "Game"
   }
 }
