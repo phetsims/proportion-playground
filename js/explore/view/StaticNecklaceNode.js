@@ -15,6 +15,7 @@ define( function( require ) {
   var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/RoundBeadNode' );
   var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/SquareBeadNode' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
 
   function StaticNecklaceNode( roundBeadCount, squareBeadCount ) {
 
@@ -23,7 +24,7 @@ define( function( require ) {
     var numBeads = roundBeadCount + squareBeadCount;
     var numberPoints = numBeads;
     var angleBetweenPoints = Math.PI * 2 / numberPoints;
-    var sideLength = 24;
+    var sideLength = 20;
     var children = [];
     var k = 0;
     if ( numBeads === 1 ) {
@@ -49,8 +50,9 @@ define( function( require ) {
 
       // see http://mathworld.wolfram.com/RegularPolygon.html
       var R = 1 / 2 * sideLength / Math.sin( Math.PI / numberPoints );
-      if ( numberPoints === 3 ) {
-        R = R * 2;
+      var rScale = Util.linear( 3, 20, 1.5, 1, numberPoints );
+      if ( numberPoints <= 20 ) {
+        R = R * rScale;
       }
       var vertices = [];
 
@@ -58,6 +60,22 @@ define( function( require ) {
         var point = Vector2.createPolar( R, i * angleBetweenPoints );
         vertices.push( point );
       }
+
+      // randomize vertices
+      var randomAmount = Util.linear( 3, 40, 4, 10, numberPoints );
+      for ( i = 0; i < vertices.length; i++ ) {
+        vertices[ i ].addXY( Math.random() * randomAmount - randomAmount / 2, Math.random() * randomAmount - randomAmount / 2 );
+      }
+
+      // smoothing step
+      // for ( i = 0; i < vertices.length; i++ ) {
+      //   var pre = vertices[ i - 1 ];
+      //   var post = vertices[ i + 1 ];
+      //   if ( pre && post ) {
+      //     vertices[ i ].set( pre.blend( post, 0.5 ) );
+      //   }
+      //   vertices[ i ].addXY( Math.random() * randomAmount - randomAmount / 2, Math.random() * randomAmount - randomAmount / 2 );
+      // }
 
       // between each pair of vertices, we must put a bead
       var pairs = [];
