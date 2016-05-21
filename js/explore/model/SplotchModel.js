@@ -30,8 +30,8 @@ define( function( require ) {
     this.colorCountRange = new Range( 0, 20 ); // TODO: Factor out ranges
 
     //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
-    this.roundBeadCountProperty = this.roundBeadCountProperty || null;
-    this.squareBeadCountProperty = this.squareBeadCountProperty || null;
+    this.color1CountProperty = this.color1CountProperty || null;
+    this.color2CountProperty = this.color2CountProperty || null;
   }
 
   proportionPlayground.register( 'SplotchModel', SplotchModel );

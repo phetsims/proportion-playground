@@ -12,15 +12,19 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SplotchModel = require( 'PROPORTION_PLAYGROUND/explore/model/SplotchModel' );
-  
+
   function PaintSceneModel() {
-    PropertySet.call( this, { showBothNecklaces: false } );
+    PropertySet.call( this, {
+      showBothSplotches: false,
+      grayscale: false
+    } );
 
     //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
-    this.showBothNecklacesProperty = this.showBothNecklacesProperty || null;
+    this.showBothSplotchesProperty = this.showBothSplotchesProperty || null;
+    this.grayscaleProperty = this.grayscaleProperty || null;
 
-    this.necklace1Model = new SplotchModel();
-    this.necklace2Model = new SplotchModel();
+    this.splotch1Model = new SplotchModel();
+    this.splotch2Model = new SplotchModel();
   }
 
   proportionPlayground.register( 'PaintSceneModel', PaintSceneModel );

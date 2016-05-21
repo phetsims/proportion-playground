@@ -42,7 +42,7 @@ define( function( require ) {
     this.addChild( this.sceneSelectionRadioButtonGroup );
 
     var necklaceSceneNode = new NecklaceSceneNode( this.layoutBounds, exploreModel.necklaceSceneModel );
-    var paintSceneNode = new PaintSceneNode( this.layoutBounds, exploreModel.necklaceSceneModel ); // TODO: use paintSceneModel
+    var paintSceneNode = new PaintSceneNode( this.layoutBounds, exploreModel.paintSceneModel );
 
     var sceneParent = new Node();
     this.addChild( sceneParent );
