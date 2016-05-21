@@ -22,6 +22,7 @@ define( function( require ) {
    * @param {number} width
    * @param {number} height
    * @param {function} getColor - given a number between 0 and 1, return a color for that point in the gradient
+   * @param {Object} [options]
    * @constructor
    */
   function GradientNode( width, height, getColor, options ) {
