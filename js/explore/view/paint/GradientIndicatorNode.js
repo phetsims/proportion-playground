@@ -25,8 +25,10 @@ define( function( require ) {
       var blended = blueVector.blend( yellowVector, parameter );
       return new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
     } );
+
+    // TODO: Factor out code duplicated with above
     var grayscaleGradient = new GradientNode( 20, 300, function( parameter ) {
-      var blackVector = new Vector3( 0, 0, 0 ); // use cyan for RGB color mixing
+      var blackVector = new Vector3( 0, 0, 0 );
       var whiteVector = new Vector3( 1, 1, 1 );
 
       var blended = blackVector.blend( whiteVector, parameter );
