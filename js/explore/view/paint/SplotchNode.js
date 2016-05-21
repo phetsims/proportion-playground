@@ -14,7 +14,9 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var Vector3 = require( 'DOT/Vector3' );
+  var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
+  var Util = require( 'DOT/Util' );
 
   function SplotchNode( color1Property, color2Property, grayscaleProperty ) {
 
@@ -29,7 +31,7 @@ define( function( require ) {
     shape = shape.transformed( Matrix3.translation( -bounds.centerX, -bounds.centerY + 250 ) );
     Path.call( this, shape, { fill: 'green' } );
 
-    var updateColor = function() {
+    var update = function() {
       var blueAmount = color1Property.value;
       var yellowAmount = color2Property.value;
 
@@ -45,10 +47,16 @@ define( function( require ) {
 
       var blended = blueVector.blend( yellowVector, blendAmount );
       splotchNode.fill = total === 0 ? null : new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
+
+      // The size of the paint splotch grows
+      var scale = Util.linear( 0, 40, 1.0, 1.6, total );  // TODO: Is the size change distracting?
+      splotchNode.setScaleMagnitude( scale );
+
+      splotchNode.center = new Vector2( 0, 250 );
     };
-    color1Property.link( updateColor );
-    color2Property.link( updateColor );
-    grayscaleProperty.link( updateColor );
+    color1Property.link( update );
+    color2Property.link( update );
+    grayscaleProperty.link( update );
   }
 
   proportionPlayground.register( 'SplotchNode', SplotchNode );
