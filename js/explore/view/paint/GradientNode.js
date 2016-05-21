@@ -35,6 +35,7 @@ define( function( require ) {
     var context = canvas.getContext( '2d' );
     canvas.width = width;
     canvas.height = height;
+
     for ( var i = 0; i < height; i++ ) {
       var parameter = Util.clamp( Util.linear( 0, height, 0, 1, i ), 0, 1 );  // position -> wavelength
       context.fillStyle = getColor( parameter ).toCSS();
@@ -54,5 +55,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'GradientNode', GradientNode );
 
-  return inherit( Node, GradientNode );
+  return inherit( Node, GradientNode, {} );
 } );

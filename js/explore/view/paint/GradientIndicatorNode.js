@@ -18,9 +18,11 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
-  function GradientIndicatorNode( grayscaleProperty, options ) {
+  function GradientIndicatorNode( paintSceneModel, options ) {
+    var grayscaleProperty = paintSceneModel.grayscaleProperty; // TODO: inline
 
-    var colorGradient = new GradientNode( 20, 300, function( parameter ) {
+    var gradientHeight = 300;
+    var colorGradient = new GradientNode( 20, gradientHeight, function( parameter ) {
       var blueVector = new Vector3( 0, 1, 1 ); // use cyan for RGB color mixing
       var yellowVector = new Vector3( 1, 1, 0 );
 
@@ -29,7 +31,7 @@ define( function( require ) {
     } );
 
     // TODO: Factor out code duplicated with above
-    var grayscaleGradient = new GradientNode( 20, 300, function( parameter ) {
+    var grayscaleGradient = new GradientNode( 20, gradientHeight, function( parameter ) {
       var blackVector = new Vector3( 0, 0, 0 );
       var whiteVector = new Vector3( 1, 1, 1 );
 
@@ -63,6 +65,21 @@ define( function( require ) {
     } );
 
     this.mutate( options );
+
+    var updateLeftIndicator = function() {
+      var total = paintSceneModel.splotch1Model.color1Count + paintSceneModel.splotch1Model.color2Count;
+      if ( total === 0 ) {
+        leftIndicator.visible = false;
+      }
+      else {
+        leftIndicator.visible = true;
+
+        var proportion = paintSceneModel.splotch1Model.color2Count / total;
+        leftIndicator.centerY = proportion * gradientHeight;
+      }
+    };
+    paintSceneModel.splotch1Model.color1CountProperty.link( updateLeftIndicator );
+    paintSceneModel.splotch1Model.color2CountProperty.link( updateLeftIndicator );
   }
 
   proportionPlayground.register( 'GradientIndicatorNode', GradientIndicatorNode );
