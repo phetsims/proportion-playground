@@ -30,7 +30,7 @@ define( function( require ) {
     Screen.call( this, predictString, icon,
       function() { return new PredictModel(); },
       function( model ) { return new PredictScreenView( model ); },
-      { backgroundColor: 'white' }
+      { backgroundColor: '#fcf3eb' } // TODO: Factor out
     );
   }
 

@@ -30,7 +30,7 @@ define( function( require ) {
     Screen.call( this, exploreString, icon,
       function() { return new ExploreModel(); },
       function( model ) { return new ExploreScreenView( model ); },
-      { backgroundColor: 'white' }
+      { backgroundColor: '#fcf3eb' }
     );
   }
 

@@ -30,7 +30,7 @@ define( function( require ) {
     Screen.call( this, gameString, icon,
       function() { return new GameModel(); },
       function( model ) { return new GameScreenView( model ); },
-      { backgroundColor: 'white' }
+      { backgroundColor: '#fcf3eb' }
     );
   }
 

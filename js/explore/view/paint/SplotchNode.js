@@ -34,8 +34,9 @@ define( function( require ) {
       var yellowAmount = color2Property.value;
 
       // TODO: Addition in more realistic color space
-      var blueVector = new Vector3( 0, 0, 1 );
-      var yellowVector = new Vector3( 1, 1, 0 );
+      // TODO: White paint doesn't show up on a white background.
+      var blueVector = grayscaleProperty.value ? new Vector3( 0, 0, 0 ) : new Vector3( 0, 0, 1 );
+      var yellowVector = grayscaleProperty.value ? new Vector3( 1, 1, 1 ) : new Vector3( 1, 1, 0 );
 
       var total = blueAmount + yellowAmount;
       var blendAmount = yellowAmount / total;
