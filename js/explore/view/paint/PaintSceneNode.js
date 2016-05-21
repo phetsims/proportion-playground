@@ -15,9 +15,7 @@ define( function( require ) {
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
   var CheckBox = require( 'SUN/CheckBox' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Vector3 = require( 'DOT/Vector3' );
-  var GradientNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/GradientNode' );
+  var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/GradientIndicatorNode' );
 
   function PaintSceneNode( layoutBounds, paintSceneModel ) {
     var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty );
@@ -52,17 +50,11 @@ define( function( require ) {
     } );
     this.addChild( grayscaleCheckBox );
 
-    var gradientNode = new GradientNode( 20, 300, function( parameter ) {
-      var blueVector = new Vector3( 0, 1, 1 ); // use cyan for RGB color mixing
-      var yellowVector = new Vector3( 1, 1, 0 );
-
-      var blended = blueVector.blend( yellowVector, parameter );
-      return new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
-    }, {
+    var gradientIndicatorNode = new GradientIndicatorNode( {
       centerX: layoutBounds.centerX + 200,
       centerY: 250
     } );
-    this.addChild( gradientNode );
+    this.addChild( gradientIndicatorNode );
   }
 
   proportionPlayground.register( 'PaintSceneNode', PaintSceneNode );

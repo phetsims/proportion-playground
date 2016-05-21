@@ -1,8 +1,9 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * GradientNode displays a rectangle of the visible spectrum.
+ * Static display of a single gradient, copy-pasted from SpectrumNode
  *
+ * @author Sam Reid (PhET Interactive Simulations)
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
