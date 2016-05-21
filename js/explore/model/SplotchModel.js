@@ -36,5 +36,14 @@ define( function( require ) {
 
   proportionPlayground.register( 'SplotchModel', SplotchModel );
 
-  return inherit( PropertySet, SplotchModel, {} );
+  return inherit( PropertySet, SplotchModel, {
+    get ratio1() {
+      return this.color1Count / this.color2Count;
+    },
+
+    // TODO: this hack makes it easy to compare ratios between sims, accounting for /0
+    get ratio2() {
+      return this.color2Count / this.color1Count;
+    }
+  } );
 } );

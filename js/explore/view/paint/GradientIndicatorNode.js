@@ -90,6 +90,7 @@ define( function( require ) {
         var proportion = paintSceneModel.splotch1Model.color2Count / total;
         leftIndicator.centerY = proportion * gradientHeight;
       }
+
     };
 
     paintSceneModel.splotch1Model.color1CountProperty.link( updateLeftIndicator );
@@ -97,19 +98,46 @@ define( function( require ) {
 
     // TODO: Factor out duplicated with above
     var updateRightIndicator = function() {
+
       var total = paintSceneModel.splotch2Model.color1Count + paintSceneModel.splotch2Model.color2Count;
       if ( total === 0 ) {
         rightIndicator.visible = false;
       }
       else {
-        rightIndicator.visible = true;
+        rightIndicator.visible = paintSceneModel.showBothSplotches;
 
         var proportion = paintSceneModel.splotch2Model.color2Count / total;
         rightIndicator.centerY = proportion * gradientHeight;
       }
     };
+    
+    // TODO: evaluate multilink properties throughout the sim
     paintSceneModel.splotch2Model.color1CountProperty.link( updateRightIndicator );
     paintSceneModel.splotch2Model.color2CountProperty.link( updateRightIndicator );
+    paintSceneModel.showBothSplotchesProperty.link( updateRightIndicator );
+
+    var updateTriangleFills = function() {
+      if ( paintSceneModel.splotch1Model.ratio1 === paintSceneModel.splotch2Model.ratio1 &&
+           paintSceneModel.splotch1Model.ratio2 === paintSceneModel.splotch2Model.ratio2 ) {
+        rightIndicator.fill = 'black';
+      }
+      else {
+        rightIndicator.fill = null;
+      }
+
+      // TODO: factor out duplicated code
+      if ( paintSceneModel.splotch1Model.ratio1 === paintSceneModel.splotch2Model.ratio1 &&
+           paintSceneModel.splotch1Model.ratio2 === paintSceneModel.splotch2Model.ratio2 ) {
+        leftIndicator.fill = 'black';
+      }
+      else {
+        leftIndicator.fill = null;
+      }
+    };
+    paintSceneModel.splotch1Model.color1CountProperty.link( updateTriangleFills );
+    paintSceneModel.splotch1Model.color2CountProperty.link( updateTriangleFills );
+    paintSceneModel.splotch2Model.color1CountProperty.link( updateTriangleFills );
+    paintSceneModel.splotch2Model.color2CountProperty.link( updateTriangleFills );
 
     paintSceneModel.showBothSplotchesProperty.link( function( showBothSplotches ) {
       gradientIndicatorNode.x = showBothSplotches ? layoutBounds.centerX : layoutBounds.right * 0.7;
