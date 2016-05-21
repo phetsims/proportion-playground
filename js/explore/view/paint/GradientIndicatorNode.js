@@ -17,13 +17,15 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Matrix3 = require( 'DOT/Matrix3' );
 
   function GradientIndicatorNode( layoutBounds, paintSceneModel, options ) {
     var gradientIndicatorNode = this;
     var grayscaleProperty = paintSceneModel.grayscaleProperty; // TODO: inline
 
+    var gradientWidth = 20;
     var gradientHeight = 300;
-    var colorGradient = new GradientNode( 20, gradientHeight, function( parameter ) {
+    var colorGradient = new GradientNode( gradientWidth, gradientHeight, function( parameter ) {
       var blueVector = new Vector3( 0, 1, 1 ); // use cyan for RGB color mixing
       var yellowVector = new Vector3( 1, 1, 0 );
 
@@ -32,7 +34,7 @@ define( function( require ) {
     } );
 
     // TODO: Factor out code duplicated with above
-    var grayscaleGradient = new GradientNode( 20, gradientHeight, function( parameter ) {
+    var grayscaleGradient = new GradientNode( gradientWidth, gradientHeight, function( parameter ) {
       var blackVector = new Vector3( 0, 0, 0 );
       var whiteVector = new Vector3( 1, 1, 1 );
 
@@ -42,15 +44,24 @@ define( function( require ) {
 
     var triangleLength = 25;
     var triangleAltitude = Math.sqrt( 3 ) / 2 * triangleLength;
-    var triangleShape = new Shape()
+    var leftTriangleShape = new Shape()
       .moveTo( 0, 0 )
       .lineTo( triangleAltitude, triangleLength / 2 )
       .lineTo( 0, triangleLength )
       .lineTo( 0, 0 );
-    var leftIndicator = new Path( triangleShape, {
+    var leftIndicator = new Path( leftTriangleShape, {
       stroke: 'black',
       lineWidth: 2,
       right: 0
+    } );
+
+    // TODO: Make it so you can drag the triangle indicator
+
+    var rightTriangleShape = leftTriangleShape.transformed( Matrix3.scaling( -1, 1 ) );
+    var rightIndicator = new Path( rightTriangleShape, {
+      stroke: 'black', // TODO: factor out
+      lineWidth: 2,
+      left: gradientWidth
     } );
 
     grayscaleProperty.link( function( grayscale ) {
@@ -61,7 +72,8 @@ define( function( require ) {
       children: [
         colorGradient,
         grayscaleGradient,
-        leftIndicator
+        leftIndicator,
+        rightIndicator
       ]
     } );
 
@@ -79,8 +91,24 @@ define( function( require ) {
         leftIndicator.centerY = proportion * gradientHeight;
       }
     };
+
     paintSceneModel.splotch1Model.color1CountProperty.link( updateLeftIndicator );
     paintSceneModel.splotch1Model.color2CountProperty.link( updateLeftIndicator );
+
+    var updateRightIndicator = function() {
+      var total = paintSceneModel.splotch2Model.color1Count + paintSceneModel.splotch2Model.color2Count;
+      if ( total === 0 ) {
+        rightIndicator.visible = false;
+      }
+      else {
+        rightIndicator.visible = true;
+
+        var proportion = paintSceneModel.splotch2Model.color2Count / total;
+        rightIndicator.centerY = proportion * gradientHeight;
+      }
+    };
+    paintSceneModel.splotch2Model.color1CountProperty.link( updateRightIndicator );
+    paintSceneModel.splotch2Model.color2CountProperty.link( updateRightIndicator );
 
     paintSceneModel.showBothSplotchesProperty.link( function( showBothSplotches ) {
       gradientIndicatorNode.x = showBothSplotches ? layoutBounds.centerX : layoutBounds.right * 0.7;
