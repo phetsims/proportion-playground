@@ -20,7 +20,7 @@ define( function( require ) {
   function ExploreModel() {
 
     PropertySet.call( this, {
-      scene: 1
+      scene: 0
     } );
     this.necklaceSceneModel = new NecklaceSceneModel();
     this.paintSceneModel = new PaintSceneModel();
