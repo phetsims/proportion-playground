@@ -18,7 +18,8 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
-  function GradientIndicatorNode( paintSceneModel, options ) {
+  function GradientIndicatorNode( layoutBounds, paintSceneModel, options ) {
+    var gradientIndicatorNode = this;
     var grayscaleProperty = paintSceneModel.grayscaleProperty; // TODO: inline
 
     var gradientHeight = 300;
@@ -80,6 +81,12 @@ define( function( require ) {
     };
     paintSceneModel.splotch1Model.color1CountProperty.link( updateLeftIndicator );
     paintSceneModel.splotch1Model.color2CountProperty.link( updateLeftIndicator );
+
+    paintSceneModel.showBothSplotchesProperty.link( function( showBothSplotches ) {
+      gradientIndicatorNode.x = showBothSplotches ? layoutBounds.centerX : layoutBounds.right * 0.7;
+    } );
+
+    this.centerY = 250;
   }
 
   proportionPlayground.register( 'GradientIndicatorNode', GradientIndicatorNode );
