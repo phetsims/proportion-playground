@@ -16,18 +16,31 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
-  function GradientIndicatorNode( options ) {
+  function GradientIndicatorNode( grayscaleProperty, options ) {
 
-    var gradientNode = new GradientNode( 20, 300, function( parameter ) {
+    var colorGradient = new GradientNode( 20, 300, function( parameter ) {
       var blueVector = new Vector3( 0, 1, 1 ); // use cyan for RGB color mixing
       var yellowVector = new Vector3( 1, 1, 0 );
 
       var blended = blueVector.blend( yellowVector, parameter );
       return new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
     } );
+    var grayscaleGradient = new GradientNode( 20, 300, function( parameter ) {
+      var blackVector = new Vector3( 0, 0, 0 ); // use cyan for RGB color mixing
+      var whiteVector = new Vector3( 1, 1, 1 );
+
+      var blended = blackVector.blend( whiteVector, parameter );
+      return new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
+    } );
+
+    grayscaleProperty.link( function( grayscale ) {
+      colorGradient.visible = !grayscale;
+      grayscaleGradient.visible = grayscale;
+    } );
     Node.call( this, {
       children: [
-        gradientNode
+        colorGradient,
+        grayscaleGradient
       ]
     } );
 
