@@ -1,0 +1,40 @@
+// Copyright 2016, University of Colorado Boulder
+
+/**
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var PropertySet = require( 'AXON/PropertySet' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var Range = require( 'DOT/Range' );
+
+  /**
+   *
+   * @param {Color|string} color1
+   * @param {Color|string} color2
+   * @constructor
+   */
+  function SplotchModel( color1, color2 ) {
+    this.color1 = color1;
+    this.color2 = color2;
+    PropertySet.call( this, {
+      color1Count: 0,
+      color2Count: 0
+    } );
+
+    this.colorCountRange = new Range( 0, 20 ); // TODO: Factor out ranges
+
+    //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
+    this.roundBeadCountProperty = this.roundBeadCountProperty || null;
+    this.squareBeadCountProperty = this.squareBeadCountProperty || null;
+  }
+
+  proportionPlayground.register( 'SplotchModel', SplotchModel );
+
+  return inherit( PropertySet, SplotchModel, {} );
+} );
