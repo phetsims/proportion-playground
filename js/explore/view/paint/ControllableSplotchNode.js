@@ -17,11 +17,11 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/SplotchNode' );
 
-  function ControllableSplotchNode( splotchModel ) {
+  function ControllableSplotchNode( splotchModel, grayscaleProperty ) {
     var numberPickerOptions = { scale: 2 };
     var roundBeadNumberPicker = new NumberPicker( splotchModel.color1CountProperty, new Property( splotchModel.colorCountRange ), numberPickerOptions );
     var squareBeadNumberPicker = new NumberPicker( splotchModel.color2CountProperty, new Property( splotchModel.colorCountRange ), numberPickerOptions );
-    var necklaceNode = new SplotchNode();
+    var necklaceNode = new SplotchNode( splotchModel.color1CountProperty, splotchModel.color2CountProperty, grayscaleProperty );
     Node.call( this, {
       children: [
         necklaceNode,

@@ -16,8 +16,8 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   function PaintSceneNode( layoutBounds, paintSceneModel ) {
-    var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model );
-    var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.splotch2Model );
+    var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty );
+    var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.splotch2Model, paintSceneModel.grayscaleProperty );
     var createText = function( text ) {
       return new Text( text, { fontSize: 22 } );
     };

@@ -13,8 +13,12 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Matrix3 = require( 'DOT/Matrix3' );
+  var Vector3 = require( 'DOT/Vector3' );
+  var Color = require( 'SCENERY/util/Color' );
 
-  function SplotchNode() {
+  function SplotchNode( color1Property, color2Property, grayscaleProperty ) {
+
+    var splotchNode = this;
 
     // AI file => cut shape => save svg => cut newlines
     // Represented as kite shape so we can easily change color.
@@ -24,6 +28,24 @@ define( function( require ) {
     // Put origin at zero
     shape = shape.transformed( Matrix3.translation( -bounds.centerX, -bounds.centerY + 250 ) );
     Path.call( this, shape, { fill: 'green' } );
+
+    var updateColor = function() {
+      var blueAmount = color1Property.value;
+      var yellowAmount = color2Property.value;
+
+      // TODO: Addition in more realistic color space
+      var blueVector = new Vector3( 0, 0, 1 );
+      var yellowVector = new Vector3( 1, 1, 0 );
+
+      var total = blueAmount + yellowAmount;
+      var blendAmount = yellowAmount / total;
+
+      var blended = blueVector.blend( yellowVector, blendAmount );
+      splotchNode.fill = total === 0 ? null : new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
+    };
+    color1Property.link( updateColor );
+    color2Property.link( updateColor );
+    grayscaleProperty.link( updateColor );
   }
 
   proportionPlayground.register( 'SplotchNode', SplotchNode );
