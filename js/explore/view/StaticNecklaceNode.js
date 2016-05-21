@@ -16,6 +16,8 @@ define( function( require ) {
   var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/SquareBeadNode' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Shape = require( 'KITE/Shape' );
 
   function StaticNecklaceNode( roundBeadCount, squareBeadCount ) {
 
@@ -120,9 +122,11 @@ define( function( require ) {
         }
       }
 
+      var centers = [];
       for ( i = 0; i < pairs.length; i++ ) {
         var pair = pairs[ i ];
         var center = pair.start.blend( pair.end, 0.5 );
+        centers.push( center );
         var angle = pair.end.minus( pair.start ).angle();
         if ( types[ i ] === 'round' ) {
           children.push( new RoundBeadNode( { center: center } ) );
@@ -131,6 +135,17 @@ define( function( require ) {
           children.push( new SquareBeadNode( { center: center, rotation: angle } ) );
         }
       }
+
+      // The black line of the necklace
+      var shape = new Shape();
+      for ( i = 0; i < centers.length; i++ ) {
+        center = centers[ i ];
+        var nextCenter = i === centers.length - 1 ? centers[ 0 ] : centers[ i + 1 ];
+        shape.moveToPoint( center );
+        shape.lineToPoint( nextCenter );
+      }
+
+      children.unshift( new Path( shape, { stroke: 'black', lineWidth: 2 } ) );
     }
 
     Node.call( this, {
