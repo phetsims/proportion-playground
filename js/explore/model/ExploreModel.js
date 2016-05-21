@@ -12,6 +12,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NecklaceSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/NecklaceSceneModel' );
+  var PaintSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/PaintSceneModel' );
 
   /**
    * @constructor
@@ -22,6 +23,7 @@ define( function( require ) {
       scene: 0
     } );
     this.necklaceSceneModel = new NecklaceSceneModel();
+    this.paintSceneModel = new PaintSceneModel();
 
     // This line provided for code highlighting and navigation in IntelliJ IDEA
     // TODO: Delete this line
