@@ -58,7 +58,10 @@ define( function( require ) {
 
       var blended = blueVector.blend( yellowVector, parameter );
       return new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
-    }, { centerX: layoutBounds.centerX + 200, centerY: 250 } );
+    }, {
+      centerX: layoutBounds.centerX + 200,
+      centerY: 250
+    } );
     this.addChild( gradientNode );
   }
 
