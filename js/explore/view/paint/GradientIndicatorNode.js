@@ -95,6 +95,7 @@ define( function( require ) {
     paintSceneModel.splotch1Model.color1CountProperty.link( updateLeftIndicator );
     paintSceneModel.splotch1Model.color2CountProperty.link( updateLeftIndicator );
 
+    // TODO: Factor out duplicated with above
     var updateRightIndicator = function() {
       var total = paintSceneModel.splotch2Model.color1Count + paintSceneModel.splotch2Model.color2Count;
       if ( total === 0 ) {
