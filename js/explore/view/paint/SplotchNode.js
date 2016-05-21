@@ -35,7 +35,9 @@ define( function( require ) {
 
       // TODO: Addition in more realistic color space
       // TODO: White paint doesn't show up on a white background.
-      var blueVector = grayscaleProperty.value ? new Vector3( 0, 0, 0 ) : new Vector3( 0, 0, 1 );
+      // TODO: Duplicated in GradientNode creation
+      // TODO: Come up with better color mixing physics
+      var blueVector = grayscaleProperty.value ? new Vector3( 0, 0, 0 ) : new Vector3( 0, 1, 1 ); // use cyan for RGB color mixing
       var yellowVector = grayscaleProperty.value ? new Vector3( 1, 1, 1 ) : new Vector3( 1, 1, 0 );
 
       var total = blueAmount + yellowAmount;
