@@ -11,7 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/StaticNecklaceNode' );
+  var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/StaticNecklaceNode' );
 
   function NecklaceNode( necklaceModel ) {
     var necklaceNode = this;

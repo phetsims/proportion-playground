@@ -11,10 +11,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var ControllableNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/ControllableNecklaceNode' );
+  var ControllableNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/ControllableNecklaceNode' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var SplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/SplotchNode' );
+  var SplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/SplotchNode' );
 
   function PaintSceneNode( layoutBounds, paintSceneModel ) {
     var firstControllableNecklaceNode = new ControllableNecklaceNode( paintSceneModel.necklace1Model );

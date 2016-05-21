@@ -13,8 +13,8 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SceneSelectionRadioButtonGroup = require( 'PROPORTION_PLAYGROUND/explore/view/SceneSelectionRadioButtonGroup' );
-  var NecklaceSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/NecklaceSceneNode' );
-  var PaintSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/PaintSceneNode' );
+  var NecklaceSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/NecklaceSceneNode' );
+  var PaintSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/PaintSceneNode' );
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**

@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var NecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/NecklaceNode' );
+  var NecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/NecklaceNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var Property = require( 'AXON/Property' );
