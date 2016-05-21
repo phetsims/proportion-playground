@@ -14,6 +14,7 @@ define( function( require ) {
   var ControllableSplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/ControllableSplotchNode' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var CheckBox = require( 'SUN/CheckBox' );
 
   function PaintSceneNode( layoutBounds, paintSceneModel ) {
     var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty );
@@ -40,7 +41,13 @@ define( function( require ) {
         controllableSplotchNode1.x = layoutBounds.width / 2;
       }
     } );
-    abSwitch.centerBottom = layoutBounds.centerBottom;
+    abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 );
+
+    var grayscaleCheckBox = new CheckBox( new Text( 'Black & White', { fontSize: 22 } ), paintSceneModel.grayscaleProperty, {
+      left: layoutBounds.left + 5,
+      bottom: layoutBounds.bottom - 5
+    } );
+    this.addChild( grayscaleCheckBox );
   }
 
   proportionPlayground.register( 'PaintSceneNode', PaintSceneNode );
