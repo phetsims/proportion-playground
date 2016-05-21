@@ -15,6 +15,8 @@ define( function( require ) {
   var Vector3 = require( 'DOT/Vector3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var Shape = require( 'KITE/Shape' );
+  var Path = require( 'SCENERY/nodes/Path' );
 
   function GradientIndicatorNode( grayscaleProperty, options ) {
 
@@ -35,6 +37,19 @@ define( function( require ) {
       return new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
     } );
 
+    var triangleLength = 25;
+    var triangleAltitude = Math.sqrt( 3 ) / 2 * triangleLength;
+    var triangleShape = new Shape()
+      .moveTo( 0, 0 )
+      .lineTo( triangleAltitude, triangleLength / 2 )
+      .lineTo( 0, triangleLength )
+      .lineTo( 0, 0 );
+    var leftIndicator = new Path( triangleShape, {
+      stroke: 'black',
+      lineWidth: 2,
+      right: 0
+    } );
+
     grayscaleProperty.link( function( grayscale ) {
       colorGradient.visible = !grayscale;
       grayscaleGradient.visible = grayscale;
@@ -42,7 +57,8 @@ define( function( require ) {
     Node.call( this, {
       children: [
         colorGradient,
-        grayscaleGradient
+        grayscaleGradient,
+        leftIndicator
       ]
     } );
 
