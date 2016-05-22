@@ -110,7 +110,7 @@ define( function( require ) {
         rightIndicator.centerY = proportion * gradientHeight;
       }
     };
-    
+
     // TODO: evaluate multilink properties throughout the sim
     paintSceneModel.splotch2Model.color1CountProperty.link( updateRightIndicator );
     paintSceneModel.splotch2Model.color2CountProperty.link( updateRightIndicator );

@@ -50,9 +50,7 @@ define( function( require ) {
     } );
     this.addChild( grayscaleCheckBox );
 
-    var gradientIndicatorNode = new GradientIndicatorNode( layoutBounds, paintSceneModel, {
-      
-    } );
+    var gradientIndicatorNode = new GradientIndicatorNode( layoutBounds, paintSceneModel, {} );
     this.addChild( gradientIndicatorNode );
   }
 
