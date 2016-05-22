@@ -15,43 +15,33 @@ define( function( require ) {
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
   var CheckBox = require( 'SUN/CheckBox' );
-  var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/GradientIndicatorNode' );
 
   function BilliardsSceneNode( layoutBounds, billiardsSceneModel ) {
-    var billiardsTableNode1 = new BilliardsTableNode( billiardsSceneModel.splotch1Model, billiardsSceneModel.grayscaleProperty );
-    var billiardsTableNode2 = new BilliardsTableNode( billiardsSceneModel.splotch2Model, billiardsSceneModel.grayscaleProperty );
+    var billiardsTableNode1 = new BilliardsTableNode( billiardsSceneModel.table1 );
+    var billiardsTableNode2 = new BilliardsTableNode( billiardsSceneModel.table2 );
     var createText = function( text ) {
       return new Text( text, { fontSize: 22 } );
     };
-    var abSwitch = new ABSwitch( billiardsSceneModel.showBothSplotchesProperty, false, createText( 'one' ), true, createText( 'two' ) );
+    var abSwitch = new ABSwitch( billiardsSceneModel.showBothTablesProperty, false, createText( 'one' ), true, createText( 'two' ) );
 
     Node.call( this, {
       children: [ billiardsTableNode1, billiardsTableNode2, abSwitch ]
     } );
     this.necklaceSceneModel = billiardsSceneModel;
 
-    billiardsSceneModel.showBothSplotchesProperty.link( function( showBothNecklaces ) {
+    billiardsSceneModel.showBothTablesProperty.link( function( showBothNecklaces ) {
       billiardsTableNode2.visible = showBothNecklaces;
 
       // Controllable necklace nodes have x=0 at their center
       if ( showBothNecklaces ) {
-        billiardsTableNode1.x = layoutBounds.width * 1 / 3;
-        billiardsTableNode2.x = layoutBounds.width * 2 / 3;
+        billiardsTableNode1.left = layoutBounds.left;
+        billiardsTableNode2.left = layoutBounds.centerX;
       }
       else {
-        billiardsTableNode1.x = layoutBounds.width / 2;
+        billiardsTableNode1.left = layoutBounds.left;
       }
     } );
     abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 );
-
-    var grayscaleCheckBox = new CheckBox( new Text( 'Black & White', { fontSize: 22 } ), billiardsSceneModel.grayscaleProperty, {
-      left: layoutBounds.left + 5,
-      bottom: layoutBounds.bottom - 5
-    } );
-    this.addChild( grayscaleCheckBox );
-
-    var gradientIndicatorNode = new GradientIndicatorNode( layoutBounds, billiardsSceneModel, {} );
-    this.addChild( gradientIndicatorNode );
   }
 
   proportionPlayground.register( 'BilliardsSceneNode', BilliardsSceneNode );

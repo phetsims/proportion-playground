@@ -40,7 +40,7 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
       this.necklaceSceneModel.reset();
       this.paintSceneModel.reset();
-      this.billiarsdSceneModel.reset();
+      this.billiardsSceneModel.reset();
     },
     //TODO Called by the animation loop. Optional, so if your model has no animation, please delete this.
     // @public

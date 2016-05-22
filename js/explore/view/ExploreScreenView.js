@@ -44,7 +44,7 @@ define( function( require ) {
 
     var necklaceSceneNode = new NecklaceSceneNode( this.layoutBounds, exploreModel.necklaceSceneModel );
     var paintSceneNode = new PaintSceneNode( this.layoutBounds, exploreModel.paintSceneModel );
-    var billiardsSceneNode = new BilliardsSceneNode( this.layoutBounds, exploreModel.paintSceneModel );
+    var billiardsSceneNode = new BilliardsSceneNode( this.layoutBounds, exploreModel.billiardsSceneModel );
 
     var sceneParent = new Node();
     this.addChild( sceneParent );

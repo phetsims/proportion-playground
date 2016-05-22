@@ -29,5 +29,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'BilliardsTableModel', BilliardsTableModel );
 
-  return inherit( PropertySet, BilliardsTableModel, {} );
+  return inherit( PropertySet, BilliardsTableModel );
 } );

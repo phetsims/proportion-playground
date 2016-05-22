@@ -16,22 +16,32 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/SplotchNode' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
-  function BilliardsTableNode( billiardsTableModel, grayscaleProperty ) {
+  function BilliardsTableNode( billiardsTableModel ) {
     var numberPickerOptions = { scale: 2 };
-    var roundBeadNumberPicker = new NumberPicker( billiardsTableModel.color1CountProperty, new Property( billiardsTableModel.colorCountRange ), numberPickerOptions );
-    var squareBeadNumberPicker = new NumberPicker( billiardsTableModel.color2CountProperty, new Property( billiardsTableModel.colorCountRange ), numberPickerOptions );
-    var splotchNode = new SplotchNode( billiardsTableModel.color1CountProperty, billiardsTableModel.color2CountProperty, grayscaleProperty );
+    var lengthNumberPicker = new NumberPicker( billiardsTableModel.lengthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
+    var widthNumberPicker = new NumberPicker( billiardsTableModel.widthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
+
+    var toVBox = function( label, node ) {
+      return new VBox( {
+        spacing: 15, children: [
+          new Text( label, { fontSize: 16 } ),
+          node
+        ]
+      } );
+    };
     Node.call( this, {
       children: [
-        splotchNode,
-        new HBox( {
+        // splotchNode,
+        new VBox( {
           spacing: 10,
-          y: 450,
+          y: 200,
           centerX: 0, // position around the origin
           children: [
-            roundBeadNumberPicker,
-            squareBeadNumberPicker
+            toVBox( 'length', lengthNumberPicker ),
+            toVBox( 'width', widthNumberPicker )
           ]
         } )
       ]
