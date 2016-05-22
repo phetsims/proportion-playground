@@ -19,7 +19,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
-  function BilliardsTableNode( billiardsTableModel ) {
+  function BilliardsTableNodeWithSpinners( billiardsTableModel ) {
     var numberPickerOptions = { scale: 2 };
     var lengthNumberPicker = new NumberPicker( billiardsTableModel.lengthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
     var widthNumberPicker = new NumberPicker( billiardsTableModel.widthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
@@ -48,7 +48,7 @@ define( function( require ) {
     } );
   }
 
-  proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );
+  proportionPlayground.register( 'BilliardsTableNodeWithSpinners', BilliardsTableNodeWithSpinners );
 
-  return inherit( Node, BilliardsTableNode, {} );
+  return inherit( Node, BilliardsTableNodeWithSpinners, {} );
 } );

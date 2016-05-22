@@ -11,14 +11,14 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsTableNode' );
+  var BilliardsTableNodeWithSpinners = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsTableNodeWithSpinners' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
   var CheckBox = require( 'SUN/CheckBox' );
 
   function BilliardsSceneNode( layoutBounds, billiardsSceneModel ) {
-    var billiardsTableNode1 = new BilliardsTableNode( billiardsSceneModel.table1 );
-    var billiardsTableNode2 = new BilliardsTableNode( billiardsSceneModel.table2 );
+    var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( billiardsSceneModel.table1 );
+    var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( billiardsSceneModel.table2 );
     var createText = function( text ) {
       return new Text( text, { fontSize: 22 } );
     };
