@@ -14,6 +14,7 @@ define( function( require ) {
   var NecklaceSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/NecklaceSceneModel' );
   var PaintSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/PaintSceneModel' );
   var BilliardsSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/BilliardsSceneModel' );
+  var ProportionPlaygroundQueryParameters = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundQueryParameters' );
 
   /**
    * @constructor
@@ -21,7 +22,7 @@ define( function( require ) {
   function ExploreModel() {
 
     PropertySet.call( this, {
-      scene: 2
+      scene: ProportionPlaygroundQueryParameters.SCENE
     } );
     this.necklaceSceneModel = new NecklaceSceneModel();
     this.paintSceneModel = new PaintSceneModel();

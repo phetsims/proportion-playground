@@ -91,7 +91,10 @@ define( function( require ) {
 
       var usedRoundBeads = 0;
 
+      // Choose bead types
       var types = [];
+
+      // Round is a multiple of square
       for ( var j = 1; j < 100; j++ ) {
         if ( roundBeadCount === squareBeadCount * j ) {
           for ( i = 0; i < pairs.length; i++ ) {
@@ -100,6 +103,8 @@ define( function( require ) {
           break;
         }
       }
+
+      // Square is a multiple of round
       if ( types.length === 0 ) {
         for ( j = 1; j < 100; j++ ) {
           if ( squareBeadCount === roundBeadCount * j ) {
@@ -110,6 +115,8 @@ define( function( require ) {
           }
         }
       }
+
+      // No pattern, put all rounds together and squares together
       if ( types.length === 0 ) {
         for ( i = 0; i < pairs.length; i++ ) {
           if ( usedRoundBeads < roundBeadCount ) {
@@ -122,6 +129,7 @@ define( function( require ) {
         }
       }
 
+      // Instantiate the beads between each vertex
       var centers = [];
       for ( i = 0; i < pairs.length; i++ ) {
         var pair = pairs[ i ];
