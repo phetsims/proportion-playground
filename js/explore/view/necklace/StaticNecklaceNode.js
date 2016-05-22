@@ -29,10 +29,7 @@ define( function( require ) {
     var sideLength = 20;
     var children = [];
     var k = 0;
-    if ( numBeads === 0 ) {
-
-    }
-    else if ( numBeads === 1 ) {
+    if ( numBeads === 0 || numBeads === 1 ) {
       for ( k = 0; k < roundBeadCount; k++ ) {
         children.push( new RoundBeadNode() );
       }
