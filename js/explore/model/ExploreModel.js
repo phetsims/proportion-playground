@@ -13,6 +13,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NecklaceSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/NecklaceSceneModel' );
   var PaintSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/PaintSceneModel' );
+  var BilliardsSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/BilliardsSceneModel' );
 
   /**
    * @constructor
@@ -20,10 +21,11 @@ define( function( require ) {
   function ExploreModel() {
 
     PropertySet.call( this, {
-      scene: 0
+      scene: 2
     } );
     this.necklaceSceneModel = new NecklaceSceneModel();
     this.paintSceneModel = new PaintSceneModel();
+    this.billiardsSceneModel = new BilliardsSceneModel();
 
     // This line provided for code highlighting and navigation in IntelliJ IDEA
     // TODO: Delete this line
@@ -37,6 +39,7 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
       this.necklaceSceneModel.reset();
       this.paintSceneModel.reset();
+      this.billiarsdSceneModel.reset();
     },
     //TODO Called by the animation loop. Optional, so if your model has no animation, please delete this.
     // @public

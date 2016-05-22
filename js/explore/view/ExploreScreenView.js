@@ -15,6 +15,7 @@ define( function( require ) {
   var SceneSelectionRadioButtonGroup = require( 'PROPORTION_PLAYGROUND/explore/view/SceneSelectionRadioButtonGroup' );
   var NecklaceSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/NecklaceSceneNode' );
   var PaintSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/PaintSceneNode' );
+  var BilliardsSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsSceneNode' );
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**
@@ -43,6 +44,7 @@ define( function( require ) {
 
     var necklaceSceneNode = new NecklaceSceneNode( this.layoutBounds, exploreModel.necklaceSceneModel );
     var paintSceneNode = new PaintSceneNode( this.layoutBounds, exploreModel.paintSceneModel );
+    var billiardsSceneNode = new BilliardsSceneNode( this.layoutBounds, exploreModel.paintSceneModel );
 
     var sceneParent = new Node();
     this.addChild( sceneParent );
@@ -50,6 +52,7 @@ define( function( require ) {
     exploreModel.sceneProperty.link( function( scene ) {
       var sceneNode = scene === 0 ? necklaceSceneNode :
                       scene === 1 ? paintSceneNode :
+                      scene === 2 ? billiardsSceneNode :
                       new Node();
       sceneParent.children = [ sceneNode ];
     } );
