@@ -29,7 +29,10 @@ define( function( require ) {
     var sideLength = 20;
     var children = [];
     var k = 0;
-    if ( numBeads === 1 ) {
+    if ( numBeads === 0 ) {
+
+    }
+    else if ( numBeads === 1 ) {
       for ( k = 0; k < roundBeadCount; k++ ) {
         children.push( new RoundBeadNode() );
       }
@@ -89,43 +92,48 @@ define( function( require ) {
         pairs.push( { start: vertices[ vertices.length - 1 ], end: vertices[ 0 ] } );
       }
 
-      var usedRoundBeads = 0;
-
       // Choose bead types
+      // a = number round
+      // b = number square
+      // n = # within pattern
+      // m = # of patterns
       var types = [];
 
-      // Round is a multiple of square
-      for ( var j = 1; j < 100; j++ ) {
-        if ( roundBeadCount === squareBeadCount * j ) {
-          for ( i = 0; i < pairs.length; i++ ) {
-            types.push( i % (j + 1) === 0 ? 'square' : 'round' );
-          }
-          break;
-        }
-      }
+      var a = roundBeadCount;
+      var b = squareBeadCount;
 
-      // Square is a multiple of round
-      if ( types.length === 0 ) {
-        for ( j = 1; j < 100; j++ ) {
-          if ( squareBeadCount === roundBeadCount * j ) {
-            for ( i = 0; i < pairs.length; i++ ) {
-              types.push( i % (j + 1) === 0 ? 'round' : 'square' );
+      // Brute force search for pattern
+      var solver = function() {
+
+        // TODO: generalize range or factor out
+        for ( var m = 20; m >= 1 && !match; m-- ) { // search for many pattern occurrences first
+          for ( var na = 0; na <= 20 && !match; na++ ) {
+            for ( var nb = 0; nb <= 20 && !match; nb++ ) {
+              if ( m * na === a && m * nb === b ) {
+                return { m: m, na: na, nb: nb };
+              }
             }
-            break;
           }
         }
-      }
+        assert && assert( false, 'no solution found' );
+      };
 
-      // No pattern, put all rounds together and squares together
-      if ( types.length === 0 ) {
-        for ( i = 0; i < pairs.length; i++ ) {
-          if ( usedRoundBeads < roundBeadCount ) {
-            types.push( 'round' );
-            usedRoundBeads++;
-          }
-          else {
-            types.push( 'square' );
-          }
+      var match = false;
+      var solution = solver();
+      var m = solution.m;
+      var na = solution.na;
+      var nb = solution.nb;
+
+      // for each repeat
+      for ( i = 0; i < m; i++ ) {
+
+        // add round
+        for ( var j = 0; j < na; j++ ) {
+          types.push( 'round' );
+        }
+        // add square
+        for ( var tk = 0; tk < nb; tk++ ) {
+          types.push( 'square' );
         }
       }
 
