@@ -14,10 +14,14 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   function AppleSceneModel() {
-    PropertySet.call( this, { showBothAppleGroups: false } );
+    PropertySet.call( this, {
+      showBothAppleGroups: false,
+      showCostPerApple: false
+    } );
 
     //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
     this.showBothAppleGroupsProperty = this.showBothAppleGroupsProperty || null;
+    this.showCostPerAppleProperty = this.showCostPerAppleProperty || null;
 
     this.redAppleGroup = new AppleGroupModel();
     this.greenAppleGroup = new AppleGroupModel();

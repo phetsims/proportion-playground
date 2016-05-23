@@ -14,6 +14,7 @@ define( function( require ) {
   var ControllableAppleGroupNode = require( 'PROPORTION_PLAYGROUND/explore/view/apples/ControllableAppleGroupNode' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var CheckBox = require( 'SUN/CheckBox' );
 
   // images
   var redAppleImage = require( 'image!PROPORTION_PLAYGROUND/apple-red.png' );
@@ -26,9 +27,11 @@ define( function( require ) {
       return new Text( text, { fontSize: 22 } );
     };
     var abSwitch = new ABSwitch( appleSceneModel.showBothAppleGroupsProperty, false, createText( 'one' ), true, createText( 'two' ) );
-
+    var showCostPerAppleCheckBox = new CheckBox( new Text( 'Cost per apple', {
+      fontSize: 22
+    } ), appleSceneModel.showCostPerAppleProperty ); // TODO: standardize and factor out font size
     Node.call( this, {
-      children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch ]
+      children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch, showCostPerAppleCheckBox ]
     } );
     this.necklaceSceneModel = appleSceneModel;
 
@@ -45,6 +48,7 @@ define( function( require ) {
       }
     } );
     abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 ); // TODO: Factor out
+    showCostPerAppleCheckBox.leftBottom = layoutBounds.leftBottom.plusXY( 10, -10 ); // TODO: factor out insets
   }
 
   proportionPlayground.register( 'AppleSceneNode', AppleSceneNode );
