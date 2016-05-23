@@ -1,7 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Combines a mutable NecklaceNode with its controls.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -18,12 +17,14 @@ define( function( require ) {
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/SplotchNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsTableNode' );
 
   function BilliardsTableNodeWithSpinners( billiardsTableModel ) {
     var numberPickerOptions = { scale: 2 };
     var lengthNumberPicker = new NumberPicker( billiardsTableModel.lengthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
     var widthNumberPicker = new NumberPicker( billiardsTableModel.widthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
 
+    var billiardsTableNode = new BilliardsTableNode( billiardsTableModel );
     var toVBox = function( label, node ) {
       return new VBox( {
         spacing: 15, children: [
@@ -43,7 +44,8 @@ define( function( require ) {
             toVBox( 'length', lengthNumberPicker ),
             toVBox( 'width', widthNumberPicker )
           ]
-        } )
+        } ),
+        billiardsTableNode
       ]
     } );
   }
