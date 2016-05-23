@@ -45,6 +45,10 @@ define( function( require ) {
     };
     this.lengthProperty.link( restartBall );
     this.widthProperty.link( restartBall );
+
+    this.resetBilliardsTableModel = function() {
+      restartBall();
+    };
   }
 
   proportionPlayground.register( 'BilliardsTableModel', BilliardsTableModel );
@@ -55,6 +59,10 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, BilliardsTableModel, {
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+      this.resetBilliardsTableModel();
+    },
     step: function( dt ) {
 
       // Cap DT
