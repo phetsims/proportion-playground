@@ -1,7 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * TODO: subpackages for model/
  * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {

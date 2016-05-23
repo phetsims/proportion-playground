@@ -11,7 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var SplotchModel = require( 'PROPORTION_PLAYGROUND/explore/model/SplotchModel' );
+  var SplotchModel = require( 'PROPORTION_PLAYGROUND/explore/model/paint/SplotchModel' );
 
   function PaintSceneModel() {
     PropertySet.call( this, {
