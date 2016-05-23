@@ -48,11 +48,6 @@ define( function( require ) {
         billiardsTableNode.mutate( { x: options.side === 'left' ? 0 : -100 } )
       ]
     } );
-
-    // Show the controls on the right hand side, so the table can be on the right side of the screen
-    if ( options.side === 'right' ) {
-
-    }
   }
 
   proportionPlayground.register( 'BilliardsTableNodeWithSpinners', BilliardsTableNodeWithSpinners );
