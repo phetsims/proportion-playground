@@ -85,6 +85,7 @@ define( function( require ) {
       // grid lines
       greenRectangle.children = createGridLines();
 
+      // TODO: Better layout for this, so we don't have to set translation of all the parts?
       linesNode.translation = greenRectangle.translation;
       currentLineNode.translation = greenRectangle.translation;
       brownRectangle.center = greenRectangle.center;
