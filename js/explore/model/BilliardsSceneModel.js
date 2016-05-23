@@ -34,7 +34,9 @@ define( function( require ) {
     },
     step: function( dt ) {
       this.table1.step( dt );
-      this.table2.step( dt );
+      if ( this.showBothTables ) {
+        this.table2.step( dt );
+      }
     }
   } );
 } );

@@ -25,6 +25,30 @@ define( function( require ) {
     var greenRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#0a6739' } );
 
     var ballNode = new ShadedSphereNode( 10, { mainColor: 'white', highlightColor: 'yellow' } );
+    var linesNode = new Node();
+
+    billiardsTableModel.restartEmitter.addListener( function() {
+      linesNode.children = [];
+    } );
+    var currentLineNode = new Line( 0, 0, 100, 100, { stroke: 'white', lineWidth: 2 } );// TODO: factor out
+    billiardsTableModel.collisionPoints.addItemAddedListener( function( currentPoint ) {
+      var a = billiardsTableModel.collisionPoints.getArray();
+      var previousPoint = a[ a.length - 2 ];
+      if ( previousPoint ) {
+        linesNode.addChild( new Line( previousPoint.x * scale, previousPoint.y * scale, currentPoint.x * scale, currentPoint.y * scale, {
+          stroke: 'white',
+          lineWidth: 2
+        } ) );
+      }
+    } );
+
+    billiardsTableModel.ball.positionProperty.link( function( position ) {
+      var a = billiardsTableModel.collisionPoints.getArray();
+      var previousPoint = a[ a.length - 1 ];
+      if ( previousPoint ) {
+        currentLineNode.setLine( previousPoint.x * scale, previousPoint.y * scale, position.x * scale, position.y * scale );
+      }
+    } );
 
     var updateTable = function() {
       var length = billiardsTableModel.length;
@@ -55,6 +79,9 @@ define( function( require ) {
       };
       // grid lines
       greenRectangle.children = createGridLines();
+
+      linesNode.translation = greenRectangle.translation;
+      currentLineNode.translation = greenRectangle.translation;
     };
 
     billiardsTableModel.ball.positionProperty.link( function( position ) {
@@ -68,7 +95,9 @@ define( function( require ) {
       children: [
         brownRectangle,
         greenRectangle,
-        ballNode
+        ballNode,
+        linesNode,
+        currentLineNode
       ]
     } );
   }
