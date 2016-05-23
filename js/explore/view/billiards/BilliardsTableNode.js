@@ -13,12 +13,15 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Line = require( 'SCENERY/nodes/Line' );
+  var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
 
   function BilliardsTableNode( center, billiardsTableModel ) {
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
     var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#73481d' } );
     var greenRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#0a6739' } );
+
+    var ballNode = new ShadedSphereNode( 10, { mainColor: 'white', highlightColor: 'yellow' } );
 
     var updateTable = function() {
       var length = billiardsTableModel.length;
@@ -50,6 +53,8 @@ define( function( require ) {
       };
       // grid lines
       greenRectangle.children = createGridLines();
+
+      ballNode.center = greenRectangle.leftBottom;
     };
 
     billiardsTableModel.lengthProperty.link( updateTable );
@@ -58,7 +63,8 @@ define( function( require ) {
     Node.call( this, {
       children: [
         brownRectangle,
-        greenRectangle
+        greenRectangle,
+        ballNode
       ]
     } );
   }
