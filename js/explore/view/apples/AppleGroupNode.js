@@ -12,6 +12,9 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var Panel = require( 'SUN/Panel' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var Util = require( 'DOT/Util' );
 
   // images
   var coinImage = require( 'image!PROPORTION_PLAYGROUND/coin.png' );
@@ -20,11 +23,15 @@ define( function( require ) {
   var appleScale = 0.35;
   var coinScale = 0.7;
 
-  function AppleGroupNode( appleGroupModel, appleImage ) {
+  function AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty ) {
     var appleLayer = new Node( { y: 320 } );// TODO: factor out y
     var coinLayer = new Node( { y: 320 } );
+    var priceTagLayer = new Node( { x: -140, y: 120 } );
     Node.call( this, {
-      children: [ coinLayer, appleLayer ]
+      children: [ coinLayer, appleLayer, priceTagLayer ]
+    } );
+    showCostPerAppleProperty.link( function( showCostPerApple ) {
+      priceTagLayer.visible = showCostPerApple;
     } );
     appleGroupModel.numberOfApplesProperty.link( function() {
       var appleArray = [];
@@ -55,6 +62,23 @@ define( function( require ) {
       coinLayer.children = coinArray;
       coinLayer.x = -300; // TODO: in terms of number of images and scale
     } );
+
+    var updatePriceTag = function() {
+      var pricePerApple = appleGroupModel.totalCost / appleGroupModel.numberOfApples;
+      var fixed = Util.toFixed( pricePerApple, 2 );
+      if ( appleGroupModel.numberOfApples === 0 ) {
+        fixed = '?';
+      }
+      else {
+        fixed = '$' + fixed;
+      }
+      priceTagLayer.children = [ new Panel( new Text( fixed, { fontSize: 40 } ), {
+        xMargin: 20,
+        yMargin: 20
+      } ) ];
+    };
+    appleGroupModel.totalCostProperty.link( updatePriceTag );
+    appleGroupModel.numberOfApplesProperty.link( updatePriceTag );
   }
 
   proportionPlayground.register( 'AppleGroupNode', AppleGroupNode );

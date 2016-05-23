@@ -19,11 +19,11 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Text = require( 'SCENERY/nodes/Text' );
 
-  function ControllableAppleGroupNode( appleGroupModel, appleImage ) {
+  function ControllableAppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty ) {
     var numberPickerOptions = { scale: 2 };
     var totalCostNumberPicker = new NumberPicker( appleGroupModel.totalCostProperty, new Property( appleGroupModel.totalCostRange ), numberPickerOptions );
     var numberOfApplesNumberPicker = new NumberPicker( appleGroupModel.numberOfApplesProperty, new Property( appleGroupModel.numberOfApplesRange ), numberPickerOptions );
-    var appleGroupNode = new AppleGroupNode( appleGroupModel, appleImage );
+    var appleGroupNode = new AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty );
 
     function toVBox( numberPicker, label ) {
       return new VBox( {

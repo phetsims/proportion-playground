@@ -21,8 +21,8 @@ define( function( require ) {
   var greenAppleImage = require( 'image!PROPORTION_PLAYGROUND/apple-green.png' );
 
   function AppleSceneNode( layoutBounds, appleSceneModel ) {
-    var redAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.redAppleGroup, redAppleImage );
-    var greenAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.greenAppleGroup, greenAppleImage );
+    var redAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.redAppleGroup, redAppleImage, appleSceneModel.showCostPerAppleProperty );
+    var greenAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.greenAppleGroup, greenAppleImage, appleSceneModel.showCostPerAppleProperty );
     var createText = function( text ) {
       return new Text( text, { fontSize: 22 } );
     };
