@@ -18,13 +18,14 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsTableNode' );
+  var Vector2 = require( 'DOT/Vector2' );
 
-  function BilliardsTableNodeWithSpinners( billiardsTableModel ) {
+  function BilliardsTableNodeWithSpinners( layoutBounds, billiardsTableModel ) {
     var numberPickerOptions = { scale: 2 };
     var lengthNumberPicker = new NumberPicker( billiardsTableModel.lengthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
     var widthNumberPicker = new NumberPicker( billiardsTableModel.widthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
 
-    var billiardsTableNode = new BilliardsTableNode( billiardsTableModel );
+    var billiardsTableNode = new BilliardsTableNode( new Vector2( 280, layoutBounds.centerY ), billiardsTableModel );
     var toVBox = function( label, node ) {
       return new VBox( {
         spacing: 15, children: [
@@ -48,6 +49,7 @@ define( function( require ) {
         billiardsTableNode
       ]
     } );
+
   }
 
   proportionPlayground.register( 'BilliardsTableNodeWithSpinners', BilliardsTableNodeWithSpinners );

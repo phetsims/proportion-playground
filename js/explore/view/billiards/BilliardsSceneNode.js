@@ -17,8 +17,8 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
 
   function BilliardsSceneNode( layoutBounds, billiardsSceneModel ) {
-    var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( billiardsSceneModel.table1 );
-    var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( billiardsSceneModel.table2 );
+    var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table1 );
+    var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table2 );
     var createText = function( text ) {
       return new Text( text, { fontSize: 22 } );
     };

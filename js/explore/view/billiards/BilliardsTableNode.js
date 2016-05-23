@@ -15,7 +15,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  function BilliardsTableNode( billiardsTableModel ) {
+  function BilliardsTableNode( center, billiardsTableModel ) {
     var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#73481d' } );
     var greenRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#0a6739' } );
 
@@ -23,7 +23,9 @@ define( function( require ) {
       var length = billiardsTableModel.length;
       var width = billiardsTableModel.width;
 
-      greenRectangle.setRect( 0, 0, width * 10, length * 10 );
+      var scale = 12;
+      greenRectangle.setRect( 0, 0, width * scale, length * scale );
+      greenRectangle.center = center;
     };
 
     billiardsTableModel.lengthProperty.link( updateTable );
