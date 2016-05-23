@@ -38,7 +38,7 @@ define( function( require ) {
       // Controllable necklace nodes have x=0 at their center
       if ( showBothAppleGroups ) {
         redAppleGroupNode.x = layoutBounds.width * 1 / 3;
-        greenAppleGroupNode.x = layoutBounds.width * 2 / 3;
+        greenAppleGroupNode.x = layoutBounds.width * 4 / 5; // TODO: Redo layout with less composition, more fine-grained control over position of components
       }
       else {
         redAppleGroupNode.x = layoutBounds.width / 2;
