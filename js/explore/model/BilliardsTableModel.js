@@ -31,7 +31,7 @@ define( function( require ) {
     this.ball = new Ball();
 
     var restartBall = function() {
-      billiardsTableModel.ball.restartBall();
+      billiardsTableModel.ball.restartBall( 0, billiardsTableModel.length );
     };
     this.lengthProperty.link( restartBall );
     this.widthProperty.link( restartBall );
@@ -41,7 +41,7 @@ define( function( require ) {
 
   return inherit( PropertySet, BilliardsTableModel, {
     step: function( dt ) {
-      this.ball.position = this.ball.position.plusXY( 0.1, 0.1 );
+      this.ball.position = this.ball.position.plus( this.ball.velocity.times( dt ) );
     }
   } );
 } );

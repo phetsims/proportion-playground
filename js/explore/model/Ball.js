@@ -13,19 +13,27 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // constants
+  var speed = 4;
+
   function Ball() {
-    PropertySet.call( this, { position: new Vector2( 0, 0 ) } );
+    PropertySet.call( this, {
+      position: new Vector2( 0, 0 ),
+      velocity: new Vector2( speed, -speed )
+    } );
 
     // TODO: Delete
     this.positionProperty = this.positionProperty || null;
     this.position = this.position || null;
+    this.velocityProperty = this.velocityProperty || null;
+    this.velocity = this.velocity || null;
   }
 
   proportionPlayground.register( 'Ball', Ball );
 
   return inherit( PropertySet, Ball, {
-    restartBall: function() {
-      this.position = new Vector2();
+    restartBall: function( x, y ) {
+      this.position = new Vector2( x, y );
     }
   } );
 } );

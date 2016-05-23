@@ -30,7 +30,6 @@ define( function( require ) {
       var length = billiardsTableModel.length;
       var width = billiardsTableModel.width;
 
-
       var brownEdgeLineWidth = 8;
       var scaledWidth = width * scale;
       var scaledHeight = length * scale;
@@ -59,7 +58,7 @@ define( function( require ) {
     };
 
     billiardsTableModel.ball.positionProperty.link( function( position ) {
-      ballNode.center = position.times( scale );
+      ballNode.center = position.times( scale ).plus( greenRectangle.translation );
     } );
 
     billiardsTableModel.lengthProperty.link( updateTable );
