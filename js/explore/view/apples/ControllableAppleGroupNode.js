@@ -23,7 +23,7 @@ define( function( require ) {
     var numberPickerOptions = { scale: 2 };
     var totalCostNumberPicker = new NumberPicker( appleGroupModel.totalCostProperty, new Property( appleGroupModel.totalCostRange ), numberPickerOptions );
     var numberOfApplesNumberPicker = new NumberPicker( appleGroupModel.numberOfApplesProperty, new Property( appleGroupModel.numberOfApplesRange ), numberPickerOptions );
-    var appleGroupNode = new AppleGroupNode( appleImage );
+    var appleGroupNode = new AppleGroupNode( appleGroupModel, appleImage );
 
     function toVBox( numberPicker, label ) {
       return new VBox( {

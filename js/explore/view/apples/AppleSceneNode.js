@@ -17,7 +17,7 @@ define( function( require ) {
 
   // images
   var redAppleImage = require( 'image!PROPORTION_PLAYGROUND/apple-red.png' );
-  var greenAppleImage = require( 'image!PROPORTION_PLAYGROUND/apple-red.png' );
+  var greenAppleImage = require( 'image!PROPORTION_PLAYGROUND/apple-green.png' );
 
   function AppleSceneNode( layoutBounds, appleSceneModel ) {
     var redAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.redAppleGroup, redAppleImage );
