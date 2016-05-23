@@ -20,8 +20,8 @@ define( function( require ) {
   function BilliardsTableModel() {
     var billiardsTableModel = this;
     PropertySet.call( this, {
-      length: 0,
-      width: 0
+      length: 1,
+      width: 1
     } );
 
     //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
@@ -29,7 +29,7 @@ define( function( require ) {
     this.widthProperty = this.widthProperty || null;
 
     // TODO: Factor out ranges
-    this.range = new Range( 0, 20 );
+    this.range = new Range( 1, 20 );
 
     this.ball = new Ball();
 

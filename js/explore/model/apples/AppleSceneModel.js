@@ -32,8 +32,8 @@ define( function( require ) {
   return inherit( PropertySet, AppleSceneModel, {
     reset: function() {
       PropertySet.prototype.reset.call( this );
-      this.necklace1Model.reset();
-      this.necklace2Model.reset();
+      this.redAppleGroup.reset();
+      this.greenAppleGroup.reset();
     }
   } );
 } );
