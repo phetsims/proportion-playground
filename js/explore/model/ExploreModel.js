@@ -42,10 +42,10 @@ define( function( require ) {
       this.paintSceneModel.reset();
       this.billiardsSceneModel.reset();
     },
-    //TODO Called by the animation loop. Optional, so if your model has no animation, please delete this.
+
     // @public
     step: function( dt ) {
-      //TODO Handle model animation here.
+      this.scene === 2 && this.billiardsSceneModel.step( dt ); // TODO: this index seems brittle
     }
   } );
 } );

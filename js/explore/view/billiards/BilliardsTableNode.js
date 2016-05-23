@@ -15,6 +15,9 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
 
+  // constants
+  var scale = 20; // from model units to pixels
+
   function BilliardsTableNode( center, billiardsTableModel ) {
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
@@ -27,7 +30,7 @@ define( function( require ) {
       var length = billiardsTableModel.length;
       var width = billiardsTableModel.width;
 
-      var scale = 20;
+
       var brownEdgeLineWidth = 8;
       var scaledWidth = width * scale;
       var scaledHeight = length * scale;
@@ -53,9 +56,11 @@ define( function( require ) {
       };
       // grid lines
       greenRectangle.children = createGridLines();
-
-      ballNode.center = greenRectangle.leftBottom;
     };
+
+    billiardsTableModel.ball.positionProperty.link( function( position ) {
+      ballNode.center = position.times( scale );
+    } );
 
     billiardsTableModel.lengthProperty.link( updateTable );
     billiardsTableModel.widthProperty.link( updateTable );

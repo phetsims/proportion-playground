@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- *
+ * TODO:
  * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
@@ -31,6 +31,10 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
       this.table1.reset();
       this.table2.reset();
+    },
+    step: function( dt ) {
+      this.table1.step( dt );
+      this.table2.step( dt );
     }
   } );
 } );

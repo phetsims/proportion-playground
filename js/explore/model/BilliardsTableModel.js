@@ -12,8 +12,10 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Range = require( 'DOT/Range' );
+  var Ball = require( './Ball' ); // TODO: is relative style legit?  If legit, is it maintainable despite being nonstandard?
 
   function BilliardsTableModel() {
+    var billiardsTableModel = this;
     PropertySet.call( this, {
       length: 0,
       width: 0
@@ -25,9 +27,21 @@ define( function( require ) {
 
     // TODO: Factor out ranges
     this.range = new Range( 0, 20 );
+
+    this.ball = new Ball();
+
+    var restartBall = function() {
+      billiardsTableModel.ball.restartBall();
+    };
+    this.lengthProperty.link( restartBall );
+    this.widthProperty.link( restartBall );
   }
 
   proportionPlayground.register( 'BilliardsTableModel', BilliardsTableModel );
 
-  return inherit( PropertySet, BilliardsTableModel );
+  return inherit( PropertySet, BilliardsTableModel, {
+    step: function( dt ) {
+      this.ball.position = this.ball.position.plusXY( 0.1, 0.1 );
+    }
+  } );
 } );
