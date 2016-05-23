@@ -34,6 +34,7 @@ define( function( require ) {
   return inherit( PropertySet, Ball, {
     restartBall: function( x, y ) {
       this.position = new Vector2( x, y );
+      this.velocity = new Vector2( speed, -speed );
     }
   } );
 } );

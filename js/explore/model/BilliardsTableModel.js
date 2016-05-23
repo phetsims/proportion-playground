@@ -13,6 +13,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Range = require( 'DOT/Range' );
   var Ball = require( './Ball' ); // TODO: is relative style legit?  If legit, is it maintainable despite being nonstandard?
+  var Vector2 = require( 'DOT/Vector2' );
 
   function BilliardsTableModel() {
     var billiardsTableModel = this;
@@ -42,6 +43,24 @@ define( function( require ) {
   return inherit( PropertySet, BilliardsTableModel, {
     step: function( dt ) {
       this.ball.position = this.ball.position.plus( this.ball.velocity.times( dt ) );
+
+      if ( this.ball.velocity.x > 0 && this.ball.position.x >= this.width ) {
+        this.ball.velocity.x *= -1;
+        this.ball.position = new Vector2( this.width, this.ball.position.y );
+      }
+      if ( this.ball.velocity.x < 0 && this.ball.position.x <= 0 ) {
+        this.ball.velocity.x *= -1;
+        this.ball.position = new Vector2( 0, this.ball.position.y );
+      }
+
+      if ( this.ball.velocity.y > 0 && this.ball.position.y >= this.length ) {
+        this.ball.velocity.y *= -1;
+        this.ball.position = new Vector2( this.ball.position.x, this.length );
+      }
+      if ( this.ball.velocity.y < 0 && this.ball.position.y <= 0 ) {
+        this.ball.velocity.y *= -1;
+        this.ball.position = new Vector2( this.ball.position.x, 0 );
+      }
     }
   } );
 } );
