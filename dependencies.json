@@ -1,5 +1,5 @@
 {
-  "comment": "# proportion-playground 1.0.0-dev.4 Mon May 23 2016 14:10:55 GMT-0600 (MDT)",
+  "comment": "# proportion-playground 1.0.0-dev.5 Mon May 23 2016 16:46:39 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "proportion-playground": {
-    "sha": "69e2592c8ef83cdc4d16514ce6f1c27a4e425e35",
+    "sha": "6e657626c166062e73d4e1c9450f4d49be929896",
     "branch": "master"
   },
   "scenery": {
