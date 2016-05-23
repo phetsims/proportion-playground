@@ -20,8 +20,8 @@ define( function( require ) {
   function BilliardsTableModel() {
     var billiardsTableModel = this;
     PropertySet.call( this, {
-      length: 7, // TODO: 0
-      width: 8
+      length: 0,
+      width: 0
     } );
 
     //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA

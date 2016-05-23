@@ -60,7 +60,6 @@ define( function( require ) {
       var lineWidthAmount = brownEdgeLineWidth * 2;
       brownRectangle.setRect( 0, 0, scaledWidth + lineWidthAmount, scaledHeight + lineWidthAmount );
       greenRectangle.setRect( 0, 0, scaledWidth, scaledHeight );
-      brownRectangle.center = center;
       greenRectangle.center = center;
 
       var createGridLines = function() {
@@ -82,6 +81,11 @@ define( function( require ) {
 
       linesNode.translation = greenRectangle.translation;
       currentLineNode.translation = greenRectangle.translation;
+      brownRectangle.center = greenRectangle.center;
+
+      greenRectangle.visible = width * length > 0;
+      currentLineNode.visible = width * length > 0;
+      ballNode.visible = width * length > 0;
     };
 
     billiardsTableModel.ball.positionProperty.link( function( position ) {
