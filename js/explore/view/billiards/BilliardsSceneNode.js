@@ -14,7 +14,6 @@ define( function( require ) {
   var BilliardsTableNodeWithSpinners = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsTableNodeWithSpinners' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var CheckBox = require( 'SUN/CheckBox' );
 
   function BilliardsSceneNode( layoutBounds, billiardsSceneModel ) {
     var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table1 );
