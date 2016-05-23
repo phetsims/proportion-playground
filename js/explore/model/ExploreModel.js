@@ -14,6 +14,7 @@ define( function( require ) {
   var NecklaceSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/necklace/NecklaceSceneModel' );
   var PaintSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/paint/PaintSceneModel' );
   var BilliardsSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/billiards/BilliardsSceneModel' );
+  var AppleSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/apples/AppleSceneModel' );
   var ProportionPlaygroundQueryParameters = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundQueryParameters' );
 
   /**
@@ -27,6 +28,7 @@ define( function( require ) {
     this.necklaceSceneModel = new NecklaceSceneModel();
     this.paintSceneModel = new PaintSceneModel();
     this.billiardsSceneModel = new BilliardsSceneModel();
+    this.appleSceneModel = new AppleSceneModel();
 
     // This line provided for code highlighting and navigation in IntelliJ IDEA
     // TODO: Delete this line
@@ -41,6 +43,7 @@ define( function( require ) {
       this.necklaceSceneModel.reset();
       this.paintSceneModel.reset();
       this.billiardsSceneModel.reset();
+      this.appleSceneModel.reset();
     },
 
     // @public
