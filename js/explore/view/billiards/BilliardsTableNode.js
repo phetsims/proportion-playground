@@ -17,7 +17,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
 
   // constants
-  var scale = 20; // from model units to pixels
+  var scale = 18; // from model units to pixels
 
   function BilliardsTableNode( center, billiardsTableModel ) {
 

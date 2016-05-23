@@ -33,14 +33,17 @@ define( function( require ) {
 
       // Controllable necklace nodes have x=0 at their center
       if ( showBothNecklaces ) {
-        billiardsTableNode1.left = layoutBounds.left;
-        billiardsTableNode2.left = layoutBounds.centerX;
+        billiardsTableNode1.left = 10;
+        billiardsTableNode2.left = layoutBounds.centerX + 10;
       }
       else {
-        billiardsTableNode1.left = layoutBounds.left;
+        billiardsTableNode1.left = 200;
       }
     } );
     abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 );
+
+    billiardsTableNode1.y = 20;
+    billiardsTableNode2.y = 20;
   }
 
   proportionPlayground.register( 'BilliardsSceneNode', BilliardsSceneNode );
