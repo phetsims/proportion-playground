@@ -14,6 +14,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Line = require( 'SCENERY/nodes/Line' );
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
 
   // constants
   var scale = 20; // from model units to pixels
@@ -24,8 +25,13 @@ define( function( require ) {
     var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#73481d' } );
     var greenRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#0a6739' } );
 
+    // TODO: Factor out diameter/radius
     var ballNode = new ShadedSphereNode( 10, { mainColor: 'white', highlightColor: 'yellow' } );
     var linesNode = new Node();
+
+    var topLeftHoleNode = new Circle( 5, { fill: 'black' } );
+    var topRightHoleNode = new Circle( 5, { fill: 'black' } );
+    var bottomRightHoleNode = new Circle( 5, { fill: 'black' } );
 
     billiardsTableModel.restartEmitter.addListener( function() {
       linesNode.children = [];
@@ -83,6 +89,10 @@ define( function( require ) {
       currentLineNode.translation = greenRectangle.translation;
       brownRectangle.center = greenRectangle.center;
 
+      bottomRightHoleNode.translation = greenRectangle.translation.plusXY( width * scale, length * scale );
+      topLeftHoleNode.translation = greenRectangle.translation.plusXY( 0, 0 );
+      topRightHoleNode.translation = greenRectangle.translation.plusXY( width * scale, 0 );
+
       greenRectangle.visible = width * length > 0;
       currentLineNode.visible = width * length > 0;
       ballNode.visible = width * length > 0;
@@ -99,6 +109,9 @@ define( function( require ) {
       children: [
         brownRectangle,
         greenRectangle,
+        topLeftHoleNode,
+        topRightHoleNode,
+        bottomRightHoleNode,
         ballNode,
         linesNode,
         currentLineNode

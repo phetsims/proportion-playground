@@ -98,6 +98,16 @@ define( function( require ) {
         this.ball.position = round( this.ball.position.x, 0 );
         this.collisionPoints.push( this.ball.position.copy() );
       }
+
+      // Stop the ball when it strikes a corner
+      if (
+        this.ball.position.equals( new Vector2( 0, 0 ) ) ||
+        this.ball.position.equals( new Vector2( 0, this.length ) ) ||
+        this.ball.position.equals( new Vector2( this.width, 0 ) ) ||
+        this.ball.position.equals( new Vector2( this.width, this.length ) )
+      ) {
+        this.ball.velocity = new Vector2();
+      }
     }
   } );
 } );

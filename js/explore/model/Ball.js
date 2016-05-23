@@ -14,7 +14,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var speed = 4;
+  var speed = 8;
 
   function Ball() {
     PropertySet.call( this, {
@@ -34,6 +34,8 @@ define( function( require ) {
   return inherit( PropertySet, Ball, {
     restartBall: function( x, y ) {
       this.position = new Vector2( x, y );
+
+      // initially the ball starts in the bottom left corner and moves up and to the right.
       this.velocity = new Vector2( speed, -speed );
     }
   } );
