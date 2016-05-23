@@ -18,7 +18,8 @@ define( function( require ) {
   var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsTableNode' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function BilliardsTableNodeWithSpinners( layoutBounds, billiardsTableModel ) {
+  function BilliardsTableNodeWithSpinners( layoutBounds, billiardsTableModel, options ) {
+    options = _.extend( { side: 'left' }, options );
     var numberPickerOptions = { scale: 2 };
     var lengthNumberPicker = new NumberPicker( billiardsTableModel.lengthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
     var widthNumberPicker = new NumberPicker( billiardsTableModel.widthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
@@ -38,16 +39,20 @@ define( function( require ) {
         new VBox( {
           spacing: 10,
           y: 200,
-          centerX: 0, // position around the origin
+          centerX: options.side === 'left' ? 0 : 450, // position around the origin
           children: [
             toVBox( 'length', lengthNumberPicker ),
             toVBox( 'width', widthNumberPicker )
           ]
         } ),
-        billiardsTableNode
+        billiardsTableNode.mutate( { x: options.side === 'left' ? 0 : -100 } )
       ]
     } );
 
+    // Show the controls on the right hand side, so the table can be on the right side of the screen
+    if ( options.side === 'right' ) {
+
+    }
   }
 
   proportionPlayground.register( 'BilliardsTableNodeWithSpinners', BilliardsTableNodeWithSpinners );

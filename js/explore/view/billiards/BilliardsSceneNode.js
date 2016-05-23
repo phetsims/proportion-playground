@@ -17,7 +17,9 @@ define( function( require ) {
 
   function BilliardsSceneNode( layoutBounds, billiardsSceneModel ) {
     var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table1 );
-    var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table2 );
+    var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table2, {
+      side: 'right'
+    } );
     var createText = function( text ) {
       return new Text( text, { fontSize: 22 } );
     };
@@ -34,7 +36,7 @@ define( function( require ) {
       // Controllable necklace nodes have x=0 at their center
       if ( showBothNecklaces ) {
         billiardsTableNode1.left = 10;
-        billiardsTableNode2.left = layoutBounds.centerX + 10;
+        billiardsTableNode2.right = layoutBounds.right - 10;
       }
       else {
         billiardsTableNode1.left = 200;
