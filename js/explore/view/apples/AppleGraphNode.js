@@ -128,7 +128,7 @@ define( function( require ) {
     appleSceneModel.redAppleGroup.numberOfApplesProperty.link( updateTriangleFills );
     appleSceneModel.greenAppleGroup.totalCostProperty.link( updateTriangleFills );
     appleSceneModel.greenAppleGroup.numberOfApplesProperty.link( updateTriangleFills );
-    appleSceneModel.greenAppleGroup.showBothAppleGroupsProperty.link( updateTriangleFills );
+    appleSceneModel.showBothAppleGroupsProperty.link( updateTriangleFills );
 
     appleSceneModel.showBothAppleGroupsProperty.link( function( showBothAppleGroups ) {
       appleGraphNode.x = showBothAppleGroups ? layoutBounds.centerX : layoutBounds.right * 0.7;
