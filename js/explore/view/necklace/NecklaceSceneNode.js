@@ -33,6 +33,13 @@ define( function( require ) {
     } );
     this.necklaceSceneModel = necklaceSceneModel;
 
+    if ( predictMode ) {
+      var revealButton = new RevealButton( necklaceSceneModel.revealProperty, {
+        bottom: layoutBounds.maxY - 87
+      } );
+      this.addChild( revealButton );
+    }
+
     necklaceSceneModel.showBothNecklacesProperty.link( function( showBothNecklaces ) {
       secondControllableNecklaceNode.visible = showBothNecklaces;
 
@@ -40,19 +47,16 @@ define( function( require ) {
       if ( showBothNecklaces ) {
         firstControllableNecklaceNode.x = layoutBounds.width * 1 / 3;
         secondControllableNecklaceNode.x = layoutBounds.width * 2 / 3;
+
+        revealButton && revealButton.mutate( { centerX: layoutBounds.centerX } );
       }
       else {
         firstControllableNecklaceNode.x = layoutBounds.width / 2;
+
+        revealButton && revealButton.mutate( { left: layoutBounds.centerX + 110 } );
       }
     } );
     abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 ); // TODO: Factor out
-
-    if ( predictMode ) {
-      var revealButton = new RevealButton( {
-        x: 100, y: 100
-      } );
-      this.addChild( revealButton );
-    }
   }
 
   proportionPlayground.register( 'NecklaceSceneNode', NecklaceSceneNode );

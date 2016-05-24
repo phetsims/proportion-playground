@@ -25,10 +25,10 @@ define( function( require ) {
     PropertySet.call( this, {
       scene: ProportionPlaygroundQueryParameters.SCENE
     } );
-    this.necklaceSceneModel = new NecklaceSceneModel();
-    this.paintSceneModel = new PaintSceneModel();
-    this.billiardsSceneModel = new BilliardsSceneModel();
-    this.appleSceneModel = new AppleSceneModel();
+    this.necklaceSceneModel = new NecklaceSceneModel( predictMode );
+    this.paintSceneModel = new PaintSceneModel( predictMode );
+    this.billiardsSceneModel = new BilliardsSceneModel( predictMode );
+    this.appleSceneModel = new AppleSceneModel( predictMode );
 
     // This line provided for code highlighting and navigation in IntelliJ IDEA
     // TODO: Delete this line
