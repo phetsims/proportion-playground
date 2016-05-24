@@ -9,27 +9,17 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ExploreModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreModel' );
 
   /**
    * @constructor
    */
   function PredictModel() {
-
-    PropertySet.call( this, {
-      //TODO
-    } );
+    ExploreModel.call( this );
   }
 
   proportionPlayground.register( 'PredictModel', PredictModel );
 
-  return inherit( PropertySet, PredictModel, {
-
-    //TODO Called by the animation loop. Optional, so if your model has no animation, please delete this.
-    // @public
-    step: function( dt ) {
-      //TODO Handle model animation here.
-    }
-  } );
+  return inherit( ExploreModel, PredictModel );
 } );
