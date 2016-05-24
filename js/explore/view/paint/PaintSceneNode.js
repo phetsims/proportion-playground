@@ -31,7 +31,7 @@ define( function( require ) {
             scale: 0.2,
             visible: false
           } ),// TODO: spacer instead
-          new SplotchNode( new Property( 1 ), new Property( 1 ), paintSceneModel.grayscaleProperty ).mutate( { scale: 0.2 } )
+          new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty ).mutate( { scale: 0.2 } )
         ]
       } ), // TODO move options to parameter
       true, new HBox( {

@@ -33,7 +33,7 @@ define( function( require ) {
     shape = shape.transformed( Matrix3.translation( -bounds.centerX, -bounds.centerY + 250 ) );
     Path.call( this, shape, { fill: 'green', stroke: 'black' } );
 
-    var update = function() {
+    var updateFill = function() {
       var blueAmount = color1Property.value;
       var yellowAmount = color2Property.value;
 
@@ -58,6 +58,19 @@ define( function( require ) {
       else {
         splotchNode.fill = null;
       }
+    };
+    var update = function() {
+      updateFill();
+
+      var blueAmount = color1Property.value;
+      var yellowAmount = color2Property.value;
+
+      // TODO: Addition in more realistic color space
+      // TODO: White paint doesn't show up on a white background.
+      // TODO: Duplicated in GradientNode creation
+      // TODO: Come up with better color mixing physics
+
+      var total = blueAmount + yellowAmount;
 
       // The size of the paint splotch grows
       var scale = Util.linear( 0, 40, 1.0, 1.6, total );  // TODO: Is the size change distracting?
@@ -65,11 +78,11 @@ define( function( require ) {
 
       splotchNode.center = new Vector2( 0, 250 );
 
-      splotchNode.visible = blueAmount + yellowAmount > 0;
+      splotchNode.visible = (blueAmount + yellowAmount) > 0;
     };
     color1Property.link( update );
     color2Property.link( update );
-    grayscaleProperty.link( update );
+    grayscaleProperty.link( updateFill );
   }
 
   proportionPlayground.register( 'SplotchNode', SplotchNode );
