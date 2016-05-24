@@ -17,7 +17,7 @@
 
       var colorArrayString = '';
       var indexString = '';
-      for ( var i = 0; i < image.width; i++ ) {
+      for ( var i = 0; i < image.width; i += 4 ) {
         var pixelData = context.getImageData( i, 1, 1, 1 ).data;
         colorArrayString = colorArrayString + 'new Color(' + pixelData[ 0 ] + ',' + pixelData[ 1 ] + ',' + pixelData[ 2 ] + '), '
         indexString = indexString + '' + (i / image.width) + ', ';
