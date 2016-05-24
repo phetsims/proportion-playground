@@ -13,6 +13,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Util = require( 'DOT/Util' );
 
+  // TODO: Speed this up
   function ColorMap() {
   }
 

@@ -12,18 +12,36 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ControllableSplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/ControllableSplotchNode' );
+  var SplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/SplotchNode' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
   var CheckBox = require( 'SUN/CheckBox' );
   var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/GradientIndicatorNode' );
+  var Property = require( 'AXON/Property' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
 
   function PaintSceneNode( layoutBounds, paintSceneModel ) {
     var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty );
     var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.splotch2Model, paintSceneModel.grayscaleProperty );
-    var createText = function( text ) {
-      return new Text( text, { fontSize: 22 } );
-    };
-    var abSwitch = new ABSwitch( paintSceneModel.showBothSplotchesProperty, false, createText( 'one' ), true, createText( 'two' ) );
+    var abSwitch = new ABSwitch( paintSceneModel.showBothSplotchesProperty,
+      false, new HBox( {
+        spacing: 10,
+        children: [
+          new SplotchNode( new Property( 0 ), new Property( 1 ), paintSceneModel.grayscaleProperty ).mutate( {
+            scale: 0.2,
+            visible: false
+          } ),// TODO: spacer instead
+          new SplotchNode( new Property( 1 ), new Property( 1 ), paintSceneModel.grayscaleProperty ).mutate( { scale: 0.2 } )
+        ]
+      } ), // TODO move options to parameter
+      true, new HBox( {
+        spacing: 10,
+        children: [
+          new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty ).mutate( { scale: 0.2 } ),
+          new SplotchNode( new Property( 1 ), new Property( 1 ), paintSceneModel.grayscaleProperty ).mutate( { scale: 0.2 } )
+        ]
+      } )
+    );
 
     Node.call( this, {
       children: [ controllableSplotchNode1, controllableSplotchNode2, abSwitch ]
