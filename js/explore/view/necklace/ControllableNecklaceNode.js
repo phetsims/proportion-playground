@@ -36,7 +36,7 @@ define( function( require ) {
         necklaceNode,
         new HBox( {
           spacing: 15,
-          y: 450,
+          y: 420,
           centerX: 0, // position around the origin
           children: [
             toVBox( new RoundBeadNode(), roundBeadNumberPicker ),

@@ -36,7 +36,7 @@ define( function( require ) {
     }
     var children = [];
     var k = 0;
-    if ( numBeads === 0 || numBeads === 1 ) {
+    if ( numBeads === 1 ) {
       for ( k = 0; k < roundBeadCount; k++ ) {
         children.push( new RoundBeadNode() );
       }
@@ -58,7 +58,7 @@ define( function( require ) {
       }
       children.unshift( new Circle( 14, _.extend( { y: -11, x: (7 + 14) / 2 }, pathOptions ) ) ); // TODO: factor out numbers
     }
-    else {
+    else if ( numBeads > 2 ) {
 
       // see http://mathworld.wolfram.com/RegularPolygon.html
       var R = 1 / 2 * sideLength / Math.sin( Math.PI / numberPoints );
