@@ -22,5 +22,13 @@
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
     "notes": ""
+  },
+  "paint-bucket.png": {
+    "text": [
+      "Copyright 2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "TODO: is this really from Mariah?"
   }
 }

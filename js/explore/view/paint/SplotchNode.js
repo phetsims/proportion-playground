@@ -10,6 +10,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ColorMap = require( 'PROPORTION_PLAYGROUND/explore/view/paint/ColorMap' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Matrix3 = require( 'DOT/Matrix3' );
@@ -40,43 +41,22 @@ define( function( require ) {
       // TODO: White paint doesn't show up on a white background.
       // TODO: Duplicated in GradientNode creation
       // TODO: Come up with better color mixing physics
-      var blueVector = grayscaleProperty.value ? new Vector3( 0, 0, 0 ) : new Vector3( 0, 1, 1 ); // use cyan for RGB color mixing
-      var yellowVector = grayscaleProperty.value ? new Vector3( 1, 1, 1 ) : new Vector3( 1, 1, 0 );
 
       var total = blueAmount + yellowAmount;
       var blendAmount = yellowAmount / total;
 
-      console.log( blendAmount );
-
       if ( total > 0 ) {
-        // Regular samples from the image
-        var colorPoints = [ '#2700ff', '#00a673', '#00ff00', '#42ff00', '#fbff00' ];
-        var sampleLocations = [ 0, 0.25, 0.5, 0.75, 1 ];
-        var colors = colorPoints.map( function( c ) {return new Color( c );} );
-        // get two nearest neighbors
-        var lowerIndex = 0;
-        if ( blendAmount <= sampleLocations[ 1 ] ) {
-          lowerIndex = 0;
-        }
-        else if ( blendAmount <= sampleLocations[ 2 ] ) {
-          lowerIndex = 1;
-        }
-        else if ( blendAmount <= sampleLocations[ 3 ] ) {
-          lowerIndex = 2;
+
+        if ( grayscaleProperty.value ) {
+          var blended = new Vector3( 0, 0, 0 ).blend( new Vector3( 255, 255, 255 ), blendAmount );
+          splotchNode.fill = new Color( blended.x, blended.y, blended.z );
         }
         else {
-          lowerIndex = 3;
+          splotchNode.fill = ColorMap.getColor( blendAmount );
         }
-        var distanceBetweenPoints = Util.linear( sampleLocations[ lowerIndex ], sampleLocations[ lowerIndex + 1 ], 0, 1, blendAmount );
-        var lowerColor = colors[ lowerIndex ];
-        var upperColor = colors[ lowerIndex + 1 ];
-        var interpolated = Color.interpolateRGBA( lowerColor, upperColor, distanceBetweenPoints );
-
-        var blended = blueVector.blend( yellowVector, blendAmount );
-        splotchNode.fill = total === 0 ? null : interpolated;
       }
       else {
-        splotchNode.fill = total === 0 ? null : new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
+        splotchNode.fill = null;
       }
 
       // The size of the paint splotch grows
