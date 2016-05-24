@@ -15,13 +15,13 @@ define( function( require ) {
 
   function AppleGroupModel() {
     PropertySet.call( this, {
-      numberOfApples: 0,
+      numberOfApples: 1,
       totalCost: 0
     } );
 
     // TODO: Combine ranges
     this.totalCostRange = new Range( 0, 20 );
-    this.numberOfApplesRange = new Range( 0, 20 );
+    this.numberOfApplesRange = new Range( 1, 20 );
 
     //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
     this.numberOfApplesProperty = this.numberOfApplesProperty || null;

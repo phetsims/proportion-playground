@@ -116,7 +116,8 @@ define( function( require ) {
 
       // TODO: factor out duplicated code
       if ( appleSceneModel.redAppleGroup.ratio1 === appleSceneModel.greenAppleGroup.ratio1 &&
-           appleSceneModel.redAppleGroup.ratio2 === appleSceneModel.greenAppleGroup.ratio2 ) {
+           appleSceneModel.redAppleGroup.ratio2 === appleSceneModel.greenAppleGroup.ratio2 &&
+           appleSceneModel.showBothAppleGroups ) {
         leftIndicator.fill = 'black';
       }
       else {
@@ -130,6 +131,7 @@ define( function( require ) {
 
     appleSceneModel.showBothAppleGroupsProperty.link( function( showBothAppleGroups ) {
       appleGraphNode.x = showBothAppleGroups ? layoutBounds.centerX : layoutBounds.right * 0.7;
+      updateTriangleFills();
     } );
 
     this.centerY = 250;
