@@ -14,8 +14,11 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
+  // constants
+  var PINK = '#d0275c';
+
   function RoundBeadNode( options ) {
-    Node.call( this, { children: [ new Circle( ProportionPlaygroundConstants.beadDiameter / 2, { fill: 'red' } ) ] } );
+    Node.call( this, { children: [ new Circle( ProportionPlaygroundConstants.beadDiameter / 2, { fill: PINK } ) ] } );
     this.mutate( options );
   }
 
