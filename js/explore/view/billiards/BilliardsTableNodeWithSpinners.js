@@ -35,10 +35,9 @@ define( function( require ) {
     };
     Node.call( this, {
       children: [
-        // splotchNode,
         new VBox( {
-          spacing: 10,
-          y: 200,
+          spacing: 50,
+          y: 180,
           centerX: options.side === 'left' ? 0 : 450, // position around the origin
           children: [
             toVBox( 'length', lengthNumberPicker ),
