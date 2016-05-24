@@ -43,10 +43,10 @@ define( function( require ) {
     } );
     this.addChild( this.sceneSelectionRadioButtonGroup );
 
-    var necklaceSceneNode = new NecklaceSceneNode( this.layoutBounds, exploreModel.necklaceSceneModel );
-    var paintSceneNode = new PaintSceneNode( this.layoutBounds, exploreModel.paintSceneModel );
-    var billiardsSceneNode = new BilliardsSceneNode( this.layoutBounds, exploreModel.billiardsSceneModel );
-    var appleSceneNode = new AppleSceneNode( this.layoutBounds, exploreModel.appleSceneModel );
+    var necklaceSceneNode = new NecklaceSceneNode( this.layoutBounds, exploreModel.necklaceSceneModel, exploreModel.predictMode );
+    var paintSceneNode = new PaintSceneNode( this.layoutBounds, exploreModel.paintSceneModel, exploreModel.predictMode );
+    var billiardsSceneNode = new BilliardsSceneNode( this.layoutBounds, exploreModel.billiardsSceneModel, exploreModel.predictMode );
+    var appleSceneNode = new AppleSceneNode( this.layoutBounds, exploreModel.appleSceneModel, exploreModel.predictMode );
 
     var sceneParent = new Node();
     this.addChild( sceneParent );

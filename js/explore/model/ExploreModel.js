@@ -20,7 +20,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ExploreModel() {
+  function ExploreModel( predictMode ) {
 
     PropertySet.call( this, {
       scene: ProportionPlaygroundQueryParameters.SCENE
@@ -33,6 +33,9 @@ define( function( require ) {
     // This line provided for code highlighting and navigation in IntelliJ IDEA
     // TODO: Delete this line
     this.sceneProperty = this.sceneProperty || null;
+
+    // For Predict screen
+    this.predictMode = predictMode;
   }
 
   proportionPlayground.register( 'ExploreModel', ExploreModel );

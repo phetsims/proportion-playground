@@ -16,7 +16,7 @@ define( function( require ) {
    * @constructor
    */
   function PredictModel() {
-    ExploreModel.call( this );
+    ExploreModel.call( this, true );
   }
 
   proportionPlayground.register( 'PredictModel', PredictModel );

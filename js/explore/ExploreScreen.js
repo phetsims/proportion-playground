@@ -28,7 +28,7 @@ define( function( require ) {
     var icon = new Rectangle( 0, 0, 548, 373, { fill: 'red' } );
 
     Screen.call( this, exploreString, icon,
-      function() { return new ExploreModel(); },
+      function() { return new ExploreModel( false ); },
       function( model ) { return new ExploreScreenView( model ); },
       { backgroundColor: '#fcf3eb' }
     );

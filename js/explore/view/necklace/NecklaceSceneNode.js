@@ -15,8 +15,9 @@ define( function( require ) {
   var ABSwitch = require( 'SUN/ABSwitch' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/StaticNecklaceNode' );
+  var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
 
-  function NecklaceSceneNode( layoutBounds, necklaceSceneModel ) {
+  function NecklaceSceneNode( layoutBounds, necklaceSceneModel, predictMode ) {
     var firstControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace1Model );
     var secondControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace2Model );
     var options = { scale: 0.3 };
@@ -45,6 +46,13 @@ define( function( require ) {
       }
     } );
     abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 ); // TODO: Factor out
+
+    if ( predictMode ) {
+      var revealButton = new RevealButton( {
+        x: 100, y: 100
+      } );
+      this.addChild( revealButton );
+    }
   }
 
   proportionPlayground.register( 'NecklaceSceneNode', NecklaceSceneNode );
