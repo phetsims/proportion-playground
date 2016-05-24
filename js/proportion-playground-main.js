@@ -26,7 +26,7 @@ define( function( require ) {
       team: '',
       qualityAssurance: '',
       graphicArts: '',
-      thanks: ''
+      thanks: 'This sim builds (in part) on prior work by our colleagues at SRI and the SunBay team (http://sunbay.sri.com/).'
     }
   };
 
