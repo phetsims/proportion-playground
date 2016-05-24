@@ -111,7 +111,7 @@ define( function( require ) {
         rightIndicator.fill = 'black';
       }
       else {
-        rightIndicator.fill = null;
+        rightIndicator.fill = 'white';
       }
 
       // TODO: factor out duplicated code
@@ -120,7 +120,7 @@ define( function( require ) {
         leftIndicator.fill = 'black';
       }
       else {
-        leftIndicator.fill = null;
+        leftIndicator.fill = 'white';
       }
     };
     appleSceneModel.redAppleGroup.totalCostProperty.link( updateTriangleFills );
