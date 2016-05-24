@@ -16,22 +16,31 @@ define( function( require ) {
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var Property = require( 'AXON/Property' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+  var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/RoundBeadNode' );
+  var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/SquareBeadNode' );
 
   function ControllableNecklaceNode( necklaceModel ) {
     var numberPickerOptions = { scale: 2 };
     var roundBeadNumberPicker = new NumberPicker( necklaceModel.roundBeadCountProperty, new Property( necklaceModel.roundBeadRange ), numberPickerOptions );
     var squareBeadNumberPicker = new NumberPicker( necklaceModel.squareBeadCountProperty, new Property( necklaceModel.squareBeadRange ), numberPickerOptions );
     var necklaceNode = new NecklaceNode( necklaceModel );
+    var toVBox = function( icon, numberPicker ) {
+      return new VBox( {
+        spacing: 10,
+        children: [ icon, numberPicker ]
+      } );
+    };
     Node.call( this, {
       children: [
         necklaceNode,
         new HBox( {
-          spacing: 10,
+          spacing: 15,
           y: 450,
           centerX: 0, // position around the origin
           children: [
-            roundBeadNumberPicker,
-            squareBeadNumberPicker
+            toVBox( new RoundBeadNode(), roundBeadNumberPicker ),
+            toVBox( new SquareBeadNode(), squareBeadNumberPicker )
           ]
         } )
       ]
