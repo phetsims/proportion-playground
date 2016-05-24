@@ -13,15 +13,19 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var ControllableNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/ControllableNecklaceNode' );
   var ABSwitch = require( 'SUN/ABSwitch' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/StaticNecklaceNode' );
 
   function NecklaceSceneNode( layoutBounds, necklaceSceneModel ) {
     var firstControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace1Model );
     var secondControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace2Model );
-    var createText = function( text ) {
-      return new Text( text, { fontSize: 22 } );
-    };
-    var abSwitch = new ABSwitch( necklaceSceneModel.showBothNecklacesProperty, false, createText( 'one' ), true, createText( 'two' ) );
+    var options = { scale: 0.3 };
+    var abSwitch = new ABSwitch( necklaceSceneModel.showBothNecklacesProperty,
+      false, new StaticNecklaceNode( 14, 7 ).mutate( options ),
+      true, new HBox( {
+        children: [
+          new StaticNecklaceNode( 10, 5 ).mutate( options ), new StaticNecklaceNode( 14, 7 ).mutate( options ) ]
+      } ) );
 
     Node.call( this, {
       children: [ firstControllableNecklaceNode, secondControllableNecklaceNode, abSwitch ]
