@@ -20,7 +20,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var ColorMap = require( 'PROPORTION_PLAYGROUND/explore/view/paint/ColorMap' );
 
-  function GradientIndicatorNode( layoutBounds, paintSceneModel, options ) {
+  function GradientIndicatorNode( layoutBounds, paintSceneModel, revealProperty, options ) {
     var gradientIndicatorNode = this;
     var grayscaleProperty = paintSceneModel.grayscaleProperty; // TODO: inline
 
@@ -82,16 +82,16 @@ define( function( require ) {
         leftIndicator.visible = false;
       }
       else {
-        leftIndicator.visible = true;
+        leftIndicator.visible = revealProperty.get();
 
         var proportion = paintSceneModel.splotch1Model.color2Count / total;
         leftIndicator.centerY = proportion * gradientHeight;
       }
-
     };
 
     paintSceneModel.splotch1Model.color1CountProperty.link( updateLeftIndicator );
     paintSceneModel.splotch1Model.color2CountProperty.link( updateLeftIndicator );
+    revealProperty.link( updateLeftIndicator );
 
     // TODO: Factor out duplicated with above
     var updateRightIndicator = function() {
@@ -101,7 +101,7 @@ define( function( require ) {
         rightIndicator.visible = false;
       }
       else {
-        rightIndicator.visible = paintSceneModel.showBothSplotches;
+        rightIndicator.visible = paintSceneModel.showBothSplotches && revealProperty.get();
 
         var proportion = paintSceneModel.splotch2Model.color2Count / total;
         rightIndicator.centerY = proportion * gradientHeight;
@@ -112,6 +112,7 @@ define( function( require ) {
     paintSceneModel.splotch2Model.color1CountProperty.link( updateRightIndicator );
     paintSceneModel.splotch2Model.color2CountProperty.link( updateRightIndicator );
     paintSceneModel.showBothSplotchesProperty.link( updateRightIndicator );
+    paintSceneModel.revealProperty.link( updateRightIndicator );
 
     var updateTriangleFills = function() {
       if ( paintSceneModel.splotch1Model.ratio1 === paintSceneModel.splotch2Model.ratio1 &&

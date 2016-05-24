@@ -19,10 +19,11 @@ define( function( require ) {
   var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/GradientIndicatorNode' );
   var Property = require( 'AXON/Property' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
 
-  function PaintSceneNode( layoutBounds, paintSceneModel ) {
-    var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty );
-    var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.splotch2Model, paintSceneModel.grayscaleProperty );
+  function PaintSceneNode( layoutBounds, paintSceneModel, predictMode ) {
+    var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
+    var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.splotch2Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
     var abSwitch = new ABSwitch( paintSceneModel.showBothSplotchesProperty,
       false, new HBox( {
         spacing: 10,
@@ -46,6 +47,13 @@ define( function( require ) {
     Node.call( this, {
       children: [ controllableSplotchNode1, controllableSplotchNode2, abSwitch ]
     } );
+
+    if ( predictMode ) {
+      var revealButton = new RevealButton( paintSceneModel.revealProperty, {
+        bottom: layoutBounds.maxY - 98
+      } );
+      this.addChild( revealButton );
+    }
     this.necklaceSceneModel = paintSceneModel;
 
     paintSceneModel.showBothSplotchesProperty.link( function( showBothNecklaces ) {
@@ -55,9 +63,12 @@ define( function( require ) {
       if ( showBothNecklaces ) {
         controllableSplotchNode1.x = layoutBounds.width * 1 / 3;
         controllableSplotchNode2.x = layoutBounds.width * 2 / 3;
+
+        revealButton && revealButton.mutate( { centerX: layoutBounds.centerX } );
       }
       else {
         controllableSplotchNode1.x = layoutBounds.width / 2;
+        revealButton && revealButton.mutate( { left: layoutBounds.centerX + 100 } );
       }
     } );
     abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 );
@@ -68,7 +79,7 @@ define( function( require ) {
     } );
     this.addChild( grayscaleCheckBox );
 
-    var gradientIndicatorNode = new GradientIndicatorNode( layoutBounds, paintSceneModel, {} );
+    var gradientIndicatorNode = new GradientIndicatorNode( layoutBounds, paintSceneModel, paintSceneModel.revealProperty );
     this.addChild( gradientIndicatorNode );
   }
 

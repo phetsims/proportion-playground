@@ -9,12 +9,12 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SplotchModel = require( 'PROPORTION_PLAYGROUND/explore/model/paint/SplotchModel' );
+  var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
 
-  function PaintSceneModel() {
-    PropertySet.call( this, {
+  function PaintSceneModel( predictMode ) {
+    ExploreSceneModel.call( this, predictMode, {
       showBothSplotches: false,
       grayscale: false
     } );
@@ -25,13 +25,20 @@ define( function( require ) {
 
     this.splotch1Model = new SplotchModel();
     this.splotch2Model = new SplotchModel();
+
+    predictMode && this.registerChangeProperties( [
+      this.splotch1Model.color1CountProperty,
+      this.splotch1Model.color2CountProperty,
+      this.splotch2Model.color1CountProperty,
+      this.splotch2Model.color2CountProperty
+    ] );
   }
 
   proportionPlayground.register( 'PaintSceneModel', PaintSceneModel );
 
-  return inherit( PropertySet, PaintSceneModel, {
+  return inherit( ExploreSceneModel, PaintSceneModel, {
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      ExploreSceneModel.prototype.reset.call( this );
       this.splotch1Model.reset();
       this.splotch2Model.reset();
     }
