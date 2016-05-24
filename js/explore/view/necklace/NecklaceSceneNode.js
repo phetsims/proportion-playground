@@ -18,8 +18,8 @@ define( function( require ) {
   var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
 
   function NecklaceSceneNode( layoutBounds, necklaceSceneModel, predictMode ) {
-    var firstControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace1Model );
-    var secondControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace2Model );
+    var firstControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace1Model, necklaceSceneModel.revealProperty );
+    var secondControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace2Model, necklaceSceneModel.revealProperty );
     var options = { scale: 0.3 };
     var abSwitch = new ABSwitch( necklaceSceneModel.showBothNecklacesProperty,
       false, new StaticNecklaceNode( 14, 7 ).mutate( options ),

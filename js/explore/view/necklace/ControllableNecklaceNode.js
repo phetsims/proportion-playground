@@ -20,7 +20,7 @@ define( function( require ) {
   var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/RoundBeadNode' );
   var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/SquareBeadNode' );
 
-  function ControllableNecklaceNode( necklaceModel ) {
+  function ControllableNecklaceNode( necklaceModel, revealProperty ) {
     var numberPickerOptions = { scale: 2 };
     var roundBeadNumberPicker = new NumberPicker( necklaceModel.roundBeadCountProperty, new Property( necklaceModel.roundBeadRange ), numberPickerOptions );
     var squareBeadNumberPicker = new NumberPicker( necklaceModel.squareBeadCountProperty, new Property( necklaceModel.squareBeadRange ), numberPickerOptions );
@@ -31,6 +31,7 @@ define( function( require ) {
         children: [ icon, numberPicker ]
       } );
     };
+    revealProperty.linkAttribute( necklaceNode, 'visible' );
     Node.call( this, {
       children: [
         necklaceNode,
