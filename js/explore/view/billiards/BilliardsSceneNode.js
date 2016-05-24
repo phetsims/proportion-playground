@@ -13,7 +13,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var BilliardsTableNodeWithSpinners = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsTableNodeWithSpinners' );
   var ABSwitch = require( 'SUN/ABSwitch' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var BilliardTableIcon = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardTableIcon' );
   var HBox = require( 'SCENERY/nodes/HBox' );
 
