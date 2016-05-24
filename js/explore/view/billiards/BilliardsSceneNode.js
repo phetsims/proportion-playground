@@ -14,16 +14,23 @@ define( function( require ) {
   var BilliardsTableNodeWithSpinners = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsTableNodeWithSpinners' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var BilliardTableIcon = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardTableIcon' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
 
   function BilliardsSceneNode( layoutBounds, billiardsSceneModel ) {
     var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table1 );
     var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table2, {
       side: 'right'
     } );
-    var createText = function( text ) {
-      return new Text( text, { fontSize: 22 } );
-    };
-    var abSwitch = new ABSwitch( billiardsSceneModel.showBothTablesProperty, false, createText( 'one' ), true, createText( 'two' ) );
+    var abSwitch = new ABSwitch( billiardsSceneModel.showBothTablesProperty,
+      false, new BilliardTableIcon( 120, 120, { scale: 0.3 } ), // TODO: factor out scale
+      true, new HBox( {
+        spacing: 10,
+        children: [
+          new BilliardTableIcon( 100, 100, { scale: 0.3 } ),
+          new BilliardTableIcon( 100, 100, { scale: 0.3 } ) ]
+      } )
+    );
 
     Node.call( this, {
       children: [ billiardsTableNode1, billiardsTableNode2, abSwitch ]

@@ -11,11 +11,9 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/StaticNecklaceNode' );
+  var BilliardTableIcon = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardTableIcon' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // images
   var paintBucketImage = require( 'image!PROPORTION_PLAYGROUND/paint-bucket.png' );
@@ -24,12 +22,7 @@ define( function( require ) {
   function SceneSelectionRadioButtonGroup( sceneProperty, options ) {
     var necklaceIcon = new StaticNecklaceNode( 14, 7 ).mutate( { scale: 0.2 } );
     var paintBucketIcon = new Image( paintBucketImage );
-    var billiardTableIcon = new Node( {
-      children: [
-        new Rectangle( -10, -10, 120, 120, { fill: '#73481d' } ),
-        new Rectangle( 0, 0, 100, 100, { fill: '#0a6739' } )
-      ]
-    } );
+    var billiardTableIcon = new BilliardTableIcon( 120, 120 );
     var redAppleIcon = new Image( redAppleImage );
 
     // Make other icons same height as 1st icon
