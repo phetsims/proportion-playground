@@ -13,25 +13,47 @@ define( function( require ) {
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/StaticNecklaceNode' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+
+  // images
+  var paintBucketImage = require( 'image!PROPORTION_PLAYGROUND/paint-bucket.png' );
+  var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
 
   function SceneSelectionRadioButtonGroup( sceneProperty, options ) {
-    var textOptions = { fontSize: 36 };
+    var necklaceIcon = new StaticNecklaceNode( 14, 7 ).mutate( { scale: 0.2 } );
+    var paintBucketIcon = new Image( paintBucketImage );
+    var billiardTableIcon = new Node( {
+      children: [
+        new Rectangle( -10, -10, 120, 120, { fill: '#73481d' } ),
+        new Rectangle( 0, 0, 100, 100, { fill: '#0a6739' } )
+      ]
+    } );
+    var redAppleIcon = new Image( redAppleImage );
+
+    // Make other icons same height as 1st icon
+    paintBucketIcon.mutate( { scale: necklaceIcon.height / paintBucketIcon.height } );
+    billiardTableIcon.mutate( { scale: necklaceIcon.height / billiardTableIcon.height } );
+    redAppleIcon.mutate( { scale: necklaceIcon.height / redAppleIcon.height } );
+
     RadioButtonGroup.call( this, sceneProperty, [ {
       value: 0,
-      node: new Text( 'Necklace', textOptions )
+      node: necklaceIcon
     }, {
       value: 1,
-      node: new Text( 'Paint', textOptions )
+      node: paintBucketIcon
     }, {
       value: 2,
-      node: new Text( 'Billiards', textOptions )
+      node: billiardTableIcon
     }, {
       value: 3,
-      node: new Text( 'Apples', textOptions )
+      node: redAppleIcon
     } ], {
       orientation: 'horizontal',
-      buttonContentXMargin: 30,
-      buttonContentYMargin: 15,
+      buttonContentXMargin: 20,
+      buttonContentYMargin: 12,
       selectedStroke: PhetColorScheme.RESET_ALL_BUTTON_BASE_COLOR,
       selectedLineWidth: 4,
       baseColor: 'white'

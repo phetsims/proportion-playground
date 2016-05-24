@@ -22,7 +22,7 @@ define( function( require ) {
   function BilliardsTableNode( center, billiardsTableModel ) {
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
-    var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#73481d' } );
+    var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#73481d' } ); // TODO: Colors duplicated in radio button group
     var greenRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#0a6739' } );
 
     // TODO: Factor out diameter/radius
