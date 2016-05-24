@@ -75,7 +75,7 @@ define( function( require ) {
     // TODO: duplicated with below
     var updateLeftIndicator = function() {
       var costPerApple = appleSceneModel.redAppleGroup.totalCost / appleSceneModel.redAppleGroup.numberOfApples;
-      if ( costPerApple === 0 || appleSceneModel.redAppleGroup.numberOfApples === 0 ) {
+      if ( appleSceneModel.redAppleGroup.numberOfApples === 0 ) {
         leftIndicator.visible = false;
       }
       else {
@@ -91,7 +91,7 @@ define( function( require ) {
     var updateRightIndicator = function() {
 
       var costPerApple = appleSceneModel.greenAppleGroup.totalCost / appleSceneModel.greenAppleGroup.numberOfApples;
-      if ( costPerApple === 0 || appleSceneModel.greenAppleGroup.numberOfApples === 0 ) {
+      if ( appleSceneModel.greenAppleGroup.numberOfApples === 0 ) {
         rightIndicator.visible = false;
       }
       else {

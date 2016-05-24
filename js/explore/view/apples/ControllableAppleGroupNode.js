@@ -39,9 +39,9 @@ define( function( require ) {
       children: [
         appleGroupNode,
         new HBox( {
-          spacing: 10,
+          spacing: 150, // TODO: this is hack-ish, a more general layout would help
           y: 430,
-          centerX: 0, // position around the origin
+          centerX: -140, // position one spinner under coin stack, other under apple stack
           children: [
             toVBox( totalCostNumberPicker, 'Total Cost' ),
             toVBox( numberOfApplesNumberPicker, 'Apples' )
