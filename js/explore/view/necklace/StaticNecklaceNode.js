@@ -18,6 +18,10 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
+
+  // constants
+  var pathOptions = { stroke: 'black', lineWidth: 2 };
 
   function StaticNecklaceNode( roundBeadCount, squareBeadCount ) {
 
@@ -39,6 +43,8 @@ define( function( require ) {
       for ( k = 0; k < squareBeadCount; k++ ) {
         children.push( new SquareBeadNode() );
       }
+
+      children.unshift( new Circle( 12, _.extend( { y: -15 }, pathOptions ) ) );
     }
     else if ( numBeads === 2 ) {
       var x = 0;
@@ -50,6 +56,7 @@ define( function( require ) {
         children.push( new SquareBeadNode( { x: x } ) );
         x += 22;
       }
+      children.unshift( new Circle( 14, _.extend( { y: -11, x: (7 + 14) / 2 }, pathOptions ) ) ); // TODO: factor out numbers
     }
     else {
 
@@ -161,7 +168,7 @@ define( function( require ) {
         shape.lineToPoint( nextCenter );
       }
 
-      children.unshift( new Path( shape, { stroke: 'black', lineWidth: 2 } ) );
+      children.unshift( new Path( shape, pathOptions ) );
     }
 
     Node.call( this, {
