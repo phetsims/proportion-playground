@@ -53,6 +53,8 @@ define( function( require ) {
       splotchNode.setScaleMagnitude( scale );
 
       splotchNode.center = new Vector2( 0, 250 );
+
+      splotchNode.visible = blueAmount + yellowAmount > 0;
     };
     color1Property.link( update );
     color2Property.link( update );
