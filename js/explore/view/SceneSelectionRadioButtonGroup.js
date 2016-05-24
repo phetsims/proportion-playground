@@ -11,7 +11,6 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/StaticNecklaceNode' );
   var Image = require( 'SCENERY/nodes/Image' );
