@@ -16,6 +16,9 @@ define( function( require ) {
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
   var CheckBox = require( 'SUN/CheckBox' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
 
   // images
   var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
@@ -25,10 +28,22 @@ define( function( require ) {
     var redAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.redAppleGroup, redAppleImage, appleSceneModel.showCostPerAppleProperty );
     var greenAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.greenAppleGroup, greenAppleImage, appleSceneModel.showCostPerAppleProperty );
     var appleGraphNode = new AppleGraphNode( layoutBounds, appleSceneModel );
-    var createText = function( text ) {
-      return new Text( text, { fontSize: 22 } );
-    };
-    var abSwitch = new ABSwitch( appleSceneModel.showBothAppleGroupsProperty, false, createText( 'one' ), true, createText( 'two' ) );
+    var greenAppleImageNode = new Image( greenAppleImage, { scale: 0.2 } );
+    var redAppleImageNode = new Image( redAppleImage, { scale: 0.2 } );
+    var abSwitch = new ABSwitch( appleSceneModel.showBothAppleGroupsProperty,
+      false, new HBox( {
+        children: [
+          new HStrut( greenAppleImageNode.width ),
+          redAppleImageNode
+        ]
+      } ),
+      true, new HBox( {
+        children: [
+          new Image( redAppleImage, { scale: 0.2 } ),
+          greenAppleImageNode
+        ]
+      } )
+    );
     var showCostPerAppleCheckBox = new CheckBox( new Text( 'Cost per apple', {
       fontSize: 22
     } ), appleSceneModel.showCostPerAppleProperty ); // TODO: standardize and factor out font size
