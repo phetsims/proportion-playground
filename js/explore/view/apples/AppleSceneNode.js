@@ -17,8 +17,8 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
 
   // images
-  var redAppleImage = require( 'image!PROPORTION_PLAYGROUND/apple-red.png' );
-  var greenAppleImage = require( 'image!PROPORTION_PLAYGROUND/apple-green.png' );
+  var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
+  var greenAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-green.png' );
 
   function AppleSceneNode( layoutBounds, appleSceneModel ) {
     var redAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.redAppleGroup, redAppleImage, appleSceneModel.showCostPerAppleProperty );
