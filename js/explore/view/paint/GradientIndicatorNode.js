@@ -18,6 +18,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Matrix3 = require( 'DOT/Matrix3' );
+  var ColorMap = require( 'PROPORTION_PLAYGROUND/explore/view/paint/ColorMap' );
 
   function GradientIndicatorNode( layoutBounds, paintSceneModel, options ) {
     var gradientIndicatorNode = this;
@@ -26,11 +27,7 @@ define( function( require ) {
     var gradientWidth = 20;
     var gradientHeight = 300;
     var colorGradient = new GradientNode( gradientWidth, gradientHeight, function( parameter ) {
-      var blueVector = new Vector3( 0, 1, 1 ); // use cyan for RGB color mixing
-      var yellowVector = new Vector3( 1, 1, 0 );
-
-      var blended = blueVector.blend( yellowVector, parameter );
-      return new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
+      return ColorMap.getColor( parameter );
     } );
 
     // TODO: Factor out code duplicated with above
