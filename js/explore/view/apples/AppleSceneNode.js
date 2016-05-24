@@ -12,6 +12,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ControllableAppleGroupNode = require( 'PROPORTION_PLAYGROUND/explore/view/apples/ControllableAppleGroupNode' );
+  var AppleGraphNode = require( 'PROPORTION_PLAYGROUND/explore/view/apples/AppleGraphNode' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
   var CheckBox = require( 'SUN/CheckBox' );
@@ -23,6 +24,7 @@ define( function( require ) {
   function AppleSceneNode( layoutBounds, appleSceneModel ) {
     var redAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.redAppleGroup, redAppleImage, appleSceneModel.showCostPerAppleProperty );
     var greenAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.greenAppleGroup, greenAppleImage, appleSceneModel.showCostPerAppleProperty );
+    var appleGraphNode = new AppleGraphNode( layoutBounds, appleSceneModel );
     var createText = function( text ) {
       return new Text( text, { fontSize: 22 } );
     };
@@ -31,7 +33,7 @@ define( function( require ) {
       fontSize: 22
     } ), appleSceneModel.showCostPerAppleProperty ); // TODO: standardize and factor out font size
     Node.call( this, {
-      children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch, showCostPerAppleCheckBox ]
+      children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch, showCostPerAppleCheckBox, appleGraphNode ]
     } );
     this.necklaceSceneModel = appleSceneModel;
 
@@ -41,7 +43,7 @@ define( function( require ) {
       // Controllable necklace nodes have x=0 at their center
       if ( showBothAppleGroups ) {
         redAppleGroupNode.x = layoutBounds.width * 1 / 3;
-        greenAppleGroupNode.x = layoutBounds.width * 4 / 5; // TODO: Redo layout with less composition, more fine-grained control over position of components
+        greenAppleGroupNode.x = layoutBounds.width * 0.85; // TODO: Redo layout with less composition, more fine-grained control over position of components
       }
       else {
         redAppleGroupNode.x = layoutBounds.width / 2;

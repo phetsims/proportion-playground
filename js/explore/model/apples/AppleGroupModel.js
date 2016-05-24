@@ -30,5 +30,14 @@ define( function( require ) {
 
   proportionPlayground.register( 'AppleGroupModel', AppleGroupModel );
 
-  return inherit( PropertySet, AppleGroupModel, {} );
+  return inherit( PropertySet, AppleGroupModel, {
+    get ratio1() {
+      return this.totalCost / this.numberOfApples;
+    },
+
+    // TODO: this hack makes it easy to compare ratios between sims, accounting for /0
+    get ratio2() {
+      return this.numberOfApples / this.totalCost;
+    }
+  } );
 } );
