@@ -20,7 +20,7 @@ define( function( require ) {
     var updateNecklace = function() {
       necklaceNode.children = [ new StaticNecklaceNode( necklaceModel.roundBeadCount, necklaceModel.squareBeadCount ) ];
       necklaceNode.centerX = 0;
-      necklaceNode.centerY = 300;
+      necklaceNode.centerY = 260;
     };
     necklaceModel.roundBeadCountProperty.link( updateNecklace );
     necklaceModel.squareBeadCountProperty.link( updateNecklace );

@@ -26,7 +26,10 @@ define( function( require ) {
     var numBeads = roundBeadCount + squareBeadCount;
     var numberPoints = numBeads;
     var angleBetweenPoints = Math.PI * 2 / numberPoints;
-    var sideLength = 20;
+    var sideLength = 23;
+    if ( roundBeadCount + squareBeadCount === 3 ) {
+      sideLength = 35;
+    }
     var children = [];
     var k = 0;
     if ( numBeads === 0 || numBeads === 1 ) {
