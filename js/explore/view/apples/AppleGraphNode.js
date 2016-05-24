@@ -16,14 +16,22 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Line = require( 'SCENERY/nodes/Line' );
+
+  // constants
+  var ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick
 
   function AppleGraphNode( layoutBounds, appleSceneModel, options ) {
     var appleGraphNode = this;
 
     var arrowWidth = 3;
     var arrowHeight = 300;
-
-    var arrowNode = new ArrowNode( 0, arrowHeight, 0, 0, {} );
+    var arrowLineWidth = 2;
+    var arrowNode = new ArrowNode( 0, arrowHeight, 0, -ARROW_OVERSHOOT, { tailWidth: arrowLineWidth } );
+    var lineOptions = { stroke: 'black', lineWidth: arrowLineWidth };
+    arrowNode.addChild( new Line( -10, arrowHeight, 10, arrowHeight, lineOptions ) );
+    arrowNode.addChild( new Line( -10, arrowHeight / 2, 10, arrowHeight / 2, lineOptions ) );
+    arrowNode.addChild( new Line( -10, 0, 10, 0, lineOptions ) );
 
     var triangleLength = 25;
     var triangleAltitude = Math.sqrt( 3 ) / 2 * triangleLength;
