@@ -53,8 +53,8 @@ define( function( require ) {
       orientation: 'horizontal',
       buttonContentXMargin: 20,
       buttonContentYMargin: 12,
-      selectedStroke: PhetColorScheme.RESET_ALL_BUTTON_BASE_COLOR,
-      selectedLineWidth: 4,
+      selectedStroke: 'black',
+      selectedLineWidth: 2,
       baseColor: 'white'
     } );
     this.mutate( options );
