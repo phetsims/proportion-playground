@@ -1,0 +1,34 @@
+<head>
+
+</head>
+<body>
+<img id="image">
+<script>
+
+  document.addEventListener( "DOMContentLoaded", function( event ) {
+
+    var image = document.getElementById( 'image' );
+    image.onload = function() {
+      var canvas = document.createElement( 'canvas' );
+      canvas.width = image.width;
+      canvas.height = image.height;
+      var context = canvas.getContext( '2d' );
+      context.drawImage( image, 0, 0, image.width, image.height );
+
+      var colorArrayString = '';
+      var indexString = '';
+      for ( var i = 0; i < image.width; i++ ) {
+        var pixelData = context.getImageData( i, 1, 1, 1 ).data;
+        colorArrayString = colorArrayString + 'new Color(' + pixelData[ 0 ] + ',' + pixelData[ 1 ] + ',' + pixelData[ 2 ] + '), '
+        indexString = indexString + '' + (i / image.width) + ', ';
+      }
+      console.log( colorArrayString );
+      console.log( indexString );
+    };
+    image.src = "blue-green-gradient.png";
+
+
+  } );
+
+</script>
+</body>
