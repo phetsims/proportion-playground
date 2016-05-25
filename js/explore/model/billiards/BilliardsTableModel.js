@@ -38,6 +38,7 @@ define( function( require ) {
 
     this.restartEmitter = new Emitter();
 
+    // TODO: make instance function
     var restartBall = function() {
       billiardsTableModel.ball.restartBall( 0, billiardsTableModel.length );
       billiardsTableModel.collisionPoints.clear();
@@ -49,6 +50,8 @@ define( function( require ) {
     this.resetBilliardsTableModel = function() {
       restartBall();
     };
+
+    this.restartBall = restartBall;
   }
 
   proportionPlayground.register( 'BilliardsTableModel', BilliardsTableModel );

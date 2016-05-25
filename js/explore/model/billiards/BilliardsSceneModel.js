@@ -15,6 +15,7 @@ define( function( require ) {
 
   // TODO: Somewhat duplicated with other scene models, perhaps factor out a parent class
   function BilliardsSceneModel( predictMode ) {
+    var billiardsSceneModel = this;
     ExploreSceneModel.call( this, predictMode, { showBothTables: false } );
 
     //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
@@ -23,12 +24,21 @@ define( function( require ) {
     this.table1 = new BilliardsTableModel();
     this.table2 = new BilliardsTableModel();
 
-    this.registerChangeProperties( [
+    var changeProperties = [
       this.table1.widthProperty,
       this.table1.lengthProperty,
       this.table2.widthProperty,
       this.table2.lengthProperty
-    ] );
+    ];
+    this.registerChangeProperties( changeProperties );
+
+    var restartBall = function() {
+      billiardsSceneModel.table1.restartBall();
+      billiardsSceneModel.table2.restartBall();
+    };
+    for ( var i = 0; i < changeProperties.length; i++ ) {
+      changeProperties[ i ].link( restartBall );
+    }
   }
 
   proportionPlayground.register( 'BilliardsSceneModel', BilliardsSceneModel );
