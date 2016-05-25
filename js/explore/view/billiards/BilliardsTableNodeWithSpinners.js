@@ -18,13 +18,14 @@ define( function( require ) {
   var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsTableNode' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function BilliardsTableNodeWithSpinners( layoutBounds, billiardsTableModel, options ) {
+  function BilliardsTableNodeWithSpinners( layoutBounds, billiardsTableModel, revealProperty, options ) {
     options = _.extend( { side: 'left' }, options );
     var numberPickerOptions = { scale: 2 };
     var lengthNumberPicker = new NumberPicker( billiardsTableModel.lengthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
     var widthNumberPicker = new NumberPicker( billiardsTableModel.widthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
 
     var billiardsTableNode = new BilliardsTableNode( new Vector2( 280, layoutBounds.centerY ), billiardsTableModel );
+    revealProperty.linkAttribute( billiardsTableNode, 'visible' );
     var toVBox = function( label, node ) {
       return new VBox( {
         spacing: 15, children: [
@@ -36,8 +37,8 @@ define( function( require ) {
     Node.call( this, {
       children: [
         new VBox( {
-          spacing: 50,
-          y: 180,
+          spacing: 30,
+          y: 100,
           centerX: options.side === 'left' ? 0 : 450, // position around the origin
           children: [
             toVBox( 'length', lengthNumberPicker ),

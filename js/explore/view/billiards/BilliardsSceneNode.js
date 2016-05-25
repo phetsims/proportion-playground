@@ -15,10 +15,11 @@ define( function( require ) {
   var ABSwitch = require( 'SUN/ABSwitch' );
   var BilliardTableIcon = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardTableIcon' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
 
-  function BilliardsSceneNode( layoutBounds, billiardsSceneModel ) {
-    var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table1 );
-    var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table2, {
+  function BilliardsSceneNode( layoutBounds, billiardsSceneModel, predictMode ) {
+    var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table1, billiardsSceneModel.revealProperty );
+    var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table2, billiardsSceneModel.revealProperty, {
       side: 'right'
     } );
     var abSwitch = new ABSwitch( billiardsSceneModel.showBothTablesProperty,
@@ -36,16 +37,24 @@ define( function( require ) {
     } );
     this.necklaceSceneModel = billiardsSceneModel;
 
-    billiardsSceneModel.showBothTablesProperty.link( function( showBothNecklaces ) {
-      billiardsTableNode2.visible = showBothNecklaces;
+    if ( predictMode ) { // TODO: Factor out of scene nodes
+      var revealButton = new RevealButton( billiardsSceneModel.revealProperty, {
+        bottom: layoutBounds.maxY - 60
+      } );
+      this.addChild( revealButton );
+    }
 
-      // Controllable necklace nodes have x=0 at their center
-      if ( showBothNecklaces ) {
+    billiardsSceneModel.showBothTablesProperty.link( function( showBothTables ) {
+      billiardsTableNode2.visible = showBothTables;
+
+      if ( showBothTables ) {
         billiardsTableNode1.left = 10;
         billiardsTableNode2.right = layoutBounds.right - 10;
+        revealButton && revealButton.mutate( { left: layoutBounds.left + 10 } );
       }
       else {
         billiardsTableNode1.left = 200;
+        revealButton && revealButton.mutate( { left: layoutBounds.left + 200 } );
       }
     } );
     abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 );

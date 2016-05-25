@@ -48,7 +48,7 @@ define( function( require ) {
       children: [ controllableSplotchNode1, controllableSplotchNode2, abSwitch ]
     } );
 
-    if ( predictMode ) {
+    if ( predictMode ) { // TODO: Factor out of scene nodes
       var revealButton = new RevealButton( paintSceneModel.revealProperty, {
         bottom: layoutBounds.maxY - 98
       } );
