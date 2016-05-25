@@ -20,12 +20,40 @@ define( function( require ) {
 
   function ControllableSplotchNode( splotchModel, grayscaleProperty, revealProperty ) {
     var numberPickerOptions = { scale: 2 };
-    var color1CountPicker = new NumberPicker( splotchModel.color1CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
+
+    // TODO: Factor out NumberPicker calls
+    var picker1Color = new NumberPicker( splotchModel.color1CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
       color: ColorMap.getColor( 0 )
     }, numberPickerOptions ) );
-    var color2CountPicker = new NumberPicker( splotchModel.color2CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
+    var picker1Black = new NumberPicker( splotchModel.color1CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
+      color: 'black'
+    }, numberPickerOptions ) );
+
+    var color1CountPicker = new Node( {
+      children: [
+        picker1Color,
+        picker1Black
+      ]
+    } );
+    var picker2Color = new NumberPicker( splotchModel.color2CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
       color: ColorMap.getColor( 1 )
     }, numberPickerOptions ) );
+    var picker2Black = new NumberPicker( splotchModel.color2CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
+      color: 'white'
+    }, numberPickerOptions ) );
+    var color2CountPicker = new Node( {
+      children: [
+        picker2Color,
+        picker2Black
+      ]
+    } );
+
+    grayscaleProperty.link( function( grayscale ) {
+      picker1Black.visible = grayscale;
+      picker2Black.visible = grayscale;
+      picker1Color.visible = !grayscale;
+      picker2Color.visible = !grayscale;
+    } );
 
     // TODO: Black/white spinners for black/white mode
 
