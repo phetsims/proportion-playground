@@ -34,7 +34,15 @@ define( function( require ) {
     this.billiardsSceneModel = new BilliardsSceneModel( predictMode );
     this.appleSceneModel = new AppleSceneModel( predictMode );
 
-    // For Predict screen
+    // Also keep track of the models so they can be addressed as a group (for reset) or by index (for stepping)
+    this.models = [
+      this.necklaceSceneModel,
+      this.paintSceneModel,
+      this.billiardsSceneModel,
+      this.appleSceneModel
+    ];
+
+    // @public (read-only) - for the Predict screen, show a reveal button
     this.predictMode = predictMode;
   }
 
@@ -43,15 +51,14 @@ define( function( require ) {
   return inherit( PropertySet, ExploreModel, {
     reset: function() {
       PropertySet.prototype.reset.call( this );
-      this.necklaceSceneModel.reset();
-      this.paintSceneModel.reset();
-      this.billiardsSceneModel.reset();
-      this.appleSceneModel.reset();
+      this.models.forEach( function( model ) {model.reset();} );
     },
 
     // @public
     step: function( dt ) {
-      this.scene === 2 && this.billiardsSceneModel.step( dt ); // TODO: this index seems brittle
+
+      // If the model has a step function, call it.
+      this.models[ this.scene ].step && this.models[ this.scene ].step( dt );
     }
   } );
 } );
