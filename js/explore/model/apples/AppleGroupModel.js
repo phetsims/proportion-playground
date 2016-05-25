@@ -23,7 +23,7 @@ define( function( require ) {
     this.totalCostRange = new Range( 0, 20 );
     this.numberOfApplesRange = new Range( 1, 20 );
 
-    // TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
+    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.numberOfApplesProperty = this.numberOfApplesProperty || null;
     this.totalCostProperty = this.totalCostProperty || null;
   }

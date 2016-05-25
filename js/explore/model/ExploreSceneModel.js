@@ -19,7 +19,7 @@ define( function( require ) {
       reveal: !predictMode // {boolean} - true if the answer is being shown
     }, otherProperties ) );
 
-    // TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
+    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.revealProperty = this.revealProperty || null;
   }
 

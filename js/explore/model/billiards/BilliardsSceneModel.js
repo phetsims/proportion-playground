@@ -17,7 +17,7 @@ define( function( require ) {
     var billiardsSceneModel = this;
     ExploreSceneModel.call( this, predictMode, { showBothTables: false } );
 
-    // TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
+    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.showBothTablesProperty = this.showBothTablesProperty || null;
 
     this.table1 = new BilliardsTableModel();

@@ -24,7 +24,7 @@ define( function( require ) {
       width: 1
     } );
 
-    // TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
+    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.lengthProperty = this.lengthProperty || null;
     this.widthProperty = this.widthProperty || null;
 

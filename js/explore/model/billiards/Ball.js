@@ -22,7 +22,7 @@ define( function( require ) {
       velocity: new Vector2( speed, -speed )
     } );
 
-    // TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
+    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.positionProperty = this.positionProperty || null;
     this.velocityProperty = this.velocityProperty || null;
   }

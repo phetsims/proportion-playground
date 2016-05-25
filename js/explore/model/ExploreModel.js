@@ -26,7 +26,7 @@ define( function( require ) {
       scene: ProportionPlaygroundQueryParameters.SCENE // {number, 0-indexed, indicating the scene}
     } );
 
-    // TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
+    // These assignments provide improved highlighting and navigation in IntelliJ IDEA
     this.sceneProperty = this.sceneProperty || null;
 
     this.necklaceSceneModel = new NecklaceSceneModel( predictMode );
