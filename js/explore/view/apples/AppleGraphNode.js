@@ -109,23 +109,10 @@ define( function( require ) {
     revealProperty.link( updateLeftIndicator );
 
     var updateTriangleFills = function() {
-      if ( appleSceneModel.redAppleGroup.ratio1 === appleSceneModel.greenAppleGroup.ratio1 &&
-           appleSceneModel.redAppleGroup.ratio2 === appleSceneModel.greenAppleGroup.ratio2 ) {
-        rightIndicator.fill = 'black';
-      }
-      else {
-        rightIndicator.fill = 'white';
-      }
-
-      // TODO: factor out duplicated code
-      if ( appleSceneModel.redAppleGroup.ratio1 === appleSceneModel.greenAppleGroup.ratio1 &&
-           appleSceneModel.redAppleGroup.ratio2 === appleSceneModel.greenAppleGroup.ratio2 &&
-           appleSceneModel.showBoth ) {
-        leftIndicator.fill = 'black';
-      }
-      else {
-        leftIndicator.fill = 'white';
-      }
+      var equivalent = appleSceneModel.redAppleGroup.hasEquivalentValue( appleSceneModel.greenAppleGroup );
+      var fill = (equivalent && appleSceneModel.showBoth) ? 'black' : 'white';
+      rightIndicator.fill = fill;
+      leftIndicator.fill = fill;
     };
     appleSceneModel.redAppleGroup.totalCostProperty.link( updateTriangleFills );
     appleSceneModel.redAppleGroup.numberOfApplesProperty.link( updateTriangleFills );
