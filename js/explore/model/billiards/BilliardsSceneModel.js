@@ -15,10 +15,7 @@ define( function( require ) {
   // TODO: Somewhat duplicated with other scene models, perhaps factor out a parent class
   function BilliardsSceneModel( predictMode ) {
     var billiardsSceneModel = this;
-    ExploreSceneModel.call( this, predictMode, { showBothTables: false } );
-
-    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
-    this.showBothTablesProperty = this.showBothTablesProperty || null;
+    ExploreSceneModel.call( this, predictMode );
 
     this.table1 = new BilliardsTableModel();
     this.table2 = new BilliardsTableModel();
@@ -55,7 +52,7 @@ define( function( require ) {
     step: function( dt ) {
       if ( this.reveal ) {
         this.table1.step( dt );
-        if ( this.showBothTables ) {
+        if ( this.showBoth ) {
           this.table2.step( dt );
         }
       }

@@ -15,12 +15,10 @@ define( function( require ) {
 
   function PaintSceneModel( predictMode ) {
     ExploreSceneModel.call( this, predictMode, {
-      showBothSplotches: false,
       grayscale: false
     } );
 
     // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
-    this.showBothSplotchesProperty = this.showBothSplotchesProperty || null;
     this.grayscaleProperty = this.grayscaleProperty || null;
 
     this.splotch1Model = new SplotchModel();

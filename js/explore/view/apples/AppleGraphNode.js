@@ -95,7 +95,7 @@ define( function( require ) {
         rightIndicator.visible = false;
       }
       else {
-        rightIndicator.visible = appleSceneModel.showBothAppleGroups && revealProperty.get();
+        rightIndicator.visible = appleSceneModel.showBoth && revealProperty.get();
         rightIndicator.centerY = Util.linear( 0, 20, arrowHeight, 0, costPerApple );
       }
     };
@@ -103,7 +103,7 @@ define( function( require ) {
     // TODO: evaluate multilink properties throughout the sim
     appleSceneModel.greenAppleGroup.totalCostProperty.link( updateRightIndicator );
     appleSceneModel.greenAppleGroup.numberOfApplesProperty.link( updateRightIndicator );
-    appleSceneModel.showBothAppleGroupsProperty.link( updateRightIndicator );
+    appleSceneModel.showBothProperty.link( updateRightIndicator );
 
     revealProperty.link( updateRightIndicator );
     revealProperty.link( updateLeftIndicator );
@@ -120,7 +120,7 @@ define( function( require ) {
       // TODO: factor out duplicated code
       if ( appleSceneModel.redAppleGroup.ratio1 === appleSceneModel.greenAppleGroup.ratio1 &&
            appleSceneModel.redAppleGroup.ratio2 === appleSceneModel.greenAppleGroup.ratio2 &&
-           appleSceneModel.showBothAppleGroups ) {
+           appleSceneModel.showBoth ) {
         leftIndicator.fill = 'black';
       }
       else {
@@ -131,10 +131,10 @@ define( function( require ) {
     appleSceneModel.redAppleGroup.numberOfApplesProperty.link( updateTriangleFills );
     appleSceneModel.greenAppleGroup.totalCostProperty.link( updateTriangleFills );
     appleSceneModel.greenAppleGroup.numberOfApplesProperty.link( updateTriangleFills );
-    appleSceneModel.showBothAppleGroupsProperty.link( updateTriangleFills );
+    appleSceneModel.showBothProperty.link( updateTriangleFills );
 
-    appleSceneModel.showBothAppleGroupsProperty.link( function( showBothAppleGroups ) {
-      appleGraphNode.x = showBothAppleGroups ? layoutBounds.centerX : layoutBounds.right * 0.7;
+    appleSceneModel.showBothProperty.link( function( showBoth ) {
+      appleGraphNode.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
     } );
 
     this.centerY = 250;

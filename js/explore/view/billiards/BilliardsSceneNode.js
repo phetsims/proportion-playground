@@ -22,7 +22,7 @@ define( function( require ) {
     var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table2, billiardsSceneModel.revealProperty, {
       side: 'right'
     } );
-    var abSwitch = new ABSwitch( billiardsSceneModel.showBothTablesProperty,
+    var abSwitch = new ABSwitch( billiardsSceneModel.showBothProperty,
       false, new BilliardTableIcon( 120, 120, { scale: 0.3 } ), // TODO: factor out scale
       true, new HBox( {
         spacing: 10,
@@ -44,10 +44,10 @@ define( function( require ) {
       this.addChild( revealButton );
     }
 
-    billiardsSceneModel.showBothTablesProperty.link( function( showBothTables ) {
-      billiardsTableNode2.visible = showBothTables;
+    billiardsSceneModel.showBothProperty.link( function( showBoth ) {
+      billiardsTableNode2.visible = showBoth;
 
-      if ( showBothTables ) {
+      if ( showBoth ) {
         billiardsTableNode1.left = 10;
         billiardsTableNode2.right = layoutBounds.right - 10;
         revealButton && revealButton.mutate( { left: layoutBounds.left + 10 } );

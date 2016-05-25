@@ -14,12 +14,7 @@ define( function( require ) {
   var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
 
   function NecklaceSceneModel( predictMode ) {
-    ExploreSceneModel.call( this, predictMode, {
-      showBothNecklaces: false
-    } );
-
-    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
-    this.showBothNecklacesProperty = this.showBothNecklacesProperty || null;
+    ExploreSceneModel.call( this, predictMode );
 
     this.necklace1Model = new NecklaceModel();
     this.necklace2Model = new NecklaceModel();

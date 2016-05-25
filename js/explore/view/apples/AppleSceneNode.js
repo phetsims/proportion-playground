@@ -31,7 +31,7 @@ define( function( require ) {
     var appleGraphNode = new AppleGraphNode( layoutBounds, appleSceneModel, appleSceneModel.revealProperty );
     var greenAppleImageNode = new Image( greenAppleImage, { scale: 0.2 } );
     var redAppleImageNode = new Image( redAppleImage, { scale: 0.2 } );
-    var abSwitch = new ABSwitch( appleSceneModel.showBothAppleGroupsProperty,
+    var abSwitch = new ABSwitch( appleSceneModel.showBothProperty,
       false, new HBox( {
         children: [
           new HStrut( greenAppleImageNode.width ),
@@ -60,11 +60,11 @@ define( function( require ) {
       this.addChild( revealButton );
     }
 
-    appleSceneModel.showBothAppleGroupsProperty.link( function( showBothAppleGroups ) {
-      greenAppleGroupNode.visible = showBothAppleGroups;
+    appleSceneModel.showBothProperty.link( function( showBoth ) {
+      greenAppleGroupNode.visible = showBoth;
 
       // Controllable necklace nodes have x=0 at their center
-      if ( showBothAppleGroups ) {
+      if ( showBoth ) {
         redAppleGroupNode.x = layoutBounds.width * 1 / 3;
         greenAppleGroupNode.x = layoutBounds.width * 0.85; // TODO: Redo layout with less composition, more fine-grained control over position of components
 

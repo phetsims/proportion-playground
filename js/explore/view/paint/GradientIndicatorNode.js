@@ -101,7 +101,7 @@ define( function( require ) {
         rightIndicator.visible = false;
       }
       else {
-        rightIndicator.visible = paintSceneModel.showBothSplotches && revealProperty.get();
+        rightIndicator.visible = paintSceneModel.showBoth && revealProperty.get();
 
         var proportion = paintSceneModel.splotch2Model.color2Count / total;
         rightIndicator.centerY = proportion * gradientHeight;
@@ -111,7 +111,7 @@ define( function( require ) {
     // TODO: evaluate multilink properties throughout the sim
     paintSceneModel.splotch2Model.color1CountProperty.link( updateRightIndicator );
     paintSceneModel.splotch2Model.color2CountProperty.link( updateRightIndicator );
-    paintSceneModel.showBothSplotchesProperty.link( updateRightIndicator );
+    paintSceneModel.showBothProperty.link( updateRightIndicator );
     paintSceneModel.revealProperty.link( updateRightIndicator );
 
     var updateTriangleFills = function() {
@@ -137,8 +137,8 @@ define( function( require ) {
     paintSceneModel.splotch2Model.color1CountProperty.link( updateTriangleFills );
     paintSceneModel.splotch2Model.color2CountProperty.link( updateTriangleFills );
 
-    paintSceneModel.showBothSplotchesProperty.link( function( showBothSplotches ) {
-      gradientIndicatorNode.x = showBothSplotches ? layoutBounds.centerX : layoutBounds.right * 0.7;
+    paintSceneModel.showBothProperty.link( function( showBoth ) {
+      gradientIndicatorNode.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
     } );
 
     this.centerY = 250;

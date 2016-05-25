@@ -21,7 +21,7 @@ define( function( require ) {
     var firstControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace1Model, necklaceSceneModel.revealProperty );
     var secondControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace2Model, necklaceSceneModel.revealProperty );
     var options = { scale: 0.3 };
-    var abSwitch = new ABSwitch( necklaceSceneModel.showBothNecklacesProperty,
+    var abSwitch = new ABSwitch( necklaceSceneModel.showBothProperty,
       false, new StaticNecklaceNode( 14, 7 ).mutate( options ),
       true, new HBox( {
         children: [
@@ -40,11 +40,11 @@ define( function( require ) {
       this.addChild( revealButton );
     }
 
-    necklaceSceneModel.showBothNecklacesProperty.link( function( showBothNecklaces ) {
-      secondControllableNecklaceNode.visible = showBothNecklaces;
+    necklaceSceneModel.showBothProperty.link( function( showBoth ) {
+      secondControllableNecklaceNode.visible = showBoth;
 
       // Controllable necklace nodes have x=0 at their center
-      if ( showBothNecklaces ) {
+      if ( showBoth ) {
         firstControllableNecklaceNode.x = layoutBounds.width * 1 / 3;
         secondControllableNecklaceNode.x = layoutBounds.width * 2 / 3;
 

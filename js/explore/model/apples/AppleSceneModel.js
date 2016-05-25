@@ -15,12 +15,10 @@ define( function( require ) {
 
   function AppleSceneModel( predictMode ) {
     ExploreSceneModel.call( this, predictMode, {
-      showBothAppleGroups: false,
       showCostPerApple: false
     } );
 
     // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
-    this.showBothAppleGroupsProperty = this.showBothAppleGroupsProperty || null;
     this.showCostPerAppleProperty = this.showCostPerAppleProperty || null;
 
     this.redAppleGroup = new AppleGroupModel();

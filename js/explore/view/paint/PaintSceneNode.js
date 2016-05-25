@@ -24,7 +24,7 @@ define( function( require ) {
   function PaintSceneNode( layoutBounds, paintSceneModel, predictMode ) {
     var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
     var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.splotch2Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
-    var abSwitch = new ABSwitch( paintSceneModel.showBothSplotchesProperty,
+    var abSwitch = new ABSwitch( paintSceneModel.showBothProperty,
       false, new HBox( {
         spacing: 10,
         children: [
@@ -56,11 +56,11 @@ define( function( require ) {
     }
     this.necklaceSceneModel = paintSceneModel;
 
-    paintSceneModel.showBothSplotchesProperty.link( function( showBothNecklaces ) {
-      controllableSplotchNode2.visible = showBothNecklaces;
+    paintSceneModel.showBothProperty.link( function( showBoth ) {
+      controllableSplotchNode2.visible = showBoth;
 
       // Controllable necklace nodes have x=0 at their center
-      if ( showBothNecklaces ) {
+      if ( showBoth ) {
         controllableSplotchNode1.x = layoutBounds.width * 1 / 3;
         controllableSplotchNode2.x = layoutBounds.width * 2 / 3;
 

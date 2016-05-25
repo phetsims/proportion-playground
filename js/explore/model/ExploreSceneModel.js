@@ -16,11 +16,13 @@ define( function( require ) {
     this.predictMode = predictMode;
 
     PropertySet.call( this, _.extend( {
-      reveal: !predictMode // {boolean} - true if the answer is being shown
+      reveal: !predictMode, // {boolean} - true if the answer is being shown
+      showBoth: false // {boolean} - true if both representations should be shown
     }, otherProperties ) );
 
     // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.revealProperty = this.revealProperty || null;
+    this.showBothProperty = this.showBothProperty || null;
   }
 
   proportionPlayground.register( 'ExploreSceneModel', ExploreSceneModel );
