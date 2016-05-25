@@ -86,7 +86,8 @@ define( function( require ) {
 
     appleSceneModel.redAppleGroup.totalCostProperty.link( updateLeftIndicator );
     appleSceneModel.redAppleGroup.numberOfApplesProperty.link( updateLeftIndicator );
-
+    revealProperty.link( updateLeftIndicator );
+    
     // TODO: Factor out duplicated with above
     var updateRightIndicator = function() {
 
@@ -104,9 +105,7 @@ define( function( require ) {
     appleSceneModel.greenAppleGroup.totalCostProperty.link( updateRightIndicator );
     appleSceneModel.greenAppleGroup.numberOfApplesProperty.link( updateRightIndicator );
     appleSceneModel.showBothProperty.link( updateRightIndicator );
-
     revealProperty.link( updateRightIndicator );
-    revealProperty.link( updateLeftIndicator );
 
     var updateTriangleFills = function() {
       var equivalent = appleSceneModel.redAppleGroup.hasEquivalentValue( appleSceneModel.greenAppleGroup );
