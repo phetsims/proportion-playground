@@ -19,7 +19,6 @@ define( function( require ) {
       totalCost: 0
     } );
 
-    // TODO: Combine ranges
     this.totalCostRange = new Range( 0, 20 );
     this.numberOfApplesRange = new Range( 1, 20 );
 
