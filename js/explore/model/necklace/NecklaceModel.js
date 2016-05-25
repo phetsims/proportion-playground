@@ -23,7 +23,7 @@ define( function( require ) {
     this.roundBeadRange = new Range( 0, 20 );
     this.squareBeadRange = new Range( 0, 20 );
 
-    //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
+    // TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
     this.roundBeadCountProperty = this.roundBeadCountProperty || null;
     this.squareBeadCountProperty = this.squareBeadCountProperty || null;
   }

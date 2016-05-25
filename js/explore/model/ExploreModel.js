@@ -25,8 +25,8 @@ define( function( require ) {
     PropertySet.call( this, {
       scene: ProportionPlaygroundQueryParameters.SCENE // {number, 0-indexed, indicating the scene}
     } );
-    // This line provided for code highlighting and navigation in IntelliJ IDEA
-    // TODO: Delete this line
+
+    // TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
     this.sceneProperty = this.sceneProperty || null;
 
     this.necklaceSceneModel = new NecklaceSceneModel( predictMode );

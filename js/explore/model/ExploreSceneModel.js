@@ -16,10 +16,10 @@ define( function( require ) {
     this.predictMode = predictMode;
 
     PropertySet.call( this, _.extend( {
-      reveal: !predictMode // if the answer is being shown // TODO: factor out from other scene models
+      reveal: !predictMode // {boolean} - true if the answer is being shown
     }, otherProperties ) );
 
-    //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
+    // TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
     this.revealProperty = this.revealProperty || null;
   }
 

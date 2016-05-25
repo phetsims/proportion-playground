@@ -19,7 +19,7 @@ define( function( require ) {
       showCostPerApple: false
     } );
 
-    //TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
+    // TODO: Delete these lines which are to temporarily improve code highlighting and navigation in IDEA
     this.showBothAppleGroupsProperty = this.showBothAppleGroupsProperty || null;
     this.showCostPerAppleProperty = this.showCostPerAppleProperty || null;
 
