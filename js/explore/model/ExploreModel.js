@@ -23,16 +23,16 @@ define( function( require ) {
   function ExploreModel( predictMode ) {
 
     PropertySet.call( this, {
-      scene: ProportionPlaygroundQueryParameters.SCENE
+      scene: ProportionPlaygroundQueryParameters.SCENE // {number, 0-indexed, indicating the scene}
     } );
+    // This line provided for code highlighting and navigation in IntelliJ IDEA
+    // TODO: Delete this line
+    this.sceneProperty = this.sceneProperty || null;
+
     this.necklaceSceneModel = new NecklaceSceneModel( predictMode );
     this.paintSceneModel = new PaintSceneModel( predictMode );
     this.billiardsSceneModel = new BilliardsSceneModel( predictMode );
     this.appleSceneModel = new AppleSceneModel( predictMode );
-
-    // This line provided for code highlighting and navigation in IntelliJ IDEA
-    // TODO: Delete this line
-    this.sceneProperty = this.sceneProperty || null;
 
     // For Predict screen
     this.predictMode = predictMode;

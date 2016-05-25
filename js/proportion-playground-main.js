@@ -20,11 +20,10 @@ define( function( require ) {
 
   var simOptions = {
     credits: {
-      //TODO fill in proper credits, all of these fields are optional, see joist.AboutDialog
       leadDesign: 'Amanda McGarry',
       softwareDevelopment: 'Sam Reid',
       team: 'Karina Hensberry, Jonathan Olson, Ariel Paul, Kathy Perkins, Beth Stade, Ian Whitacre',
-      qualityAssurance: '',
+      qualityAssurance: '', // TODO: Quality Assurance Credits
       graphicArts: 'Mariah Hermsmeyer',
       thanks: 'This sim builds (in part) on prior work by our colleagues at SRI and the SunBay team (http://sunbay.sri.com/).'
     }
