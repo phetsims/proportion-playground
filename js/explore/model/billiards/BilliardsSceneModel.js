@@ -36,6 +36,8 @@ define( function( require ) {
       billiardsSceneModel.table1.restartBall();
       billiardsSceneModel.table2.restartBall();
     };
+
+    // TODO: perhaps simpler to listen for revealProperty change?
     for ( var i = 0; i < changeProperties.length; i++ ) {
       changeProperties[ i ].link( restartBall );
     }
