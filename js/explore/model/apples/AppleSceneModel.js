@@ -10,11 +10,11 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var AppleGroupModel = require( 'PROPORTION_PLAYGROUND/explore/model/apples/AppleGroupModel' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
-  function AppleSceneModel() {
-    PropertySet.call( this, {
+  function AppleSceneModel( predictMode ) {
+    ExploreSceneModel.call( this, predictMode, {
       showBothAppleGroups: false,
       showCostPerApple: false
     } );
@@ -25,13 +25,20 @@ define( function( require ) {
 
     this.redAppleGroup = new AppleGroupModel();
     this.greenAppleGroup = new AppleGroupModel();
+
+    predictMode && this.registerChangeProperties( [
+      this.redAppleGroup.numberOfApplesProperty,
+      this.redAppleGroup.totalCostProperty,
+      this.greenAppleGroup.numberOfApplesProperty,
+      this.greenAppleGroup.totalCostProperty
+    ] );
   }
 
   proportionPlayground.register( 'AppleSceneModel', AppleSceneModel );
 
-  return inherit( PropertySet, AppleSceneModel, {
+  return inherit( ExploreSceneModel, AppleSceneModel, {
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      ExploreSceneModel.prototype.reset.call( this );
       this.redAppleGroup.reset();
       this.greenAppleGroup.reset();
     }

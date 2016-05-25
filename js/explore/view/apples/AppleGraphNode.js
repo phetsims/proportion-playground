@@ -22,7 +22,7 @@ define( function( require ) {
   // constants
   var ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick
 
-  function AppleGraphNode( layoutBounds, appleSceneModel, options ) {
+  function AppleGraphNode( layoutBounds, appleSceneModel, revealProperty, options ) {
     var appleGraphNode = this;
 
     var arrowWidth = 3;
@@ -79,7 +79,7 @@ define( function( require ) {
         leftIndicator.visible = false;
       }
       else {
-        leftIndicator.visible = true;
+        leftIndicator.visible = revealProperty.get();
         leftIndicator.centerY = Util.linear( 0, 20, arrowHeight, 0, costPerApple );
       }
     };
@@ -95,7 +95,7 @@ define( function( require ) {
         rightIndicator.visible = false;
       }
       else {
-        rightIndicator.visible = appleSceneModel.showBothAppleGroups;
+        rightIndicator.visible = appleSceneModel.showBothAppleGroups && revealProperty.get();
         rightIndicator.centerY = Util.linear( 0, 20, arrowHeight, 0, costPerApple );
       }
     };
@@ -104,6 +104,9 @@ define( function( require ) {
     appleSceneModel.greenAppleGroup.totalCostProperty.link( updateRightIndicator );
     appleSceneModel.greenAppleGroup.numberOfApplesProperty.link( updateRightIndicator );
     appleSceneModel.showBothAppleGroupsProperty.link( updateRightIndicator );
+
+    revealProperty.link( updateRightIndicator );
+    revealProperty.link( updateLeftIndicator );
 
     var updateTriangleFills = function() {
       if ( appleSceneModel.redAppleGroup.ratio1 === appleSceneModel.greenAppleGroup.ratio1 &&

@@ -40,8 +40,6 @@ define( function( require ) {
     },
     reset: function() {
       PropertySet.prototype.reset.call( this );
-      this.necklace1Model.reset();
-      this.necklace2Model.reset();
     }
   } );
 } );
