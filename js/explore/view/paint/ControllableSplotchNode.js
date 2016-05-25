@@ -20,15 +20,15 @@ define( function( require ) {
 
   function ControllableSplotchNode( splotchModel, grayscaleProperty, revealProperty ) {
     var numberPickerOptions = { scale: 2 };
-    var roundBeadNumberPicker = new NumberPicker( splotchModel.color1CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
+    var color1CountPicker = new NumberPicker( splotchModel.color1CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
       color: ColorMap.getColor( 0 )
     }, numberPickerOptions ) );
-    var squareBeadNumberPicker = new NumberPicker( splotchModel.color2CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
+    var color2CountPicker = new NumberPicker( splotchModel.color2CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
       color: ColorMap.getColor( 1 )
     }, numberPickerOptions ) );
 
     // TODO: Black/white spinners for black/white mode
-    
+
     // Wrap in a node so the visible flags don't collide
     var splotchNode = new Node( { children: [ new SplotchNode( splotchModel.color1CountProperty, splotchModel.color2CountProperty, grayscaleProperty ) ] } );
     revealProperty.linkAttribute( splotchNode, 'visible' );
@@ -41,8 +41,8 @@ define( function( require ) {
           y: 450,
           centerX: 0, // position around the origin
           children: [
-            roundBeadNumberPicker,
-            squareBeadNumberPicker
+            color1CountPicker,
+            color2CountPicker
           ]
         } )
       ]
