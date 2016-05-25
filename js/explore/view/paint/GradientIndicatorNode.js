@@ -115,27 +115,16 @@ define( function( require ) {
     paintSceneModel.revealProperty.link( updateRightIndicator );
 
     var updateTriangleFills = function() {
-      if ( paintSceneModel.splotch1Model.ratio1 === paintSceneModel.splotch2Model.ratio1 &&
-           paintSceneModel.splotch1Model.ratio2 === paintSceneModel.splotch2Model.ratio2 ) {
-        rightIndicator.fill = 'black';
-      }
-      else {
-        rightIndicator.fill = null;
-      }
-
-      // TODO: factor out duplicated code
-      if ( paintSceneModel.splotch1Model.ratio1 === paintSceneModel.splotch2Model.ratio1 &&
-           paintSceneModel.splotch1Model.ratio2 === paintSceneModel.splotch2Model.ratio2 ) {
-        leftIndicator.fill = 'black';
-      }
-      else {
-        leftIndicator.fill = null;
-      }
+      var equivalent = paintSceneModel.splotch1Model.hasEquivalentValue( paintSceneModel.splotch2Model );
+      var fill = (equivalent && paintSceneModel.showBoth) ? 'black' : 'white';
+      rightIndicator.fill = fill;
+      leftIndicator.fill = fill;
     };
     paintSceneModel.splotch1Model.color1CountProperty.link( updateTriangleFills );
     paintSceneModel.splotch1Model.color2CountProperty.link( updateTriangleFills );
     paintSceneModel.splotch2Model.color1CountProperty.link( updateTriangleFills );
     paintSceneModel.splotch2Model.color2CountProperty.link( updateTriangleFills );
+    paintSceneModel.showBothProperty.link( updateTriangleFills );
 
     paintSceneModel.showBothProperty.link( function( showBoth ) {
       gradientIndicatorNode.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
