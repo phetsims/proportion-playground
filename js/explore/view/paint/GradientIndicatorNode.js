@@ -20,7 +20,6 @@ define( function( require ) {
 
   function GradientIndicatorNode( layoutBounds, paintSceneModel, revealProperty, options ) {
     var gradientIndicatorNode = this;
-    var grayscaleProperty = paintSceneModel.grayscaleProperty; // TODO: inline
 
     var gradientWidth = 20;
     var gradientHeight = 300;
@@ -40,7 +39,7 @@ define( function( require ) {
     var leftIndicator = new TriangleNode( 'left', { right: 0 } );
     var rightIndicator = new TriangleNode( 'right', { left: gradientWidth } );
 
-    grayscaleProperty.link( function( grayscale ) {
+    paintSceneModel.grayscaleProperty.link( function( grayscale ) {
       colorGradient.visible = !grayscale;
       grayscaleGradient.visible = grayscale;
     } );
