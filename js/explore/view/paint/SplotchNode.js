@@ -73,7 +73,7 @@ define( function( require ) {
       var total = blueAmount + yellowAmount;
 
       // The size of the paint splotch grows
-      var scale = Util.linear( 0, 40, 1.0, 1.6, total );  // TODO: Is the size change distracting?
+      var scale = Util.linear( 0, 40, 1.0, 1.6, total );
       splotchNode.setScaleMagnitude( scale );
 
       splotchNode.center = new Vector2( 0, 250 );
