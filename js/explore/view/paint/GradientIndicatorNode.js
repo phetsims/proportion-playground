@@ -54,6 +54,7 @@ define( function( require ) {
     } );
 
     this.mutate( options );
+
     var createIndicatorUpdateFunction = function( indicator, splotchModel, condition ) {
       return function() {
         var total = splotchModel.color1Count + splotchModel.color2Count;
