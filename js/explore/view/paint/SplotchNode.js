@@ -57,11 +57,7 @@ define( function( require ) {
     var update = function() {
       updateFill();
 
-      var color1Amount = color1Property.value;
-      var color2Amount = color2Property.value;
-
-      // TODO: Duplicated in GradientNode creation
-      var total = color1Amount + color2Amount;
+      var total = color1Property.value + color2Property.value;
 
       // The size of the paint splotch grows
       var scale = Util.linear( 0, 40, 1.0, 1.6, total );
