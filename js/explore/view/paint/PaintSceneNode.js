@@ -21,26 +21,26 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
 
   function PaintSceneNode( layoutBounds, paintSceneModel, predictMode ) {
     var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
     var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.splotch2Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
+    var scaleOptions = { scale: 0.2 };
+    var splotchNode = new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, scaleOptions );
     var abSwitch = new ABSwitch( paintSceneModel.showBothProperty,
       false, new HBox( {
         spacing: 10,
         children: [
-          new SplotchNode( new Property( 0 ), new Property( 1 ), paintSceneModel.grayscaleProperty, {
-            scale: 0.2,
-            visible: false
-          } ),// TODO: spacer instead
-          new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, { scale: 0.2 } )
+          new HStrut( splotchNode.width ), // The spacer makes it easy to keep the ABSwitch centered
+          splotchNode
         ]
-      } ), // TODO move options to parameter
+      } ),
       true, new HBox( {
         spacing: 10,
         children: [
-          new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, { scale: 0.2 } ),
-          new SplotchNode( new Property( 1 ), new Property( 1 ), paintSceneModel.grayscaleProperty, { scale: 0.2 } )
+          new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, scaleOptions ),
+          new SplotchNode( new Property( 1 ), new Property( 1 ), paintSceneModel.grayscaleProperty, scaleOptions )
         ]
       } )
     );
