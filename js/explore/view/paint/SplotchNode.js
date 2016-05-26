@@ -34,12 +34,11 @@ define( function( require ) {
     Path.call( this, shape, { fill: 'green', stroke: 'black' } );
 
     var updateFill = function() {
-      var blueAmount = color1Property.value;
-      var yellowAmount = color2Property.value;
+      var color1Amount = color1Property.value;
+      var color2Amount = color2Property.value;
 
-      // TODO: Duplicated in GradientNode creation
-      var total = blueAmount + yellowAmount;
-      var blendAmount = yellowAmount / total;
+      var total = color1Amount + color2Amount;
+      var blendAmount = color2Amount / total;
 
       if ( total > 0 ) {
 
@@ -58,17 +57,17 @@ define( function( require ) {
     var update = function() {
       updateFill();
 
-      var blueAmount = color1Property.value;
-      var yellowAmount = color2Property.value;
+      var color1Amount = color1Property.value;
+      var color2Amount = color2Property.value;
 
       // TODO: Duplicated in GradientNode creation
-      var total = blueAmount + yellowAmount;
+      var total = color1Amount + color2Amount;
 
       // The size of the paint splotch grows
       var scale = Util.linear( 0, 40, 1.0, 1.6, total );
       splotchNode.setScaleMagnitude( scale );
       splotchNode.center = new Vector2( 0, 250 );
-      splotchNode.visible = (blueAmount + yellowAmount) > 0;
+      splotchNode.visible = total > 0;
     };
     color1Property.link( update );
     color2Property.link( update );
