@@ -22,10 +22,10 @@ define( function( require ) {
     var secondControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace2Model, necklaceSceneModel.revealProperty );
     var options = { scale: 0.3 };
     var abSwitch = new ABSwitch( necklaceSceneModel.showBothProperty,
-      false, new StaticNecklaceNode( 14, 7 ).mutate( options ),
+      false, new StaticNecklaceNode( 14, 7, options ),
       true, new HBox( {
         children: [
-          new StaticNecklaceNode( 10, 5 ).mutate( options ), new StaticNecklaceNode( 14, 7 ).mutate( options ) ]
+          new StaticNecklaceNode( 10, 5, options ), new StaticNecklaceNode( 14, 7, options ) ]
       } ) );
 
     Node.call( this, {

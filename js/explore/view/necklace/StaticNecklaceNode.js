@@ -23,7 +23,7 @@ define( function( require ) {
   // constants
   var pathOptions = { stroke: 'black', lineWidth: 2 };
 
-  function StaticNecklaceNode( roundBeadCount, squareBeadCount ) {
+  function StaticNecklaceNode( roundBeadCount, squareBeadCount, options ) {
 
     // approximate as polygon, then we can mutate points and curve segments to make it look more like a necklace
 
@@ -174,6 +174,7 @@ define( function( require ) {
     Node.call( this, {
       children: children
     } );
+    this.mutate( options );
   }
 
   proportionPlayground.register( 'StaticNecklaceNode', StaticNecklaceNode );

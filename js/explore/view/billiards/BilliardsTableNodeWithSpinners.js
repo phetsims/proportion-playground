@@ -24,7 +24,9 @@ define( function( require ) {
     var lengthNumberPicker = new NumberPicker( billiardsTableModel.lengthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
     var widthNumberPicker = new NumberPicker( billiardsTableModel.widthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
 
-    var billiardsTableNode = new BilliardsTableNode( new Vector2( 280, layoutBounds.centerY ), billiardsTableModel );
+    var billiardsTableNode = new BilliardsTableNode( new Vector2( 280, layoutBounds.centerY ), billiardsTableModel, {
+      x: options.side === 'left' ? 0 : -100
+    } );
     revealProperty.linkAttribute( billiardsTableNode, 'visible' );
     var toVBox = function( label, node ) {
       return new VBox( {
@@ -45,7 +47,7 @@ define( function( require ) {
             toVBox( 'width', widthNumberPicker )
           ]
         } ),
-        billiardsTableNode.mutate( { x: options.side === 'left' ? 0 : -100 } )
+        billiardsTableNode
       ]
     } );
   }

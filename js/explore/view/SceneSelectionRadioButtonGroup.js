@@ -20,7 +20,7 @@ define( function( require ) {
   var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
 
   function SceneSelectionRadioButtonGroup( sceneProperty, options ) {
-    var necklaceIcon = new StaticNecklaceNode( 14, 7 ).mutate( { scale: 0.2 } );
+    var necklaceIcon = new StaticNecklaceNode( 14, 7, { scale: 0.2 } );
     var paintBucketIcon = new Image( paintBucketImage );
     var billiardTableIcon = new BilliardTableIcon( 120, 120 );
     var redAppleIcon = new Image( redAppleImage );

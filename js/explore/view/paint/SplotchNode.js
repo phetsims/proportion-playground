@@ -19,7 +19,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Util = require( 'DOT/Util' );
 
-  function SplotchNode( color1Property, color2Property, grayscaleProperty ) {
+  function SplotchNode( color1Property, color2Property, grayscaleProperty, options ) {
 
     var splotchNode = this;
 
@@ -83,6 +83,8 @@ define( function( require ) {
     color1Property.link( update );
     color2Property.link( update );
     grayscaleProperty.link( updateFill );
+
+    this.mutate( options );
   }
 
   proportionPlayground.register( 'SplotchNode', SplotchNode );

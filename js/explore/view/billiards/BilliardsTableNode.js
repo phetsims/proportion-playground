@@ -19,7 +19,7 @@ define( function( require ) {
   // constants
   var scale = 18; // from model units to pixels
 
-  function BilliardsTableNode( center, billiardsTableModel ) {
+  function BilliardsTableNode( center, billiardsTableModel, options ) {
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
     var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#73481d' } ); // TODO: Colors duplicated in radio button group
@@ -119,6 +119,7 @@ define( function( require ) {
         currentLineNode
       ]
     } );
+    this.mutate( options );
   }
 
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );
