@@ -79,7 +79,7 @@ define( function( require ) {
     paintSceneModel.splotch2Model.color1CountProperty.link( updateRightIndicator );
     paintSceneModel.splotch2Model.color2CountProperty.link( updateRightIndicator );
     paintSceneModel.showBothProperty.link( updateRightIndicator );
-    paintSceneModel.revealProperty.link( updateRightIndicator );
+    revealProperty.link( updateRightIndicator );
 
     var updateTriangleFills = function() {
       var equivalent = paintSceneModel.splotch1Model.hasEquivalentValue( paintSceneModel.splotch2Model );
