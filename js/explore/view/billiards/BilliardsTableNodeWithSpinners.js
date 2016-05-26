@@ -17,6 +17,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsTableNode' );
   var Vector2 = require( 'DOT/Vector2' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   function BilliardsTableNodeWithSpinners( layoutBounds, billiardsTableModel, revealProperty, options ) {
     options = _.extend( { side: 'left' }, options );
@@ -31,7 +32,7 @@ define( function( require ) {
     var toVBox = function( label, node ) {
       return new VBox( {
         spacing: 15, children: [
-          new Text( label, { fontSize: 16 } ),
+          new Text( label, { fontSize: ProportionPlaygroundConstants.controlFontSize } ),
           node
         ]
       } );

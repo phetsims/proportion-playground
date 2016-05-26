@@ -9,7 +9,8 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   var ProportionPlaygroundConstants = {
-    beadDiameter: 18
+    beadDiameter: 18,
+    controlFontSize: 22
   };
   proportionPlayground.register( 'ProportionPlaygroundConstants', ProportionPlaygroundConstants );
 

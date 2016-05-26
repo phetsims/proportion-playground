@@ -20,6 +20,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // images
   var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
@@ -46,7 +47,7 @@ define( function( require ) {
       } )
     );
     var showCostPerAppleCheckBox = new CheckBox( new Text( 'Cost per apple', {
-      fontSize: 22
+      fontSize: ProportionPlaygroundConstants.controlFontSize
     } ), appleSceneModel.showCostPerAppleProperty ); // TODO: standardize and factor out font size
     Node.call( this, {
       children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch, showCostPerAppleCheckBox, appleGraphNode ]

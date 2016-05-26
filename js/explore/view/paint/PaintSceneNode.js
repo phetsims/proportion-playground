@@ -12,6 +12,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ControllableSplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/ControllableSplotchNode' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/SplotchNode' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -73,7 +74,7 @@ define( function( require ) {
     } );
     abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 );
 
-    var grayscaleCheckBox = new CheckBox( new Text( 'Black & White', { fontSize: 22 } ), paintSceneModel.grayscaleProperty, {
+    var grayscaleCheckBox = new CheckBox( new Text( 'Black & White', { fontSize: ProportionPlaygroundConstants.controlFontSize } ), paintSceneModel.grayscaleProperty, {
       left: layoutBounds.left + 5,
       bottom: layoutBounds.bottom - 5
     } );

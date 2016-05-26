@@ -18,6 +18,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   function ControllableAppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty, revealProperty ) {
     var numberPickerOptions = { scale: 2 };
@@ -30,7 +31,7 @@ define( function( require ) {
       return new VBox( {
         spacing: 10,
         children: [
-          new Text( label, { fontSize: 20 } ),
+          new Text( label, { fontSize: ProportionPlaygroundConstants.controlFontSize } ),
           numberPicker
         ]
       } );
