@@ -12,7 +12,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Range = require( 'DOT/Range' );
-  var Ball = require( './Ball' ); // TODO: is relative style legit?  If legit, is it maintainable despite being nonstandard?
+  var Ball = require( 'PROPORTION_PLAYGROUND/explore/model/billiards/Ball' );
   var Vector2 = require( 'DOT/Vector2' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Emitter = require( 'AXON/Emitter' );
