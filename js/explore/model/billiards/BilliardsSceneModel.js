@@ -27,17 +27,13 @@ define( function( require ) {
     ];
     predictMode && this.registerChangeProperties( changeProperties );
 
-    if ( predictMode ) {
-      var restartBall = function() {
+    // When the table is revealed, restart the balls.
+    this.revealProperty.link( function( reveal ) {
+      if ( reveal ) {
         billiardsSceneModel.table1.restartBall();
         billiardsSceneModel.table2.restartBall();
-      };
-
-      // TODO: perhaps simpler to listen for revealProperty change?
-      for ( var i = 0; i < changeProperties.length; i++ ) {
-        changeProperties[ i ].link( restartBall );
       }
-    }
+    } );
   }
 
   proportionPlayground.register( 'BilliardsSceneModel', BilliardsSceneModel );
