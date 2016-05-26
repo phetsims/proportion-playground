@@ -24,7 +24,8 @@ define( function( require ) {
   var coinScale = 0.7;
 
   function AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty ) {
-    var appleLayer = new Node( { y: 320 } );// TODO: factor out y
+    var yOffsetOptions = { y: 320 };
+    var appleLayer = new Node( yOffsetOptions );
     var coinLayer = new Node( { y: 320 } );
     var priceTagLayer = new Node( { x: -140, y: 120 } );
     Node.call( this, {
