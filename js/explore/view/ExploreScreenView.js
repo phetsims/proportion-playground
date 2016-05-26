@@ -48,17 +48,14 @@ define( function( require ) {
     var billiardsSceneNode = new BilliardsSceneNode( this.layoutBounds, exploreModel.billiardsSceneModel, exploreModel.predictMode );
     var appleSceneNode = new AppleSceneNode( this.layoutBounds, exploreModel.appleSceneModel, exploreModel.predictMode );
 
+    // Store by index for lookup by radio button index
+    var sceneArray = [ necklaceSceneNode, paintSceneNode, billiardsSceneNode, appleSceneNode ];
+
     var sceneParent = new Node();
     this.addChild( sceneParent );
 
     exploreModel.sceneProperty.link( function( scene ) {
-
-      // TODO: indices seem brittle
-      var sceneNode = scene === 0 ? necklaceSceneNode :
-                      scene === 1 ? paintSceneNode :
-                      scene === 2 ? billiardsSceneNode :
-                      scene === 3 ? appleSceneNode :
-                      new Node();
+      var sceneNode = sceneArray[ scene ];
       sceneParent.children = [ sceneNode ];
     } );
   }
