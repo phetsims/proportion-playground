@@ -37,11 +37,7 @@ define( function( require ) {
       var blueAmount = color1Property.value;
       var yellowAmount = color2Property.value;
 
-      // TODO: Addition in more realistic color space
-      // TODO: White paint doesn't show up on a white background.
       // TODO: Duplicated in GradientNode creation
-      // TODO: Come up with better color mixing physics
-
       var total = blueAmount + yellowAmount;
       var blendAmount = yellowAmount / total;
 
@@ -65,19 +61,13 @@ define( function( require ) {
       var blueAmount = color1Property.value;
       var yellowAmount = color2Property.value;
 
-      // TODO: Addition in more realistic color space
-      // TODO: White paint doesn't show up on a white background.
       // TODO: Duplicated in GradientNode creation
-      // TODO: Come up with better color mixing physics
-
       var total = blueAmount + yellowAmount;
 
       // The size of the paint splotch grows
       var scale = Util.linear( 0, 40, 1.0, 1.6, total );
       splotchNode.setScaleMagnitude( scale );
-
       splotchNode.center = new Vector2( 0, 250 );
-
       splotchNode.visible = (blueAmount + yellowAmount) > 0;
     };
     color1Property.link( update );
