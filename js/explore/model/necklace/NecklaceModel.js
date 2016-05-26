@@ -19,9 +19,7 @@ define( function( require ) {
       squareBeadCount: 0
     } );
 
-    // TODO: Combine ranges
-    this.roundBeadRange = new Range( 0, 20 );
-    this.squareBeadRange = new Range( 0, 20 );
+    this.beadCountRange = new Range( 0, 20 );
 
     // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.roundBeadCountProperty = this.roundBeadCountProperty || null;

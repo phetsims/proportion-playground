@@ -22,8 +22,8 @@ define( function( require ) {
 
   function ControllableNecklaceNode( necklaceModel, revealProperty ) {
     var numberPickerOptions = { scale: 2 };
-    var roundBeadNumberPicker = new NumberPicker( necklaceModel.roundBeadCountProperty, new Property( necklaceModel.roundBeadRange ), numberPickerOptions );
-    var squareBeadNumberPicker = new NumberPicker( necklaceModel.squareBeadCountProperty, new Property( necklaceModel.squareBeadRange ), numberPickerOptions );
+    var roundBeadNumberPicker = new NumberPicker( necklaceModel.roundBeadCountProperty, new Property( necklaceModel.beadCountRange ), numberPickerOptions );
+    var squareBeadNumberPicker = new NumberPicker( necklaceModel.squareBeadCountProperty, new Property( necklaceModel.beadCountRange ), numberPickerOptions );
     var necklaceNode = new NecklaceNode( necklaceModel );
     var toVBox = function( icon, numberPicker ) {
       return new VBox( {
