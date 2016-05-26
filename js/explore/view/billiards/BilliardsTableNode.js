@@ -15,6 +15,7 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // constants
   var scale = 18; // from model units to pixels
@@ -22,8 +23,8 @@ define( function( require ) {
   function BilliardsTableNode( center, billiardsTableModel, options ) {
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
-    var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#73481d' } ); // TODO: Colors duplicated in radio button group
-    var greenRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#0a6739' } );
+    var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundConstants.billiardsBrown } );
+    var greenRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundConstants.billiardsGreen } );
 
     var diameter = 10;
     var ballNode = new ShadedSphereNode( diameter, { mainColor: 'white', highlightColor: 'yellow' } );
