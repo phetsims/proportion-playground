@@ -12,7 +12,6 @@ define( function( require ) {
   var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
-  // TODO: Somewhat duplicated with other scene models, perhaps factor out a parent class
   function BilliardsSceneModel( predictMode ) {
     var billiardsSceneModel = this;
     ExploreSceneModel.call( this, predictMode );
