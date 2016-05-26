@@ -28,7 +28,6 @@ define( function( require ) {
     this.lengthProperty = this.lengthProperty || null;
     this.widthProperty = this.widthProperty || null;
 
-    // TODO: Factor out ranges
     this.range = new Range( 1, 20 );
 
     this.ball = new Ball();
