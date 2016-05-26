@@ -19,6 +19,7 @@ define( function( require ) {
 
   // constants
   var scale = 18; // from model units to pixels
+  var whiteStrokeOptions = { stroke: 'white' };
 
   function BilliardsTableNode( center, billiardsTableModel, options ) {
 
@@ -30,23 +31,26 @@ define( function( require ) {
     var ballNode = new ShadedSphereNode( diameter, { mainColor: 'white', highlightColor: 'yellow' } );
     var linesNode = new Node();
 
-    var radius = diameter / 2;
-    var topLeftHoleNode = new Circle( radius, { fill: 'black' } );
-    var topRightHoleNode = new Circle( radius, { fill: 'black' } );
-    var bottomRightHoleNode = new Circle( radius, { fill: 'black' } );
+    var createCircle = function() {
+      return new Circle( diameter / 2, { fill: 'black' } );
+    };
+    var topLeftHoleNode = createCircle();
+    var topRightHoleNode = createCircle();
+    var bottomRightHoleNode = createCircle();
 
     billiardsTableModel.restartEmitter.addListener( function() {
       linesNode.children = [];
     } );
-    var currentLineNode = new Line( 0, 0, 100, 100, { stroke: 'white', lineWidth: 2 } );// TODO: factor out
+    var movingLineOptions = { stroke: 'white', lineWidth: 2 };
+    var currentLineNode = new Line( 0, 0, 100, 100, movingLineOptions );
     billiardsTableModel.collisionPoints.addItemAddedListener( function( currentPoint ) {
       var a = billiardsTableModel.collisionPoints.getArray();
       var previousPoint = a[ a.length - 2 ];
       if ( previousPoint ) {
-        linesNode.addChild( new Line( previousPoint.x * scale, previousPoint.y * scale, currentPoint.x * scale, currentPoint.y * scale, {
-          stroke: 'white',
-          lineWidth: 2
-        } ) );
+        linesNode.addChild( new Line(
+          previousPoint.x * scale, previousPoint.y * scale,
+          currentPoint.x * scale, currentPoint.y * scale,
+          movingLineOptions ) );
       }
     } );
 
@@ -75,12 +79,12 @@ define( function( require ) {
 
         // vertical lines
         for ( var i = 0; i <= width; i++ ) {
-          gridLines.push( new Line( i * scale, 0, i * scale, scaledHeight, { stroke: 'white' } ) );
+          gridLines.push( new Line( i * scale, 0, i * scale, scaledHeight, whiteStrokeOptions ) );
         }
 
         // horizontal lines
         for ( var k = 0; k <= length; k++ ) {
-          gridLines.push( new Line( 0, k * scale, scaledWidth, k * scale, { stroke: 'white' } ) );
+          gridLines.push( new Line( 0, k * scale, scaledWidth, k * scale, whiteStrokeOptions ) );
         }
         return gridLines;
       };
