@@ -25,13 +25,14 @@ define( function( require ) {
     var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#73481d' } ); // TODO: Colors duplicated in radio button group
     var greenRectangle = new Rectangle( 0, 0, 0, 0, { fill: '#0a6739' } );
 
-    // TODO: Factor out diameter/radius
-    var ballNode = new ShadedSphereNode( 10, { mainColor: 'white', highlightColor: 'yellow' } );
+    var diameter = 10;
+    var ballNode = new ShadedSphereNode( diameter, { mainColor: 'white', highlightColor: 'yellow' } );
     var linesNode = new Node();
 
-    var topLeftHoleNode = new Circle( 5, { fill: 'black' } );
-    var topRightHoleNode = new Circle( 5, { fill: 'black' } );
-    var bottomRightHoleNode = new Circle( 5, { fill: 'black' } );
+    var radius = diameter / 2;
+    var topLeftHoleNode = new Circle( radius, { fill: 'black' } );
+    var topRightHoleNode = new Circle( radius, { fill: 'black' } );
+    var bottomRightHoleNode = new Circle( radius, { fill: 'black' } );
 
     billiardsTableModel.restartEmitter.addListener( function() {
       linesNode.children = [];
@@ -122,5 +123,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );
 
-  return inherit( Node, BilliardsTableNode, {} );
+  return inherit( Node, BilliardsTableNode );
 } );

@@ -87,5 +87,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'SplotchNode', SplotchNode );
 
-  return inherit( Path, SplotchNode, {} );
+  return inherit( Path, SplotchNode );
 } );

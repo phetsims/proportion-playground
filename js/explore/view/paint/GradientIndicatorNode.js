@@ -102,5 +102,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'GradientIndicatorNode', GradientIndicatorNode );
 
-  return inherit( Node, GradientIndicatorNode, {} );
+  return inherit( Node, GradientIndicatorNode );
 } );

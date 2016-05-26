@@ -79,5 +79,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'ControllableSplotchNode', ControllableSplotchNode );
 
-  return inherit( Node, ControllableSplotchNode, {} );
+  return inherit( Node, ControllableSplotchNode );
 } );

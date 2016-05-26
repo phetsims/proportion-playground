@@ -178,5 +178,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'StaticNecklaceNode', StaticNecklaceNode );
 
-  return inherit( Node, StaticNecklaceNode, {} );
+  return inherit( Node, StaticNecklaceNode );
 } );

@@ -23,5 +23,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'PredictScreenView', PredictScreenView );
 
-  return inherit( ScreenView, PredictScreenView, {} );
+  return inherit( ScreenView, PredictScreenView );
 } );

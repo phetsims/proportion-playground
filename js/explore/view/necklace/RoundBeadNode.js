@@ -24,5 +24,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'RoundBeadNode', RoundBeadNode );
 
-  return inherit( Node, RoundBeadNode, {} );
+  return inherit( Node, RoundBeadNode );
 } );

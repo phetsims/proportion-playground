@@ -66,5 +66,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'BilliardsSceneNode', BilliardsSceneNode );
 
-  return inherit( Node, BilliardsSceneNode, {} );
+  return inherit( Node, BilliardsSceneNode );
 } );

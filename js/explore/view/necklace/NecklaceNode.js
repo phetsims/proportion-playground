@@ -28,5 +28,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'NecklaceNode', NecklaceNode );
 
-  return inherit( Node, NecklaceNode, {} );
+  return inherit( Node, NecklaceNode );
 } );

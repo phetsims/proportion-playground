@@ -97,5 +97,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'AppleGraphNode', AppleGraphNode );
 
-  return inherit( Node, AppleGraphNode, {} );
+  return inherit( Node, AppleGraphNode );
 } );

@@ -25,5 +25,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'RevealButton', RevealButton );
 
-  return inherit( BooleanRoundStickyToggleButton, RevealButton, {} );
+  return inherit( BooleanRoundStickyToggleButton, RevealButton );
 } );

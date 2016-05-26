@@ -54,5 +54,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'ControllableAppleGroupNode', ControllableAppleGroupNode );
 
-  return inherit( Node, ControllableAppleGroupNode, {} );
+  return inherit( Node, ControllableAppleGroupNode );
 } );

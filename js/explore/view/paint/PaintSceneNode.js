@@ -85,5 +85,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'PaintSceneNode', PaintSceneNode );
 
-  return inherit( Node, PaintSceneNode, {} );
+  return inherit( Node, PaintSceneNode );
 } );

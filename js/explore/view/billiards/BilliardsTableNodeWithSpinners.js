@@ -52,5 +52,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'BilliardsTableNodeWithSpinners', BilliardsTableNodeWithSpinners );
 
-  return inherit( Node, BilliardsTableNodeWithSpinners, {} );
+  return inherit( Node, BilliardsTableNodeWithSpinners );
 } );

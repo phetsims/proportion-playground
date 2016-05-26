@@ -26,5 +26,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'BilliardTableIcon', BilliardTableIcon );
 
-  return inherit( Node, BilliardTableIcon, {} );
+  return inherit( Node, BilliardTableIcon );
 } );
