@@ -14,6 +14,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // strings
   var predictString = require( 'string!PROPORTION_PLAYGROUND/predict' );
@@ -30,8 +31,8 @@ define( function( require ) {
     Screen.call( this, predictString, icon,
       function() { return new PredictModel(); },
       function( model ) { return new PredictScreenView( model ); }, {
-        backgroundColor: '#fcf3eb' // TODO: Factor out
-      } 
+        backgroundColor: ProportionPlaygroundConstants.screenBackgroundColor
+      }
     );
   }
 

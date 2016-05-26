@@ -12,7 +12,8 @@ define( function( require ) {
     beadDiameter: 18,
     controlFontSize: 22,
     billiardsBrown: '#73481d',
-    billiardsGreen: '#0a6739'
+    billiardsGreen: '#0a6739',
+    screenBackgroundColor: '#fcf3eb'
   };
   proportionPlayground.register( 'ProportionPlaygroundConstants', ProportionPlaygroundConstants );
 

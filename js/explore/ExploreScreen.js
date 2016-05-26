@@ -14,7 +14,8 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  
   // strings
   var exploreString = require( 'string!PROPORTION_PLAYGROUND/explore' );
 
@@ -29,8 +30,9 @@ define( function( require ) {
 
     Screen.call( this, exploreString, icon,
       function() { return new ExploreModel( false ); },
-      function( model ) { return new ExploreScreenView( model ); },
-      { backgroundColor: '#fcf3eb' }
+      function( model ) { return new ExploreScreenView( model ); }, {
+        backgroundColor: ProportionPlaygroundConstants.screenBackgroundColor
+      }
     );
   }
 
