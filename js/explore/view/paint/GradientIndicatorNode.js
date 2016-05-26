@@ -54,38 +54,26 @@ define( function( require ) {
     } );
 
     this.mutate( options );
+    var createIndicatorUpdateFunction = function( indicator, splotchModel, condition ) {
+      return function() {
+        var total = splotchModel.color1Count + splotchModel.color2Count;
+        if ( total === 0 ) {
+          indicator.visible = false;
+        }
+        else {
+          indicator.visible = condition() && revealProperty.get();
 
-    var updateLeftIndicator = function() {
-      var total = paintSceneModel.splotch1Model.color1Count + paintSceneModel.splotch1Model.color2Count;
-      if ( total === 0 ) {
-        leftIndicator.visible = false;
-      }
-      else {
-        leftIndicator.visible = revealProperty.get();
-
-        var proportion = paintSceneModel.splotch1Model.color2Count / total;
-        leftIndicator.centerY = proportion * gradientHeight;
-      }
+          var proportion = splotchModel.color2Count / total;
+          indicator.centerY = proportion * gradientHeight;
+        }
+      };
     };
+    var updateLeftIndicator = createIndicatorUpdateFunction( leftIndicator, paintSceneModel.splotch1Model, function() {return true;} );
+    var updateRightIndicator = createIndicatorUpdateFunction( rightIndicator, paintSceneModel.splotch2Model, function() {return paintSceneModel.showBoth;} );
 
     paintSceneModel.splotch1Model.color1CountProperty.link( updateLeftIndicator );
     paintSceneModel.splotch1Model.color2CountProperty.link( updateLeftIndicator );
     revealProperty.link( updateLeftIndicator );
-
-    // TODO: Factor out duplicated with above
-    var updateRightIndicator = function() {
-
-      var total = paintSceneModel.splotch2Model.color1Count + paintSceneModel.splotch2Model.color2Count;
-      if ( total === 0 ) {
-        rightIndicator.visible = false;
-      }
-      else {
-        rightIndicator.visible = paintSceneModel.showBoth && revealProperty.get();
-
-        var proportion = paintSceneModel.splotch2Model.color2Count / total;
-        rightIndicator.centerY = proportion * gradientHeight;
-      }
-    };
 
     // TODO: evaluate multilink properties throughout the sim
     paintSceneModel.splotch2Model.color1CountProperty.link( updateRightIndicator );
