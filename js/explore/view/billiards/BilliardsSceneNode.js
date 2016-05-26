@@ -22,13 +22,14 @@ define( function( require ) {
     var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table2, billiardsSceneModel.revealProperty, {
       side: 'right'
     } );
+    var scaleOptions = { scale: 0.3 };
     var abSwitch = new ABSwitch( billiardsSceneModel.showBothProperty,
-      false, new BilliardTableIcon( 120, 120, { scale: 0.3 } ), // TODO: factor out scale
+      false, new BilliardTableIcon( 120, 120, scaleOptions ),
       true, new HBox( {
         spacing: 10,
         children: [
-          new BilliardTableIcon( 100, 100, { scale: 0.3 } ),
-          new BilliardTableIcon( 100, 100, { scale: 0.3 } ) ]
+          new BilliardTableIcon( 100, 100, scaleOptions ),
+          new BilliardTableIcon( 100, 100, scaleOptions ) ]
       } )
     );
 
