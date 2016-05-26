@@ -48,7 +48,7 @@ define( function( require ) {
     );
     var showCostPerAppleCheckBox = new CheckBox( new Text( 'Cost per apple', {
       fontSize: ProportionPlaygroundConstants.controlFontSize
-    } ), appleSceneModel.showCostPerAppleProperty ); // TODO: standardize and factor out font size
+    } ), appleSceneModel.showCostPerAppleProperty ); 
     Node.call( this, {
       children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch, showCostPerAppleCheckBox, appleGraphNode ]
     } );
