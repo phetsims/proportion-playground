@@ -55,8 +55,6 @@ define( function( require ) {
       picker2Color.visible = !grayscale;
     } );
 
-    // TODO: Black/white spinners for black/white mode
-
     // Wrap in a node so the visible flags don't collide
     var splotchNode = new Node( { children: [ new SplotchNode( splotchModel.color1CountProperty, splotchModel.color2CountProperty, grayscaleProperty ) ] } );
     revealProperty.linkAttribute( splotchNode, 'visible' );
