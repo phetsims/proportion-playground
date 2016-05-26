@@ -51,34 +51,24 @@ define( function( require ) {
 
     this.mutate( options );
 
-    // TODO: duplicated with below
-    var updateLeftIndicator = function() {
-      var costPerApple = appleSceneModel.redAppleGroup.totalCost / appleSceneModel.redAppleGroup.numberOfApples;
-      if ( appleSceneModel.redAppleGroup.numberOfApples === 0 ) {
-        leftIndicator.visible = false;
-      }
-      else {
-        leftIndicator.visible = revealProperty.get();
-        leftIndicator.centerY = Util.linear( 0, 20, arrowHeight, 0, costPerApple );
-      }
+    var createIndicatorUpdateFunction = function( indicator, appleGroup, condition ) {
+      return function() {
+        var costPerApple = appleGroup.totalCost / appleGroup.numberOfApples;
+        if ( appleGroup.numberOfApples === 0 ) {
+          indicator.visible = false;
+        }
+        else {
+          indicator.visible = condition() && revealProperty.get();
+          indicator.centerY = Util.linear( 0, 20, arrowHeight, 0, costPerApple );
+        }
+      };
     };
+    var updateLeftIndicator = createIndicatorUpdateFunction( leftIndicator, appleSceneModel.redAppleGroup, function() {return true;} );
+    var updateRightIndicator = createIndicatorUpdateFunction( rightIndicator, appleSceneModel.greenAppleGroup, function() {return appleSceneModel.showBoth;} );
 
     appleSceneModel.redAppleGroup.totalCostProperty.link( updateLeftIndicator );
     appleSceneModel.redAppleGroup.numberOfApplesProperty.link( updateLeftIndicator );
     revealProperty.link( updateLeftIndicator );
-
-    // TODO: Factor out duplicated with above
-    var updateRightIndicator = function() {
-
-      var costPerApple = appleSceneModel.greenAppleGroup.totalCost / appleSceneModel.greenAppleGroup.numberOfApples;
-      if ( appleSceneModel.greenAppleGroup.numberOfApples === 0 ) {
-        rightIndicator.visible = false;
-      }
-      else {
-        rightIndicator.visible = appleSceneModel.showBoth && revealProperty.get();
-        rightIndicator.centerY = Util.linear( 0, 20, arrowHeight, 0, costPerApple );
-      }
-    };
 
     // TODO: evaluate multilink properties throughout the sim
     appleSceneModel.greenAppleGroup.totalCostProperty.link( updateRightIndicator );
