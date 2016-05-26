@@ -23,7 +23,7 @@ define( function( require ) {
   function ExploreModel( predictMode ) {
 
     PropertySet.call( this, {
-      scene: ProportionPlaygroundQueryParameters.SCENE // {number, 0-indexed, indicating the scene}
+      scene: ProportionPlaygroundQueryParameters.SCENE // {number} @public , 0-indexed, indicating the scene
     } );
 
     // These assignments provide improved highlighting and navigation in IntelliJ IDEA

@@ -53,8 +53,6 @@ define( function( require ) {
       right: 0
     } );
 
-    // TODO: Make it so you can drag the triangle indicator
-
     var rightTriangleShape = leftTriangleShape.transformed( Matrix3.scaling( -1, 1 ) );
     var rightIndicator = new Path( rightTriangleShape, {
       stroke: 'black', // TODO: factor out
