@@ -18,7 +18,6 @@ define( function( require ) {
   var Emitter = require( 'AXON/Emitter' );
 
   function BilliardsTableModel() {
-    var billiardsTableModel = this;
     PropertySet.call( this, {
       length: 1,
       width: 1
@@ -37,20 +36,9 @@ define( function( require ) {
 
     this.restartEmitter = new Emitter();
 
-    // TODO: make instance function
-    var restartBall = function() {
-      billiardsTableModel.ball.restartBall( 0, billiardsTableModel.length );
-      billiardsTableModel.collisionPoints.clear();
-      billiardsTableModel.restartEmitter.emit();
-    };
+    var restartBall = this.restartBall.bind( this );
     this.lengthProperty.link( restartBall );
     this.widthProperty.link( restartBall );
-
-    this.resetBilliardsTableModel = function() {
-      restartBall();
-    };
-
-    this.restartBall = restartBall;
   }
 
   proportionPlayground.register( 'BilliardsTableModel', BilliardsTableModel );
@@ -61,9 +49,14 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, BilliardsTableModel, {
+    restartBall: function() {
+      this.ball.restartBall( 0, this.length );
+      this.collisionPoints.clear();
+      this.restartEmitter.emit();
+    },
     reset: function() {
       PropertySet.prototype.reset.call( this );
-      this.resetBilliardsTableModel();
+      this.restartBall();
     },
     step: function( dt ) {
 
