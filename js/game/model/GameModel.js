@@ -17,19 +17,15 @@ define( function( require ) {
    */
   function GameModel() {
 
-    PropertySet.call( this, {
-      //TODO
-    } );
+    PropertySet.call( this, {} );
   }
 
   proportionPlayground.register( 'GameModel', GameModel );
 
   return inherit( PropertySet, GameModel, {
 
-    //TODO Called by the animation loop. Optional, so if your model has no animation, please delete this.
     // @public
     step: function( dt ) {
-      //TODO Handle model animation here.
     }
   } );
 } );
