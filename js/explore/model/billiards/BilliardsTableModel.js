@@ -58,6 +58,13 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
       this.restartBall();
     },
+    // @private
+    bounce: function( xVelocityScale, yVelocityScale, x, y ) {
+      this.ball.velocity.x *= xVelocityScale;
+      this.ball.velocity.y *= yVelocityScale;
+      this.ball.position = round( x, y );
+      this.collisionPoints.push( this.ball.position.copy() );
+    },
     step: function( dt ) {
 
       // Cap DT
@@ -71,27 +78,21 @@ define( function( require ) {
       }
       this.ball.position = this.ball.position.plus( this.ball.velocity.times( dt ) );
 
-      // TODO: Factor out?
-      if ( this.ball.velocity.x > 0 && this.ball.position.x >= this.width ) {
-        this.ball.velocity.x *= -1;
-        this.ball.position = round( this.width, this.ball.position.y );
-        this.collisionPoints.push( this.ball.position.copy() );
+      var vx = this.ball.velocity.x;
+      var vy = this.ball.velocity.y;
+      var x = this.ball.position.x;
+      var y = this.ball.position.y;
+      if ( vx > 0 && x >= this.width ) {
+        this.bounce( -1, 1, this.width, y );
       }
-      if ( this.ball.velocity.x < 0 && this.ball.position.x <= 0 ) {
-        this.ball.velocity.x *= -1;
-        this.ball.position = round( 0, this.ball.position.y );
-        this.collisionPoints.push( this.ball.position.copy() );
+      if ( vx < 0 && x <= 0 ) {
+        this.bounce( -1, 1, 0, y );
       }
-
-      if ( this.ball.velocity.y > 0 && this.ball.position.y >= this.length ) {
-        this.ball.velocity.y *= -1;
-        this.ball.position = round( this.ball.position.x, this.length );
-        this.collisionPoints.push( this.ball.position.copy() );
+      if ( vy > 0 && y >= this.length ) {
+        this.bounce( 1, -1, x, this.length );
       }
-      if ( this.ball.velocity.y < 0 && this.ball.position.y <= 0 ) {
-        this.ball.velocity.y *= -1;
-        this.ball.position = round( this.ball.position.x, 0 );
-        this.collisionPoints.push( this.ball.position.copy() );
+      if ( vy < 0 && y <= 0 ) {
+        this.bounce( 1, -1, x, 0 );
       }
 
       // Stop the ball when it strikes a corner
