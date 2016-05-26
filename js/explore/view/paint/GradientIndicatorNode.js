@@ -15,10 +15,8 @@ define( function( require ) {
   var Vector3 = require( 'DOT/Vector3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var ColorMap = require( 'PROPORTION_PLAYGROUND/explore/view/paint/ColorMap' );
+  var TriangleNode = require( 'PROPORTION_PLAYGROUND/explore/view/TriangleNode' );
 
   function GradientIndicatorNode( layoutBounds, paintSceneModel, revealProperty, options ) {
     var gradientIndicatorNode = this;
@@ -39,27 +37,8 @@ define( function( require ) {
       return new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
     } );
 
-    var triangleLength = 25;
-    var triangleAltitude = Math.sqrt( 3 ) / 2 * triangleLength;
-    var leftTriangleShape = new Shape()
-      .moveTo( 0, 0 )
-      .lineTo( triangleAltitude, triangleLength / 2 )
-      .lineTo( 0, triangleLength )
-      .lineTo( 0, 0 );
-    var leftIndicator = new Path( leftTriangleShape, {
-      stroke: 'black',
-      lineWidth: 2,
-      right: 0
-    } );
-
-    // TODO: Make it so you can drag the triangle indicator
-
-    var rightTriangleShape = leftTriangleShape.transformed( Matrix3.scaling( -1, 1 ) );
-    var rightIndicator = new Path( rightTriangleShape, {
-      stroke: 'black', // TODO: factor out
-      lineWidth: 2,
-      left: gradientWidth
-    } );
+    var leftIndicator = new TriangleNode( 'left', { right: 0 } );
+    var rightIndicator = new TriangleNode( 'right', { left: gradientWidth } );
 
     grayscaleProperty.link( function( grayscale ) {
       colorGradient.visible = !grayscale;

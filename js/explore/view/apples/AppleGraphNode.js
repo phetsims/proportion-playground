@@ -12,12 +12,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Util = require( 'DOT/Util' );
+  var TriangleNode = require( 'PROPORTION_PLAYGROUND/explore/view/TriangleNode' );
 
   // constants
   var ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick
@@ -40,25 +38,8 @@ define( function( require ) {
       centerY: Util.linear( 0, 20, arrowHeight, 0, 0 )
     } ) );
 
-    var triangleLength = 25;
-    var triangleAltitude = Math.sqrt( 3 ) / 2 * triangleLength;
-    var leftTriangleShape = new Shape()
-      .moveTo( 0, 0 )
-      .lineTo( triangleAltitude, triangleLength / 2 )
-      .lineTo( 0, triangleLength )
-      .lineTo( 0, 0 );
-    var leftIndicator = new Path( leftTriangleShape, {
-      stroke: 'black',
-      lineWidth: 2,
-      right: 0
-    } );
-
-    var rightTriangleShape = leftTriangleShape.transformed( Matrix3.scaling( -1, 1 ) );
-    var rightIndicator = new Path( rightTriangleShape, {
-      stroke: 'black', // TODO: factor out
-      lineWidth: 2,
-      left: arrowWidth
-    } );
+    var leftIndicator = new TriangleNode( 'left', { right: 0 } );
+    var rightIndicator = new TriangleNode( 'right', { left: arrowWidth } );
 
     Node.call( this, {
       children: [
@@ -85,7 +66,7 @@ define( function( require ) {
     appleSceneModel.redAppleGroup.totalCostProperty.link( updateLeftIndicator );
     appleSceneModel.redAppleGroup.numberOfApplesProperty.link( updateLeftIndicator );
     revealProperty.link( updateLeftIndicator );
-    
+
     // TODO: Factor out duplicated with above
     var updateRightIndicator = function() {
 
