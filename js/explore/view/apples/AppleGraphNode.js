@@ -16,6 +16,7 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var Util = require( 'DOT/Util' );
   var TriangleNode = require( 'PROPORTION_PLAYGROUND/explore/view/TriangleNode' );
+  var Property = require( 'AXON/Property' );
 
   // constants
   var ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick
@@ -63,30 +64,33 @@ define( function( require ) {
         }
       };
     };
-    var updateLeftIndicator = createIndicatorUpdateFunction( leftIndicator, appleSceneModel.redAppleGroup, function() {return true;} );
-    var updateRightIndicator = createIndicatorUpdateFunction( rightIndicator, appleSceneModel.greenAppleGroup, function() {return appleSceneModel.showBoth;} );
 
-    appleSceneModel.redAppleGroup.totalCostProperty.link( updateLeftIndicator );
-    appleSceneModel.redAppleGroup.numberOfApplesProperty.link( updateLeftIndicator );
-    revealProperty.link( updateLeftIndicator );
+    Property.multilink( [
+      appleSceneModel.redAppleGroup.totalCostProperty,
+      appleSceneModel.redAppleGroup.numberOfApplesProperty,
+      revealProperty
+    ], createIndicatorUpdateFunction( leftIndicator, appleSceneModel.redAppleGroup, function() {return true;} ) );
 
     // TODO: evaluate multilink properties throughout the sim
-    appleSceneModel.greenAppleGroup.totalCostProperty.link( updateRightIndicator );
-    appleSceneModel.greenAppleGroup.numberOfApplesProperty.link( updateRightIndicator );
-    appleSceneModel.showBothProperty.link( updateRightIndicator );
-    revealProperty.link( updateRightIndicator );
+    Property.multilink( [
+      appleSceneModel.greenAppleGroup.totalCostProperty,
+      appleSceneModel.greenAppleGroup.numberOfApplesProperty,
+      appleSceneModel.showBothProperty,
+      revealProperty
+    ], createIndicatorUpdateFunction( rightIndicator, appleSceneModel.greenAppleGroup, function() {return appleSceneModel.showBoth;} ) );
 
-    var updateTriangleFills = function() {
+    Property.multilink( [
+      appleSceneModel.redAppleGroup.totalCostProperty,
+      appleSceneModel.redAppleGroup.numberOfApplesProperty,
+      appleSceneModel.greenAppleGroup.totalCostProperty,
+      appleSceneModel.greenAppleGroup.numberOfApplesProperty,
+      appleSceneModel.showBothProperty
+    ], function() {
       var equivalent = appleSceneModel.redAppleGroup.hasEquivalentValue( appleSceneModel.greenAppleGroup );
       var fill = (equivalent && appleSceneModel.showBoth) ? 'black' : 'white';
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
-    };
-    appleSceneModel.redAppleGroup.totalCostProperty.link( updateTriangleFills );
-    appleSceneModel.redAppleGroup.numberOfApplesProperty.link( updateTriangleFills );
-    appleSceneModel.greenAppleGroup.totalCostProperty.link( updateTriangleFills );
-    appleSceneModel.greenAppleGroup.numberOfApplesProperty.link( updateTriangleFills );
-    appleSceneModel.showBothProperty.link( updateTriangleFills );
+    } );
 
     appleSceneModel.showBothProperty.link( function( showBoth ) {
       appleGraphNode.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;

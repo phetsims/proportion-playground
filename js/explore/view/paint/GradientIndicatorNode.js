@@ -17,6 +17,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ColorMap = require( 'PROPORTION_PLAYGROUND/explore/view/paint/ColorMap' );
   var TriangleNode = require( 'PROPORTION_PLAYGROUND/explore/view/TriangleNode' );
+  var Property = require( 'AXON/Property' );
 
   function GradientIndicatorNode( layoutBounds, paintSceneModel, revealProperty, options ) {
     var gradientIndicatorNode = this;
@@ -68,30 +69,34 @@ define( function( require ) {
         }
       };
     };
-    var updateLeftIndicator = createIndicatorUpdateFunction( leftIndicator, paintSceneModel.splotch1Model, function() {return true;} );
-    var updateRightIndicator = createIndicatorUpdateFunction( rightIndicator, paintSceneModel.splotch2Model, function() {return paintSceneModel.showBoth;} );
 
-    paintSceneModel.splotch1Model.color1CountProperty.link( updateLeftIndicator );
-    paintSceneModel.splotch1Model.color2CountProperty.link( updateLeftIndicator );
-    revealProperty.link( updateLeftIndicator );
+    Property.multilink( [
+      paintSceneModel.splotch1Model.color1CountProperty,
+      paintSceneModel.splotch1Model.color2CountProperty,
+      revealProperty
+    ], createIndicatorUpdateFunction( leftIndicator, paintSceneModel.splotch1Model, function() {return true;} ) );
+
+    Property.multilink( [
+      paintSceneModel.splotch2Model.color1CountProperty,
+      paintSceneModel.splotch2Model.color2CountProperty,
+      paintSceneModel.showBothProperty,
+      revealProperty
+    ], createIndicatorUpdateFunction( rightIndicator, paintSceneModel.splotch2Model, function() {return paintSceneModel.showBoth;} ) );
 
     // TODO: evaluate multilink properties throughout the sim
-    paintSceneModel.splotch2Model.color1CountProperty.link( updateRightIndicator );
-    paintSceneModel.splotch2Model.color2CountProperty.link( updateRightIndicator );
-    paintSceneModel.showBothProperty.link( updateRightIndicator );
-    revealProperty.link( updateRightIndicator );
 
-    var updateTriangleFills = function() {
+    Property.multilink( [
+      paintSceneModel.splotch1Model.color1CountProperty,
+      paintSceneModel.splotch1Model.color2CountProperty,
+      paintSceneModel.splotch2Model.color1CountProperty,
+      paintSceneModel.splotch2Model.color2CountProperty,
+      paintSceneModel.showBothProperty
+    ], function() {
       var equivalent = paintSceneModel.splotch1Model.hasEquivalentValue( paintSceneModel.splotch2Model );
       var fill = (equivalent && paintSceneModel.showBoth) ? 'black' : 'white';
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
-    };
-    paintSceneModel.splotch1Model.color1CountProperty.link( updateTriangleFills );
-    paintSceneModel.splotch1Model.color2CountProperty.link( updateTriangleFills );
-    paintSceneModel.splotch2Model.color1CountProperty.link( updateTriangleFills );
-    paintSceneModel.splotch2Model.color2CountProperty.link( updateTriangleFills );
-    paintSceneModel.showBothProperty.link( updateTriangleFills );
+    } );
 
     paintSceneModel.showBothProperty.link( function( showBoth ) {
       gradientIndicatorNode.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
