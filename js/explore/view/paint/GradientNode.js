@@ -42,10 +42,11 @@ define( function( require ) {
       context.fillRect( 0, i, width, 1 );
     }
 
-    this.addChild( new Image( canvas.toDataURL() ) );
+    var imageNode = new Image( canvas.toDataURL() );
 
     // since the Image's bounds aren't immediately computed, we override it here
-    this.setLocalBounds( new Bounds2( 0, 0, width, height ) );
+    imageNode.setLocalBounds( new Bounds2( 0, 0, width, height ) );
+    this.addChild( imageNode );
 
     // outline.
     this.addChild( new Rectangle( 0, 0, width, height, { stroke: 'black', lineWidth: 2 } ) );
