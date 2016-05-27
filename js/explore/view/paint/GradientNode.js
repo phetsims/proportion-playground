@@ -47,7 +47,7 @@ define( function( require ) {
     // since the Image's bounds aren't immediately computed, we override it here
     this.setLocalBounds( new Bounds2( 0, 0, width, height ) );
 
-    // outline. TODO: is it a problem that this goes outside of the LocalBounds?
+    // outline.
     this.addChild( new Rectangle( 0, 0, width, height, { stroke: 'black', lineWidth: 2 } ) );
 
     this.mutate( options );
