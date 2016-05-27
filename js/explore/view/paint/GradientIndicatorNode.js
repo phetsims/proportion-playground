@@ -24,12 +24,14 @@ define( function( require ) {
 
     var gradientWidth = 20;
     var gradientHeight = 300;
-    var colorGradient = new GradientNode( gradientWidth, gradientHeight, function( parameter ) {
+
+    var createGradientNode = function( map ) {
+      return new GradientNode( gradientWidth, gradientHeight, map );
+    };
+    var colorGradient = createGradientNode( function( parameter ) {
       return ColorMap.getColor( parameter );
     } );
-
-    // TODO: Factor out code duplicated with above
-    var grayscaleGradient = new GradientNode( gradientWidth, gradientHeight, function( parameter ) {
+    var grayscaleGradient = createGradientNode( function( parameter ) {
       var blackVector = new Vector3( 0, 0, 0 );
       var whiteVector = new Vector3( 1, 1, 1 );
 
