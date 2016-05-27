@@ -41,7 +41,7 @@ define( function( require ) {
       children: [
         appleGroupNode,
         new HBox( {
-          spacing: 150, // TODO: this is hack-ish, a more general layout would help
+          spacing: 150, // distance between the spinners
           y: 430,
           centerX: -140, // position one spinner under coin stack, other under apple stack
           children: [
