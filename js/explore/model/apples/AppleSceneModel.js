@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * Model for the Apple Scene, which includes two groups of apples, red and green.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -15,12 +16,13 @@ define( function( require ) {
 
   function AppleSceneModel( predictMode ) {
     ExploreSceneModel.call( this, predictMode, {
-      showCostPerApple: false
+      showCostPerApple: false // {boolean} @public
     } );
 
     // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.showCostPerAppleProperty = this.showCostPerAppleProperty || null;
 
+    // @public
     this.redAppleGroup = new AppleGroupModel();
     this.greenAppleGroup = new AppleGroupModel();
 
@@ -35,6 +37,11 @@ define( function( require ) {
   proportionPlayground.register( 'AppleSceneModel', AppleSceneModel );
 
   return inherit( ExploreSceneModel, AppleSceneModel, {
+
+    /**
+     * Reset the model
+     * @public
+     */
     reset: function() {
       ExploreSceneModel.prototype.reset.call( this );
       this.redAppleGroup.reset();

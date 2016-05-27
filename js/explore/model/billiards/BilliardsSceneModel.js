@@ -1,6 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * The model for the Billiards Scene (including both tables).
+ *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
@@ -12,10 +14,16 @@ define( function( require ) {
   var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
+  /**
+   *
+   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   * @constructor
+   */
   function BilliardsSceneModel( predictMode ) {
     var billiardsSceneModel = this;
     ExploreSceneModel.call( this, predictMode );
 
+    // @public
     this.table1 = new BilliardsTableModel();
     this.table2 = new BilliardsTableModel();
 
@@ -39,11 +47,22 @@ define( function( require ) {
   proportionPlayground.register( 'BilliardsSceneModel', BilliardsSceneModel );
 
   return inherit( ExploreSceneModel, BilliardsSceneModel, {
+
+    /**
+     * Resets the scene model
+     * @public
+     */
     reset: function() {
       ExploreSceneModel.prototype.reset.call( this );
       this.table1.reset();
       this.table2.reset();
     },
+
+    /**
+     * Moves the balls which have been revealed.
+     * @param dt
+     * @public
+     */
     step: function( dt ) {
       if ( this.reveal ) {
         this.table1.step( dt );

@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * Model for one table in the Billiards Scene
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -18,23 +19,31 @@ define( function( require ) {
   var Emitter = require( 'AXON/Emitter' );
   var Property = require( 'AXON/Property' );
 
+  /**
+   *
+   * @constructor
+   */
   function BilliardsTableModel() {
     PropertySet.call( this, {
-      length: 1,
-      width: 1
+      length: 1, // {number} @public - the number of grid units vertical
+      width: 1 // {number} @public - the number of grid units horizontal
     } );
 
     // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.lengthProperty = this.lengthProperty || null;
     this.widthProperty = this.widthProperty || null;
 
+    // @public (read-only)
     this.range = new Range( 1, 20 );
 
+    // @public (read-only)
     this.ball = new Ball();
 
     // Keep track of collision points so the path can be shown as array of lines.
+    // @public (read-only)
     this.collisionPoints = new ObservableArray();
 
+    // @public (read-only)
     this.restartEmitter = new Emitter();
 
     Property.multilink( [
@@ -51,22 +60,46 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, BilliardsTableModel, {
+
+    /**
+     * Restart the ball in the correct location and notify observers.
+     * @public
+     */
     restartBall: function() {
       this.ball.restartBall( 0, this.length );
       this.collisionPoints.clear();
       this.restartEmitter.emit();
     },
+
+    /**
+     * Reset the table and restart the ball.
+     * @public
+     */
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.restartBall();
     },
-    // @private
+
+    /**
+     * Generalized function for handling bouncing off any wall.
+     *
+     * @param {number} xVelocityScale - how much to scale the velocity in the x-direction (1 or -1)
+     * @param {number} yVelocityScale - how much to scale the velocity in the y-direction (1 or -1)
+     * @param {number} x - the rounded off collision point (so errors don't accumulate)
+     * @param {number} y - the rounded off collision point (so errors don't accumulate)
+     * @private
+     */
     bounce: function( xVelocityScale, yVelocityScale, x, y ) {
       this.ball.velocity.x *= xVelocityScale;
       this.ball.velocity.y *= yVelocityScale;
       this.ball.position = round( x, y );
       this.collisionPoints.push( this.ball.position.copy() );
     },
+
+    /**
+     * Moves the ball forward in time, and handles collisions.
+     * @param {number} dt - time to move forward in seconds
+     */
     step: function( dt ) {
 
       // Cap DT
