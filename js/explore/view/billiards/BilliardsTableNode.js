@@ -102,7 +102,6 @@ define( function( require ) {
       // grid lines
       gridLinesNode.children = createGridLines();
 
-      // TODO: Better layout for this, so we don't have to set translation of all the parts?
       brownRectangle.center = greenRectangle.center;
 
       bottomRightHoleNode.translation = greenRectangle.translation.plusXY( width * scale, length * scale );
