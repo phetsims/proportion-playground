@@ -71,7 +71,8 @@ define( function( require ) {
       }
     } );
     this.moveABSwitchToBottomCenter( abSwitch );
-    showCostPerAppleCheckBox.leftBottom = layoutBounds.leftBottom.plusXY( 10, -10 ); // TODO: factor out insets
+    var checkBoxInset = 10;
+    showCostPerAppleCheckBox.leftBottom = layoutBounds.leftBottom.plusXY( checkBoxInset, -checkBoxInset );
   }
 
   proportionPlayground.register( 'AppleSceneNode', AppleSceneNode );
