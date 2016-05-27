@@ -14,12 +14,16 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
+  /**
+   * @constructor
+   */
   function NecklaceModel() {
     PropertySet.call( this, {
-      roundBeadCount: 0,
-      squareBeadCount: 0
+      roundBeadCount: 0, // {number} @public the number of round beads in the necklace
+      squareBeadCount: 0 // {number} @public the number of square beads in the necklace
     } );
 
+    // Allowed range of bead counts
     this.beadCountRange = new Range( 0, ProportionPlaygroundConstants.maxBeads );
 
     // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
