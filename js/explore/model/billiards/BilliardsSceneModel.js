@@ -15,7 +15,6 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
-   *
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
    */

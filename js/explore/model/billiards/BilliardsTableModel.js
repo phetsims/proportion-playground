@@ -33,19 +33,20 @@ define( function( require ) {
     this.lengthProperty = this.lengthProperty || null;
     this.widthProperty = this.widthProperty || null;
 
-    // @public (read-only)
+    // @public (read-only) - the allowed values for length and width
     this.range = new Range( 1, 20 );
 
     // @public (read-only)
     this.ball = new Ball();
 
     // Keep track of collision points so the path can be shown as array of lines.
-    // @public (read-only)
+    // @public (read-only) - the points where the ball has collided with the walls
     this.collisionPoints = new ObservableArray();
 
-    // @public (read-only)
+    // @public (read-only) - emits when the ball was restarted
     this.restartEmitter = new Emitter();
 
+    // Restart the ball when the length or width changes
     Property.multilink( [
       this.lengthProperty,
       this.widthProperty
@@ -99,11 +100,12 @@ define( function( require ) {
     /**
      * Moves the ball forward in time, and handles collisions.
      * @param {number} dt - time to move forward in seconds
+     * @public
      */
     step: function( dt ) {
 
       // Cap DT
-      dt = Math.min( dt, 1 / 16 * 4 );
+      dt = Math.min( dt, 1 / 60 * 2 );
 
       if ( this.length === 0 || this.width === 0 ) {
         return;

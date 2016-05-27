@@ -14,6 +14,11 @@ define( function( require ) {
   var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
+  /**
+   *
+   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   * @constructor
+   */
   function AppleSceneModel( predictMode ) {
     ExploreSceneModel.call( this, predictMode, {
       showCostPerApple: false // {boolean} @public

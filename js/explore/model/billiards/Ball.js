@@ -15,7 +15,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var speed = 8;
+  var speed = 8; // Pixels per second
 
   /**
    *
