@@ -35,11 +35,11 @@ define( function( require ) {
     showCostPerAppleProperty.link( function( showCostPerApple ) {
       priceTagLayer.visible = showCostPerApple;
     } );
-    appleGroupModel.numberOfApplesProperty.link( function() {
+    appleGroupModel.numberOfApplesProperty.link( function( numberOfApples ) {
       var appleArray = [];
       var x = 0;
       var y = 0;
-      for ( var i = 0; i < appleGroupModel.numberOfApples; i++ ) {
+      for ( var i = 0; i < numberOfApples; i++ ) {
         var image = new Image( appleImage, { scale: appleScale, x: x, y: y } );
         appleArray.unshift( image ); // prepend to get z-order correct
         x = image.right;
@@ -52,11 +52,11 @@ define( function( require ) {
       appleLayer.x = -150; // TODO: in terms of number of images and scale
     } );
 
-    appleGroupModel.totalCostProperty.link( function() {
+    appleGroupModel.totalCostProperty.link( function( totalCost ) {
       var coinArray = [];
       var x = 0;
       var y = 0;
-      for ( var i = 0; i < appleGroupModel.totalCost; i++ ) {
+      for ( var i = 0; i < totalCost; i++ ) {
         var image = new Image( coinImage, { scale: coinScale, x: x, y: y } );
         coinArray.push( image );
         y = y - image.height / 6;
