@@ -58,7 +58,8 @@ define( function( require ) {
         children.push( new SquareBeadNode( { x: x } ) );
         x += 22;
       }
-      children.unshift( new Circle( 14, _.extend( { y: -11, x: (7 + 14) / 2 }, pathOptions ) ) ); // TODO: factor out numbers
+      var radius = 14;
+      children.unshift( new Circle( radius, _.extend( { y: -11, x: radius * 1.5 / 2 }, pathOptions ) ) );
     }
     else if ( numBeads > 2 ) {
 
