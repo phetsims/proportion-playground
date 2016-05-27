@@ -33,7 +33,7 @@ define( function( require ) {
       this.revealButton && this.revealButton.mutate( options );
     },
     moveABSwitchToBottomCenter: function( abSwitch ) {
-      abSwitch.centerBottom = this.layoutBounds.centerBottom.plusXY( 0, -5 ); // TODO: Factor out
+      abSwitch.centerBottom = this.layoutBounds.centerBottom.plusXY( 0, -5 );
     }
   } );
 } );

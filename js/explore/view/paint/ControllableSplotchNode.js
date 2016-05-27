@@ -21,26 +21,21 @@ define( function( require ) {
   function ControllableSplotchNode( splotchModel, grayscaleProperty, revealProperty ) {
     var numberPickerOptions = { scale: 2 };
 
-    // TODO: Factor out NumberPicker calls
-    var picker1Color = new NumberPicker( splotchModel.color1CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
-      color: ColorMap.getColor( 0 )
-    }, numberPickerOptions ) );
-    var picker1Black = new NumberPicker( splotchModel.color1CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
-      color: 'black'
-    }, numberPickerOptions ) );
+    var createNumberPicker = function( property, options ) {
+      return new NumberPicker( property, new Property( splotchModel.colorCountRange ), _.extend( options, numberPickerOptions ) );
+    };
 
+    var picker1Color = createNumberPicker( splotchModel.color1CountProperty, { color: ColorMap.getColor( 0 ) } );
+    var picker1Black = createNumberPicker( splotchModel.color1CountProperty, { color: 'black' } );
     var color1CountPicker = new Node( {
       children: [
         picker1Color,
         picker1Black
       ]
     } );
-    var picker2Color = new NumberPicker( splotchModel.color2CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
-      color: ColorMap.getColor( 1 )
-    }, numberPickerOptions ) );
-    var picker2Black = new NumberPicker( splotchModel.color2CountProperty, new Property( splotchModel.colorCountRange ), _.extend( {
-      color: 'white'
-    }, numberPickerOptions ) );
+
+    var picker2Color = createNumberPicker( splotchModel.color2CountProperty, { color: ColorMap.getColor( 1 ) } );
+    var picker2Black = createNumberPicker( splotchModel.color2CountProperty, { color: 'white' } );
     var color2CountPicker = new Node( {
       children: [
         picker2Color,
