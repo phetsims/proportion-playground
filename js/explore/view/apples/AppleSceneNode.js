@@ -60,7 +60,7 @@ define( function( require ) {
       // Controllable necklace nodes have x=0 at their center
       if ( showBoth ) {
         redAppleGroupNode.x = layoutBounds.width * 1 / 3;
-        greenAppleGroupNode.x = layoutBounds.width * 0.85; // TODO: Redo layout with less composition, more fine-grained control over position of components
+        greenAppleGroupNode.x = layoutBounds.width * 0.85;
 
         appleSceneNode.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
