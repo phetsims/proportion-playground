@@ -51,7 +51,7 @@ define( function( require ) {
       }
       appleLayer.children = appleArray;
 
-      appleLayer.x = -applesPerRow * appleImage[ 0 ].width * appleScale / 2; // TODO: in terms of number of images and scale
+      appleLayer.x = -applesPerRow * appleImage[ 0 ].width * appleScale / 2;
     } );
 
     appleGroupModel.totalCostProperty.link( function( totalCost ) {
