@@ -29,7 +29,7 @@ define( function( require ) {
    *
    * @param {Bounds2} layoutBounds - the visible screen bounds in view coordinates (before isometric scaling)
    * @param {AppleSceneModel} appleSceneModel - the model
-   * @param {Property} revealProperty - true if the representation is being shown.
+   * @param {Property.<boolean>} revealProperty - true if the representation is being shown.
    * @param {Object} [options] - Node options
    * @constructor
    */

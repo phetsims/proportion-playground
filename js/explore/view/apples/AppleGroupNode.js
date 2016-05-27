@@ -27,6 +27,13 @@ define( function( require ) {
   var applesPerRow = 5;
   var distanceBetweenCoinsAndApples = 65;
 
+  /**
+   *
+   * @param {AppleGroupModel} appleGroupModel - the model for the apple group
+   * @param {Image|mipmap} appleImage - the image to show for each apple
+   * @param {Property.<boolean>} showCostPerAppleProperty - indicates whether the price tag should be shown
+   * @constructor
+   */
   function AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty ) {
     var yOffsetOptions = { y: 320 };
     var appleLayer = new Node( yOffsetOptions );

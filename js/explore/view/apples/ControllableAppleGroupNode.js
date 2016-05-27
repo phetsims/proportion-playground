@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Combines a mutable NecklaceNode with its controls.
+ * Combines an AppleGroupNode with NumberPickers (spinners) that let you change the number of apples and coins.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -20,11 +20,24 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
+  /**
+   * @param {AppleGroupModel} appleGroupModel - the model
+   * @param {Image|mipmap} appleImage - the image to show for the apple grid and and apple icons
+   * @param {Property.<boolean>} showCostPerAppleProperty - true if the price tag should be shown
+   * @param {Property.<boolean>} revealProperty - true if the answer representation should be shown
+   * @constructor
+   */
   function ControllableAppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty, revealProperty ) {
+
+    // Create the spinners
     var numberPickerOptions = { scale: 2 };
     var totalCostNumberPicker = new NumberPicker( appleGroupModel.totalCostProperty, new Property( appleGroupModel.totalCostRange ), numberPickerOptions );
     var numberOfApplesNumberPicker = new NumberPicker( appleGroupModel.numberOfApplesProperty, new Property( appleGroupModel.numberOfApplesRange ), numberPickerOptions );
+
+    // Create the place where apples and coins will be shown.
     var appleGroupNode = new AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty );
+
+    // Only show the representation if it is being revealed
     revealProperty.linkAttribute( appleGroupNode, 'visible' );
 
     function toVBox( numberPicker, label ) {
