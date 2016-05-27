@@ -45,8 +45,9 @@ define( function( require ) {
     var appleGraphNode = new AppleGraphNode( layoutBounds, appleSceneModel, appleSceneModel.revealProperty );
 
     // Create icons for the ABSwitch
-    var greenAppleImageNode = new Image( greenAppleImage, { scale: 0.2 } );
-    var redAppleImageNode = new Image( redAppleImage, { scale: 0.2 } );
+    var scaleOptions = { scale: 0.2 };
+    var greenAppleImageNode = new Image( greenAppleImage, scaleOptions );
+    var redAppleImageNode = new Image( redAppleImage, scaleOptions );
 
     // Create the switch that toggles between showing 1 and 2 groups
     var abSwitch = new ABSwitch( appleSceneModel.showBothProperty,
