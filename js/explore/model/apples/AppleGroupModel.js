@@ -27,7 +27,7 @@ define( function( require ) {
     this.totalCostRange = new Range( 0, 20 ); // @public
     this.numberOfApplesRange = new Range( 1, 20 ); // @public
 
-    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
+    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.numberOfApplesProperty = this.numberOfApplesProperty || null;
     this.totalCostProperty = this.totalCostProperty || null;
   }

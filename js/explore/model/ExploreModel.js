@@ -26,9 +26,10 @@ define( function( require ) {
       scene: ProportionPlaygroundQueryParameters.SCENE // {number} @public , 0-indexed, indicating the scene
     } );
 
-    // These assignments provide improved highlighting and navigation in IntelliJ IDEA
+    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA
     this.sceneProperty = this.sceneProperty || null;
 
+    // @public
     this.necklaceSceneModel = new NecklaceSceneModel( predictMode );
     this.paintSceneModel = new PaintSceneModel( predictMode );
     this.billiardsSceneModel = new BilliardsSceneModel( predictMode );

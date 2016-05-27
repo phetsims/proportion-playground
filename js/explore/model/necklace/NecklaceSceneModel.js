@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * Model for the necklace scene, which contains two necklaces.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -16,6 +17,7 @@ define( function( require ) {
   function NecklaceSceneModel( predictMode ) {
     ExploreSceneModel.call( this, predictMode );
 
+    // @public
     this.necklace1Model = new NecklaceModel();
     this.necklace2Model = new NecklaceModel();
 
@@ -30,6 +32,11 @@ define( function( require ) {
   proportionPlayground.register( 'NecklaceSceneModel', NecklaceSceneModel );
 
   return inherit( ExploreSceneModel, NecklaceSceneModel, {
+
+    /**
+     * Resets the entire scene model
+     * @public
+     */
     reset: function() {
       ExploreSceneModel.prototype.reset.call( this );
       this.necklace1Model.reset();

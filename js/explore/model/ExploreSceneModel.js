@@ -20,7 +20,7 @@ define( function( require ) {
       showBoth: false // {boolean} - true if both representations should be shown
     }, otherProperties ) );
 
-    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
+    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.revealProperty = this.revealProperty || null;
     this.showBothProperty = this.showBothProperty || null;
   }

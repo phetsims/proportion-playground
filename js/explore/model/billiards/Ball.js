@@ -27,7 +27,7 @@ define( function( require ) {
       velocity: new Vector2( speed, -speed ) // {Vector2} @public the velocity of the ball in pixels per second
     } );
 
-    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
+    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.positionProperty = this.positionProperty || null;
     this.velocityProperty = this.velocityProperty || null;
   }

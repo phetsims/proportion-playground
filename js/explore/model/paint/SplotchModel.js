@@ -1,6 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * The model for a single paint splotch.  Colors are combined in the view.
+ *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
@@ -13,22 +15,25 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
 
   /**
-   *
-   * @param {Color|string} color1
-   * @param {Color|string} color2
+   * @param {Color|string} color1 - the color choice on the left
+   * @param {Color|string} color2 - the color choice on the right
    * @constructor
    */
   function SplotchModel( color1, color2 ) {
+
+    // @public (read-only)
     this.color1 = color1;
     this.color2 = color2;
+
     PropertySet.call( this, {
-      color1Count: 0,
-      color2Count: 0
+      color1Count: 0, // {number} @public - the number of times color1 has been added
+      color2Count: 0 // {number} @public - the number of times color2 has been added
     } );
 
+    // @public (read-only) the range for colors
     this.colorCountRange = new Range( 0, 20 );
 
-    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
+    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.color1CountProperty = this.color1CountProperty || null;
     this.color2CountProperty = this.color2CountProperty || null;
   }
@@ -36,11 +41,17 @@ define( function( require ) {
   proportionPlayground.register( 'SplotchModel', SplotchModel );
 
   return inherit( PropertySet, SplotchModel, {
-    // @public
-    hasEquivalentValue: function( appleGroupModel ) {
+
+    /**
+     *
+     * @param {SplotchModel} splotchModel
+     * @returns {boolean}
+     * @public
+     */
+    hasEquivalentValue: function( splotchModel ) {
 
       // compare ratios between sims, accounting for /0
-      return this.ratio1 === appleGroupModel.ratio1 && this.ratio2 === appleGroupModel.ratio2;
+      return this.ratio1 === splotchModel.ratio1 && this.ratio2 === splotchModel.ratio2;
     },
 
     // @private

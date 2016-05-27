@@ -29,7 +29,7 @@ define( function( require ) {
       width: 1 // {number} @public - the number of grid units horizontal
     } );
 
-    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
+    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.lengthProperty = this.lengthProperty || null;
     this.widthProperty = this.widthProperty || null;
 

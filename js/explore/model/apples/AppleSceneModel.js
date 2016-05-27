@@ -24,7 +24,7 @@ define( function( require ) {
       showCostPerApple: false // {boolean} @public
     } );
 
-    // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
+    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.showCostPerAppleProperty = this.showCostPerAppleProperty || null;
 
     // @public
