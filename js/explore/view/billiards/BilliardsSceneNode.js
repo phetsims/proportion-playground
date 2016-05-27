@@ -10,14 +10,14 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var BilliardsTableNodeWithSpinners = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardsTableNodeWithSpinners' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var BilliardTableIcon = require( 'PROPORTION_PLAYGROUND/explore/view/billiards/BilliardTableIcon' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
+  var ExploreSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreSceneNode' );
 
   function BilliardsSceneNode( layoutBounds, billiardsSceneModel, predictMode ) {
+    var billiardsSceneNode = this;
     var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table1, billiardsSceneModel.revealProperty );
     var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table2, billiardsSceneModel.revealProperty, {
       side: 'right'
@@ -33,17 +33,10 @@ define( function( require ) {
       } )
     );
 
-    Node.call( this, {
+    ExploreSceneNode.call( this, layoutBounds, billiardsSceneModel, predictMode, 60, {
       children: [ billiardsTableNode1, billiardsTableNode2, abSwitch ]
     } );
     this.necklaceSceneModel = billiardsSceneModel;
-
-    if ( predictMode ) { // TODO: Factor out of scene nodes
-      var revealButton = new RevealButton( billiardsSceneModel.revealProperty, {
-        bottom: layoutBounds.maxY - 60
-      } );
-      this.addChild( revealButton );
-    }
 
     billiardsSceneModel.showBothProperty.link( function( showBoth ) {
       billiardsTableNode2.visible = showBoth;
@@ -51,11 +44,11 @@ define( function( require ) {
       if ( showBoth ) {
         billiardsTableNode1.left = 10;
         billiardsTableNode2.right = layoutBounds.right - 10;
-        revealButton && revealButton.mutate( { left: layoutBounds.left + 10 } );
+        billiardsSceneNode.mutateRevealButton( { left: layoutBounds.left + 10 } );
       }
       else {
         billiardsTableNode1.left = 200;
-        revealButton && revealButton.mutate( { left: layoutBounds.left + 200 } );
+        billiardsSceneNode.mutateRevealButton( { left: layoutBounds.left + 200 } );
       }
     } );
     abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 );
@@ -66,5 +59,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'BilliardsSceneNode', BilliardsSceneNode );
 
-  return inherit( Node, BilliardsSceneNode );
+  return inherit( ExploreSceneNode, BilliardsSceneNode );
 } );

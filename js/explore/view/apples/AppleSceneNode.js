@@ -10,7 +10,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var ControllableAppleGroupNode = require( 'PROPORTION_PLAYGROUND/explore/view/apples/ControllableAppleGroupNode' );
   var AppleGraphNode = require( 'PROPORTION_PLAYGROUND/explore/view/apples/AppleGraphNode' );
   var ABSwitch = require( 'SUN/ABSwitch' );
@@ -19,14 +18,15 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ExploreSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreSceneNode' );
 
   // images
   var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
   var greenAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-green.png' );
 
   function AppleSceneNode( layoutBounds, appleSceneModel, predictMode ) {
+    var appleSceneNode = this;
     var redAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.redAppleGroup, redAppleImage, appleSceneModel.showCostPerAppleProperty, appleSceneModel.revealProperty );
     var greenAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.greenAppleGroup, greenAppleImage, appleSceneModel.showCostPerAppleProperty, appleSceneModel.revealProperty );
     var appleGraphNode = new AppleGraphNode( layoutBounds, appleSceneModel, appleSceneModel.revealProperty );
@@ -48,18 +48,11 @@ define( function( require ) {
     );
     var showCostPerAppleCheckBox = new CheckBox( new Text( 'Cost per apple', {
       fontSize: ProportionPlaygroundConstants.controlFontSize
-    } ), appleSceneModel.showCostPerAppleProperty ); 
-    Node.call( this, {
+    } ), appleSceneModel.showCostPerAppleProperty );
+    ExploreSceneNode.call( this, layoutBounds, appleSceneModel, predictMode, 60, {
       children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch, showCostPerAppleCheckBox, appleGraphNode ]
     } );
     this.necklaceSceneModel = appleSceneModel;
-
-    if ( predictMode ) { // TODO: Factor out of scene nodes
-      var revealButton = new RevealButton( appleSceneModel.revealProperty, {
-        bottom: layoutBounds.maxY - 60
-      } );
-      this.addChild( revealButton );
-    }
 
     appleSceneModel.showBothProperty.link( function( showBoth ) {
       greenAppleGroupNode.visible = showBoth;
@@ -69,12 +62,12 @@ define( function( require ) {
         redAppleGroupNode.x = layoutBounds.width * 1 / 3;
         greenAppleGroupNode.x = layoutBounds.width * 0.85; // TODO: Redo layout with less composition, more fine-grained control over position of components
 
-        revealButton && revealButton.mutate( { centerX: layoutBounds.centerX } );
+        appleSceneNode.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
         redAppleGroupNode.x = layoutBounds.width / 2;
 
-        revealButton && revealButton.mutate( { centerX: layoutBounds.centerX + 200 } );
+        appleSceneNode.mutateRevealButton( { centerX: layoutBounds.centerX + 200 } );
       }
     } );
     abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 ); // TODO: Factor out
@@ -83,5 +76,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'AppleSceneNode', AppleSceneNode );
 
-  return inherit( Node, AppleSceneNode );
+  return inherit( ExploreSceneNode, AppleSceneNode );
 } );

@@ -10,7 +10,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var ControllableSplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/ControllableSplotchNode' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/SplotchNode' );
@@ -20,10 +19,11 @@ define( function( require ) {
   var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/GradientIndicatorNode' );
   var Property = require( 'AXON/Property' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
+  var ExploreSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreSceneNode' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
 
   function PaintSceneNode( layoutBounds, paintSceneModel, predictMode ) {
+    var paintSceneNode = this;
     var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
     var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.splotch2Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
     var scaleOptions = { scale: 0.2 };
@@ -45,16 +45,10 @@ define( function( require ) {
       } )
     );
 
-    Node.call( this, {
+    ExploreSceneNode.call( this, layoutBounds, paintSceneModel, predictMode, 98, {
       children: [ controllableSplotchNode1, controllableSplotchNode2, abSwitch ]
     } );
 
-    if ( predictMode ) { // TODO: Factor out of scene nodes
-      var revealButton = new RevealButton( paintSceneModel.revealProperty, {
-        bottom: layoutBounds.maxY - 98
-      } );
-      this.addChild( revealButton );
-    }
     this.necklaceSceneModel = paintSceneModel;
 
     paintSceneModel.showBothProperty.link( function( showBoth ) {
@@ -65,11 +59,11 @@ define( function( require ) {
         controllableSplotchNode1.x = layoutBounds.width * 1 / 3;
         controllableSplotchNode2.x = layoutBounds.width * 2 / 3;
 
-        revealButton && revealButton.mutate( { centerX: layoutBounds.centerX } );
+        paintSceneNode.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
         controllableSplotchNode1.x = layoutBounds.width / 2;
-        revealButton && revealButton.mutate( { left: layoutBounds.centerX + 100 } );
+        paintSceneNode.mutateRevealButton( { left: layoutBounds.centerX + 100 } );
       }
     } );
     abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 );
@@ -86,5 +80,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'PaintSceneNode', PaintSceneNode );
 
-  return inherit( Node, PaintSceneNode );
+  return inherit( ExploreSceneNode, PaintSceneNode );
 } );
