@@ -19,9 +19,11 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // constants
   var pathOptions = { stroke: 'black', lineWidth: 2 };
+  var maxBeads = ProportionPlaygroundConstants.maxBeads;
 
   function StaticNecklaceNode( roundBeadCount, squareBeadCount, options ) {
 
@@ -112,10 +114,9 @@ define( function( require ) {
       // Brute force search for pattern
       var solver = function() {
 
-        // TODO: generalize range or factor out
-        for ( var m = 20; m >= 1 && !match; m-- ) { // search for many pattern occurrences first
-          for ( var na = 0; na <= 20 && !match; na++ ) {
-            for ( var nb = 0; nb <= 20 && !match; nb++ ) {
+        for ( var m = maxBeads; m >= 1 && !match; m-- ) { // search for many pattern occurrences first
+          for ( var na = 0; na <= maxBeads && !match; na++ ) {
+            for ( var nb = 0; nb <= maxBeads && !match; nb++ ) {
               if ( m * na === a && m * nb === b ) {
                 return { m: m, na: na, nb: nb };
               }

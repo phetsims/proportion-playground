@@ -12,6 +12,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Range = require( 'DOT/Range' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   function NecklaceModel() {
     PropertySet.call( this, {
@@ -19,7 +20,7 @@ define( function( require ) {
       squareBeadCount: 0
     } );
 
-    this.beadCountRange = new Range( 0, 20 );
+    this.beadCountRange = new Range( 0, ProportionPlaygroundConstants.maxBeads );
 
     // These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.roundBeadCountProperty = this.roundBeadCountProperty || null;
