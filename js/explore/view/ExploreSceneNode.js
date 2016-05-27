@@ -14,7 +14,7 @@ define( function( require ) {
   var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
 
   function ExploreSceneNode( layoutBounds, paintSceneModel, predictMode, revealButtonDistanceFromLayoutBoundsBottom, options ) {
-
+    this.layoutBounds = layoutBounds;
     Node.call( this, options );
     if ( predictMode ) {
 
@@ -31,6 +31,9 @@ define( function( require ) {
   return inherit( Node, ExploreSceneNode, {
     mutateRevealButton: function( options ) {
       this.revealButton && this.revealButton.mutate( options );
+    },
+    moveABSwitchToBottomCenter: function( abSwitch ) {
+      abSwitch.centerBottom = this.layoutBounds.centerBottom.plusXY( 0, -5 ); // TODO: Factor out
     }
   } );
 } );

@@ -70,7 +70,7 @@ define( function( require ) {
         appleSceneNode.mutateRevealButton( { centerX: layoutBounds.centerX + 200 } );
       }
     } );
-    abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 ); // TODO: Factor out
+    this.moveABSwitchToBottomCenter( abSwitch );
     showCostPerAppleCheckBox.leftBottom = layoutBounds.leftBottom.plusXY( 10, -10 ); // TODO: factor out insets
   }
 

@@ -51,7 +51,7 @@ define( function( require ) {
         billiardsSceneNode.mutateRevealButton( { left: layoutBounds.left + 200 } );
       }
     } );
-    abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 );
+    this.moveABSwitchToBottomCenter( abSwitch );
 
     billiardsTableNode1.y = 20;
     billiardsTableNode2.y = 20;

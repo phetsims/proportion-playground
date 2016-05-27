@@ -66,7 +66,7 @@ define( function( require ) {
         paintSceneNode.mutateRevealButton( { left: layoutBounds.centerX + 100 } );
       }
     } );
-    abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 );
+    this.moveABSwitchToBottomCenter( abSwitch );
 
     var grayscaleCheckBox = new CheckBox( new Text( 'Black & White', { fontSize: ProportionPlaygroundConstants.controlFontSize } ), paintSceneModel.grayscaleProperty, {
       left: layoutBounds.left + 5,

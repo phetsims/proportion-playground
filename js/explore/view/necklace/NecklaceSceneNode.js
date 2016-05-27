@@ -49,7 +49,7 @@ define( function( require ) {
         necklaceSceneNode.mutateRevealButton( { left: layoutBounds.centerX + 110 } );
       }
     } );
-    abSwitch.centerBottom = layoutBounds.centerBottom.plusXY( 0, -5 ); // TODO: Factor out
+    this.moveABSwitchToBottomCenter( abSwitch );
   }
 
   proportionPlayground.register( 'NecklaceSceneNode', NecklaceSceneNode );
