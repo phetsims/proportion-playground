@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * Model for the Explore Screen, which is also reused (with a flag) for the Predict Screen
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -18,6 +19,7 @@ define( function( require ) {
   var ProportionPlaygroundQueryParameters = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundQueryParameters' );
 
   /**
+   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
    */
   function ExploreModel( predictMode ) {
@@ -29,13 +31,14 @@ define( function( require ) {
     // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA
     this.sceneProperty = this.sceneProperty || null;
 
-    // @public
+    // @public (read-only) - the model for each scene
     this.necklaceSceneModel = new NecklaceSceneModel( predictMode );
     this.paintSceneModel = new PaintSceneModel( predictMode );
     this.billiardsSceneModel = new BilliardsSceneModel( predictMode );
     this.appleSceneModel = new AppleSceneModel( predictMode );
 
     // Also keep track of the models so they can be addressed as a group (for reset) or by index (for stepping)
+    // @private
     this.models = [
       this.necklaceSceneModel,
       this.paintSceneModel,
@@ -50,12 +53,20 @@ define( function( require ) {
   proportionPlayground.register( 'ExploreModel', ExploreModel );
 
   return inherit( PropertySet, ExploreModel, {
+
+    /**
+     * Reset the model and all the model for each scene.
+     * @public
+     */
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.models.forEach( function( model ) {model.reset();} );
     },
 
-    // @public
+    /**
+     * Step forward in time by dt
+     * @param {number} dt - time passed in seconds
+     */
     step: function( dt ) {
 
       // If the model has a step function, call it.
