@@ -23,6 +23,7 @@ define( function( require ) {
   // constants
   var appleScale = 0.35;
   var coinScale = 0.7;
+  var applesPerRow = 5;
 
   function AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty ) {
     var yOffsetOptions = { y: 320 };
@@ -43,13 +44,14 @@ define( function( require ) {
         var image = new Image( appleImage, { scale: appleScale, x: x, y: y } );
         appleArray.unshift( image ); // prepend to get z-order correct
         x = image.right;
-        if ( x >= image.width * 5 ) {
+        if ( x >= image.width * applesPerRow ) {
           x = 0;
           y = y - image.height / 2; // group up, the same as the coins grow for consistency
         }
       }
       appleLayer.children = appleArray;
-      appleLayer.x = -150; // TODO: in terms of number of images and scale
+
+      appleLayer.x = -applesPerRow * appleImage[ 0 ].width * appleScale / 2; // TODO: in terms of number of images and scale
     } );
 
     appleGroupModel.totalCostProperty.link( function( totalCost ) {
