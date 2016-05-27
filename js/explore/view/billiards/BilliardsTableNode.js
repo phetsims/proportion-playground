@@ -24,13 +24,21 @@ define( function( require ) {
 
   function BilliardsTableNode( center, billiardsTableModel, options ) {
 
+    var movingLineOptions = { stroke: 'white', lineWidth: 2 };
+
+    var gridLinesNode = new Node();
+    var linesNode = new Node();
+    var currentLineNode = new Line( 0, 0, 0, 0, movingLineOptions );
+
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
     var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundConstants.billiardsBrown } );
-    var greenRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundConstants.billiardsGreen } );
+    var greenRectangle = new Rectangle( 0, 0, 0, 0, {
+      fill: ProportionPlaygroundConstants.billiardsGreen,
+      children: [ gridLinesNode, linesNode, currentLineNode ]
+    } );
 
     var diameter = 10;
     var ballNode = new ShadedSphereNode( diameter, { mainColor: 'white', highlightColor: 'yellow' } );
-    var linesNode = new Node();
 
     var createCircle = function() {
       return new Circle( diameter / 2, { fill: 'black' } );
@@ -42,8 +50,7 @@ define( function( require ) {
     billiardsTableModel.restartEmitter.addListener( function() {
       linesNode.children = [];
     } );
-    var movingLineOptions = { stroke: 'white', lineWidth: 2 };
-    var currentLineNode = new Line( 0, 0, 100, 100, movingLineOptions );
+
     billiardsTableModel.collisionPoints.addItemAddedListener( function( currentPoint ) {
       var a = billiardsTableModel.collisionPoints.getArray();
       var previousPoint = a[ a.length - 2 ];
@@ -93,11 +100,9 @@ define( function( require ) {
         return gridLines;
       };
       // grid lines
-      greenRectangle.children = createGridLines();
+      gridLinesNode.children = createGridLines();
 
       // TODO: Better layout for this, so we don't have to set translation of all the parts?
-      linesNode.translation = greenRectangle.translation;
-      currentLineNode.translation = greenRectangle.translation;
       brownRectangle.center = greenRectangle.center;
 
       bottomRightHoleNode.translation = greenRectangle.translation.plusXY( width * scale, length * scale );
@@ -120,9 +125,7 @@ define( function( require ) {
         topLeftHoleNode,
         topRightHoleNode,
         bottomRightHoleNode,
-        ballNode,
-        linesNode,
-        currentLineNode
+        ballNode
       ]
     } );
     this.mutate( options );
