@@ -54,12 +54,20 @@ define( function( require ) {
       return this.ratio1 === splotchModel.ratio1 && this.ratio2 === splotchModel.ratio2;
     },
 
-    // @private
+    /**
+     * Gets the ratio color1/color2
+     * @returns {number}
+     * @private
+     */
     get ratio1() {
       return this.color1Count / this.color2Count;
     },
 
-    // @private
+    /**
+     * Gets the ratio color2/color1
+     * @returns {number}
+     * @private
+     */
     get ratio2() {
       return this.color2Count / this.color1Count;
     }
