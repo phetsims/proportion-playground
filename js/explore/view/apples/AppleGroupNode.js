@@ -18,7 +18,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   // images
-  var coinImage = require( 'image!PROPORTION_PLAYGROUND/coin.png' );
+  var coinImage = require( 'mipmap!PROPORTION_PLAYGROUND/coin.png' );
 
   // constants
   var appleScale = 0.35;
@@ -30,6 +30,8 @@ define( function( require ) {
     var appleLayer = new Node( yOffsetOptions );
     var coinLayer = new Node( { y: 320 } );
     var priceTagLayer = new Node( { x: -140, y: 120 } );
+    var appleLayerX = -applesPerRow * appleImage[ 0 ].width * appleScale / 2;
+    var distanceBetweenCoinsAndApples = 65;
     Node.call( this, {
       children: [ coinLayer, appleLayer, priceTagLayer ]
     } );
@@ -51,7 +53,7 @@ define( function( require ) {
       }
       appleLayer.children = appleArray;
 
-      appleLayer.x = -applesPerRow * appleImage[ 0 ].width * appleScale / 2;
+      appleLayer.x = appleLayerX;
     } );
 
     appleGroupModel.totalCostProperty.link( function( totalCost ) {
@@ -64,7 +66,7 @@ define( function( require ) {
         y = y - image.height / 6;
       }
       coinLayer.children = coinArray;
-      coinLayer.x = -300; // TODO: in terms of number of images and scale
+      coinLayer.x = appleLayerX - coinImage[ 0 ].width * coinScale - distanceBetweenCoinsAndApples;
     } );
 
     Property.multilink( [ appleGroupModel.totalCostProperty, appleGroupModel.numberOfApplesProperty ], function( totalCost, numberOfApples ) {
