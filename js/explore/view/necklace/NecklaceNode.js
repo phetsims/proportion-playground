@@ -12,18 +12,20 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/StaticNecklaceNode' );
+  var Property = require( 'AXON/Property' );
 
   function NecklaceNode( necklaceModel ) {
     var necklaceNode = this;
     Node.call( this );
 
-    var updateNecklace = function() {
-      necklaceNode.children = [ new StaticNecklaceNode( necklaceModel.roundBeadCount, necklaceModel.squareBeadCount ) ];
+    Property.multilink( [
+      necklaceModel.roundBeadCountProperty,
+      necklaceModel.squareBeadCountProperty
+    ], function( roundBeadCount, squareBeadCount ) {
+      necklaceNode.children = [ new StaticNecklaceNode( roundBeadCount, squareBeadCount ) ];
       necklaceNode.centerX = 0;
       necklaceNode.centerY = 245;
-    };
-    necklaceModel.roundBeadCountProperty.link( updateNecklace );
-    necklaceModel.squareBeadCountProperty.link( updateNecklace );
+    } );
   }
 
   proportionPlayground.register( 'NecklaceNode', NecklaceNode );

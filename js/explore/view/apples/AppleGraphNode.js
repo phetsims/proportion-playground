@@ -71,7 +71,6 @@ define( function( require ) {
       revealProperty
     ], createIndicatorUpdateFunction( leftIndicator, appleSceneModel.redAppleGroup, function() {return true;} ) );
 
-    // TODO: evaluate multilink properties throughout the sim
     Property.multilink( [
       appleSceneModel.greenAppleGroup.totalCostProperty,
       appleSceneModel.greenAppleGroup.numberOfApplesProperty,

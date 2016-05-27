@@ -18,6 +18,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
   var Util = require( 'DOT/Util' );
+  var Property = require( 'AXON/Property' );
 
   function SplotchNode( color1Property, color2Property, grayscaleProperty, options ) {
 
@@ -54,19 +55,17 @@ define( function( require ) {
         splotchNode.fill = null;
       }
     };
-    var update = function() {
+    Property.multilink( [ color1Property, color2Property ], function( color1, color2 ) {
       updateFill();
 
-      var total = color1Property.value + color2Property.value;
+      var total = color1 + color2;
 
       // The size of the paint splotch grows
       var scale = Util.linear( 0, 40, 1.0, 1.6, total );
       splotchNode.setScaleMagnitude( scale );
       splotchNode.center = new Vector2( 0, 250 );
       splotchNode.visible = total > 0;
-    };
-    color1Property.link( update );
-    color2Property.link( update );
+    } );
     grayscaleProperty.link( updateFill );
 
     this.mutate( options );

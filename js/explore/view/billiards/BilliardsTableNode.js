@@ -16,6 +16,7 @@ define( function( require ) {
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var Property = require( 'AXON/Property' );
 
   // constants
   var scale = 18; // from model units to pixels
@@ -62,7 +63,10 @@ define( function( require ) {
       }
     } );
 
-    var updateTable = function() {
+    Property.multilink( [
+      billiardsTableModel.lengthProperty,
+      billiardsTableModel.widthProperty
+    ], function() {
       var length = billiardsTableModel.length;
       var width = billiardsTableModel.width;
 
@@ -103,14 +107,11 @@ define( function( require ) {
       greenRectangle.visible = width * length > 0;
       currentLineNode.visible = width * length > 0;
       ballNode.visible = width * length > 0;
-    };
+    } );
 
     billiardsTableModel.ball.positionProperty.link( function( position ) {
       ballNode.center = position.times( scale ).plus( greenRectangle.translation );
     } );
-
-    billiardsTableModel.lengthProperty.link( updateTable );
-    billiardsTableModel.widthProperty.link( updateTable );
 
     Node.call( this, {
       children: [

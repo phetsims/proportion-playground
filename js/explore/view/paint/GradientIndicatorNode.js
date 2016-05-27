@@ -83,8 +83,6 @@ define( function( require ) {
       revealProperty
     ], createIndicatorUpdateFunction( rightIndicator, paintSceneModel.splotch2Model, function() {return paintSceneModel.showBoth;} ) );
 
-    // TODO: evaluate multilink properties throughout the sim
-
     Property.multilink( [
       paintSceneModel.splotch1Model.color1CountProperty,
       paintSceneModel.splotch1Model.color2CountProperty,

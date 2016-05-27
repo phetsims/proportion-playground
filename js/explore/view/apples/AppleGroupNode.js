@@ -15,6 +15,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
+  var Property = require( 'AXON/Property' );
 
   // images
   var coinImage = require( 'image!PROPORTION_PLAYGROUND/coin.png' );
@@ -64,10 +65,10 @@ define( function( require ) {
       coinLayer.x = -300; // TODO: in terms of number of images and scale
     } );
 
-    var updatePriceTag = function() {
-      var pricePerApple = appleGroupModel.totalCost / appleGroupModel.numberOfApples;
+    Property.multilink( [ appleGroupModel.totalCostProperty, appleGroupModel.numberOfApplesProperty ], function( totalCost, numberOfApples ) {
+      var pricePerApple = totalCost / numberOfApples;
       var fixed = Util.toFixed( pricePerApple, 2 );
-      if ( appleGroupModel.numberOfApples === 0 ) {
+      if ( numberOfApples === 0 ) {
         fixed = '?';
       }
       else {
@@ -77,9 +78,7 @@ define( function( require ) {
         xMargin: 20,
         yMargin: 20
       } ) ];
-    };
-    appleGroupModel.totalCostProperty.link( updatePriceTag );
-    appleGroupModel.numberOfApplesProperty.link( updatePriceTag );
+    } );
   }
 
   proportionPlayground.register( 'AppleGroupNode', AppleGroupNode );

@@ -16,6 +16,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Emitter = require( 'AXON/Emitter' );
+  var Property = require( 'AXON/Property' );
 
   function BilliardsTableModel() {
     PropertySet.call( this, {
@@ -36,9 +37,10 @@ define( function( require ) {
 
     this.restartEmitter = new Emitter();
 
-    var restartBall = this.restartBall.bind( this );
-    this.lengthProperty.link( restartBall );
-    this.widthProperty.link( restartBall );
+    Property.multilink( [
+      this.lengthProperty,
+      this.widthProperty
+    ], this.restartBall.bind( this ) );
   }
 
   proportionPlayground.register( 'BilliardsTableModel', BilliardsTableModel );
