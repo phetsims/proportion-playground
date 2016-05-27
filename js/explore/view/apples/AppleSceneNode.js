@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * Node that displays everything for the Apple scene
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -25,13 +26,22 @@ define( function( require ) {
   var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
   var greenAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-green.png' );
 
+  // constants
+  var checkBoxInset = 10;
+
   function AppleSceneNode( layoutBounds, appleSceneModel, predictMode ) {
     var appleSceneNode = this;
+
+    // Create child nodes to be displayed
     var redAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.redAppleGroup, redAppleImage, appleSceneModel.showCostPerAppleProperty, appleSceneModel.revealProperty );
     var greenAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.greenAppleGroup, greenAppleImage, appleSceneModel.showCostPerAppleProperty, appleSceneModel.revealProperty );
     var appleGraphNode = new AppleGraphNode( layoutBounds, appleSceneModel, appleSceneModel.revealProperty );
+
+    // Create icons for the ABSwitch
     var greenAppleImageNode = new Image( greenAppleImage, { scale: 0.2 } );
     var redAppleImageNode = new Image( redAppleImage, { scale: 0.2 } );
+
+    // Create the switch that toggles between showing 1 and 2 groups
     var abSwitch = new ABSwitch( appleSceneModel.showBothProperty,
       false, new HBox( {
         children: [
@@ -46,18 +56,21 @@ define( function( require ) {
         ]
       } )
     );
+
+    // Check box that shows the cost per apple in a price tag
     var showCostPerAppleCheckBox = new CheckBox( new Text( 'Cost per apple', {
       fontSize: ProportionPlaygroundConstants.controlFontSize
     } ), appleSceneModel.showCostPerAppleProperty );
+
+    // Super call and add children
     ExploreSceneNode.call( this, layoutBounds, appleSceneModel, predictMode, 60, {
       children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch, showCostPerAppleCheckBox, appleGraphNode ]
     } );
-    this.necklaceSceneModel = appleSceneModel;
 
+    // When the "show both" ABSwitch is toggled, change which apple groups are displayed and update their layouts
     appleSceneModel.showBothProperty.link( function( showBoth ) {
       greenAppleGroupNode.visible = showBoth;
 
-      // Controllable necklace nodes have x=0 at their center
       if ( showBoth ) {
         redAppleGroupNode.x = layoutBounds.width * 1 / 3;
         greenAppleGroupNode.x = layoutBounds.width * 0.85;
@@ -70,8 +83,9 @@ define( function( require ) {
         appleSceneNode.mutateRevealButton( { centerX: layoutBounds.centerX + 200 } );
       }
     } );
+
+    // Align the ABSwitch at the bottom center of the screen
     this.moveABSwitchToBottomCenter( abSwitch );
-    var checkBoxInset = 10;
     showCostPerAppleCheckBox.leftBottom = layoutBounds.leftBottom.plusXY( checkBoxInset, -checkBoxInset );
   }
 
