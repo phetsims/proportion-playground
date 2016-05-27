@@ -2,6 +2,7 @@
 
 /**
  * This is the live gradient that changes based on user input events.
+ * Very similar in intent and implementation to AppleGraphNode.js
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */

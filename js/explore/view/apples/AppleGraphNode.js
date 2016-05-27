@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * TODO: duplicated code with the paint one
+ * Very similar in intent and implementation to GradientIndicatorNode.js
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
