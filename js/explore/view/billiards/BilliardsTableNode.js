@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * Shows a single Billiards table, with a moving ball and holes in the top left, top right and bottom right corners.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -21,10 +22,17 @@ define( function( require ) {
   // constants
   var scale = 18; // from model units to pixels
   var whiteStrokeOptions = { stroke: 'white' };
+  var movingLineOptions = { stroke: 'white', lineWidth: 2 };
+  var ballDiameter = 10;
 
+  /**
+   *
+   * @param {Vector2} center - position (in layout bounds) where the table should be centered
+   * @param {BilliardsTableModel} billiardsTableModel - the model
+   * @param {Object} [options]
+   * @constructor
+   */
   function BilliardsTableNode( center, billiardsTableModel, options ) {
-
-    var movingLineOptions = { stroke: 'white', lineWidth: 2 };
 
     var gridLinesNode = new Node();
     var linesNode = new Node();
@@ -37,20 +45,23 @@ define( function( require ) {
       children: [ gridLinesNode, linesNode, currentLineNode ]
     } );
 
-    var diameter = 10;
-    var ballNode = new ShadedSphereNode( diameter, { mainColor: 'white', highlightColor: 'yellow' } );
+    // The moving ball node
+    var ballNode = new ShadedSphereNode( ballDiameter, { mainColor: 'white', highlightColor: 'yellow' } );
 
+    // Create the holes for top-left, top-right and bottom-right
     var createCircle = function() {
-      return new Circle( diameter / 2, { fill: 'black' } );
+      return new Circle( ballDiameter / 2, { fill: 'black' } );
     };
     var topLeftHoleNode = createCircle();
     var topRightHoleNode = createCircle();
     var bottomRightHoleNode = createCircle();
 
+    // When the ball restarts, clear the history of lines
     billiardsTableModel.restartEmitter.addListener( function() {
       linesNode.children = [];
     } );
 
+    // When the ball bounces, add a new line to the static array of lines.
     billiardsTableModel.collisionPoints.addItemAddedListener( function( currentPoint ) {
       var a = billiardsTableModel.collisionPoints.getArray();
       var previousPoint = a[ a.length - 2 ];
@@ -58,18 +69,23 @@ define( function( require ) {
         linesNode.addChild( new Line(
           previousPoint.x * scale, previousPoint.y * scale,
           currentPoint.x * scale, currentPoint.y * scale,
-          movingLineOptions ) );
+          movingLineOptions
+        ) );
       }
     } );
 
+    // When the ball moves, update the live (unbounced) line streaming from the ball and update the ball's location
     billiardsTableModel.ball.positionProperty.link( function( position ) {
       var a = billiardsTableModel.collisionPoints.getArray();
       var previousPoint = a[ a.length - 1 ];
       if ( previousPoint ) {
         currentLineNode.setLine( previousPoint.x * scale, previousPoint.y * scale, position.x * scale, position.y * scale );
       }
+
+      ballNode.center = position.times( scale ).plus( greenRectangle.translation );
     } );
 
+    // When the table is resized, redraw it.
     Property.multilink( [
       billiardsTableModel.lengthProperty,
       billiardsTableModel.widthProperty
@@ -99,22 +115,17 @@ define( function( require ) {
         }
         return gridLines;
       };
+
       // grid lines
       gridLinesNode.children = createGridLines();
 
+      // center the brown border
       brownRectangle.center = greenRectangle.center;
 
+      // Position the holes.
       bottomRightHoleNode.translation = greenRectangle.translation.plusXY( width * scale, length * scale );
       topLeftHoleNode.translation = greenRectangle.translation.plusXY( 0, 0 );
       topRightHoleNode.translation = greenRectangle.translation.plusXY( width * scale, 0 );
-
-      greenRectangle.visible = width * length > 0;
-      currentLineNode.visible = width * length > 0;
-      ballNode.visible = width * length > 0;
-    } );
-
-    billiardsTableModel.ball.positionProperty.link( function( position ) {
-      ballNode.center = position.times( scale ).plus( greenRectangle.translation );
     } );
 
     Node.call( this, {
