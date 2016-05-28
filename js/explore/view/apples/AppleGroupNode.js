@@ -26,7 +26,8 @@ define( function( require ) {
   var coinImageScale = 0.7; // Reduction factor for showing the image
   var applesPerRow = 5;
   var distanceBetweenCoinsAndApples = 65;
-
+  var yOffsetOptions = { y: 320 };
+  
   /**
    *
    * @param {AppleGroupModel} appleGroupModel - the model for the apple group
@@ -35,7 +36,6 @@ define( function( require ) {
    * @constructor
    */
   function AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty ) {
-    var yOffsetOptions = { y: 320 };
     var appleLayer = new Node( yOffsetOptions );
     var coinLayer = new Node( yOffsetOptions );
     var priceTagLayer = new Node( { x: -140, y: 120 } );

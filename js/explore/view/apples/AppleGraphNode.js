@@ -67,7 +67,7 @@ define( function( require ) {
 
     /**
      *
-     * @param {Node} - indicator the left/right triangle node
+     * @param {Node} indicator - the left/right triangle node
      * @param {AppleGroupModel} appleGroup - the model
      * @param {function} condition - supplemental condition for showing the indicator
      * @returns {Function}
