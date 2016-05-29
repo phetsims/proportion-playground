@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- *
+ * Constants for the Proportions Playground sim.
+ * 
  * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
