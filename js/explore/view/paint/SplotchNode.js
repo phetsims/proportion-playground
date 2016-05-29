@@ -73,8 +73,10 @@ define( function( require ) {
 
       var total = color1 + color2;
 
-      // The size of the paint splotch grows
-      var scale = Util.linear( 0, 40, 1.0, 1.6, total );
+      // The area of the paint splotch grows linearly as a function of number of splotch
+      var twoPi = Math.PI * 2;
+      var maxScale = 1.6;
+      var scale = Util.linear( 0, 40, maxScale / twoPi, maxScale, total );
       splotchNode.setScaleMagnitude( scale );
       splotchNode.center = new Vector2( 0, 250 );
       splotchNode.visible = total > 0;
