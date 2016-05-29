@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * This radio button group allows the user to select between the different scenes.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -19,7 +20,15 @@ define( function( require ) {
   var paintBucketImage = require( 'image!PROPORTION_PLAYGROUND/paint-bucket.png' );
   var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
 
+  /**
+   *
+   * @param {Property.<number> sceneProperty - property indicating the index of the selected scene.
+   * @param {Object} [options] - node options
+   * @constructor
+   */
   function SceneSelectionRadioButtonGroup( sceneProperty, options ) {
+
+    // Create one icon per scene
     var necklaceIcon = new StaticNecklaceNode( 14, 7, { scale: 0.2 } );
     var paintBucketIcon = new Image( paintBucketImage );
     var billiardTableIcon = new BilliardTableIcon( 120, 120 );

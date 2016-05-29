@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * Model & View for the "Predict" screen.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -24,8 +25,6 @@ define( function( require ) {
    */
   function PredictScreen() {
 
-    //If this is a single-screen sim, then no icon is necessary.
-    //If there are multiple screens, then the icon must be provided here.
     var icon = new Rectangle( 0, 0, 548, 373, { fill: 'green' } );
 
     Screen.call( this, predictString, icon,

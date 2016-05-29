@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * The explore screen, including its model and view.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -15,7 +16,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
-  
+
   // strings
   var exploreString = require( 'string!PROPORTION_PLAYGROUND/explore' );
 
@@ -24,8 +25,6 @@ define( function( require ) {
    */
   function ExploreScreen() {
 
-    //If this is a single-screen sim, then no icon is necessary.
-    //If there are multiple screens, then the icon must be provided here.
     var icon = new Rectangle( 0, 0, 548, 373, { fill: 'red' } );
 
     Screen.call( this, exploreString, icon,

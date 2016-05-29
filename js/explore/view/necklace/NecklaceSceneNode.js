@@ -44,7 +44,7 @@ define( function( require ) {
       } ) );
 
     // Super call
-    ExploreSceneNode.call( this, layoutBounds, necklaceSceneModel, predictMode, 87, {
+    ExploreSceneNode.call( this, layoutBounds, necklaceSceneModel.revealProperty, predictMode, 87, {
       children: [ firstControllableNecklaceNode, secondControllableNecklaceNode, abSwitch ]
     } );
 

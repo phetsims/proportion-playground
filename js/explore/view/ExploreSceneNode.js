@@ -16,20 +16,23 @@ define( function( require ) {
 
   /**
    *
-   * @param layoutBounds
-   * @param {revealProperty:Property.<boolean>} model with a revealProperty
-   * @param predictMode
-   * @param revealButtonDistanceFromLayoutBoundsBottom
-   * @param options
+   * @param {Bounds2} layoutBounds - visible bounds within which the UI must fit
+   * @param {Property.<boolean>} revealProperty - true if the representations should be shown
+   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   * @param {number} revealButtonDistanceFromLayoutBoundsBottom - how high from the bottom of the screen to place the
+   *                 reveal button
+   * @param {Object} [options] - node options
    * @constructor
    */
-  function ExploreSceneNode( layoutBounds, model, predictMode, revealButtonDistanceFromLayoutBoundsBottom, options ) {
+  function ExploreSceneNode( layoutBounds, revealProperty, predictMode, revealButtonDistanceFromLayoutBoundsBottom, options ) {
     this.layoutBounds = layoutBounds;
     Node.call( this, options );
+
+    // For predict mode, add a reveal button that show the representations
     if ( predictMode ) {
 
       // @private
-      this.revealButton = new RevealButton( model.revealProperty, {
+      this.revealButton = new RevealButton( revealProperty, {
         bottom: layoutBounds.maxY - revealButtonDistanceFromLayoutBoundsBottom
       } );
       this.addChild( this.revealButton );
@@ -39,9 +42,20 @@ define( function( require ) {
   proportionPlayground.register( 'ExploreSceneNode', ExploreSceneNode );
 
   return inherit( Node, ExploreSceneNode, {
+
+    /**
+     * Mutate the reveal, often to set its location.
+     * @param {Object} [options] - options for the reveal button
+     * @protected
+     */
     mutateRevealButton: function( options ) {
       this.revealButton && this.revealButton.mutate( options );
     },
+
+    /**
+     * Position the ABSwitch at the bottom center of the screen.
+     * @param {Node} abSwitch - the switch that chooses between 1-2 representations
+     */
     moveABSwitchToBottomCenter: function( abSwitch ) {
       abSwitch.centerBottom = this.layoutBounds.centerBottom.plusXY( 0, -5 );
     }

@@ -59,7 +59,7 @@ define( function( require ) {
       } )
     );
 
-    ExploreSceneNode.call( this, layoutBounds, paintSceneModel, predictMode, 98, {
+    ExploreSceneNode.call( this, layoutBounds, paintSceneModel.revealProperty, predictMode, 98, {
       children: [ controllableSplotchNode1, controllableSplotchNode2, abSwitch ]
     } );
 

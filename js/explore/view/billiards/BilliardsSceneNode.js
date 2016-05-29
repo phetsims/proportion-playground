@@ -45,7 +45,7 @@ define( function( require ) {
       } )
     );
 
-    ExploreSceneNode.call( this, layoutBounds, billiardsSceneModel, predictMode, 60, {
+    ExploreSceneNode.call( this, layoutBounds, billiardsSceneModel.revealProperty, predictMode, 60, {
       children: [ billiardsTableNode1, billiardsTableNode2, abSwitch ]
     } );
 

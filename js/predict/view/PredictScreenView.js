@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * View node for the Predict Screen
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -14,11 +15,11 @@ define( function( require ) {
   var ExploreScreenView = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreScreenView' );
 
   /**
-   * @param {ProportionPlaygroundModel} proportionPlaygroundModel
+   * @param {ExploreModel} exploreModel
    * @constructor
    */
-  function PredictScreenView( proportionPlaygroundModel ) {
-    ExploreScreenView.call( this, proportionPlaygroundModel );
+  function PredictScreenView( exploreModel ) {
+    ExploreScreenView.call( this, exploreModel );
   }
 
   proportionPlayground.register( 'PredictScreenView', PredictScreenView );

@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * View node for the Explore screen, or for Predict screen if the model has predictMode set to true.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -20,7 +21,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**
-   * @param {ExploreModel} exploreModel
+   * @param {ExploreModel} exploreModel - the model
    * @constructor
    */
   function ExploreScreenView( exploreModel ) {
@@ -37,12 +38,14 @@ define( function( require ) {
     } );
     this.addChild( resetAllButton );
 
+    // Radio buttons that choose between the scenes.
     this.sceneSelectionRadioButtonGroup = new SceneSelectionRadioButtonGroup( exploreModel.sceneProperty, {
       centerX: this.layoutBounds.centerX,
       top: 5
     } );
     this.addChild( this.sceneSelectionRadioButtonGroup );
 
+    // One node for each scene.
     var necklaceSceneNode = new NecklaceSceneNode( this.layoutBounds, exploreModel.necklaceSceneModel, exploreModel.predictMode );
     var paintSceneNode = new PaintSceneNode( this.layoutBounds, exploreModel.paintSceneModel, exploreModel.predictMode );
     var billiardsSceneNode = new BilliardsSceneNode( this.layoutBounds, exploreModel.billiardsSceneModel, exploreModel.predictMode );
@@ -54,6 +57,7 @@ define( function( require ) {
     var sceneParent = new Node();
     this.addChild( sceneParent );
 
+    // When the scene radio button is selected, show the selected scene
     exploreModel.sceneProperty.link( function( scene ) {
       var sceneNode = sceneArray[ scene ];
       sceneParent.children = [ sceneNode ];
@@ -62,10 +66,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'ExploreScreenView', ExploreScreenView );
 
-  return inherit( ScreenView, ExploreScreenView, {
-
-    // @public
-    step: function( dt ) {
-    }
-  } );
+  return inherit( ScreenView, ExploreScreenView );
 } );

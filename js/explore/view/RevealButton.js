@@ -14,6 +14,12 @@ define( function( require ) {
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
+  /**
+   *
+   * @param {Property.<boolean>} revealingProperty - true if the answer should be shown.
+   * @param {Object} [options]
+   * @constructor
+   */
   function RevealButton( revealingProperty, options ) {
     BooleanRoundStickyToggleButton.call( this, revealingProperty, {
       content: new FontAwesomeNode( 'eye_open' ),
