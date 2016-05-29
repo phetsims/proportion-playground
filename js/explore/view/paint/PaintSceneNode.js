@@ -27,7 +27,7 @@ define( function( require ) {
   var blackAndWhiteString = require( 'string!PROPORTION_PLAYGROUND/blackAndWhite' );
 
   // constants
-  var iconScaleOptions = { scale: 0.2 };
+  var iconScaleOptions = { scale: 0.7 };
 
   /**
    *
