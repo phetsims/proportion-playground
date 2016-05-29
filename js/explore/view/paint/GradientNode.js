@@ -19,7 +19,8 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
-   * Slider track that displays the visible spectrum.
+   * Rectange that shows a given spectrum
+   *
    * @param {number} width
    * @param {number} height
    * @param {function} getColor - given a number between 0 and 1, return a color for that point in the gradient

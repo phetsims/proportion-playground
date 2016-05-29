@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * Base class for Explore Scene nodes, which includes the reval button (for Predict screens).
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -13,13 +14,22 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
 
-  function ExploreSceneNode( layoutBounds, paintSceneModel, predictMode, revealButtonDistanceFromLayoutBoundsBottom, options ) {
+  /**
+   *
+   * @param layoutBounds
+   * @param {revealProperty:Property.<boolean>} model with a revealProperty
+   * @param predictMode
+   * @param revealButtonDistanceFromLayoutBoundsBottom
+   * @param options
+   * @constructor
+   */
+  function ExploreSceneNode( layoutBounds, model, predictMode, revealButtonDistanceFromLayoutBoundsBottom, options ) {
     this.layoutBounds = layoutBounds;
     Node.call( this, options );
     if ( predictMode ) {
 
       // @private
-      this.revealButton = new RevealButton( paintSceneModel.revealProperty, {
+      this.revealButton = new RevealButton( model.revealProperty, {
         bottom: layoutBounds.maxY - revealButtonDistanceFromLayoutBoundsBottom
       } );
       this.addChild( this.revealButton );

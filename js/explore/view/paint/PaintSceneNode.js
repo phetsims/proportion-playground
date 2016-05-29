@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * Node that shows everything for a paint scene (including NumberPickers and paint splotches and gradient).
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -22,12 +23,25 @@ define( function( require ) {
   var ExploreSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreSceneNode' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
 
+  // constants
+  var iconScaleOptions = { scale: 0.2 };
+
+  /**
+   *
+   * @param {Bounds2} layoutBounds - bounds withing which the scene will be shown
+   * @param {PaintSceneModel} paintSceneModel - the model
+   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   * @constructor
+   */
   function PaintSceneNode( layoutBounds, paintSceneModel, predictMode ) {
     var paintSceneNode = this;
+
+    // Create the left/right splotches and their NumberPickers
     var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
     var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.splotch2Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
-    var scaleOptions = { scale: 0.2 };
-    var splotchNode = new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, scaleOptions );
+
+    // Create the ABSwitch that chooses 1 or 2 splotches
+    var splotchNode = new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, iconScaleOptions );
     var abSwitch = new ABSwitch( paintSceneModel.showBothProperty,
       false, new HBox( {
         spacing: 10,
@@ -39,8 +53,8 @@ define( function( require ) {
       true, new HBox( {
         spacing: 10,
         children: [
-          new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, scaleOptions ),
-          new SplotchNode( new Property( 1 ), new Property( 1 ), paintSceneModel.grayscaleProperty, scaleOptions )
+          new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, iconScaleOptions ),
+          new SplotchNode( new Property( 1 ), new Property( 1 ), paintSceneModel.grayscaleProperty, iconScaleOptions )
         ]
       } )
     );
@@ -49,8 +63,7 @@ define( function( require ) {
       children: [ controllableSplotchNode1, controllableSplotchNode2, abSwitch ]
     } );
 
-    this.necklaceSceneModel = paintSceneModel;
-
+    // When the ABSwitch is toggled, show one/both of the splotches.
     paintSceneModel.showBothProperty.link( function( showBoth ) {
       controllableSplotchNode2.visible = showBoth;
 
@@ -68,12 +81,14 @@ define( function( require ) {
     } );
     this.moveABSwitchToBottomCenter( abSwitch );
 
+    // CheckBox to choose between colorized or black and white
     var grayscaleCheckBox = new CheckBox( new Text( 'Black & White', { fontSize: ProportionPlaygroundConstants.controlFontSize } ), paintSceneModel.grayscaleProperty, {
       left: layoutBounds.left + 5,
       bottom: layoutBounds.bottom - 5
     } );
     this.addChild( grayscaleCheckBox );
 
+    // The vertical gradient indicator
     var gradientIndicatorNode = new GradientIndicatorNode( layoutBounds, paintSceneModel, paintSceneModel.revealProperty );
     this.addChild( gradientIndicatorNode );
   }

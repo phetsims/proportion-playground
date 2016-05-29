@@ -1,8 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * This is the live gradient that changes based on user input events.
- * Very similar in intent and implementation to AppleGraphNode.js
+ * Vertical color gradient that shows triangles that move based on user input events. Very similar in intent and
+ * implementation to AppleGraphNode.js
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -20,15 +20,31 @@ define( function( require ) {
   var TriangleNode = require( 'PROPORTION_PLAYGROUND/explore/view/TriangleNode' );
   var Property = require( 'AXON/Property' );
 
+  // constants
+  var gradientWidth = 20;
+  var gradientHeight = 300;
+
+  /**
+   *
+   * @param {Bounds2} layoutBounds - the visible region for the screen
+   * @param {PaintSceneModel} paintSceneModel - the model
+   * @param {Property.<boolean>} revealProperty - true if the gradient triangle indicators representation should be shown
+   * @param {Object} [options] - node options
+   * @constructor
+   */
   function GradientIndicatorNode( layoutBounds, paintSceneModel, revealProperty, options ) {
     var gradientIndicatorNode = this;
 
-    var gradientWidth = 20;
-    var gradientHeight = 300;
-
+    /**
+     *
+     * @param {function} map - function that maps from (0-1) to Color
+     * @returns {*}
+     */
     var createGradientNode = function( map ) {
       return new GradientNode( gradientWidth, gradientHeight, map );
     };
+
+    // Create the gradients
     var colorGradient = createGradientNode( function( parameter ) {
       return ColorMap.getColor( parameter );
     } );
@@ -40,13 +56,16 @@ define( function( require ) {
       return new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
     } );
 
+    // Triangle indicators on the left/right
     var leftIndicator = new TriangleNode( 'left', { right: 0 } );
     var rightIndicator = new TriangleNode( 'right', { left: gradientWidth } );
 
+    // Show colored/gray based on the user selection
     paintSceneModel.grayscaleProperty.link( function( grayscale ) {
       colorGradient.visible = !grayscale;
       grayscaleGradient.visible = grayscale;
     } );
+
     Node.call( this, {
       children: [
         colorGradient,
@@ -58,6 +77,14 @@ define( function( require ) {
 
     this.mutate( options );
 
+    /**
+     * Auxiliary function that updates the left or right triangle indicator node.
+     *
+     * @param {Node} indicator - the left or right triangle node
+     * @param {SplotchModel} splotchModel - the model
+     * @param {function} condition - additional condition indicating whether the indicator node should be shown.
+     * @returns {Function}
+     */
     var createIndicatorUpdateFunction = function( indicator, splotchModel, condition ) {
       return function() {
         var total = splotchModel.color1Count + splotchModel.color2Count;
@@ -73,12 +100,14 @@ define( function( require ) {
       };
     };
 
+    // Update the left triangle indicator node when its parameters change.
     Property.multilink( [
       paintSceneModel.splotch1Model.color1CountProperty,
       paintSceneModel.splotch1Model.color2CountProperty,
       revealProperty
     ], createIndicatorUpdateFunction( leftIndicator, paintSceneModel.splotch1Model, function() {return true;} ) );
 
+    // Update the right triangle indicator node when its parameters change.
     Property.multilink( [
       paintSceneModel.splotch2Model.color1CountProperty,
       paintSceneModel.splotch2Model.color2CountProperty,
@@ -86,6 +115,7 @@ define( function( require ) {
       revealProperty
     ], createIndicatorUpdateFunction( rightIndicator, paintSceneModel.splotch2Model, function() {return paintSceneModel.showBoth;} ) );
 
+    // Update the fills of the triangle indicator nodes
     Property.multilink( [
       paintSceneModel.splotch1Model.color1CountProperty,
       paintSceneModel.splotch1Model.color2CountProperty,
@@ -99,10 +129,12 @@ define( function( require ) {
       leftIndicator.fill = fill;
     } );
 
+    // Position the node
     paintSceneModel.showBothProperty.link( function( showBoth ) {
       gradientIndicatorNode.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
     } );
 
+    // Vertical position
     this.centerY = 250;
   }
 

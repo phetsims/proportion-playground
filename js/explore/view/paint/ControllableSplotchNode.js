@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Combines a mutable NecklaceNode with its controls.
+ * Combines a mutable SplotchNode with its associated NumberPickers.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -18,13 +18,29 @@ define( function( require ) {
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/explore/view/paint/SplotchNode' );
   var ColorMap = require( 'PROPORTION_PLAYGROUND/explore/view/paint/ColorMap' );
 
-  function ControllableSplotchNode( splotchModel, grayscaleProperty, revealProperty ) {
-    var numberPickerOptions = { scale: 2 };
+  // constants
+  var numberPickerOptions = { scale: 2 };
 
+  /**
+   *
+   * @param {SplotchModel} splotchModel - the model
+   * @param {Property.<boolean>} grayscaleProperty - property that indicates whether colors are shown as grayscale
+   * @param {Property.<boolean>} revealProperty - indicates whether the billiards table should be shown
+   * @constructor
+   */
+  function ControllableSplotchNode( splotchModel, grayscaleProperty, revealProperty ) {
+
+    /**
+     * Auxiliary function that creates a NumberPicker for a given color
+     * @param {Property.<number>} property - the number of times this color has been added to the model.
+     * @param {Object} [options] - node options
+     * @returns NumberPicker
+     */
     var createNumberPicker = function( property, options ) {
       return new NumberPicker( property, new Property( splotchModel.colorCountRange ), _.extend( options, numberPickerOptions ) );
     };
 
+    // Left-side number pickers for blue/black
     var picker1Color = createNumberPicker( splotchModel.color1CountProperty, { color: ColorMap.getColor( 0 ) } );
     var picker1Black = createNumberPicker( splotchModel.color1CountProperty, { color: 'black' } );
     var color1CountPicker = new Node( {
@@ -34,6 +50,7 @@ define( function( require ) {
       ]
     } );
 
+    // Right-side number pickers for yellow/white
     var picker2Color = createNumberPicker( splotchModel.color2CountProperty, { color: ColorMap.getColor( 1 ) } );
     var picker2Black = createNumberPicker( splotchModel.color2CountProperty, { color: 'white' } );
     var color2CountPicker = new Node( {
@@ -43,6 +60,7 @@ define( function( require ) {
       ]
     } );
 
+    // When "Black & White" option is toggled, show as grayscale
     grayscaleProperty.link( function( grayscale ) {
       picker1Black.visible = grayscale;
       picker2Black.visible = grayscale;
