@@ -48,10 +48,10 @@ define( function( require ) {
       }
 
       // in the middle band, pull down the red and blue amount
-      var widthOfGreenColorBand = 0.2;
+      var halfWidthOfGreenBand = 0.2;
       var redBlueCorrection = 0;
-      var minBand = 0.5 - widthOfGreenColorBand;
-      var maxBand = 0.5 + widthOfGreenColorBand;
+      var minBand = 0.5 - halfWidthOfGreenBand;
+      var maxBand = 0.5 + halfWidthOfGreenBand;
       var colorReduction = 128; // Drop red and blue but not so much that the green channel is saturated and there is no dynamic range
       if ( blendAmount > minBand && blendAmount <= 0.5 ) {
         redBlueCorrection = Util.linear( minBand, 0.5, 0, colorReduction, blendAmount );
