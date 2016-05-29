@@ -26,6 +26,9 @@ define( function( require ) {
   var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
   var greenAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-green.png' );
 
+  // strings
+  var costPerAppleString = require( 'string!PROPORTION_PLAYGROUND/costPerApple' );
+
   // constants
   var checkBoxInset = 10;
   var iconScaleOptions = { scale: 0.2 };
@@ -66,7 +69,8 @@ define( function( require ) {
     );
 
     // Check box that shows the cost per apple in a price tag
-    var showCostPerAppleCheckBox = new CheckBox( new Text( 'Cost per apple', {
+    var showCostPerAppleCheckBox = new CheckBox( new Text( costPerAppleString, {
+      maxWidth: 293, // ceiling value from ?stringTest=double for English
       fontSize: ProportionPlaygroundConstants.controlFontSize
     } ), appleSceneModel.showCostPerAppleProperty );
 

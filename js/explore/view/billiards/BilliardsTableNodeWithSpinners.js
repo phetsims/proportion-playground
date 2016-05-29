@@ -20,6 +20,10 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
+  // strings
+  var lengthString = require( 'string!PROPORTION_PLAYGROUND/length' );
+  var widthString = require( 'string!PROPORTION_PLAYGROUND/width' );
+
   // constants
   var numberPickerOptions = { scale: 2 };
 
@@ -56,7 +60,10 @@ define( function( require ) {
     var toVBox = function( label, node ) {
       return new VBox( {
         spacing: 15, children: [
-          new Text( label, { fontSize: ProportionPlaygroundConstants.controlFontSize } ),
+          new Text( label, {
+            maxWidth: 126, // ceiling value from ?stringTest=double for English
+            fontSize: ProportionPlaygroundConstants.controlFontSize
+          } ),
           node
         ]
       } );
@@ -70,8 +77,8 @@ define( function( require ) {
           y: 100,
           centerX: options.side === 'left' ? 0 : 450, // position around the origin
           children: [
-            toVBox( 'length', lengthNumberPicker ),
-            toVBox( 'width', widthNumberPicker )
+            toVBox( lengthString, lengthNumberPicker ),
+            toVBox( widthString, widthNumberPicker )
           ]
         } ),
         billiardsTableNode

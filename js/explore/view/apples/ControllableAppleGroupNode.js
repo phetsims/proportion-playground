@@ -20,6 +20,10 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
+  // strings
+  var totalCostString = require( 'string!PROPORTION_PLAYGROUND/totalCost' );
+  var applesString = require( 'string!PROPORTION_PLAYGROUND/apples' );
+
   /**
    * @param {AppleGroupModel} appleGroupModel - the model
    * @param {Image|mipmap} appleImage - the image to show for the apple grid and and apple icons
@@ -44,7 +48,10 @@ define( function( require ) {
       return new VBox( {
         spacing: 10,
         children: [
-          new Text( label, { fontSize: ProportionPlaygroundConstants.controlFontSize } ),
+          new Text( label, {
+            maxWidth: 202, // ceiling value from ?stringTest=double for English
+            fontSize: ProportionPlaygroundConstants.controlFontSize
+          } ),
           numberPicker
         ]
       } );
@@ -58,8 +65,8 @@ define( function( require ) {
           y: 430,
           centerX: -140, // position one spinner under coin stack, other under apple stack
           children: [
-            toVBox( totalCostNumberPicker, 'Total Cost' ),
-            toVBox( numberOfApplesNumberPicker, 'Apples' )
+            toVBox( totalCostNumberPicker, totalCostString ),
+            toVBox( numberOfApplesNumberPicker, applesString )
           ]
         } )
       ]

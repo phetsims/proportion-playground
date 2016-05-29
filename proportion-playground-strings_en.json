@@ -10,5 +10,23 @@
   },
   "game": {
     "value": "Game"
+  },
+  "costPerApple": {
+    "value": "Cost per apple"
+  },
+  "totalCost": {
+    "value": "Total Cost"
+  },
+  "apples": {
+    "value": "Apples"
+  },
+  "length": {
+    "value": "length"
+  },
+  "width": {
+    "value": "width"
+  },
+  "blackAndWhite": {
+    "value": "Black & White"
   }
 }

@@ -23,6 +23,9 @@ define( function( require ) {
   var ExploreSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreSceneNode' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
 
+  // strings
+  var blackAndWhiteString = require( 'string!PROPORTION_PLAYGROUND/blackAndWhite' );
+
   // constants
   var iconScaleOptions = { scale: 0.2 };
 
@@ -82,7 +85,10 @@ define( function( require ) {
     this.moveABSwitchToBottomCenter( abSwitch );
 
     // CheckBox to choose between colorized or black and white
-    var grayscaleCheckBox = new CheckBox( new Text( 'Black & White', { fontSize: ProportionPlaygroundConstants.controlFontSize } ), paintSceneModel.grayscaleProperty, {
+    var grayscaleCheckBox = new CheckBox( new Text( blackAndWhiteString, {
+      maxWidth: 280, // ceiling value from ?stringTest=double for English
+      fontSize: ProportionPlaygroundConstants.controlFontSize
+    } ), paintSceneModel.grayscaleProperty, {
       left: layoutBounds.left + 5,
       bottom: layoutBounds.bottom - 5
     } );
