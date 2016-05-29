@@ -25,9 +25,14 @@ define( function( require ) {
   var pathOptions = { stroke: 'black', lineWidth: 2 };
   var maxBeads = ProportionPlaygroundConstants.maxBeads;
 
+  /**
+   *
+   * @param {number} roundBeadCount - number of round beads
+   * @param {number} squareBeadCount - number of square beads
+   * @param {Object} [options] - node options
+   * @constructor
+   */
   function StaticNecklaceNode( roundBeadCount, squareBeadCount, options ) {
-
-    // approximate as polygon, then we can mutate points and curve segments to make it look more like a necklace
 
     var numBeads = roundBeadCount + squareBeadCount;
     var numberPoints = numBeads;
@@ -38,6 +43,8 @@ define( function( require ) {
     }
     var children = [];
     var k = 0;
+
+    // For one bead, show at the bottom of a circle
     if ( numBeads === 1 ) {
       for ( k = 0; k < roundBeadCount; k++ ) {
         children.push( new RoundBeadNode() );
@@ -49,6 +56,8 @@ define( function( require ) {
       children.unshift( new Circle( 12, _.extend( { y: -15 }, pathOptions ) ) );
     }
     else if ( numBeads === 2 ) {
+
+      // Show two beads at the bottom of the circle
       var x = 0;
       for ( k = 0; k < roundBeadCount; k++ ) {
         children.push( new RoundBeadNode( { x: x } ) );
@@ -63,7 +72,7 @@ define( function( require ) {
     }
     else if ( numBeads > 2 ) {
 
-      // see http://mathworld.wolfram.com/RegularPolygon.html
+      // approximate as polygon with beads between each vertex, see http://mathworld.wolfram.com/RegularPolygon.html
       var R = 1 / 2 * sideLength / Math.sin( Math.PI / numberPoints );
       var rScale = Util.linear( 3, 20, 1.5, 1, numberPoints );
       if ( numberPoints <= 20 ) {
@@ -81,16 +90,6 @@ define( function( require ) {
       for ( i = 0; i < vertices.length; i++ ) {
         vertices[ i ].addXY( Math.random() * randomAmount - randomAmount / 2, Math.random() * randomAmount - randomAmount / 2 );
       }
-
-      // smoothing step
-      // for ( i = 0; i < vertices.length; i++ ) {
-      //   var pre = vertices[ i - 1 ];
-      //   var post = vertices[ i + 1 ];
-      //   if ( pre && post ) {
-      //     vertices[ i ].set( pre.blend( post, 0.5 ) );
-      //   }
-      //   vertices[ i ].addXY( Math.random() * randomAmount - randomAmount / 2, Math.random() * randomAmount - randomAmount / 2 );
-      // }
 
       // between each pair of vertices, we must put a bead
       var pairs = [];
@@ -133,7 +132,7 @@ define( function( require ) {
       var na = solution.na;
       var nb = solution.nb;
 
-      // for each repeat
+      // for each instance of the repeated pattern
       for ( i = 0; i < m; i++ ) {
 
         // add round

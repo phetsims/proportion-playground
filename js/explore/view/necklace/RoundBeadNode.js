@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * Shows a single round bead.  Used in the necklace as well as in the NumberPicker icons.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -17,6 +18,11 @@ define( function( require ) {
   // constants
   var PINK = '#d0275c';
 
+  /**
+   *
+   * @param {Object} [options] - node options
+   * @constructor
+   */
   function RoundBeadNode( options ) {
     Node.call( this, { children: [ new Circle( ProportionPlaygroundConstants.beadDiameter / 2, { fill: PINK } ) ] } );
     this.mutate( options );

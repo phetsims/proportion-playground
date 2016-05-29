@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * Non-interactive node that displays the necklace.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -14,10 +15,16 @@ define( function( require ) {
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/StaticNecklaceNode' );
   var Property = require( 'AXON/Property' );
 
+  /**
+   *
+   * @param {NecklaceModel} necklaceModel - the model
+   * @constructor
+   */
   function NecklaceNode( necklaceModel ) {
     var necklaceNode = this;
     Node.call( this );
 
+    // When the bead counts change, update the view
     Property.multilink( [
       necklaceModel.roundBeadCountProperty,
       necklaceModel.squareBeadCountProperty
