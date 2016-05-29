@@ -42,25 +42,25 @@ define( function( require ) {
       var color = Color.interpolateRGBA( cyan, yellow, blendAmount );
 
       // after blending, move cyans toward blues
-      var amountToSubtract = Util.linear( 0, 0.5, 1, 0, blendAmount ) * 255;
+      var greenCorrection = Util.linear( 0, 0.5, 1, 0, blendAmount ) * 255;
       if ( blendAmount > 0.5 ) {
-        amountToSubtract = 0;
+        greenCorrection = 0;
       }
 
       // in the middle band, pull down the red and blue amount
       var widthOfGreenColorBand = 0.2;
-      var rbSubtract = 0;
+      var redBlueCorrection = 0;
       var minBand = 0.5 - widthOfGreenColorBand;
       var maxBand = 0.5 + widthOfGreenColorBand;
-      var colorReduction = 64; // Drop red and blue but not so much that the green channel is saturated and there is no dynamic range
+      var colorReduction = 128; // Drop red and blue but not so much that the green channel is saturated and there is no dynamic range
       if ( blendAmount > minBand && blendAmount <= 0.5 ) {
-        rbSubtract = Util.linear( minBand, 0.5, 0, colorReduction, blendAmount );
+        redBlueCorrection = Util.linear( minBand, 0.5, 0, colorReduction, blendAmount );
       }
       else if ( blendAmount > 0.5 && blendAmount < maxBand ) {
-        rbSubtract = Util.linear( 0.5, maxBand, colorReduction, 0, blendAmount );
+        redBlueCorrection = Util.linear( 0.5, maxBand, colorReduction, 0, blendAmount );
       }
 
-      return new Color( Math.max( color.red - rbSubtract, 0 ), Math.max( color.green - amountToSubtract, 0 ), Math.max( color.blue - rbSubtract, 0 ) );
+      return new Color( Math.max( color.red - redBlueCorrection, 0 ), Math.max( color.green - greenCorrection, 0 ), Math.max( color.blue - redBlueCorrection, 0 ) );
     }
   } );
 } );
