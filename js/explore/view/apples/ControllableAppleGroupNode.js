@@ -35,7 +35,9 @@ define( function( require ) {
 
     // Create the spinners
     var numberPickerOptions = { scale: 2 };
-    var totalCostNumberPicker = new NumberPicker( appleGroupModel.totalCostProperty, new Property( appleGroupModel.totalCostRange ), numberPickerOptions );
+    var totalCostNumberPicker = new NumberPicker( appleGroupModel.totalCostProperty, new Property( appleGroupModel.totalCostRange ), _.extend( {
+      formatText: function( text ) {return '$' + text;} // Put a $ sign in front of the spinner number
+    }, numberPickerOptions ) );
     var numberOfApplesNumberPicker = new NumberPicker( appleGroupModel.numberOfApplesProperty, new Property( appleGroupModel.numberOfApplesRange ), numberPickerOptions );
 
     // Create the place where apples and coins will be shown.
