@@ -1,5 +1,5 @@
 {
-  "comment": "# proportion-playground 1.0.0-dev.11 Sun May 29 2016 15:47:46 GMT-0600 (MDT)",
+  "comment": "# proportion-playground 1.0.0-dev.12 Mon May 30 2016 13:57:51 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -37,15 +37,15 @@
     "branch": "master"
   },
   "proportion-playground": {
-    "sha": "3bb09017baabca9dacb55761a6a8cb757292c27a",
+    "sha": "45db0ab43cb3b600a5ece47949ce6cc69b55a084",
     "branch": "master"
   },
   "scenery": {
-    "sha": "a7d52a821915111a3fb8d14d19f0decf98a63b98",
+    "sha": "30a080091cf58cae387a69f4a3522f9d4c0fbe04",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "614fcb3e93ee7e27c02d1917314909976b63eced",
+    "sha": "124a6a033406e8addd6a09cb1a0608e148581dda",
     "branch": "master"
   },
   "sherpa": {
