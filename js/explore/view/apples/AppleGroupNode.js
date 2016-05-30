@@ -17,6 +17,8 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
   var Property = require( 'AXON/Property' );
+  var Line = require( 'SCENERY/nodes/Line' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // images
   var coinImage = require( 'mipmap!PROPORTION_PLAYGROUND/coin.png' );
@@ -27,7 +29,7 @@ define( function( require ) {
   var applesPerRow = 5;
   var distanceBetweenCoinsAndApples = 65;
   var yOffsetOptions = { y: 320 };
-  
+
   /**
    *
    * @param {AppleGroupModel} appleGroupModel - the model for the apple group
@@ -38,7 +40,7 @@ define( function( require ) {
   function AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty ) {
     var appleLayer = new Node( yOffsetOptions );
     var coinLayer = new Node( yOffsetOptions );
-    var priceTagLayer = new Node( { x: -140, y: 120 } );
+    var priceTagLayer = new Node( { x: -132, y: 110 } );
     var appleLayerX = -applesPerRow * appleImage[ 0 ].width * appleImageScale / 2;
     Node.call( this, {
       children: [ coinLayer, appleLayer, priceTagLayer ]
@@ -92,9 +94,17 @@ define( function( require ) {
       else {
         fixed = '$' + fixed;
       }
-      priceTagLayer.children = [ new Panel( new Text( fixed, { fontSize: 40 } ), {
-        xMargin: 20,
-        yMargin: 20
+      var fontSizeOptions = { fontSize: 30 };
+      priceTagLayer.children = [ new Panel( new VBox( {
+        spacing: 5,
+        children: [
+          new Text( fixed, fontSizeOptions ),
+          new Line( 0, 0, 100, 0, { lineWidth: 2, stroke: 'black' } ),
+          new Text( 'Apple', fontSizeOptions )
+        ]
+      } ), {
+        xMargin: 12,
+        yMargin: 12
       } ) ];
     } );
   }
