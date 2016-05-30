@@ -41,7 +41,12 @@ define( function( require ) {
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
     var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundConstants.billiardsBrown } );
     var greenRectangle = new Rectangle( 0, 0, 0, 0, {
-      fill: ProportionPlaygroundConstants.billiardsGreen,
+      fill: ProportionPlaygroundConstants.billiardsGreen
+    } );
+
+    // Layer containing the grid lines and ball lines.  When these were children of the greenRectangle, it caused #19
+    // so they have been moved to a separate node
+    var lineLayer = new Node( {
       children: [ gridLinesNode, linesNode, currentLineNode ]
     } );
 
@@ -99,7 +104,6 @@ define( function( require ) {
       var lineWidthAmount = brownEdgeLineWidth * 2;
       brownRectangle.setRect( 0, 0, scaledWidth + lineWidthAmount, scaledHeight + lineWidthAmount );
       greenRectangle.setRect( 0, 0, scaledWidth, scaledHeight );
-      greenRectangle.center = center;
 
       var createGridLines = function() {
         var gridLines = [];
@@ -119,8 +123,12 @@ define( function( require ) {
       // grid lines
       gridLinesNode.children = createGridLines();
 
-      // center the brown border
+      // center the rectangles
+      greenRectangle.center = center;
       brownRectangle.center = greenRectangle.center;
+
+      // Position the lines layer
+      lineLayer.translation = greenRectangle.translation;
 
       // Position the holes.
       bottomRightHoleNode.translation = greenRectangle.translation.plusXY( width * scale, length * scale );
@@ -132,6 +140,7 @@ define( function( require ) {
       children: [
         brownRectangle,
         greenRectangle,
+        lineLayer,
         topLeftHoleNode,
         topRightHoleNode,
         bottomRightHoleNode,
