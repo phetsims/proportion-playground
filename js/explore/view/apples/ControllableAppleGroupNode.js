@@ -19,10 +19,12 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
   var totalCostString = require( 'string!PROPORTION_PLAYGROUND/totalCost' );
   var applesString = require( 'string!PROPORTION_PLAYGROUND/apples' );
+  var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
   /**
    * @param {AppleGroupModel} appleGroupModel - the model
@@ -36,7 +38,7 @@ define( function( require ) {
     // Create the spinners
     var numberPickerOptions = { scale: 2 };
     var totalCostNumberPicker = new NumberPicker( appleGroupModel.totalCostProperty, new Property( appleGroupModel.totalCostRange ), _.extend( {
-      formatText: function( text ) {return '$' + text;} // Put a $ sign in front of the spinner number
+      formatText: function( text ) {return StringUtils.format( pricePatternString, text );} // Put a $ sign in front of the spinner number
     }, numberPickerOptions ) );
     var numberOfApplesNumberPicker = new NumberPicker( appleGroupModel.numberOfApplesProperty, new Property( appleGroupModel.numberOfApplesRange ), numberPickerOptions );
 

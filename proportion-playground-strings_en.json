@@ -23,6 +23,9 @@
   "length": {
     "value": "length"
   },
+  "pricePattern": {
+    "value": "${0}"
+  },
   "width": {
     "value": "width"
   },
