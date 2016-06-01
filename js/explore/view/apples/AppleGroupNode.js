@@ -19,9 +19,13 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Line = require( 'SCENERY/nodes/Line' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // images
   var coinImage = require( 'mipmap!PROPORTION_PLAYGROUND/coin.png' );
+
+  // strings
+  var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
   // constants
   var appleImageScale = 0.35; // Reduction factor for showing the image
@@ -92,7 +96,7 @@ define( function( require ) {
         fixed = '?';
       }
       else {
-        fixed = '$' + fixed;
+        fixed = StringUtils.format( pricePatternString, fixed );
       }
       var fontSizeOptions = { fontSize: 30 };
       priceTagLayer.children = [ new Panel( new VBox( {
