@@ -111,22 +111,28 @@ define( function( require ) {
       var a = roundBeadCount;
       var b = squareBeadCount;
 
-      // Brute force search for pattern
-      var solver = function() {
+      /**
+ 	   * Searches for the bead pattern to be displayed by finding the greatest common divisor. 
+	   * @returns {Object} - dictionary for m, na, and nb. m is the number of patterns, na is the number of round beads 
+	   * per pattern, and nb is the number of square beads per pattern.
+	   */ 
+	  var solver = function() {
+		  
+		// If there is only one type of bead, there is only one pattern occurence
+		if ( a === 0 || b === 0 ) {
+			return { m: 1, na: a, nb: b }; 
+		}
+		
+		// search for greatest common divisor of a and b
+		for ( var m = a; m >= 1; m-- ) {
+			if ( a % m === 0 && b % m === 0 ) {
+				return { m: m, na: a/m, nb: b/m };
+			}
+		}
+		
+		assert && assert( false, 'no solution found' );
+	  }
 
-        for ( var m = maxBeads; m >= 1 && !match; m-- ) { // search for many pattern occurrences first
-          for ( var na = 0; na <= maxBeads && !match; na++ ) {
-            for ( var nb = 0; nb <= maxBeads && !match; nb++ ) {
-              if ( m * na === a && m * nb === b ) {
-                return { m: m, na: na, nb: nb };
-              }
-            }
-          }
-        }
-        assert && assert( false, 'no solution found' );
-      };
-
-      var match = false;
       var solution = solver();
       var m = solution.m;
       var na = solution.na;
