@@ -4,6 +4,7 @@
  * An immutable necklace node, used in icons and recreated by NecklaceNode when bead count changes.
  *
  * @author Sam Reid (PhET Interactive Simulations)
+ * @author Andrea Lin
  */
 define( function( require ) {
   'use strict';
@@ -19,11 +20,9 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // constants
   var pathOptions = { stroke: 'black', lineWidth: 2 };
-  var maxBeads = ProportionPlaygroundConstants.maxBeads;
 
   /**
    *
@@ -54,8 +53,7 @@ define( function( require ) {
       }
 
       children.unshift( new Circle( 12, _.extend( { y: -15 }, pathOptions ) ) );
-    }
-    else if ( numBeads === 2 ) {
+    } else if ( numBeads === 2 ) {
 
       // Show two beads at the bottom of the circle
       var x = 0;
@@ -69,8 +67,7 @@ define( function( require ) {
       }
       var radius = 14;
       children.unshift( new Circle( radius, _.extend( { y: -11, x: radius * 1.5 / 2 }, pathOptions ) ) );
-    }
-    else if ( numBeads > 2 ) {
+    } else if ( numBeads > 2 ) {
 
       // approximate as polygon with beads between each vertex, see http://mathworld.wolfram.com/RegularPolygon.html
       var R = 1 / 2 * sideLength / Math.sin( Math.PI / numberPoints );
@@ -112,26 +109,26 @@ define( function( require ) {
       var b = squareBeadCount;
 
       /**
- 	   * Searches for the bead pattern to be displayed by finding the greatest common divisor. 
-	   * @returns {Object} - dictionary for m, na, and nb. m is the number of patterns, na is the number of round beads 
-	   * per pattern, and nb is the number of square beads per pattern.
-	   */ 
-	  var solver = function() {
-		  
-		// If there is only one type of bead, there is only one pattern occurence
-		if ( a === 0 || b === 0 ) {
-			return { m: 1, na: a, nb: b }; 
-		}
-		
-		// search for greatest common divisor of a and b
-		for ( var m = a; m >= 1; m-- ) {
-			if ( a % m === 0 && b % m === 0 ) {
-				return { m: m, na: a/m, nb: b/m };
-			}
-		}
-		
-		assert && assert( false, 'no solution found' );
-	  }
+       * Searches for the bead pattern to be displayed by finding the greatest common divisor. 
+       * @returns {Object} - dictionary for m, na, and nb. m is the number of patterns, na is the number of round beads 
+       * per pattern, and nb is the number of square beads per pattern.
+       */
+      var solver = function() {
+
+        // If there is only one type of bead, there is only one pattern occurence
+        if ( a === 0 || b === 0 ) {
+          return { m: 1, na: a, nb: b };
+        }
+
+        // search for greatest common divisor of a and b
+        for ( var m = a; m >= 1; m-- ) {
+          if ( a % m === 0 && b % m === 0 ) {
+            return { m: m, na: a / m, nb: b / m };
+          }
+        }
+
+        assert && assert( false, 'no solution found' );
+      };
 
       var solution = solver();
       var m = solution.m;
@@ -160,8 +157,7 @@ define( function( require ) {
         var angle = pair.end.minus( pair.start ).angle();
         if ( types[ i ] === 'round' ) {
           children.push( new RoundBeadNode( { center: center } ) );
-        }
-        else {
+        } else {
           children.push( new SquareBeadNode( { center: center, rotation: angle } ) );
         }
       }
@@ -188,3 +184,4 @@ define( function( require ) {
 
   return inherit( Node, StaticNecklaceNode );
 } );
+
