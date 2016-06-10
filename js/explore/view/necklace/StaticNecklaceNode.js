@@ -19,10 +19,11 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // constants
   var pathOptions = { stroke: 'black', lineWidth: 2 };
+  var rotateUpright = -Math.PI / 2;
 
   /**
    *
@@ -34,7 +35,8 @@ define( function( require ) {
   function StaticNecklaceNode( roundBeadCount, squareBeadCount, options ) {
 
     var numBeads = roundBeadCount + squareBeadCount;
-    var numberPoints = numBeads;
+    // Number of vertices is one more than number of beads to account for a gap
+    var numberPoints = numBeads + 1;
     var angleBetweenPoints = Math.PI * 2 / numberPoints;
     var sideLength = 23;
     if ( roundBeadCount + squareBeadCount === 3 ) {
@@ -52,7 +54,12 @@ define( function( require ) {
         children.push( new SquareBeadNode() );
       }
 
-      children.unshift( new Circle( 12, _.extend( { y: -15 }, pathOptions ) ) );
+      // Skewed circle for one beaded necklace
+      var oneBeadShape = new Shape();
+      var points = [ new Vector2( 0, -30 ), new Vector2( -15, -5 ), new Vector2( 15, -5 ) ];
+      oneBeadShape.cardinalSpline( points, { tension: -0.75, isClosedLineSegments: true } );
+      children.unshift( new Path( oneBeadShape, pathOptions ) );
+
     } else if ( numBeads === 2 ) {
 
       // Show two beads at the bottom of the circle
@@ -65,8 +72,13 @@ define( function( require ) {
         children.push( new SquareBeadNode( { x: x } ) );
         x += 22;
       }
-      var radius = 14;
-      children.unshift( new Circle( radius, _.extend( { y: -11, x: radius * 1.5 / 2 }, pathOptions ) ) );
+
+      // Skewed circle for two beaded necklace
+      var twoBeadShape = new Shape();
+      points = [ new Vector2( 0 + 11, -30 ), new Vector2( -20 + 11, -5 ), new Vector2( 20 + 11, -5 ) ];
+      twoBeadShape.cardinalSpline( points, { tension: -0.75, isClosedLineSegments: true } );
+      children.unshift( new Path( twoBeadShape, pathOptions ) );
+
     } else if ( numBeads > 2 ) {
 
       // approximate as polygon with beads between each vertex, see http://mathworld.wolfram.com/RegularPolygon.html
@@ -77,18 +89,43 @@ define( function( require ) {
       }
       var vertices = [];
 
+      // Use gravity of random points to make the necklace look more natural
+
+      // Find the apothem of the polygon, see http://www.mathopenref.com/apothem.html   
+      var apothem = R * Math.cos( Math.PI / numberPoints );
+
+      // How many gravity points, 1,2,3, or 4
+      var randomNumber = Math.random() * 4;
+      var gravitates = [];
+      var divisionAngle = Math.PI / 2;
+
+      for ( var g = 0; g < randomNumber; g++ ) {
+        // Choose a random radius in a range 0.2 - 0.4 of the apothem
+        var randomRadius = ( Math.random() * 0.3 + 0.2 ) * apothem;
+        // Separate gravitate points by quadrant
+        var randomAngle = Math.random() * Math.PI / 2 / randomNumber + g * divisionAngle;
+        var gravitate = Vector2.createPolar( randomRadius, randomAngle );
+        gravitates.push( gravitate );
+      }
+
+      // Change vertices according to gravitate points
       for ( var i = 0; i < numberPoints; i++ ) {
-        var point = Vector2.createPolar( R, i * angleBetweenPoints );
+        var angle = ( i + 0.5 ) * angleBetweenPoints + rotateUpright;
+        var perfectPoint = Vector2.createPolar( R, angle );
+        var newRadius = R;
+
+        for ( g = 0; g < gravitates.length; g++ ) {
+          var difference = gravitates[ g ].distance( perfectPoint );
+          var amount = Math.pow( ( apothem - difference ), 2 );
+          var change = amount / R;
+          newRadius += change;
+        }
+
+        var point = Vector2.createPolar( newRadius, angle );
         vertices.push( point );
       }
 
-      // randomize vertices
-      var randomAmount = Util.linear( 3, 40, 4, 10, numberPoints );
-      for ( i = 0; i < vertices.length; i++ ) {
-        vertices[ i ].addXY( Math.random() * randomAmount - randomAmount / 2, Math.random() * randomAmount - randomAmount / 2 );
-      }
-
-      // between each pair of vertices, we must put a bead
+      // Between each pair of vertices, we must put a bead
       var pairs = [];
       for ( i = 0; i < vertices.length - 1; i++ ) {
         pairs.push( { start: vertices[ i ], end: vertices[ i + 1 ] } );
@@ -101,8 +138,6 @@ define( function( require ) {
       // Choose bead types
       // a = number round
       // b = number square
-      // n = # within pattern
-      // m = # of patterns
       var types = [];
 
       var a = roundBeadCount;
@@ -120,7 +155,7 @@ define( function( require ) {
           return { m: 1, na: a, nb: b };
         }
 
-        // search for greatest common divisor of a and b
+        // Search for greatest common divisor of a and b
         for ( var m = a; m >= 1; m-- ) {
           if ( a % m === 0 && b % m === 0 ) {
             return { m: m, na: a / m, nb: b / m };
@@ -148,30 +183,76 @@ define( function( require ) {
         }
       }
 
-      // Instantiate the beads between each vertex
+      // Create centers on pairs
       var centers = [];
       for ( i = 0; i < pairs.length; i++ ) {
         var pair = pairs[ i ];
         var center = pair.start.blend( pair.end, 0.5 );
         centers.push( center );
-        var angle = pair.end.minus( pair.start ).angle();
-        if ( types[ i ] === 'round' ) {
-          children.push( new RoundBeadNode( { center: center } ) );
-        } else {
-          children.push( new SquareBeadNode( { center: center, rotation: angle } ) );
+      }
+
+      // Find the shortest distance between any two centers
+      var minSideLength = centers[ centers.length - 1 ].distance( centers[ 0 ] );
+      for ( i = 0; i < centers.length - 1; i++ ) {
+        var newLength = centers[ i ].distance( centers[ i + 1 ] );
+        if ( newLength < minSideLength ) {
+          minSideLength = newLength;
+        }
+
+      }
+
+      // Resize necklace down so beads are closer together
+      var radiusScale = ProportionPlaygroundConstants.beadDiameter / minSideLength;
+
+      for ( i = 0; i < centers.length; i++ ) {
+        var oldCenter = centers[ i ];
+        // Add 5 to the radius to give some more space between beads
+        centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude() + 5, oldCenter.angle() );
+      }
+
+      // Instantiate the beads between each vertex
+      for ( i = 0; i < centers.length; i++ ) {
+        center = centers[ i ];
+        angle = pairs[ i ].end.minus( pairs[ i ].start ).angle();
+        // Add a bead if it is not the last pair
+        if ( i !== centers.length - 1 ) {
+          if ( types[ i ] === 'round' ) {
+            children.push( new RoundBeadNode( { center: center } ) );
+          } else {
+            children.push( new SquareBeadNode( { center: center, rotation: angle } ) );
+          }
+        }
+        // If it is the last pair, move center further away for a curved gap
+        else {
+          centers[ i ] = center.addXY( 15 * Math.cos( center.angle() ), 15 * Math.sin( center.angle() ) );
         }
       }
 
       // The black line of the necklace
       var shape = new Shape();
-      for ( i = 0; i < centers.length; i++ ) {
+
+      for ( i = 0; i < centers.length - 1; i++ ) {
         center = centers[ i ];
-        var nextCenter = i === centers.length - 1 ? centers[ 0 ] : centers[ i + 1 ];
+
+        // Have the last bead connect to the first bead
+        var nextCenter = i === centers.length - 2 ? centers[ 0 ] : centers[ i + 1 ];
+
+        var strength = 20 / numberPoints + 2;
+
+        var control = center.blend( nextCenter, 0.5 );
+        control.addXY( strength * Math.cos( control.angle() ), strength * Math.sin( control.angle() ) );
+
+        // Have the gap be more curved than the rest of the black line
+        if ( i === centers.length - 2 ) {
+          control = centers[ centers.length - 1 ];
+        }
+
         shape.moveToPoint( center );
-        shape.lineToPoint( nextCenter );
+        shape.quadraticCurveToPoint( control, nextCenter );
       }
 
       children.unshift( new Path( shape, pathOptions ) );
+
     }
 
     Node.call( this, {
