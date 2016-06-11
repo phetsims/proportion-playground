@@ -52,8 +52,8 @@ define( function( require ) {
     } ) );
 
     // Create the triangle indicators
-    var leftIndicator = new TriangleNode( 'left', { right: 0 } );
-    var rightIndicator = new TriangleNode( 'right', { left: arrowWidth } );
+    var leftIndicator = new TriangleNode( 'left', { right: - arrowWidth / 2 } );
+    var rightIndicator = new TriangleNode( 'right', { left: arrowWidth / 2 } );
 
     Node.call( this, {
       children: [
