@@ -20,6 +20,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var Random = require( 'DOT/Random' );
 
   // constants
   var pathOptions = { stroke: 'black', lineWidth: 2 };
@@ -39,6 +40,10 @@ define( function( require ) {
     var numberPoints = numBeads + 1;
     var angleBetweenPoints = Math.PI * 2 / numberPoints;
     var sideLength = 23;
+    // seed for the random number generator is determined by proportion
+    var seed = squareBeadCount === 0 ? 30 : roundBeadCount / squareBeadCount;
+    var random = new Random( { seed: seed } );
+
     if ( roundBeadCount + squareBeadCount === 3 ) {
       sideLength = 35;
     }
@@ -56,7 +61,26 @@ define( function( require ) {
 
       // Skewed circle for one beaded necklace
       var oneBeadShape = new Shape();
-      var points = [ new Vector2( 0, -30 ), new Vector2( -15, -5 ), new Vector2( 15, -5 ) ];
+
+      var points = [];
+      // if there is one round bead, draw it a certain shape
+      if ( roundBeadCount === 1 ) {
+        points = [ new Vector2( 7, 1 ),
+          new Vector2( -7, 1 ),
+          new Vector2( -13, -27 ),
+          new Vector2( 9, -28 )
+        ];
+
+      }
+      // if one square bead, another shape
+      else {
+        points = [ new Vector2( 10, 0 ),
+          new Vector2( -11, 0 ),
+          new Vector2( -12, -24 ),
+          new Vector2( 12, -24 )
+        ];
+      }
+
       oneBeadShape.cardinalSpline( points, { tension: -0.75, isClosedLineSegments: true } );
       children.unshift( new Path( oneBeadShape, pathOptions ) );
 
@@ -73,9 +97,34 @@ define( function( require ) {
         x += 22;
       }
 
+      // if all round beads, draw a certain shape
+      if ( roundBeadCount === 2 ) {
+        points = [
+          new Vector2( 10 + 11, 1 ),
+          new Vector2( -10 + 11, 1 ),
+          new Vector2( -14 + 11, -27 ),
+          new Vector2( 10 + 11, -29 )
+        ];
+      }
+      // if all square beads
+      else if ( squareBeadCount === 2 ) {
+        points = [
+          new Vector2( 11 + 11, 0 ),
+          new Vector2( -12 + 11, 0 ),
+          new Vector2( -13 + 11, -25 ),
+          new Vector2( 13 + 11, -25 )
+        ];
+      }
+      // if there is one bead of each kind
+      else {
+        points = [ new Vector2( 0 + 11, 5 ),
+          new Vector2( -20 + 11, -17 ),
+          new Vector2( 0 + 11, -40 ),
+          new Vector2( 20 + 11, -17 )
+        ];
+      }
       // Skewed circle for two beaded necklace
       var twoBeadShape = new Shape();
-      points = [ new Vector2( 0 + 11, -30 ), new Vector2( -20 + 11, -5 ), new Vector2( 20 + 11, -5 ) ];
       twoBeadShape.cardinalSpline( points, { tension: -0.75, isClosedLineSegments: true } );
       children.unshift( new Path( twoBeadShape, pathOptions ) );
 
@@ -95,15 +144,15 @@ define( function( require ) {
       var apothem = R * Math.cos( Math.PI / numberPoints );
 
       // How many gravity points, 1,2,3, or 4
-      var randomNumber = Math.random() * 4;
+      var randomNumber = random.random() * 4;
       var gravitates = [];
       var divisionAngle = Math.PI / 2;
 
       for ( var g = 0; g < randomNumber; g++ ) {
-        // Choose a random radius in a range 0.2 - 0.4 of the apothem
-        var randomRadius = ( Math.random() * 0.3 + 0.2 ) * apothem;
+        // Choose a random radius in a range 0.2 - 0.5 of the apothem
+        var randomRadius = ( random.random() * 0.3 + 0.2 ) * apothem;
         // Separate gravitate points by quadrant
-        var randomAngle = Math.random() * Math.PI / 2 / randomNumber + g * divisionAngle;
+        var randomAngle = random.random() * Math.PI / 2 / randomNumber + g * divisionAngle;
         var gravitate = Vector2.createPolar( randomRadius, randomAngle );
         gravitates.push( gravitate );
       }
