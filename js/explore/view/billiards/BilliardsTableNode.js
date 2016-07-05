@@ -41,6 +41,8 @@ define( function( require ) {
    */
   function BilliardsTableNode( center, billiardsTableModel, options ) {
 
+    var billiardsTableNode = this;
+
     var gridLinesNode = new Node();
     var linesNode = new Node();
     var currentLineNode = new Line( 0, 0, 0, 0, movingLineOptions );
@@ -138,7 +140,10 @@ define( function( require ) {
 
       // note where drag started
       start: function( event ) {
-        startX = event.pointer.point.x;
+
+        // Convert to parent coordinates for dragging billiard table node, so the mouse stays at the right relative position, see #26
+        var parentPoint = billiardsTableNode.globalToParentPoint( event.pointer.point );
+        startX = parentPoint.x;
         startWidth = billiardsTableModel.width;
         mouseX = startX;
 
@@ -158,7 +163,10 @@ define( function( require ) {
         // var newWidth = Util.roundSymmetric( ( matchedMouseX - center.x ) * 2 / scale );
         // and then use newWidth instead of startWidth + widthChange below
 
-        mouseX = event.pointer.point.x;
+        // Convert to parent coordinates for dragging billiard table node, so the mouse stays at the right relative position, see #26
+        var parentPoint = billiardsTableNode.globalToParentPoint( event.pointer.point );
+
+        mouseX = parentPoint.x;
         var widthChange = Util.roundSymmetric( ( mouseX - startX ) * 2 / scale );
 
         // change the width, making sure its within the acceptable range
