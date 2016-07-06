@@ -26,6 +26,10 @@ define( function( require ) {
   var applesString = require( 'string!PROPORTION_PLAYGROUND/apples' );
   var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
+  // constants
+  var numberPickerOptions = { scale: 2 };
+  var APPLE_RED = 'rgb(237,28,36)'; // color sampled from apple-red.png
+
   /**
    * @param {AppleGroupModel} appleGroupModel - the model
    * @param {Image|mipmap} appleImage - the image to show for the apple grid and and apple icons
@@ -35,12 +39,28 @@ define( function( require ) {
    */
   function ControllableAppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty, revealProperty ) {
 
-    // Create the spinners
-    var numberPickerOptions = { scale: 2 };
-    var totalCostNumberPicker = new NumberPicker( appleGroupModel.totalCostProperty, new Property( appleGroupModel.totalCostRange ), _.extend( {
-      formatText: function( text ) {return StringUtils.format( pricePatternString, text );} // Put a $ sign in front of the spinner number
-    }, numberPickerOptions ) );
-    var numberOfApplesNumberPicker = new NumberPicker( appleGroupModel.numberOfApplesProperty, new Property( appleGroupModel.numberOfApplesRange ), numberPickerOptions );
+    // Create the total cost spinner
+    var totalCostNumberPicker = new NumberPicker(
+      appleGroupModel.totalCostProperty,
+      new Property( appleGroupModel.totalCostRange ),
+      _.extend( {
+          color: 'black',
+
+          // Put a $ sign in front of the spinner number
+          formatText: function( text ) {
+            return StringUtils.format( pricePatternString, text );
+          }
+        },
+        numberPickerOptions
+      )
+    );
+
+    // Create the number of apples spinner
+    var numberOfApplesNumberPicker = new NumberPicker(
+      appleGroupModel.numberOfApplesProperty,
+      new Property( appleGroupModel.numberOfApplesRange ),
+      _.extend( { color: APPLE_RED }, numberPickerOptions )
+    );
 
     // Create the place where apples and coins will be shown.
     var appleGroupNode = new AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty );
@@ -81,3 +101,4 @@ define( function( require ) {
 
   return inherit( Node, ControllableAppleGroupNode );
 } );
+

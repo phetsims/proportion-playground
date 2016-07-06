@@ -19,9 +19,12 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/RoundBeadNode' );
   var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/SquareBeadNode' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // constants
   var numberPickerOptions = { scale: 2 };
+  var PINK = ProportionPlaygroundConstants.BEADS_PINK;
+  var BLUE = ProportionPlaygroundConstants.BEADS_BLUE;
 
   /**
    *
@@ -31,9 +34,19 @@ define( function( require ) {
    */
   function ControllableNecklaceNode( necklaceModel, revealProperty ) {
 
+    /**
+     * Auxiliary function that creates a NumberPicker for a given color
+     * @param {Property.<number>} property - the number of times this color has been added to the model.
+     * @param {Object} [options] - node options
+     * @returns NumberPicker
+     */
+    var createNumberPicker = function( property, options ) {
+      return new NumberPicker( property, new Property( necklaceModel.beadCountRange ), _.extend( options, numberPickerOptions ) );
+    };
+
     // NumberPickers to choose the number of each type of bead
-    var roundBeadNumberPicker = new NumberPicker( necklaceModel.roundBeadCountProperty, new Property( necklaceModel.beadCountRange ), numberPickerOptions );
-    var squareBeadNumberPicker = new NumberPicker( necklaceModel.squareBeadCountProperty, new Property( necklaceModel.beadCountRange ), numberPickerOptions );
+    var roundBeadNumberPicker = createNumberPicker( necklaceModel.roundBeadCountProperty, { color: PINK } );
+    var squareBeadNumberPicker = createNumberPicker( necklaceModel.squareBeadCountProperty, { color: BLUE } );
 
     // The necklace itself
     var necklaceNode = new NecklaceNode( necklaceModel );

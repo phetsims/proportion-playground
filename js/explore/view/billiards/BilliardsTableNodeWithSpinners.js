@@ -25,7 +25,7 @@ define( function( require ) {
   var widthString = require( 'string!PROPORTION_PLAYGROUND/width' );
 
   // constants
-  var numberPickerOptions = { scale: 2 };
+  var numberPickerOptions = { scale: 2, color: ProportionPlaygroundConstants.billiardsBrown };
 
   /**
    *

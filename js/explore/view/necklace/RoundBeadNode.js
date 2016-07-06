@@ -16,7 +16,7 @@ define( function( require ) {
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // constants
-  var PINK = '#d0275c';
+  var PINK = ProportionPlaygroundConstants.BEADS_PINK;
 
   /**
    *

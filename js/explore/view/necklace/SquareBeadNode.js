@@ -17,7 +17,7 @@ define( function( require ) {
 
   // constants
   var width = ProportionPlaygroundConstants.beadDiameter;
-  var BLUE = '#2f358f';
+  var BLUE = ProportionPlaygroundConstants.BEADS_BLUE;
 
   /**
    *

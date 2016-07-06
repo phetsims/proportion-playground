@@ -11,6 +11,8 @@ define( function( require ) {
 
   var ProportionPlaygroundConstants = {
     beadDiameter: 18,
+    BEADS_PINK: '#d0275c',
+    BEADS_BLUE: '#2f358f',
     controlFontSize: 22,
     billiardsBrown: '#73481d',
     billiardsGreen: '#0a6739',
