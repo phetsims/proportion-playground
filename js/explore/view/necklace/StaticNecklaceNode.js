@@ -27,7 +27,6 @@ define( function( require ) {
   var rotateUpright = -Math.PI / 2;
 
   /**
-   *
    * @param {number} roundBeadCount - number of round beads
    * @param {number} squareBeadCount - number of square beads
    * @param {Object} [options] - node options
@@ -36,16 +35,18 @@ define( function( require ) {
   function StaticNecklaceNode( roundBeadCount, squareBeadCount, options ) {
 
     var numBeads = roundBeadCount + squareBeadCount;
-    // Number of vertices is one more than number of beads to account for a gap
+
+    // Number of vertices is one more than number of beads to account for a gap.
     var numberPoints = numBeads + 1;
     var angleBetweenPoints = Math.PI * 2 / numberPoints;
-    var sideLength = 23;
+    var sideLength = ProportionPlaygroundConstants.beadDiameter + 5;
+
     // seed for the random number generator is determined by proportion
     var seed = squareBeadCount === 0 ? 30 : roundBeadCount / squareBeadCount;
     var random = new Random( { seed: seed } );
 
     if ( roundBeadCount + squareBeadCount === 3 ) {
-      sideLength = 35;
+      sideLength = 2 * ProportionPlaygroundConstants.beadDiameter - 1;
     }
     var children = [];
     var k = 0;
@@ -66,9 +67,9 @@ define( function( require ) {
       // if there is one round bead, draw it a certain shape
       if ( roundBeadCount === 1 ) {
         points = [ new Vector2( 7, 1 ),
-          new Vector2( -7, 1 ),
-          new Vector2( -13, -27 ),
-          new Vector2( 9, -28 )
+          new Vector2( -11, 0 ),
+          new Vector2( -12, -24 ),
+          new Vector2( 12, -24 )
         ];
 
       }
@@ -125,6 +126,8 @@ define( function( require ) {
       }
       // Skewed circle for two beaded necklace
       var twoBeadShape = new Shape();
+
+      // tension empirically determined to make necklace look realistic
       twoBeadShape.cardinalSpline( points, { tension: -0.75, isClosedLineSegments: true } );
       children.unshift( new Path( twoBeadShape, pathOptions ) );
 
@@ -132,39 +135,41 @@ define( function( require ) {
 
       // approximate as polygon with beads between each vertex, see http://mathworld.wolfram.com/RegularPolygon.html
       var R = 1 / 2 * sideLength / Math.sin( Math.PI / numberPoints );
-      var rScale = Util.linear( 3, 20, 1.5, 1, numberPoints );
+
+      // make beads closer together as there are more of them
+      var rScale = Util.linear( 3, ProportionPlaygroundConstants.maxBeads, 1.5, 1, numberPoints );
       if ( numberPoints <= 20 ) {
         R = R * rScale;
       }
       var vertices = [];
 
-      // Use gravity of random points to make the necklace look more natural
+      // Use attraction of random points to make the necklace look more natural
 
       // Find the apothem of the polygon, see http://www.mathopenref.com/apothem.html   
       var apothem = R * Math.cos( Math.PI / numberPoints );
 
-      // How many gravity points, 1,2,3, or 4
+      // Randomly choose 1, 2, 3, or 4 repulsion points
       var randomNumber = random.random() * 4;
-      var gravitates = [];
+      var repulsionPoints = [];
       var divisionAngle = Math.PI / 2;
 
       for ( var g = 0; g < randomNumber; g++ ) {
         // Choose a random radius in a range 0.2 - 0.5 of the apothem
         var randomRadius = ( random.random() * 0.3 + 0.2 ) * apothem;
-        // Separate gravitate points by quadrant
+        // Separate repulsion points by quadrant
         var randomAngle = random.random() * Math.PI / 2 / randomNumber + g * divisionAngle;
-        var gravitate = Vector2.createPolar( randomRadius, randomAngle );
-        gravitates.push( gravitate );
+        var repulsor = Vector2.createPolar( randomRadius, randomAngle );
+        repulsionPoints.push( repulsor );
       }
 
-      // Change vertices according to gravitate points
+      // Change vertices according to repulsion points
       for ( var i = 0; i < numberPoints; i++ ) {
         var angle = ( i + 0.5 ) * angleBetweenPoints + rotateUpright;
         var perfectPoint = Vector2.createPolar( R, angle );
         var newRadius = R;
 
-        for ( g = 0; g < gravitates.length; g++ ) {
-          var difference = gravitates[ g ].distance( perfectPoint );
+        for ( g = 0; g < repulsionPoints.length; g++ ) {
+          var difference = repulsionPoints[ g ].distance( perfectPoint );
           var amount = Math.pow( ( apothem - difference ), 2 );
           var change = amount / R;
           newRadius += change;
