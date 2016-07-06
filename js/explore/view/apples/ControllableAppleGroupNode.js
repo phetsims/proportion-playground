@@ -27,7 +27,7 @@ define( function( require ) {
   var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
   // constants
-  var numberPickerOptions = { scale: 2 };
+  var NUMBER_PICKER_OPTIONS = { scale: 2 };
   var APPLE_RED = 'rgb(237,28,36)'; // color sampled from apple-red.png
 
   /**
@@ -51,7 +51,7 @@ define( function( require ) {
             return StringUtils.format( pricePatternString, text );
           }
         },
-        numberPickerOptions
+        NUMBER_PICKER_OPTIONS
       )
     );
 
@@ -59,7 +59,7 @@ define( function( require ) {
     var numberOfApplesNumberPicker = new NumberPicker(
       appleGroupModel.numberOfApplesProperty,
       new Property( appleGroupModel.numberOfApplesRange ),
-      _.extend( { color: APPLE_RED }, numberPickerOptions )
+      _.extend( { color: APPLE_RED }, NUMBER_PICKER_OPTIONS )
     );
 
     // Create the place where apples and coins will be shown.
@@ -74,7 +74,7 @@ define( function( require ) {
         children: [
           new Text( label, {
             maxWidth: 202, // ceiling value from ?stringTest=double for English
-            fontSize: ProportionPlaygroundConstants.controlFontSize
+            fontSize: ProportionPlaygroundConstants.CONTROL_FONT_SIZE
           } ),
           numberPicker
         ]

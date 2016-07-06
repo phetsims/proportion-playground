@@ -21,9 +21,9 @@ define( function( require ) {
 
   // constants
   var ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick
-  var arrowWidth = 3;
-  var arrowHeight = 300;
-  var arrowLineWidth = 2;
+  var ARROW_WIDTH = 3;
+  var ARROW_HEIGHT = 300;
+  var ARROW_LINE_WIDTH = 2;
 
   /**
    *
@@ -37,23 +37,23 @@ define( function( require ) {
     var appleGraphNode = this;
 
     // The vertical arrow for the graph
-    var arrowNode = new ArrowNode( 0, arrowHeight, 0, -ARROW_OVERSHOOT, { tailWidth: arrowLineWidth } );
+    var arrowNode = new ArrowNode( 0, ARROW_HEIGHT, 0, -ARROW_OVERSHOOT, { tailWidth: ARROW_LINE_WIDTH } );
 
     // Tick marks for 0, 1/2 and 1 up the chart.
-    var lineOptions = { stroke: 'black', lineWidth: arrowLineWidth };
+    var lineOptions = { stroke: 'black', lineWidth: ARROW_LINE_WIDTH };
     arrowNode.addChild( new Line( -10, 0, 10, 0, lineOptions ).mutate( {
-      centerY: Util.linear( 0, 20, arrowHeight, 0, 20 )
+      centerY: Util.linear( 0, 20, ARROW_HEIGHT, 0, 20 )
     } ) );
     arrowNode.addChild( new Line( -10, 0, 10, 0, lineOptions ).mutate( {
-      centerY: Util.linear( 0, 20, arrowHeight, 0, 10 )
+      centerY: Util.linear( 0, 20, ARROW_HEIGHT, 0, 10 )
     } ) );
     arrowNode.addChild( new Line( -10, 0, 10, 0, lineOptions ).mutate( {
-      centerY: Util.linear( 0, 20, arrowHeight, 0, 0 )
+      centerY: Util.linear( 0, 20, ARROW_HEIGHT, 0, 0 )
     } ) );
 
     // Create the triangle indicators
-    var leftIndicator = new TriangleNode( 'left', { right: - arrowWidth / 2 } );
-    var rightIndicator = new TriangleNode( 'right', { left: arrowWidth / 2 } );
+    var leftIndicator = new TriangleNode( 'left', { right: - ARROW_WIDTH / 2 } );
+    var rightIndicator = new TriangleNode( 'right', { left: ARROW_WIDTH / 2 } );
 
     Node.call( this, {
       children: [
@@ -80,7 +80,7 @@ define( function( require ) {
         }
         else {
           indicator.visible = condition() && revealProperty.get();
-          indicator.centerY = Util.linear( 0, 20, arrowHeight, 0, costPerApple );
+          indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
         }
       };
     };

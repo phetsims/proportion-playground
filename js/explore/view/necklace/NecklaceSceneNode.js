@@ -18,7 +18,7 @@ define( function( require ) {
   var ExploreSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreSceneNode' );
 
   // constants
-  var iconScaleOptions = { scale: 0.3 };
+  var ICON_SCALE_OPTIONS = { scale: 0.3 };
 
   /**
    *
@@ -37,10 +37,10 @@ define( function( require ) {
 
     // Create the switch that chooses between 1 vs 2 necklaces
     var abSwitch = new ABSwitch( necklaceSceneModel.showBothProperty,
-      false, new StaticNecklaceNode( 14, 7, iconScaleOptions ),
+      false, new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ),
       true, new HBox( {
         children: [
-          new StaticNecklaceNode( 10, 5, iconScaleOptions ), new StaticNecklaceNode( 14, 7, iconScaleOptions ) ]
+          new StaticNecklaceNode( 10, 5, ICON_SCALE_OPTIONS ), new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ) ]
       } ) );
 
     // Super call

@@ -30,8 +30,8 @@ define( function( require ) {
   var costPerAppleString = require( 'string!PROPORTION_PLAYGROUND/costPerApple' );
 
   // constants
-  var checkBoxInset = 10;
-  var iconScaleOptions = { scale: 0.2 };
+  var CHECK_BOX_INSET = 10;
+  var ICON_SCALE_OPTIONS = { scale: 0.2 };
 
   /**
    *
@@ -49,8 +49,8 @@ define( function( require ) {
     var appleGraphNode = new AppleGraphNode( layoutBounds, appleSceneModel, appleSceneModel.revealProperty );
 
     // Create icons for the ABSwitch
-    var greenAppleImageNode = new Image( greenAppleImage, iconScaleOptions );
-    var redAppleImageNode = new Image( redAppleImage, iconScaleOptions );
+    var greenAppleImageNode = new Image( greenAppleImage, ICON_SCALE_OPTIONS );
+    var redAppleImageNode = new Image( redAppleImage, ICON_SCALE_OPTIONS );
 
     // Create the switch that toggles between showing 1 and 2 groups
     var abSwitch = new ABSwitch( appleSceneModel.showBothProperty,
@@ -71,7 +71,7 @@ define( function( require ) {
     // Check box that shows the cost per apple in a price tag
     var showCostPerAppleCheckBox = new CheckBox( new Text( costPerAppleString, {
       maxWidth: 293, // ceiling value from ?stringTest=double for English
-      fontSize: ProportionPlaygroundConstants.controlFontSize
+      fontSize: ProportionPlaygroundConstants.CONTROL_FONT_SIZE
     } ), appleSceneModel.showCostPerAppleProperty );
 
     // Super call and add children
@@ -100,7 +100,7 @@ define( function( require ) {
     this.moveABSwitchToBottomCenter( abSwitch );
 
     // Price tag checkbox goes in the bottom left
-    showCostPerAppleCheckBox.leftBottom = layoutBounds.leftBottom.plusXY( checkBoxInset, -checkBoxInset );
+    showCostPerAppleCheckBox.leftBottom = layoutBounds.leftBottom.plusXY( CHECK_BOX_INSET, -CHECK_BOX_INSET );
   }
 
   proportionPlayground.register( 'AppleSceneNode', AppleSceneNode );

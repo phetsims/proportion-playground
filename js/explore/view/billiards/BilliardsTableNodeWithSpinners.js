@@ -25,7 +25,7 @@ define( function( require ) {
   var widthString = require( 'string!PROPORTION_PLAYGROUND/width' );
 
   // constants
-  var numberPickerOptions = { scale: 2, color: ProportionPlaygroundConstants.billiardsBrown };
+  var NUMBER_PICKER_OPTIONS = { scale: 2, color: ProportionPlaygroundConstants.BILLIARDS_BROWN };
 
   /**
    *
@@ -39,8 +39,8 @@ define( function( require ) {
     options = _.extend( { side: 'left' }, options );
 
     // The number pickers for choosing and displaying the length and width
-    var lengthNumberPicker = new NumberPicker( billiardsTableModel.lengthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
-    var widthNumberPicker = new NumberPicker( billiardsTableModel.widthProperty, new Property( billiardsTableModel.range ), numberPickerOptions );
+    var lengthNumberPicker = new NumberPicker( billiardsTableModel.lengthProperty, new Property( billiardsTableModel.range ), NUMBER_PICKER_OPTIONS );
+    var widthNumberPicker = new NumberPicker( billiardsTableModel.widthProperty, new Property( billiardsTableModel.range ), NUMBER_PICKER_OPTIONS );
 
     // The table itself, with the ball/holes/gridlines/etc.
     var billiardsTableNode = new BilliardsTableNode( new Vector2( 280, layoutBounds.centerY ), billiardsTableModel, {
@@ -62,7 +62,7 @@ define( function( require ) {
         spacing: 15, children: [
           new Text( label, {
             maxWidth: 126, // ceiling value from ?stringTest=double for English
-            fontSize: ProportionPlaygroundConstants.controlFontSize
+            fontSize: ProportionPlaygroundConstants.CONTROL_FONT_SIZE
           } ),
           node
         ]

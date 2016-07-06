@@ -10,14 +10,14 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   var ProportionPlaygroundConstants = {
-    beadDiameter: 18,
+    BEAD_DIAMETER: 18,
     BEADS_PINK: '#d0275c',
     BEADS_BLUE: '#2f358f',
-    controlFontSize: 22,
-    billiardsBrown: '#73481d',
-    billiardsGreen: '#0a6739',
-    screenBackgroundColor: '#fcf3eb',
-    maxBeads: 20
+    CONTROL_FONT_SIZE: 22,
+    BILLIARDS_BROWN: '#73481d',
+    BILLIARDS_GREEN: '#0a6739',
+    SCREEN_BACKGROUND_COLOR: '#fcf3eb',
+    MAX_BEADS: 20
   };
   proportionPlayground.register( 'ProportionPlaygroundConstants', ProportionPlaygroundConstants );
 

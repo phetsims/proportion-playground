@@ -28,11 +28,11 @@ define( function( require ) {
   var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
   // constants
-  var appleImageScale = 0.35; // Reduction factor for showing the image
-  var coinImageScale = 0.7; // Reduction factor for showing the image
-  var applesPerRow = 5;
-  var distanceBetweenCoinsAndApples = 65;
-  var yOffsetOptions = { y: 320 };
+  var APPLE_IMAGE_SCALE = 0.35; // Reduction factor for showing the image
+  var COIN_IMAGE_SCALE = 0.7; // Reduction factor for showing the image
+  var APPLES_PER_ROW = 5;
+  var DISTANCE_BETWEEN_COINS_AND_APPLES = 65;
+  var Y_OFFSET_OPTIONS = { y: 320 };
 
   /**
    *
@@ -42,10 +42,10 @@ define( function( require ) {
    * @constructor
    */
   function AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty ) {
-    var appleLayer = new Node( yOffsetOptions );
-    var coinLayer = new Node( yOffsetOptions );
+    var appleLayer = new Node( Y_OFFSET_OPTIONS );
+    var coinLayer = new Node( Y_OFFSET_OPTIONS );
     var priceTagLayer = new Node( { x: -132, y: 110 } );
-    var appleLayerX = -applesPerRow * appleImage[ 0 ].width * appleImageScale / 2;
+    var appleLayerX = -APPLES_PER_ROW * appleImage[ 0 ].width * APPLE_IMAGE_SCALE / 2;
     Node.call( this, {
       children: [ coinLayer, appleLayer, priceTagLayer ]
     } );
@@ -61,10 +61,10 @@ define( function( require ) {
       var x = 0;
       var y = 0;
       for ( var i = 0; i < numberOfApples; i++ ) {
-        var image = new Image( appleImage, { scale: appleImageScale, x: x, y: y } );
+        var image = new Image( appleImage, { scale: APPLE_IMAGE_SCALE, x: x, y: y } );
         appleArray.unshift( image ); // prepend to get z-order correct
         x = image.right;
-        if ( x >= image.width * applesPerRow ) {
+        if ( x >= image.width * APPLES_PER_ROW ) {
           x = 0;
           y = y - image.height / 2; // group up, the same as the coins grow for consistency
         }
@@ -80,12 +80,12 @@ define( function( require ) {
       var x = 0;
       var y = 0;
       for ( var i = 0; i < totalCost; i++ ) {
-        var image = new Image( coinImage, { scale: coinImageScale, x: x, y: y } );
+        var image = new Image( coinImage, { scale: COIN_IMAGE_SCALE, x: x, y: y } );
         coinArray.push( image );
         y = y - image.height / 6;
       }
       coinLayer.children = coinArray;
-      coinLayer.x = appleLayerX - coinImage[ 0 ].width * coinImageScale - distanceBetweenCoinsAndApples;
+      coinLayer.x = appleLayerX - coinImage[ 0 ].width * COIN_IMAGE_SCALE - DISTANCE_BETWEEN_COINS_AND_APPLES;
     } );
 
     // Update the price tag

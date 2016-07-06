@@ -30,7 +30,7 @@ define( function( require ) {
     Screen.call( this, predictString, icon,
       function() { return new PredictModel(); },
       function( model ) { return new PredictScreenView( model ); }, {
-        backgroundColor: ProportionPlaygroundConstants.screenBackgroundColor
+        backgroundColor: ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR
       }
     );
   }

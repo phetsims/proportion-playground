@@ -15,7 +15,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var speed = 8; // Pixels per second
+  var SPEED = 8; // Pixels per second
 
   /**
    *
@@ -24,7 +24,7 @@ define( function( require ) {
   function Ball() {
     PropertySet.call( this, {
       position: new Vector2( 0, 0 ), // {Vector2} @public the position of the ball in pixels
-      velocity: new Vector2( speed, -speed ) // {Vector2} @public the velocity of the ball in pixels per second
+      velocity: new Vector2( SPEED, -SPEED ) // {Vector2} @public the velocity of the ball in pixels per second
     } );
 
     // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
@@ -46,7 +46,7 @@ define( function( require ) {
       this.position = new Vector2( x, y );
 
       // initially the ball starts in the bottom left corner and moves up and to the right.
-      this.velocity = new Vector2( speed, -speed );
+      this.velocity = new Vector2( SPEED, -SPEED );
     }
   } );
 } );

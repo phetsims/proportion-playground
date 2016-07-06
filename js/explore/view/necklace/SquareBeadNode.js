@@ -16,7 +16,7 @@ define( function( require ) {
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // constants
-  var width = ProportionPlaygroundConstants.beadDiameter;
+  var WIDTH = ProportionPlaygroundConstants.BEAD_DIAMETER;
   var BLUE = ProportionPlaygroundConstants.BEADS_BLUE;
 
   /**
@@ -26,7 +26,7 @@ define( function( require ) {
    */
   function SquareBeadNode( options ) {
     Node.call( this, {
-      children: [ new Rectangle( -width / 2, -width / 2, width, width, { fill: BLUE } ) ]
+      children: [ new Rectangle( -WIDTH / 2, -WIDTH / 2, WIDTH, WIDTH, { fill: BLUE } ) ]
     } );
     this.mutate( options );
   }

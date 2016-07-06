@@ -15,8 +15,8 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   // constants
-  var cyan = new Color( 0, 255, 255 );
-  var yellow = new Color( 255, 255, 0 );
+  var CYAN = new Color( 0, 255, 255 );
+  var YELLOW = new Color( 255, 255, 0 );
 
   /**
    *
@@ -39,7 +39,7 @@ define( function( require ) {
       assert && assert( blendAmount >= 0 && blendAmount <= 1, 'Blend amount was out of bounds.' );
 
       // Cyan and Yellow combine to green in RGB
-      var color = Color.interpolateRGBA( cyan, yellow, blendAmount );
+      var color = Color.interpolateRGBA( CYAN, YELLOW, blendAmount );
 
       // after blending, move cyans toward blues
       var greenCorrection = Util.linear( 0, 0.5, 1, 0, blendAmount ) * 255;

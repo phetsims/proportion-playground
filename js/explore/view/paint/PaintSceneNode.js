@@ -27,7 +27,7 @@ define( function( require ) {
   var blackAndWhiteString = require( 'string!PROPORTION_PLAYGROUND/blackAndWhite' );
 
   // constants
-  var iconScaleOptions = { scale: 0.7 };
+  var ICON_SCALE_OPTIONS = { scale: 0.7 };
 
   /**
    *
@@ -44,7 +44,7 @@ define( function( require ) {
     var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.splotch2Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
 
     // Create the ABSwitch that chooses 1 or 2 splotches
-    var splotchNode = new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, iconScaleOptions );
+    var splotchNode = new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, ICON_SCALE_OPTIONS );
     var abSwitch = new ABSwitch( paintSceneModel.showBothProperty,
       false, new HBox( {
         spacing: 10,
@@ -56,8 +56,8 @@ define( function( require ) {
       true, new HBox( {
         spacing: 10,
         children: [
-          new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, iconScaleOptions ),
-          new SplotchNode( new Property( 1 ), new Property( 1 ), paintSceneModel.grayscaleProperty, iconScaleOptions )
+          new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, ICON_SCALE_OPTIONS ),
+          new SplotchNode( new Property( 1 ), new Property( 1 ), paintSceneModel.grayscaleProperty, ICON_SCALE_OPTIONS )
         ]
       } )
     );
@@ -87,7 +87,7 @@ define( function( require ) {
     // CheckBox to choose between colorized or black and white
     var grayscaleCheckBox = new CheckBox( new Text( blackAndWhiteString, {
       maxWidth: 280, // ceiling value from ?stringTest=double for English
-      fontSize: ProportionPlaygroundConstants.controlFontSize
+      fontSize: ProportionPlaygroundConstants.CONTROL_FONT_SIZE
     } ), paintSceneModel.grayscaleProperty, {
       left: layoutBounds.left + 5,
       bottom: layoutBounds.bottom - 5

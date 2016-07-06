@@ -21,8 +21,8 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   // constants
-  var gradientWidth = 20;
-  var gradientHeight = 300;
+  var GRADIENT_WIDTH = 20;
+  var GRADIENT_HEIGHT = 300;
 
   /**
    *
@@ -41,7 +41,7 @@ define( function( require ) {
      * @returns {*}
      */
     var createGradientNode = function( map ) {
-      return new GradientNode( gradientWidth, gradientHeight, map );
+      return new GradientNode( GRADIENT_WIDTH, GRADIENT_HEIGHT, map );
     };
 
     // Create the gradients
@@ -58,7 +58,7 @@ define( function( require ) {
 
     // Triangle indicators on the left/right
     var leftIndicator = new TriangleNode( 'left', { right: 0 } );
-    var rightIndicator = new TriangleNode( 'right', { left: gradientWidth } );
+    var rightIndicator = new TriangleNode( 'right', { left: GRADIENT_WIDTH } );
 
     // Show colored/gray based on the user selection
     paintSceneModel.grayscaleProperty.link( function( grayscale ) {
@@ -95,7 +95,7 @@ define( function( require ) {
           indicator.visible = condition() && revealProperty.get();
 
           var proportion = splotchModel.color2Count / total;
-          indicator.centerY = proportion * gradientHeight;
+          indicator.centerY = proportion * GRADIENT_HEIGHT;
         }
       };
     };

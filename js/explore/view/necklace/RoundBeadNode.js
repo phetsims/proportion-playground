@@ -24,7 +24,7 @@ define( function( require ) {
    * @constructor
    */
   function RoundBeadNode( options ) {
-    Node.call( this, { children: [ new Circle( ProportionPlaygroundConstants.beadDiameter / 2, { fill: PINK } ) ] } );
+    Node.call( this, { children: [ new Circle( ProportionPlaygroundConstants.BEAD_DIAMETER / 2, { fill: PINK } ) ] } );
     this.mutate( options );
   }
 

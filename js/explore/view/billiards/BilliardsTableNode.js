@@ -49,9 +49,9 @@ define( function( require ) {
     var currentLineNode = new Line( 0, 0, 0, 0, MOVING_LINE_OPTIONS );
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
-    var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundConstants.billiardsBrown } );
+    var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundConstants.BILLIARDS_BROWN } );
     var greenRectangle = new Rectangle( 0, 0, 0, 0, {
-      fill: ProportionPlaygroundConstants.billiardsGreen
+      fill: ProportionPlaygroundConstants.BILLIARDS_GREEN
     } );
 
     // invisible rectangles used to drag the sides of the table to change the dimensions

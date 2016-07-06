@@ -26,7 +26,7 @@ define( function( require ) {
     } );
 
     // Allowed range of bead counts
-    this.beadCountRange = new Range( 0, ProportionPlaygroundConstants.maxBeads );
+    this.beadCountRange = new Range( 0, ProportionPlaygroundConstants.MAX_BEADS );
 
     // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
     this.roundBeadCountProperty = this.roundBeadCountProperty || null;

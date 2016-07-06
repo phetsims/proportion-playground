@@ -26,8 +26,8 @@ define( function( require ) {
     var inset = width * 0.15;
     Node.call( this, {
       children: [
-        new Rectangle( -inset, -inset, width, height, { fill: ProportionPlaygroundConstants.billiardsBrown } ),// brown
-        new Rectangle( 0, 0, width - inset * 2, height - inset * 2, { fill: ProportionPlaygroundConstants.billiardsGreen } ) // green
+        new Rectangle( -inset, -inset, width, height, { fill: ProportionPlaygroundConstants.BILLIARDS_BROWN } ),// brown
+        new Rectangle( 0, 0, width - inset * 2, height - inset * 2, { fill: ProportionPlaygroundConstants.BILLIARDS_GREEN } ) // green
       ]
     } );
     this.mutate( options );

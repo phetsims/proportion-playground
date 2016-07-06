@@ -19,7 +19,7 @@ define( function( require ) {
   var ColorMap = require( 'PROPORTION_PLAYGROUND/explore/view/paint/ColorMap' );
 
   // constants
-  var numberPickerOptions = { scale: 2 };
+  var NUMBER_PICKER_OPTIONS = { scale: 2 };
 
   /**
    *
@@ -37,7 +37,7 @@ define( function( require ) {
      * @returns NumberPicker
      */
     var createNumberPicker = function( property, options ) {
-      return new NumberPicker( property, new Property( splotchModel.colorCountRange ), _.extend( options, numberPickerOptions ) );
+      return new NumberPicker( property, new Property( splotchModel.colorCountRange ), _.extend( options, NUMBER_PICKER_OPTIONS ) );
     };
 
     // Left-side number pickers for blue/black

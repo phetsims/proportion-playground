@@ -22,7 +22,7 @@ define( function( require ) {
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // constants
-  var numberPickerOptions = { scale: 2 };
+  var NUMBER_PICKER_OPTIONS = { scale: 2 };
   var PINK = ProportionPlaygroundConstants.BEADS_PINK;
   var BLUE = ProportionPlaygroundConstants.BEADS_BLUE;
 
@@ -41,7 +41,7 @@ define( function( require ) {
      * @returns NumberPicker
      */
     var createNumberPicker = function( property, options ) {
-      return new NumberPicker( property, new Property( necklaceModel.beadCountRange ), _.extend( options, numberPickerOptions ) );
+      return new NumberPicker( property, new Property( necklaceModel.beadCountRange ), _.extend( options, NUMBER_PICKER_OPTIONS ) );
     };
 
     // NumberPickers to choose the number of each type of bead

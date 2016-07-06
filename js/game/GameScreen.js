@@ -31,7 +31,7 @@ define( function( require ) {
     Screen.call( this, gameString, icon,
       function() { return new GameModel(); },
       function( model ) { return new GameScreenView( model ); }, {
-        backgroundColor: ProportionPlaygroundConstants.screenBackgroundColor
+        backgroundColor: ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR
       }
     );
   }

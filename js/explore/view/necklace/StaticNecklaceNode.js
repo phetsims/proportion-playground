@@ -23,8 +23,8 @@ define( function( require ) {
   var Random = require( 'DOT/Random' );
 
   // constants
-  var pathOptions = { stroke: 'black', lineWidth: 2 };
-  var rotateUpright = -Math.PI / 2;
+  var PATH_OPTIONS = { stroke: 'black', lineWidth: 2 };
+  var ROTATE_UPRIGHT = -Math.PI / 2;
 
   /**
    * @param {number} roundBeadCount - number of round beads
@@ -39,14 +39,14 @@ define( function( require ) {
     // Number of vertices is one more than number of beads to account for a gap.
     var numberPoints = numBeads + 1;
     var angleBetweenPoints = Math.PI * 2 / numberPoints;
-    var sideLength = ProportionPlaygroundConstants.beadDiameter + 5;
+    var sideLength = ProportionPlaygroundConstants.BEAD_DIAMETER + 5;
 
     // seed for the random number generator is determined by proportion
     var seed = squareBeadCount === 0 ? 30 : roundBeadCount / squareBeadCount;
     var random = new Random( { seed: seed } );
 
     if ( roundBeadCount + squareBeadCount === 3 ) {
-      sideLength = 2 * ProportionPlaygroundConstants.beadDiameter - 1;
+      sideLength = 2 * ProportionPlaygroundConstants.BEAD_DIAMETER - 1;
     }
     var children = [];
     var k = 0;
@@ -83,7 +83,7 @@ define( function( require ) {
       }
 
       oneBeadShape.cardinalSpline( points, { tension: -0.75, isClosedLineSegments: true } );
-      children.unshift( new Path( oneBeadShape, pathOptions ) );
+      children.unshift( new Path( oneBeadShape, PATH_OPTIONS ) );
 
     } else if ( numBeads === 2 ) {
 
@@ -129,7 +129,7 @@ define( function( require ) {
 
       // tension empirically determined to make necklace look realistic
       twoBeadShape.cardinalSpline( points, { tension: -0.75, isClosedLineSegments: true } );
-      children.unshift( new Path( twoBeadShape, pathOptions ) );
+      children.unshift( new Path( twoBeadShape, PATH_OPTIONS ) );
 
     } else if ( numBeads > 2 ) {
 
@@ -137,7 +137,7 @@ define( function( require ) {
       var R = 1 / 2 * sideLength / Math.sin( Math.PI / numberPoints );
 
       // make beads closer together as there are more of them
-      var rScale = Util.linear( 3, ProportionPlaygroundConstants.maxBeads, 1.5, 1, numberPoints );
+      var rScale = Util.linear( 3, ProportionPlaygroundConstants.MAX_BEADS, 1.5, 1, numberPoints );
       if ( numberPoints <= 20 ) {
         R = R * rScale;
       }
@@ -164,7 +164,7 @@ define( function( require ) {
 
       // Change vertices according to repulsion points
       for ( var i = 0; i < numberPoints; i++ ) {
-        var angle = ( i + 0.5 ) * angleBetweenPoints + rotateUpright;
+        var angle = ( i + 0.5 ) * angleBetweenPoints + ROTATE_UPRIGHT;
         var perfectPoint = Vector2.createPolar( R, angle );
         var newRadius = R;
 
@@ -256,7 +256,7 @@ define( function( require ) {
       }
 
       // Resize necklace down so beads are closer together
-      var radiusScale = ProportionPlaygroundConstants.beadDiameter / minSideLength;
+      var radiusScale = ProportionPlaygroundConstants.BEAD_DIAMETER / minSideLength;
 
       for ( i = 0; i < centers.length; i++ ) {
         var oldCenter = centers[ i ];
@@ -305,7 +305,7 @@ define( function( require ) {
         shape.quadraticCurveToPoint( control, nextCenter );
       }
 
-      children.unshift( new Path( shape, pathOptions ) );
+      children.unshift( new Path( shape, PATH_OPTIONS ) );
 
     }
 
