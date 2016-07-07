@@ -7,7 +7,7 @@
  * @author Andrea Lin
  */
 define( function( require ) {
-   'use strict';
+  'use strict';
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
