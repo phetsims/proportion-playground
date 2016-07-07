@@ -1,8 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Shows a single Billiards table, with a moving ball and holes in the top left, top right and bottom right corners.
- * Includes nodes that let you drag the sides of the table to change the size
+ * Shows a single Billiards table, draggable by its sides, with a moving ball and holes in the 
+ * top left, top right and bottom right corners.
  * 
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Andrea Lin
@@ -116,79 +116,47 @@ define( function( require ) {
       ballNode.center = position.times( SCALE ).plus( greenRectangle.translation );
     } );
 
-    // When the left dragger is dragged, change the width
-    leftDragger.addInputListener( new SimpleDragHandler( {
-        allowTouchSnag: true,
+    /**
+     * Auxiliary function that adds a drag handler as an input listener for a given side of the rectangle
+     * @param {Rectangle} dragger - the dragger node on the side of a table
+     * @param {Property.<number>} property - the width or length property of the table
+     * @param {String} xOrY - the axis, x or y, to use. Corresponds with width or length, respectively.
+     * @param {Number} changeSign - -1 or 1, designates whether its the left or right, bottom or top dragger
+     * @returns NumberPicker
+     */
+    var createDragListener = function( dragger, property, xOrY, changeSign ) {
+
+      var startPoint; // track where the mouse drag starts
+      var startProperty; // track the beginning width
+      var mousePoint; // where the mouse is currently
+
+      dragger.addInputListener( new SimpleDragHandler( {
+        start: function( event ) {
+          startPoint = dragger.globalToParentPoint( event.pointer.point );
+          startProperty = property.value;
+        },
 
         drag: function( event ) {
-
           // Convert to parent coordinates for dragging billiard table node, so the mouse stays at the right relative position, see #26
-          var parentPoint = leftDragger.globalToParentPoint( event.pointer.point );
-          var newWidth = Util.roundSymmetric( ( center.x - parentPoint.x ) * 2 / SCALE );
+          mousePoint = leftDragger.globalToParentPoint( event.pointer.point );
+          var change = Util.roundSymmetric( changeSign * ( mousePoint[ xOrY ] - startPoint[ xOrY ] ) * 2 / SCALE );
 
           // change width so its within the acceptable range
-          billiardsTableModel.width = Util.clamp(
-            newWidth,
+          property.value = Util.clamp(
+            startProperty + change,
             billiardsTableModel.range.min,
             billiardsTableModel.range.max
           );
         }
-      } )
-    );
 
-    // When the right dragger is dragged, change the width
-    rightDragger.addInputListener( new SimpleDragHandler( {
-      allowTouchSnag: true,
+      } ) );
+    };
 
-      drag: function( event ) {
-        // Convert to parent coordinates for dragging billiard table node, so the mouse stays at the right relative position, see #26
-        var parentPoint = rightDragger.globalToParentPoint( event.pointer.point );
-        var newWidth = Util.roundSymmetric( ( parentPoint.x - center.x ) * 2 / SCALE );
-
-        // change width so its within the acceptable range
-        billiardsTableModel.width = Util.clamp(
-          newWidth,
-          billiardsTableModel.range.min,
-          billiardsTableModel.range.max
-        );
-      }
-    } ) );
-
-    // When the top dragger is dragged, change the length
-    topDragger.addInputListener( new SimpleDragHandler( {
-      allowTouchSnag: true,
-
-      drag: function( event ) {
-        // Convert to parent coordinates for dragging billiard table node, so the mouse stays at the right relative position, see #26
-        var parentPoint = topDragger.globalToParentPoint( event.pointer.point );
-        var newLength = Util.roundSymmetric( ( center.y - parentPoint.y ) * 2 / SCALE );
-
-        // change length so its within the acceptable range
-        billiardsTableModel.length = Util.clamp(
-          newLength,
-          billiardsTableModel.range.min,
-          billiardsTableModel.range.max
-        );
-      }
-    } ) );
-
-    // When the bottom dragger is dragged, change the length
-    bottomDragger.addInputListener( new SimpleDragHandler( {
-      allowTouchSnag: true,
-
-      drag: function( event ) {
-        // Convert to parent coordinates for dragging billiard table node, so the mouse stays at the right relative position, see #26
-        var parentPoint = bottomDragger.globalToParentPoint( event.pointer.point );
-        var newLength = Util.roundSymmetric( ( parentPoint.y - center.y ) * 2 / SCALE );
-
-        // change length so its within the acceptable range
-        billiardsTableModel.length = Util.clamp(
-          newLength,
-          billiardsTableModel.range.min,
-          billiardsTableModel.range.max
-        );
-      }
-    } ) );
+    // When a side of the table is dragged, the appropriate width or length changes.
+    createDragListener( leftDragger, billiardsTableModel.widthProperty, 'x', -1 );
+    createDragListener( rightDragger, billiardsTableModel.widthProperty, 'x', 1 );
+    createDragListener( topDragger, billiardsTableModel.lengthProperty, 'y', -1 );
+    createDragListener( bottomDragger, billiardsTableModel.lengthProperty, 'y', 1 );
 
     // When the table is resized, redraw it.
     Property.multilink( [
