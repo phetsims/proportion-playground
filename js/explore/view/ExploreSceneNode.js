@@ -13,6 +13,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
    *
@@ -57,7 +58,26 @@ define( function( require ) {
      * @param {Node} abSwitch - the switch that chooses between 1-2 representations
      */
     moveABSwitchToBottomCenter: function( abSwitch ) {
+
+      // find center of button, which is the onOffSwitch
+      var buttonX = abSwitch.children[ 0 ].center.x;
+      var buttonY = abSwitch.children[ 0 ].center.y;
+
+      // find the greatest width between the two labels
+      var maxLabelWidth = Math.max( abSwitch.children[ 1 ].width, abSwitch.children[ 2 ].width );
+
+      // set the new width and height of the strut
+      var halfWidth = maxLabelWidth + abSwitch.children[ 0 ].width;
+      var halfHeight = abSwitch.children[ 0 ].height / 2;
+
+      // add strut that causes the center of ABSwitch to be the same as center of button
+      var strut = new Rectangle( buttonX - halfWidth, buttonY - halfWidth, halfWidth * 2, halfHeight * 2 );
+      abSwitch.addChild( strut );
+      strut.moveToBack();
+
+      // position ABSwitch at the bottom center of the screen
       abSwitch.centerBottom = this.layoutBounds.centerBottom.plusXY( 0, -5 );
     }
   } );
 } );
+

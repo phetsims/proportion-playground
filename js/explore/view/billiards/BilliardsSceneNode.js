@@ -17,6 +17,9 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var ExploreSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreSceneNode' );
 
+  // constants
+  var ICON_SCALE_OPTIONS = { scale: 0.3 };
+
   /**
    *
    * @param {Bounds2} layoutBounds - the region within which all visual components should be layed out
@@ -34,14 +37,13 @@ define( function( require ) {
     } );
 
     // Create the switch that toggles between 1 or 2 tables showing.
-    var scaleOptions = { scale: 0.3 };
     var abSwitch = new ABSwitch( billiardsSceneModel.showBothProperty,
-      false, new BilliardTableIcon( 120, 120, scaleOptions ),
+      false, new BilliardTableIcon( 120, 120, ICON_SCALE_OPTIONS ),
       true, new HBox( {
         spacing: 10,
         children: [
-          new BilliardTableIcon( 100, 100, scaleOptions ),
-          new BilliardTableIcon( 100, 100, scaleOptions ) ]
+          new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ),
+          new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ) ]
       } )
     );
 
