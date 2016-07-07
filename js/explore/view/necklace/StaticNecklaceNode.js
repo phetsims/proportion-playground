@@ -2,6 +2,7 @@
 
 /**
  * An immutable necklace node, used in icons and recreated by NecklaceNode when bead count changes.
+ * Necklaces with the same proportion have the same shape.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Andrea Lin
@@ -25,6 +26,7 @@ define( function( require ) {
   // constants
   var PATH_OPTIONS = { stroke: 'black', lineWidth: 2 };
   var ROTATE_UPRIGHT = -Math.PI / 2;
+  var BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
 
   /**
    * @param {number} roundBeadCount - number of round beads
@@ -36,18 +38,18 @@ define( function( require ) {
 
     var numBeads = roundBeadCount + squareBeadCount;
 
-    // Number of vertices is one more than number of beads to account for a gap.
-    var numVertices = numBeads + 1;
-    var angelBetweenVertices = Math.PI * 2 / numVertices;
-    var sideLength = ProportionPlaygroundConstants.BEAD_DIAMETER + 5;
+    // 1.28 chosen empirically for good looking spacing on the necklace
+    var sideLength = 1.28 * BEAD_DIAMETER;
 
     // seed for the random number generator determined by proportion
     var seed = squareBeadCount === 0 ? 30 : roundBeadCount / squareBeadCount;
     var random = new Random( { seed: seed } );
 
     // special sidelength for necklaces with three beads
-    if ( roundBeadCount + squareBeadCount === 3 ) {
-      sideLength = 2 * ProportionPlaygroundConstants.BEAD_DIAMETER - 1;
+    if ( numBeads === 3 ) {
+
+      // 1.94 chosen empirically for good looking spacing on necklace
+      sideLength = 1.94 * BEAD_DIAMETER;
     }
 
     // layer for necklace line and beads
@@ -72,21 +74,25 @@ define( function( require ) {
       // shape for the necklace line
       var oneBeadShape = new Shape();
 
+      // multiplying bead diameter by empirically determined numbers to draw necklace line in a specific shape
+
       // if one round bead, draw the same shape as twenty round beads
       if ( roundBeadCount === 1 ) {
-        splinePoints = [ new Vector2( 7, 1 ),
-          new Vector2( -7, 1 ),
-          new Vector2( -13, -27 ),
-          new Vector2( 9, -28 )
+        splinePoints = [
+          new Vector2( 0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
+          new Vector2( -0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
+          new Vector2( -0.72 * BEAD_DIAMETER, -1.5 * BEAD_DIAMETER ),
+          new Vector2( 0.5 * BEAD_DIAMETER, -1.55 * BEAD_DIAMETER )
         ];
       }
 
       // if one square bead, draw the same shape as twenty square beads
       else {
-        splinePoints = [ new Vector2( 10, 0 ),
-          new Vector2( -11, 0 ),
-          new Vector2( -12, -24 ),
-          new Vector2( 12, -24 )
+        splinePoints = [
+          new Vector2( 0.55 * BEAD_DIAMETER, 0 ),
+          new Vector2( -0.61 * BEAD_DIAMETER, 0 ),
+          new Vector2( -0.66 * BEAD_DIAMETER, -1.33 * BEAD_DIAMETER ),
+          new Vector2( 0.66 * BEAD_DIAMETER, -1.33 * BEAD_DIAMETER )
         ];
       }
 
@@ -98,42 +104,46 @@ define( function( require ) {
     // two beads
     else if ( numBeads === 2 ) {
 
+      // half the distance between two beads, used to align beads to the necklace line
+      var xOffset = BEAD_DIAMETER - 7;
+
       // Show two beads at the bottom of the circle.
       var x = 0;
       for ( k = 0; k < roundBeadCount; k++ ) {
         children.push( new RoundBeadNode( { x: x } ) );
-        x += 22;
+        x += xOffset * 2;
       }
       for ( k = 0; k < squareBeadCount; k++ ) {
         children.push( new SquareBeadNode( { x: x } ) );
-        x += 22;
+        x += xOffset * 2;
       }
 
       // if all round beads, draw the same shape as twenty round beads
       if ( roundBeadCount === 2 ) {
         splinePoints = [
-          new Vector2( 10 + 11, 1 ),
-          new Vector2( -10 + 11, 1 ),
-          new Vector2( -14 + 11, -27 ),
-          new Vector2( 10 + 11, -29 )
+          new Vector2( 0.55 * BEAD_DIAMETER + xOffset, 0.05 * BEAD_DIAMETER ),
+          new Vector2( -0.55 * BEAD_DIAMETER + xOffset, 0.05 * BEAD_DIAMETER ),
+          new Vector2( -0.78 * BEAD_DIAMETER + xOffset, -1.5 * BEAD_DIAMETER ),
+          new Vector2( 0.55 * BEAD_DIAMETER + xOffset, -1.61 * BEAD_DIAMETER )
         ];
       }
 
       // if all square beads, draw the same shape as twenty square beads
       else if ( squareBeadCount === 2 ) {
         splinePoints = [
-          new Vector2( 11 + 11, 0 ),
-          new Vector2( -12 + 11, 0 ),
-          new Vector2( -13 + 11, -25 ),
-          new Vector2( 13 + 11, -25 )
+          new Vector2( 0.61 * BEAD_DIAMETER + xOffset, 0 ),
+          new Vector2( -0.66 * BEAD_DIAMETER + xOffset, 0 ),
+          new Vector2( -0.71 * BEAD_DIAMETER + xOffset, -1.39 * BEAD_DIAMETER ),
+          new Vector2( 0.71 * BEAD_DIAMETER + xOffset, -1.29 * BEAD_DIAMETER )
         ];
       }
       // if one bead of each kind, draw same shape as twenty round and twenty square beads
       else {
-        splinePoints = [ new Vector2( 0 + 11, 5 ),
-          new Vector2( -20 + 11, -17 ),
-          new Vector2( 0 + 11, -40 ),
-          new Vector2( 20 + 11, -17 )
+        splinePoints = [
+          new Vector2( xOffset, 5 ),
+          new Vector2( -1.11 * BEAD_DIAMETER + xOffset, -0.94 * BEAD_DIAMETER ),
+          new Vector2( xOffset, -2.22 * BEAD_DIAMETER ),
+          new Vector2( 1.11 * BEAD_DIAMETER + xOffset, -0.94 * BEAD_DIAMETER )
         ];
       }
 
@@ -149,7 +159,13 @@ define( function( require ) {
     // more than two beads
     else {
 
-      // approximate as polygon with beads between each vertex, see http://mathworld.wolfram.com/RegularPolygon.html
+      // approximate necklace as polygon with beads between each vertex, see http://mathworld.wolfram.com/RegularPolygon.html
+
+      // Number of vertices is one more than number of beads to account for a gap.
+      var numVertices = numBeads + 1;
+      var angelBetweenVertices = Math.PI * 2 / numVertices;
+
+      // circumradius of the polygon, used to find polar coordinates for the vertices
       var R = 1 / 2 * sideLength / Math.sin( Math.PI / numVertices );
 
       // make beads closer together as there are more of them
@@ -161,8 +177,7 @@ define( function( require ) {
 
       // Use repulsion of random points to make the shape look more natural.
 
-      // use apothem to calculate random repulsion poitns so they don't fall outside the polygon
-      // see http://www.mathopenref.com/apothem.html   
+      // apothem of the polygon, see http://www.mathopenref.com/apothem.html   
       var apothem = R * Math.cos( Math.PI / numVertices );
 
       // randomly choose 1, 2, 3, or 4 repulsion points
@@ -276,13 +291,14 @@ define( function( require ) {
       }
 
       // Resize necklace to be smaller so beads are closer together
-      var radiusScale = ProportionPlaygroundConstants.BEAD_DIAMETER / minSideLength;
+      var radiusScale = BEAD_DIAMETER / minSideLength;
 
       for ( i = 0; i < centers.length; i++ ) {
         var oldCenter = centers[ i ];
 
         // Add 5 to the radius to give some more space between beads
-        centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude() + 5, oldCenter.angle() );
+        var extraSpace = 0.28 * BEAD_DIAMETER;
+        centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude() + extraSpace, oldCenter.angle() );
       }
 
       // Instantiate the beads between each vertex
@@ -322,7 +338,7 @@ define( function( require ) {
         // curve necklace line based on a certain degree of strength
         control.addXY( strength * Math.cos( control.angle() ), strength * Math.sin( control.angle() ) );
 
-        // gap is more curved/bumpy han the rest of the black line
+        // gap is more curved/bumpy than the rest of the black line
         if ( i === centers.length - 2 ) {
           control = centers[ centers.length - 1 ];
         }
