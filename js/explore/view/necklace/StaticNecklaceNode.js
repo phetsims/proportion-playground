@@ -7,20 +7,20 @@
  * @author Andrea Lin
  */
 define( function( require ) {
-  'use strict';
+   'use strict';
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/RoundBeadNode' );
-  var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/SquareBeadNode' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Util = require( 'DOT/Util' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var Random = require( 'DOT/Random' );
+  var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/RoundBeadNode' );
+  var Shape = require( 'KITE/Shape' );
+  var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/explore/view/necklace/SquareBeadNode' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var PATH_OPTIONS = { stroke: 'black', lineWidth: 2 };
@@ -37,22 +37,31 @@ define( function( require ) {
     var numBeads = roundBeadCount + squareBeadCount;
 
     // Number of vertices is one more than number of beads to account for a gap.
-    var numberPoints = numBeads + 1;
-    var angleBetweenPoints = Math.PI * 2 / numberPoints;
+    var numVertices = numBeads + 1;
+    var angelBetweenVertices = Math.PI * 2 / numVertices;
     var sideLength = ProportionPlaygroundConstants.BEAD_DIAMETER + 5;
 
-    // seed for the random number generator is determined by proportion
+    // seed for the random number generator determined by proportion
     var seed = squareBeadCount === 0 ? 30 : roundBeadCount / squareBeadCount;
     var random = new Random( { seed: seed } );
 
+    // special sidelength for necklaces with three beads
     if ( roundBeadCount + squareBeadCount === 3 ) {
       sideLength = 2 * ProportionPlaygroundConstants.BEAD_DIAMETER - 1;
     }
+
+    // layer for necklace line and beads
     var children = [];
+
+    // points that determine the shape of the necklace line
+    var splinePoints = [];
+
     var k = 0;
 
-    // For one bead, show at the bottom of a circle
+    // one bead
     if ( numBeads === 1 ) {
+
+      // show the one bead at the bottom of a circle
       for ( k = 0; k < roundBeadCount; k++ ) {
         children.push( new RoundBeadNode() );
       }
@@ -60,34 +69,36 @@ define( function( require ) {
         children.push( new SquareBeadNode() );
       }
 
-      // Skewed circle for one beaded necklace
+      // shape for the necklace line
       var oneBeadShape = new Shape();
 
-      var points = [];
-      // if there is one round bead, draw it a certain shape
+      // if one round bead, draw the same shape as twenty round beads
       if ( roundBeadCount === 1 ) {
-        points = [ new Vector2( 7, 1 ),
-          new Vector2( -11, 0 ),
-          new Vector2( -12, -24 ),
-          new Vector2( 12, -24 )
+        splinePoints = [ new Vector2( 7, 1 ),
+          new Vector2( -7, 1 ),
+          new Vector2( -13, -27 ),
+          new Vector2( 9, -28 )
         ];
-
       }
-      // if one square bead, another shape
+
+      // if one square bead, draw the same shape as twenty square beads
       else {
-        points = [ new Vector2( 10, 0 ),
+        splinePoints = [ new Vector2( 10, 0 ),
           new Vector2( -11, 0 ),
           new Vector2( -12, -24 ),
           new Vector2( 12, -24 )
         ];
       }
 
-      oneBeadShape.cardinalSpline( points, { tension: -0.75, isClosedLineSegments: true } );
+      oneBeadShape.cardinalSpline( splinePoints, { tension: -0.75, isClosedLineSegments: true } );
       children.unshift( new Path( oneBeadShape, PATH_OPTIONS ) );
 
-    } else if ( numBeads === 2 ) {
+    }
 
-      // Show two beads at the bottom of the circle
+    // two beads
+    else if ( numBeads === 2 ) {
+
+      // Show two beads at the bottom of the circle.
       var x = 0;
       for ( k = 0; k < roundBeadCount; k++ ) {
         children.push( new RoundBeadNode( { x: x } ) );
@@ -98,88 +109,98 @@ define( function( require ) {
         x += 22;
       }
 
-      // if all round beads, draw a certain shape
+      // if all round beads, draw the same shape as twenty round beads
       if ( roundBeadCount === 2 ) {
-        points = [
+        splinePoints = [
           new Vector2( 10 + 11, 1 ),
           new Vector2( -10 + 11, 1 ),
           new Vector2( -14 + 11, -27 ),
           new Vector2( 10 + 11, -29 )
         ];
       }
-      // if all square beads
+
+      // if all square beads, draw the same shape as twenty square beads
       else if ( squareBeadCount === 2 ) {
-        points = [
+        splinePoints = [
           new Vector2( 11 + 11, 0 ),
           new Vector2( -12 + 11, 0 ),
           new Vector2( -13 + 11, -25 ),
           new Vector2( 13 + 11, -25 )
         ];
       }
-      // if there is one bead of each kind
+      // if one bead of each kind, draw same shape as twenty round and twenty square beads
       else {
-        points = [ new Vector2( 0 + 11, 5 ),
+        splinePoints = [ new Vector2( 0 + 11, 5 ),
           new Vector2( -20 + 11, -17 ),
           new Vector2( 0 + 11, -40 ),
           new Vector2( 20 + 11, -17 )
         ];
       }
-      // Skewed circle for two beaded necklace
+
+      // shape for necklace line
       var twoBeadShape = new Shape();
 
       // tension empirically determined to make necklace look realistic
-      twoBeadShape.cardinalSpline( points, { tension: -0.75, isClosedLineSegments: true } );
+      twoBeadShape.cardinalSpline( splinePoints, { tension: -0.75, isClosedLineSegments: true } );
       children.unshift( new Path( twoBeadShape, PATH_OPTIONS ) );
 
-    } else if ( numBeads > 2 ) {
+    }
+
+    // more than two beads
+    else {
 
       // approximate as polygon with beads between each vertex, see http://mathworld.wolfram.com/RegularPolygon.html
-      var R = 1 / 2 * sideLength / Math.sin( Math.PI / numberPoints );
+      var R = 1 / 2 * sideLength / Math.sin( Math.PI / numVertices );
 
       // make beads closer together as there are more of them
-      var rScale = Util.linear( 3, ProportionPlaygroundConstants.MAX_BEADS, 1.5, 1, numberPoints );
-      if ( numberPoints <= 20 ) {
+      var rScale = Util.linear( 3, ProportionPlaygroundConstants.MAX_BEADS, 1.5, 1, numVertices );
+      if ( numVertices <= 20 ) {
         R = R * rScale;
       }
       var vertices = [];
 
-      // Use attraction of random points to make the necklace look more natural
+      // Use repulsion of random points to make the shape look more natural.
 
-      // Find the apothem of the polygon, see http://www.mathopenref.com/apothem.html   
-      var apothem = R * Math.cos( Math.PI / numberPoints );
+      // use apothem to calculate random repulsion poitns so they don't fall outside the polygon
+      // see http://www.mathopenref.com/apothem.html   
+      var apothem = R * Math.cos( Math.PI / numVertices );
 
-      // Randomly choose 1, 2, 3, or 4 repulsion points
+      // randomly choose 1, 2, 3, or 4 repulsion points
       var randomNumber = random.random() * 4;
       var repulsionPoints = [];
       var divisionAngle = Math.PI / 2;
 
+      // create repulsion points
       for ( var g = 0; g < randomNumber; g++ ) {
-        // Choose a random radius in a range 0.2 - 0.5 of the apothem
+
+        // choose a random radius in a range 0.2 - 0.5 of the apothem
         var randomRadius = ( random.random() * 0.3 + 0.2 ) * apothem;
-        // Separate repulsion points by quadrant
+
+        // separate repulsion points by quadrant to prevent too much concentrated repulsion
         var randomAngle = random.random() * Math.PI / 2 / randomNumber + g * divisionAngle;
         var repulsor = Vector2.createPolar( randomRadius, randomAngle );
         repulsionPoints.push( repulsor );
       }
 
-      // Change vertices according to repulsion points
-      for ( var i = 0; i < numberPoints; i++ ) {
-        var angle = ( i + 0.5 ) * angleBetweenPoints + ROTATE_UPRIGHT;
-        var perfectPoint = Vector2.createPolar( R, angle );
+      // loop through vertices and change according to repulsion points
+      for ( var i = 0; i < numVertices; i++ ) {
+        var angle = ( i + 0.5 ) * angelBetweenVertices + ROTATE_UPRIGHT;
+        var perfectVertex = Vector2.createPolar( R, angle );
         var newRadius = R;
 
+        // loop through repulsion points and change the vertex
         for ( g = 0; g < repulsionPoints.length; g++ ) {
-          var difference = repulsionPoints[ g ].distance( perfectPoint );
+          var difference = repulsionPoints[ g ].distance( perfectVertex );
           var amount = Math.pow( ( apothem - difference ), 2 );
           var change = amount / R;
           newRadius += change;
         }
 
-        var point = Vector2.createPolar( newRadius, angle );
-        vertices.push( point );
+        var vertex = Vector2.createPolar( newRadius, angle );
+        vertices.push( vertex );
       }
 
-      // Between each pair of vertices, we must put a bead
+      // Set up pairs of vertices - between each pair of vertices will be a bead
       var pairs = [];
       for ( i = 0; i < vertices.length - 1; i++ ) {
         pairs.push( { start: vertices[ i ], end: vertices[ i + 1 ] } );
@@ -209,7 +230,7 @@ define( function( require ) {
           return { m: 1, na: a, nb: b };
         }
 
-        // Search for greatest common divisor of a and b
+        // search for greatest common divisor of a and b
         for ( var m = a; m >= 1; m-- ) {
           if ( a % m === 0 && b % m === 0 ) {
             return { m: m, na: a / m, nb: b / m };
@@ -237,7 +258,7 @@ define( function( require ) {
         }
       }
 
-      // Create centers on pairs
+      // Between each pair of vertices, we must put a bead in the center
       var centers = [];
       for ( i = 0; i < pairs.length; i++ ) {
         var pair = pairs[ i ];
@@ -252,14 +273,14 @@ define( function( require ) {
         if ( newLength < minSideLength ) {
           minSideLength = newLength;
         }
-
       }
 
-      // Resize necklace down so beads are closer together
+      // Resize necklace to be smaller so beads are closer together
       var radiusScale = ProportionPlaygroundConstants.BEAD_DIAMETER / minSideLength;
 
       for ( i = 0; i < centers.length; i++ ) {
         var oldCenter = centers[ i ];
+
         // Add 5 to the radius to give some more space between beads
         centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude() + 5, oldCenter.angle() );
       }
@@ -268,6 +289,7 @@ define( function( require ) {
       for ( i = 0; i < centers.length; i++ ) {
         center = centers[ i ];
         angle = pairs[ i ].end.minus( pairs[ i ].start ).angle();
+
         // Add a bead if it is not the last pair
         if ( i !== centers.length - 1 ) {
           if ( types[ i ] === 'round' ) {
@@ -276,27 +298,31 @@ define( function( require ) {
             children.push( new SquareBeadNode( { center: center, rotation: angle } ) );
           }
         }
-        // If it is the last pair, move center further away for a curved gap
+
+        // If it is the last pair, move center further away for a curved gap.
         else {
           centers[ i ] = center.addXY( 15 * Math.cos( center.angle() ), 15 * Math.sin( center.angle() ) );
         }
       }
 
-      // The black line of the necklace
+      // the black line of the necklace
       var shape = new Shape();
-
       for ( i = 0; i < centers.length - 1; i++ ) {
         center = centers[ i ];
 
-        // Have the last bead connect to the first bead
+        // Have the last bead connect to the first bead.
         var nextCenter = i === centers.length - 2 ? centers[ 0 ] : centers[ i + 1 ];
 
-        var strength = 20 / numberPoints + 2;
+        // the more vertices, the less curved the necklace line connecting to each bead
+        var strength = 20 / numVertices + 2;
 
+        // control point for the quadratic curve
         var control = center.blend( nextCenter, 0.5 );
+
+        // curve necklace line based on a certain degree of strength
         control.addXY( strength * Math.cos( control.angle() ), strength * Math.sin( control.angle() ) );
 
-        // Have the gap be more curved than the rest of the black line
+        // gap is more curved/bumpy han the rest of the black line
         if ( i === centers.length - 2 ) {
           control = centers[ centers.length - 1 ];
         }
@@ -306,7 +332,6 @@ define( function( require ) {
       }
 
       children.unshift( new Path( shape, PATH_OPTIONS ) );
-
     }
 
     Node.call( this, {
