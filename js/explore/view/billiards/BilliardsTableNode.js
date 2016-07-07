@@ -11,15 +11,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Line = require( 'SCENERY/nodes/Line' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Util = require( 'DOT/Util' );
 
@@ -121,7 +121,7 @@ define( function( require ) {
      * @param {Rectangle} dragger - the dragger node on the side of a table
      * @param {Property.<number>} property - the width or length property of the table
      * @param {String} xOrY - the axis, x or y, to use. Corresponds with width or length, respectively.
-     * @param {Number} changeSign - -1 or 1, designates whether its the left or right, bottom or top dragger
+     * @param {Number} changeSign - -1 or 1, designates whether its the left or right, top or bottom dragger
      * @returns NumberPicker
      */
     var createDragListener = function( dragger, property, xOrY, changeSign ) {
