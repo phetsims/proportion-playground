@@ -13,7 +13,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RevealButton = require( 'PROPORTION_PLAYGROUND/explore/view/RevealButton' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Line = require( 'SCENERY/nodes/Line' );
 
   /**
    *
@@ -66,14 +66,17 @@ define( function( require ) {
       // find the greatest width between the two labels
       var maxLabelWidth = Math.max( abSwitch.children[ 1 ].width, abSwitch.children[ 2 ].width );
 
-      // set the new width and height of the strut
+      // set the new width and height of the abSwitch
       var halfWidth = maxLabelWidth + abSwitch.children[ 0 ].width;
-      var halfHeight = abSwitch.children[ 0 ].height / 2;
+      var halfHeight = abSwitch.children[ 0 ].height * 0.8;
 
-      // add strut that causes the center of ABSwitch to be the same as center of button
-      var strut = new Rectangle( buttonX - halfWidth, buttonY - halfWidth, halfWidth * 2, halfHeight * 2 );
-      abSwitch.addChild( strut );
-      strut.moveToBack();
+      // add horizontal and vertical struts that cause the center of ABSwitch to be the same as center of button
+      var HStrut = new Line( buttonX - halfWidth, buttonY, buttonX + halfWidth, buttonY );
+      var VStrut = new Line( buttonX, buttonY - halfHeight, buttonX, buttonY + halfHeight );
+      abSwitch.addChild( HStrut );
+      abSwitch.addChild( VStrut );
+      HStrut.moveToBack();
+      VStrut.moveToBack();
 
       // position ABSwitch at the bottom center of the screen
       abSwitch.centerBottom = this.layoutBounds.centerBottom.plusXY( 0, -5 );
