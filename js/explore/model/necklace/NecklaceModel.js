@@ -13,7 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   /**
@@ -26,9 +26,9 @@ define( function( require ) {
     } );
 
     // Allowed range of bead counts
-    this.beadCountRange = new Range( 0, ProportionPlaygroundConstants.MAX_BEADS );
+    this.beadCountRange = new RangeWithValue( 0, ProportionPlaygroundConstants.MAX_BEADS );
 
-    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
+    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA
     this.roundBeadCountProperty = this.roundBeadCountProperty || null;
     this.squareBeadCountProperty = this.squareBeadCountProperty || null;
   }

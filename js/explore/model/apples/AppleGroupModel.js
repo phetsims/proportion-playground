@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
 
   /**
    *
@@ -24,10 +24,10 @@ define( function( require ) {
       totalCost: 0 // @public
     } );
 
-    this.totalCostRange = new Range( 0, 20 ); // @public
-    this.numberOfApplesRange = new Range( 1, 20 ); // @public
+    this.totalCostRange = new RangeWithValue( 0, 20 ); // @public
+    this.numberOfApplesRange = new RangeWithValue( 1, 20 ); // @public
 
-    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
+    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA
     this.numberOfApplesProperty = this.numberOfApplesProperty || null;
     this.totalCostProperty = this.totalCostProperty || null;
   }

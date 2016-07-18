@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
 
   /**
    * @param {Color|string} color1 - the color choice on the left
@@ -31,9 +31,9 @@ define( function( require ) {
     } );
 
     // @public (read-only) the range for colors
-    this.colorCountRange = new Range( 0, 20 );
+    this.colorCountRange = new RangeWithValue( 0, 20 );
 
-    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
+    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA
     this.color1CountProperty = this.color1CountProperty || null;
     this.color2CountProperty = this.color2CountProperty || null;
   }

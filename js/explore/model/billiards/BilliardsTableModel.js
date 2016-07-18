@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Ball = require( 'PROPORTION_PLAYGROUND/explore/model/billiards/Ball' );
   var Vector2 = require( 'DOT/Vector2' );
   var ObservableArray = require( 'AXON/ObservableArray' );
@@ -29,12 +29,12 @@ define( function( require ) {
       width: 1 // {number} @public - the number of grid units horizontal
     } );
 
-    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
+    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA
     this.lengthProperty = this.lengthProperty || null;
     this.widthProperty = this.widthProperty || null;
 
     // @public (read-only) - the allowed values for length and width
-    this.range = new Range( 1, 20 );
+    this.range = new RangeWithValue( 1, 20 );
 
     // @public (read-only)
     this.ball = new Ball();
