@@ -21,7 +21,7 @@ define( function( require ) {
   var simOptions = {
     credits: {
       leadDesign: 'Amanda McGarry',
-      softwareDevelopment: 'Sam Reid',
+      softwareDevelopment: 'Andrea Lin, Sam Reid',
       team: 'Karina Hensberry, Jonathan Olson, Ariel Paul, Kathy Perkins, Beth Stade, Ian Whitacre',
       qualityAssurance: '',
       graphicArts: 'Mariah Hermsmeyer',
