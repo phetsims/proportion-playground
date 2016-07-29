@@ -55,22 +55,25 @@ define( function( require ) {
 
     /**
      * Position the ABSwitch at the bottom center of the screen.
+     * As long as the height of the labels is less than or equal to 1.6 (empirically chosen) times the height of the
+     * toggle button, the toggle button location will remain fixed.
      * @param {Node} abSwitch - the switch that chooses between 1-2 representations
      */
     moveABSwitchToBottomCenter: function( abSwitch ) {
 
-      // find center of button, which is the onOffSwitch
+      // find center coordinates of the toggle button (onOffSwitch)
       var buttonX = abSwitch.children[ 0 ].center.x;
       var buttonY = abSwitch.children[ 0 ].center.y;
 
-      // find the greatest width between the two labels
+      // the greatest width of the two labels
       var maxLabelWidth = Math.max( abSwitch.children[ 1 ].width, abSwitch.children[ 2 ].width );
 
-      // set the new width and height of the abSwitch
+      // Calculate the layout bound values of the ab switch.
+      // The new width is based on the max label width and the new height is 1.6 times the height of the toggle button.
       var halfWidth = maxLabelWidth + abSwitch.children[ 0 ].width;
       var halfHeight = abSwitch.children[ 0 ].height * 0.8;
 
-      // add horizontal and vertical struts that cause the center of ABSwitch to be the same as center of button
+      // Add horizontal and vertical struts that cause the center of ABSwitch to be the same as center of button.
       var HStrut = new Line( buttonX - halfWidth, buttonY, buttonX + halfWidth, buttonY );
       var VStrut = new Line( buttonX, buttonY - halfHeight, buttonX, buttonY + halfHeight );
       abSwitch.addChild( HStrut );
@@ -78,7 +81,7 @@ define( function( require ) {
       HStrut.moveToBack();
       VStrut.moveToBack();
 
-      // position ABSwitch at the bottom center of the screen
+      // position ABSwitch at the bottom center of the screen, with some spacing
       abSwitch.centerBottom = this.layoutBounds.centerBottom.plusXY( 0, -5 );
     }
   } );

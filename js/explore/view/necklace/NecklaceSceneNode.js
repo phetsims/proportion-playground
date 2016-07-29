@@ -18,7 +18,7 @@ define( function( require ) {
   var ExploreSceneNode = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreSceneNode' );
 
   // constants
-  var ICON_SCALE_OPTIONS = { scale: 0.25 };
+  var ICON_SCALE_OPTIONS = { scale: 0.2 };
 
   /**
    *
