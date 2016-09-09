@@ -13,7 +13,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // strings
@@ -24,16 +23,16 @@ define( function( require ) {
    */
   function GameScreen() {
 
-    //If this is a single-screen sim, then no icon is necessary.
-    //If there are multiple screens, then the icon must be provided here.
-    var icon = new Rectangle( 0, 0, 548, 373, { fill: 'view' } );
+    var options = {
+      name: gameString,
+      backgroundColor: ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR
+      //TODO add homeScreenIcon
+    };
 
-    Screen.call( this, gameString, icon,
+    Screen.call( this,
       function() { return new GameModel(); },
-      function( model ) { return new GameScreenView( model ); }, {
-        backgroundColor: ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR
-      }
-    );
+      function( model ) { return new GameScreenView( model ); },
+      options );
   }
 
   proportionPlayground.register( 'GameScreen', GameScreen );

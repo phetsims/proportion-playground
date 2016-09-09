@@ -14,7 +14,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // strings
@@ -25,14 +24,16 @@ define( function( require ) {
    */
   function PredictScreen() {
 
-    var icon = new Rectangle( 0, 0, 548, 373, { fill: 'green' } );
+    var options = {
+      name: predictString,
+      backgroundColor: ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR
+      //TODO add homeScreenIcon
+    };
 
-    Screen.call( this, predictString, icon,
+    Screen.call( this,
       function() { return new PredictModel(); },
-      function( model ) { return new PredictScreenView( model ); }, {
-        backgroundColor: ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR
-      }
-    );
+      function( model ) { return new PredictScreenView( model ); },
+      options );
   }
 
   proportionPlayground.register( 'PredictScreen', PredictScreen );
