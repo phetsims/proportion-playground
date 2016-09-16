@@ -34,7 +34,7 @@ define( function( require ) {
    * @constructor
    */
   function AppleGraphNode( layoutBounds, appleSceneModel, revealProperty, options ) {
-    var appleGraphNode = this;
+    var self = this;
 
     // The vertical arrow for the graph
     var arrowNode = new ArrowNode( 0, ARROW_HEIGHT, 0, -ARROW_OVERSHOOT, { tailWidth: ARROW_LINE_WIDTH } );
@@ -116,7 +116,7 @@ define( function( require ) {
 
     // Set the location of the graph
     appleSceneModel.showBothProperty.link( function( showBoth ) {
-      appleGraphNode.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
+      self.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
     } );
     this.centerY = 250;
   }

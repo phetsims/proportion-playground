@@ -19,7 +19,7 @@ define( function( require ) {
    * @constructor
    */
   function BilliardsSceneModel( predictMode ) {
-    var billiardsSceneModel = this;
+    var self = this;
     ExploreSceneModel.call( this, predictMode );
 
     // @public
@@ -37,8 +37,8 @@ define( function( require ) {
     // When the table is revealed, restart the balls.
     this.revealProperty.link( function( reveal ) {
       if ( reveal ) {
-        billiardsSceneModel.table1.restartBall();
-        billiardsSceneModel.table2.restartBall();
+        self.table1.restartBall();
+        self.table2.restartBall();
       }
     } );
   }

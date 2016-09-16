@@ -41,7 +41,7 @@ define( function( require ) {
    * @constructor
    */
   function AppleSceneNode( layoutBounds, appleSceneModel, predictMode ) {
-    var appleSceneNode = this;
+    var self = this;
 
     // Create child nodes to be displayed
     var redAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.redAppleGroup, redAppleImage, appleSceneModel.showCostPerAppleProperty, appleSceneModel.revealProperty );
@@ -87,12 +87,12 @@ define( function( require ) {
         redAppleGroupNode.x = layoutBounds.width * 1 / 3;
         greenAppleGroupNode.x = layoutBounds.width * 0.85;
 
-        appleSceneNode.mutateRevealButton( { centerX: layoutBounds.centerX } );
+        self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
         redAppleGroupNode.x = layoutBounds.width / 2;
 
-        appleSceneNode.mutateRevealButton( { centerX: layoutBounds.centerX + 200 } );
+        self.mutateRevealButton( { centerX: layoutBounds.centerX + 200 } );
       }
     } );
 

@@ -42,7 +42,7 @@ define( function( require ) {
    */
   function BilliardsTableNode( center, billiardsTableModel, options ) {
 
-    var billiardsTableNode = this;
+    var self = this;
 
     var gridLinesNode = new Node();
     var linesNode = new Node();
@@ -216,7 +216,7 @@ define( function( require ) {
       topRightHoleNode.translation = greenRectangle.translation.plusXY( width * SCALE, 0 );
     } );
 
-    Node.call( billiardsTableNode, {
+    Node.call( self, {
       children: [
         brownRectangle,
         greenRectangle,
@@ -228,7 +228,7 @@ define( function( require ) {
         ballNode
       ]
     } );
-    billiardsTableNode.mutate( options );
+    self.mutate( options );
   }
 
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );

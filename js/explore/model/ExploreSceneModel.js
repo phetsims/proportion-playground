@@ -45,11 +45,11 @@ define( function( require ) {
      */
     registerChangeProperties: function( properties ) {
       assert && assert( this.predictMode, 'only register change properties for predict mode' );
-      var exploreSceneModel = this;
+      var self = this;
 
       // In the predict screen, when one of the spinner is changed, hide the representations again.
       Property.multilink( properties, function() {
-        exploreSceneModel.reveal = false;
+        self.reveal = false;
       } );
     }
   } );

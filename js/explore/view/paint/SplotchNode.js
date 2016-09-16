@@ -31,7 +31,7 @@ define( function( require ) {
    */
   function SplotchNode( color1Property, color2Property, grayscaleProperty, options ) {
 
-    var splotchNode = this;
+    var self = this;
 
     // SVG declaration for the splotch shape. Generated from AI file => cut shape => save svg => cut newlines.
     // Removed a discontinuity manually. Represented as kite shape so we can easily change color.
@@ -56,14 +56,14 @@ define( function( require ) {
 
         if ( grayscaleProperty.value ) {
           var blended = new Vector3( 0, 0, 0 ).blend( new Vector3( 255, 255, 255 ), blendAmount );
-          splotchNode.fill = new Color( blended.x, blended.y, blended.z );
+          self.fill = new Color( blended.x, blended.y, blended.z );
         }
         else {
-          splotchNode.fill = ColorMap.getColor( blendAmount );
+          self.fill = ColorMap.getColor( blendAmount );
         }
       }
       else {
-        splotchNode.fill = null;
+        self.fill = null;
       }
     };
 
@@ -77,9 +77,9 @@ define( function( require ) {
       var twoPi = Math.PI * 2;
       var maxScale = 1.6;
       var scale = Util.linear( 0, 40, maxScale / twoPi, maxScale, total );
-      splotchNode.setScaleMagnitude( scale );
-      splotchNode.center = new Vector2( 0, 250 );
-      splotchNode.visible = total > 0;
+      self.setScaleMagnitude( scale );
+      self.center = new Vector2( 0, 250 );
+      self.visible = total > 0;
     } );
     grayscaleProperty.link( updateFill );
 

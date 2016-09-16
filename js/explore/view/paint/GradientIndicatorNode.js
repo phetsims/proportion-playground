@@ -33,7 +33,7 @@ define( function( require ) {
    * @constructor
    */
   function GradientIndicatorNode( layoutBounds, paintSceneModel, revealProperty, options ) {
-    var gradientIndicatorNode = this;
+    var self = this;
 
     /**
      *
@@ -131,7 +131,7 @@ define( function( require ) {
 
     // Position the node
     paintSceneModel.showBothProperty.link( function( showBoth ) {
-      gradientIndicatorNode.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
+      self.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
     } );
 
     // Vertical position

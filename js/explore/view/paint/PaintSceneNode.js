@@ -37,7 +37,7 @@ define( function( require ) {
    * @constructor
    */
   function PaintSceneNode( layoutBounds, paintSceneModel, predictMode ) {
-    var paintSceneNode = this;
+    var self = this;
 
     // Create the left/right splotches and their NumberPickers
     var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
@@ -75,11 +75,11 @@ define( function( require ) {
         controllableSplotchNode1.x = layoutBounds.width * 1 / 3;
         controllableSplotchNode2.x = layoutBounds.width * 2 / 3;
 
-        paintSceneNode.mutateRevealButton( { centerX: layoutBounds.centerX } );
+        self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
         controllableSplotchNode1.x = layoutBounds.width / 2;
-        paintSceneNode.mutateRevealButton( { left: layoutBounds.centerX + 100 } );
+        self.mutateRevealButton( { left: layoutBounds.centerX + 100 } );
       }
     } );
     this.moveABSwitchToBottomCenter( abSwitch );

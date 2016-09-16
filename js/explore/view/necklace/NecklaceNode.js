@@ -21,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function NecklaceNode( necklaceModel ) {
-    var necklaceNode = this;
+    var self = this;
     Node.call( this );
 
     // When the bead counts change, update the view
@@ -29,9 +29,9 @@ define( function( require ) {
       necklaceModel.roundBeadCountProperty,
       necklaceModel.squareBeadCountProperty
     ], function( roundBeadCount, squareBeadCount ) {
-      necklaceNode.children = [ new StaticNecklaceNode( roundBeadCount, squareBeadCount ) ];
-      necklaceNode.centerX = 0;
-      necklaceNode.centerY = 245;
+      self.children = [ new StaticNecklaceNode( roundBeadCount, squareBeadCount ) ];
+      self.centerX = 0;
+      self.centerY = 245;
     } );
   }
 

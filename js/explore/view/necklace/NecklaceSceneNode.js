@@ -28,7 +28,7 @@ define( function( require ) {
    * @constructor
    */
   function NecklaceSceneNode( layoutBounds, necklaceSceneModel, predictMode ) {
-    var necklaceSceneNode = this;
+    var self = this;
     this.necklaceSceneModel = necklaceSceneModel;
 
     // Create the left and right necklace nodes, each with their own NumberPickers
@@ -57,12 +57,12 @@ define( function( require ) {
         firstControllableNecklaceNode.x = layoutBounds.width * 1 / 3;
         secondControllableNecklaceNode.x = layoutBounds.width * 2 / 3;
 
-        necklaceSceneNode.mutateRevealButton( { centerX: layoutBounds.centerX } );
+        self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
         firstControllableNecklaceNode.x = layoutBounds.width / 2;
 
-        necklaceSceneNode.mutateRevealButton( { left: layoutBounds.centerX + 110 } );
+        self.mutateRevealButton( { left: layoutBounds.centerX + 110 } );
       }
     } );
 

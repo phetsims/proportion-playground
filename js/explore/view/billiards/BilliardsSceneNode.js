@@ -28,7 +28,7 @@ define( function( require ) {
    * @constructor
    */
   function BilliardsSceneNode( layoutBounds, billiardsSceneModel, predictMode ) {
-    var billiardsSceneNode = this;
+    var self = this;
 
     // Create the left/right tables
     var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table1, billiardsSceneModel.revealProperty );
@@ -58,11 +58,11 @@ define( function( require ) {
       if ( showBoth ) {
         billiardsTableNode1.left = 10;
         billiardsTableNode2.right = layoutBounds.right - 10;
-        billiardsSceneNode.mutateRevealButton( { left: layoutBounds.left + 10 } );
+        self.mutateRevealButton( { left: layoutBounds.left + 10 } );
       }
       else {
         billiardsTableNode1.left = 200;
-        billiardsSceneNode.mutateRevealButton( { left: layoutBounds.left + 200 } );
+        self.mutateRevealButton( { left: layoutBounds.left + 200 } );
       }
     } );
 
