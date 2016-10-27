@@ -1,5 +1,5 @@
 {
-  "comment": "# proportion-playground 1.0.0-phetiorc.1 Thu Oct 27 2016 14:56:55 GMT-0600 (MDT)",
+  "comment": "# proportion-playground 1.0.0-phetio Thu Oct 27 2016 15:01:11 GMT-0600 (MDT)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "HEAD"
@@ -45,7 +45,7 @@
     "branch": "HEAD"
   },
   "proportion-playground": {
-    "sha": "bdc2152f9d3a1d86cacd91802d0d735545695af5",
+    "sha": "32d845f1602610b41871cfa662ecfc1caece18a3",
     "branch": "1.0-phetio"
   },
   "query-string-machine": {
