@@ -1,9 +1,9 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Shows a single Billiards table, draggable by its sides, with a moving ball and holes in the 
+ * Shows a single Billiards table, draggable by its sides, with a moving ball and holes in the
  * top left, top right and bottom right corners.
- * 
+ *
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Andrea Lin
  */
@@ -120,8 +120,8 @@ define( function( require ) {
      * Auxiliary function that adds a drag handler as an input listener for a given side of the rectangle
      * @param {Rectangle} dragger - the dragger node on the side of a table
      * @param {Property.<number>} property - the width or length property of the table
-     * @param {String} xOrY - the axis, x or y, to use. Corresponds with width or length, respectively.
-     * @param {Number} changeSign - -1 or 1, designates whether its the left or right, top or bottom dragger
+     * @param {string} xOrY - the axis, x or y, to use. Corresponds with width or length, respectively.
+     * @param {number} changeSign - -1 or 1, designates whether its the left or right, top or bottom dragger
      * @returns NumberPicker
      */
     var createDragListener = function( dragger, property, xOrY, changeSign ) {
