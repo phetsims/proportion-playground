@@ -181,7 +181,7 @@ define( function( require ) {
       var apothem = R * Math.cos( Math.PI / numVertices );
 
       // randomly choose 1, 2, 3, or 4 repulsion points
-      var randomNumber = random.random() * 4;
+      var randomNumber = random.nextDouble() * 4;
       var repulsionPoints = [];
       var divisionAngle = Math.PI / 2;
 
@@ -189,10 +189,10 @@ define( function( require ) {
       for ( var g = 0; g < randomNumber; g++ ) {
 
         // choose a random radius in a range 0.2 - 0.5 of the apothem
-        var randomRadius = ( random.random() * 0.3 + 0.2 ) * apothem;
+        var randomRadius = ( random.nextDouble() * 0.3 + 0.2 ) * apothem;
 
         // separate repulsion points by quadrant to prevent too much concentrated repulsion
-        var randomAngle = random.random() * Math.PI / 2 / randomNumber + g * divisionAngle;
+        var randomAngle = random.nextDouble() * Math.PI / 2 / randomNumber + g * divisionAngle;
         var repulsor = Vector2.createPolar( randomRadius, randomAngle );
         repulsionPoints.push( repulsor );
       }
