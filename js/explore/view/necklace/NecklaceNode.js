@@ -30,8 +30,10 @@ define( function( require ) {
       necklaceModel.squareBeadCountProperty
     ], function( roundBeadCount, squareBeadCount ) {
       self.children = [ new StaticNecklaceNode( roundBeadCount, squareBeadCount ) ];
-      self.centerX = 0;
-      self.centerY = 245;
+      if ( roundBeadCount + squareBeadCount > 0 ) {
+        self.centerX = 0;
+        self.centerY = 245;
+      }
     } );
   }
 
