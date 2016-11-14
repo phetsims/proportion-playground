@@ -11,13 +11,14 @@ define( function( require ) {
   // modules
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
-  var getQueryParameter = phet.chipper.getQueryParameter;
-
-  var ProportionPlaygroundQueryParameters = {
+  var ProportionPlaygroundQueryParameters = QueryStringMachine.getAll( {
 
     // allow launching a specific explore scene, 0-based index
-    SCENE: parseInt( getQueryParameter( 'scene' ), 10 ) || 0
-  };
+    scene: {
+      type: 'number',
+      defaultValue: 0
+    }
+  } );
 
   proportionPlayground.register( 'ProportionPlaygroundQueryParameters', ProportionPlaygroundQueryParameters );
 
