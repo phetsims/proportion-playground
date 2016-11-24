@@ -15,6 +15,8 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var exploreString = require( 'string!PROPORTION_PLAYGROUND/explore' );
@@ -26,7 +28,7 @@ define( function( require ) {
 
     var options = {
       name: exploreString,
-      backgroundColor: ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR
+      backgroundColorProperty: new Property( Color.toColor( ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR ) )
       //TODO add homeScreenIcon
     };
 
