@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ProportionModel = require( 'PROPORTION_PLAYGROUND/explore/model/ProportionModel' );
-  var ExploreScreenView = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreScreenView' );
+  var ProportionModel = require( 'PROPORTION_PLAYGROUND/common/model/ProportionModel' );
+  var ProportionScreenView = require( 'PROPORTION_PLAYGROUND/common/view/ProportionScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
@@ -34,7 +34,7 @@ define( function( require ) {
 
     Screen.call( this,
       function() { return new ProportionModel( false ); },
-      function( model ) { return new ExploreScreenView( model ); },
+      function( model ) { return new ProportionScreenView( model ); },
       options );
   }
 

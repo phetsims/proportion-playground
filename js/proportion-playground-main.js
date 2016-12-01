@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var ExploreScreen = require( 'PROPORTION_PLAYGROUND/explore/ExploreScreen' );
   var PredictScreen = require( 'PROPORTION_PLAYGROUND/predict/PredictScreen' );
-  var GameScreen = require( 'PROPORTION_PLAYGROUND/game/GameScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
@@ -32,8 +31,7 @@ define( function( require ) {
   SimLauncher.launch( function() {
     var sim = new Sim( proportionPlaygroundTitleString, [
       new ExploreScreen(),
-      new PredictScreen(),
-      new GameScreen()
+      new PredictScreen()
     ], simOptions );
     sim.start();
   } );
