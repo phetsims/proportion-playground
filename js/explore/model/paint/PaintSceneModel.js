@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SplotchModel = require( 'PROPORTION_PLAYGROUND/explore/model/paint/SplotchModel' );
   var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
@@ -20,12 +21,10 @@ define( function( require ) {
    * @constructor
    */
   function PaintSceneModel( predictMode ) {
-    ExploreSceneModel.call( this, predictMode, {
-      grayscale: false // {boolean} @public - whether the paints should be shown from black to white
-    } );
+    ExploreSceneModel.call( this, predictMode );
 
-    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
-    this.grayscaleProperty = this.grayscaleProperty || null;
+    // @public {BooleanProperty} - Whether the paints should be shown in shades of black and white
+    this.grayscaleProperty = new BooleanProperty( false );
 
     // @public (read-only) - the models for each splotch
     this.splotch1Model = new SplotchModel();
@@ -49,6 +48,8 @@ define( function( require ) {
      */
     reset: function() {
       ExploreSceneModel.prototype.reset.call( this );
+      this.grayscaleProperty.reset();
+
       this.splotch1Model.reset();
       this.splotch2Model.reset();
     }

@@ -101,4 +101,3 @@ define( function( require ) {
 
   return inherit( Node, ControllableAppleGroupNode );
 } );
-

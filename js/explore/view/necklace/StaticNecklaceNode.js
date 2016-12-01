@@ -177,7 +177,7 @@ define( function( require ) {
 
       // Use repulsion of random points to make the shape look more natural.
 
-      // apothem of the polygon, see http://www.mathopenref.com/apothem.html   
+      // apothem of the polygon, see http://www.mathopenref.com/apothem.html
       var apothem = R * Math.cos( Math.PI / numVertices );
 
       // randomly choose 1, 2, 3, or 4 repulsion points
@@ -234,8 +234,8 @@ define( function( require ) {
       var b = squareBeadCount;
 
       /**
-       * Searches for the bead pattern to be displayed by finding the greatest common divisor. 
-       * @returns {Object} - dictionary for m, na, and nb. m is the number of patterns, na is the number of round beads 
+       * Searches for the bead pattern to be displayed by finding the greatest common divisor.
+       * @returns {Object} - dictionary for m, na, and nb. m is the number of patterns, na is the number of round beads
        * per pattern, and nb is the number of square beads per pattern.
        */
       var solver = function() {
@@ -360,4 +360,3 @@ define( function( require ) {
 
   return inherit( Node, StaticNecklaceNode );
 } );
-

@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var AppleGroupModel = require( 'PROPORTION_PLAYGROUND/explore/model/apples/AppleGroupModel' );
   var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
@@ -20,12 +21,10 @@ define( function( require ) {
    * @constructor
    */
   function AppleSceneModel( predictMode ) {
-    ExploreSceneModel.call( this, predictMode, {
-      showCostPerApple: false // {boolean} @public
-    } );
+    ExploreSceneModel.call( this, predictMode );
 
-    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA 
-    this.showCostPerAppleProperty = this.showCostPerAppleProperty || null;
+    // @public {BooleanProperty}
+    this.showCostPerAppleProperty = new BooleanProperty( false );
 
     // @public
     this.redAppleGroup = new AppleGroupModel();
@@ -49,6 +48,8 @@ define( function( require ) {
      */
     reset: function() {
       ExploreSceneModel.prototype.reset.call( this );
+      this.showCostPerAppleProperty.reset();
+
       this.redAppleGroup.reset();
       this.greenAppleGroup.reset();
     }

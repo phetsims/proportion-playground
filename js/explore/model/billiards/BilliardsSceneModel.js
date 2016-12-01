@@ -63,9 +63,9 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      if ( this.reveal ) {
+      if ( this.revealProperty.value ) {
         this.table1.step( dt );
-        if ( this.showBoth ) {
+        if ( this.showBothProperty.value ) {
           this.table2.step( dt );
         }
       }

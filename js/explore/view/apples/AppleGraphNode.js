@@ -98,7 +98,7 @@ define( function( require ) {
       appleSceneModel.greenAppleGroup.numberOfApplesProperty,
       appleSceneModel.showBothProperty,
       revealProperty
-    ], createIndicatorUpdateFunction( rightIndicator, appleSceneModel.greenAppleGroup, function() {return appleSceneModel.showBoth;} ) );
+    ], createIndicatorUpdateFunction( rightIndicator, appleSceneModel.greenAppleGroup, function() {return appleSceneModel.showBothProperty.value;} ) );
 
     // Update the indicator fills when salient properties change
     Property.multilink( [
@@ -109,7 +109,7 @@ define( function( require ) {
       appleSceneModel.showBothProperty
     ], function() {
       var equivalent = appleSceneModel.redAppleGroup.hasEquivalentValue( appleSceneModel.greenAppleGroup );
-      var fill = (equivalent && appleSceneModel.showBoth) ? 'black' : 'white';
+      var fill = (equivalent && appleSceneModel.showBothProperty.value) ? 'black' : 'white';
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );

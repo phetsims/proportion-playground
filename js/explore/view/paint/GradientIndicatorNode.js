@@ -113,7 +113,7 @@ define( function( require ) {
       paintSceneModel.splotch2Model.color2CountProperty,
       paintSceneModel.showBothProperty,
       revealProperty
-    ], createIndicatorUpdateFunction( rightIndicator, paintSceneModel.splotch2Model, function() {return paintSceneModel.showBoth;} ) );
+    ], createIndicatorUpdateFunction( rightIndicator, paintSceneModel.splotch2Model, function() {return paintSceneModel.showBothProperty.value;} ) );
 
     // Update the fills of the triangle indicator nodes
     Property.multilink( [
@@ -124,7 +124,7 @@ define( function( require ) {
       paintSceneModel.showBothProperty
     ], function() {
       var equivalent = paintSceneModel.splotch1Model.hasEquivalentValue( paintSceneModel.splotch2Model );
-      var fill = (equivalent && paintSceneModel.showBoth) ? 'black' : 'white';
+      var fill = (equivalent && paintSceneModel.showBothProperty.value) ? 'black' : 'white';
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );
