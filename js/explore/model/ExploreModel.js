@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NecklaceSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/necklace/NecklaceSceneModel' );
   var PaintSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/paint/PaintSceneModel' );
@@ -19,17 +19,14 @@ define( function( require ) {
   var ProportionPlaygroundQueryParameters = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundQueryParameters' );
 
   /**
-   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
+   *
+   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
   function ExploreModel( predictMode ) {
-
-    PropertySet.call( this, {
-      scene: ProportionPlaygroundQueryParameters.scene // {number} @public , 0-indexed, indicating the scene
-    } );
-
-    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA
-    this.sceneProperty = this.sceneProperty || null;
+    // @public {number} 0-indexed, indicating the scene
+    //TODO: consider this containing the entire sceneModel
+    this.sceneProperty = new Property( ProportionPlaygroundQueryParameters.scene );
 
     // @public (read-only) - the model for each scene
     this.necklaceSceneModel = new NecklaceSceneModel( predictMode );
@@ -52,25 +49,29 @@ define( function( require ) {
 
   proportionPlayground.register( 'ExploreModel', ExploreModel );
 
-  return inherit( PropertySet, ExploreModel, {
-
+  return inherit( Object, ExploreModel, {
     /**
-     * Reset the model and all the model for each scene.
+     * Reset the model and all of the models for each scene.
      * @public
      */
     reset: function() {
-      PropertySet.prototype.reset.call( this );
-      this.models.forEach( function( model ) {model.reset();} );
+      this.sceneProperty.reset();
+      this.models.forEach( function( model ) {
+        model.reset();
+      } );
     },
 
     /**
      * Step forward in time by dt
+     * @public
+     *
      * @param {number} dt - time passed in seconds
      */
     step: function( dt ) {
 
       // If the model has a step function, call it.
-      this.models[ this.scene ].step && this.models[ this.scene ].step( dt );
+      var activeModel = this.models[ this.sceneProperty.value ];
+      activeModel.step && activeModel.step( dt );
     }
   } );
 } );
