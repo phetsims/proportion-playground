@@ -17,7 +17,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {NecklaceModel} necklaceModel - the model
+   * @param {Necklace} necklaceModel - the model
    * @constructor
    */
   function NecklaceNode( necklaceModel ) {

@@ -23,7 +23,7 @@ define( function( require ) {
   /**
    *
    * @param {Bounds2} layoutBounds - the visible bounds of the sim
-   * @param {NecklaceSceneModel} necklaceSceneModel - the model
+   * @param {NecklaceScene} necklaceSceneModel - the model
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
    */

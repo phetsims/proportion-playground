@@ -18,7 +18,7 @@ define( function( require ) {
    *
    * @constructor
    */
-  function AppleGroupModel() {
+  function AppleGroup() {
     PropertySet.call( this, {
       numberOfApples: 1, // @public
       totalCost: 0 // @public
@@ -32,13 +32,13 @@ define( function( require ) {
     this.totalCostProperty = this.totalCostProperty || null;
   }
 
-  proportionPlayground.register( 'AppleGroupModel', AppleGroupModel );
+  proportionPlayground.register( 'AppleGroup', AppleGroup );
 
-  return inherit( PropertySet, AppleGroupModel, {
+  return inherit( PropertySet, AppleGroup, {
 
     /**
      * Returns true if the other model has an equivalent value to this model, accounts for divide by zero.
-     * @param {AppleGroupModel} appleGroupModel
+     * @param {AppleGroup} appleGroupModel
      * @returns {boolean}
      * @public
      */

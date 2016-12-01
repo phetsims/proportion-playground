@@ -19,7 +19,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function NecklaceModel() {
+  function Necklace() {
     PropertySet.call( this, {
       roundBeadCount: 0, // {number} @public the number of round beads in the necklace
       squareBeadCount: 0 // {number} @public the number of square beads in the necklace
@@ -33,7 +33,7 @@ define( function( require ) {
     this.squareBeadCountProperty = this.squareBeadCountProperty || null;
   }
 
-  proportionPlayground.register( 'NecklaceModel', NecklaceModel );
+  proportionPlayground.register( 'Necklace', Necklace );
 
-  return inherit( PropertySet, NecklaceModel );
+  return inherit( PropertySet, Necklace );
 } );

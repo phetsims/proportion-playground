@@ -30,7 +30,7 @@ define( function( require ) {
   /**
    *
    * @param {Bounds2} layoutBounds - coordinates within which all user interface components must be visible
-   * @param {BilliardsTableModel} billiardsTableModel - the model
+   * @param {BilliardsTable} billiardsTableModel - the model
    * @param {Property.<boolean>} revealProperty - indicates whether the billiards table should be shown
    * @param {Object} [options] - node layout options
    * @constructor

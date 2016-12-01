@@ -12,10 +12,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var NecklaceSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/necklace/NecklaceSceneModel' );
-  var PaintSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/paint/PaintSceneModel' );
-  var BilliardsSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/billiards/BilliardsSceneModel' );
-  var AppleSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/apples/AppleSceneModel' );
+  var NecklaceScene = require( 'PROPORTION_PLAYGROUND/explore/model/necklace/NecklaceScene' );
+  var PaintScene = require( 'PROPORTION_PLAYGROUND/explore/model/paint/PaintScene' );
+  var BilliardsScene = require( 'PROPORTION_PLAYGROUND/explore/model/billiards/BilliardsScene' );
+  var AppleScene = require( 'PROPORTION_PLAYGROUND/explore/model/apples/AppleScene' );
   var ProportionPlaygroundQueryParameters = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundQueryParameters' );
 
   /**
@@ -23,16 +23,16 @@ define( function( require ) {
    *
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
-  function ExploreModel( predictMode ) {
+  function ProportionModel( predictMode ) {
     // @public {number} 0-indexed, indicating the scene
     //TODO: consider this containing the entire sceneModel
     this.sceneProperty = new Property( ProportionPlaygroundQueryParameters.scene );
 
     // @public (read-only) - the model for each scene
-    this.necklaceSceneModel = new NecklaceSceneModel( predictMode );
-    this.paintSceneModel = new PaintSceneModel( predictMode );
-    this.billiardsSceneModel = new BilliardsSceneModel( predictMode );
-    this.appleSceneModel = new AppleSceneModel( predictMode );
+    this.necklaceSceneModel = new NecklaceScene( predictMode );
+    this.paintSceneModel = new PaintScene( predictMode );
+    this.billiardsSceneModel = new BilliardsScene( predictMode );
+    this.appleSceneModel = new AppleScene( predictMode );
 
     // Also keep track of the models so they can be addressed as a group (for reset) or by index (for stepping)
     // @private
@@ -47,9 +47,9 @@ define( function( require ) {
     this.predictMode = predictMode;
   }
 
-  proportionPlayground.register( 'ExploreModel', ExploreModel );
+  proportionPlayground.register( 'ProportionModel', ProportionModel );
 
-  return inherit( Object, ExploreModel, {
+  return inherit( Object, ProportionModel, {
     /**
      * Reset the model and all of the models for each scene.
      * @public

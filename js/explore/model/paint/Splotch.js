@@ -19,7 +19,7 @@ define( function( require ) {
    * @param {Color|string} color2 - the color choice on the right
    * @constructor
    */
-  function SplotchModel( color1, color2 ) {
+  function Splotch( color1, color2 ) {
 
     // @public (read-only)
     this.color1 = color1;
@@ -38,13 +38,13 @@ define( function( require ) {
     this.color2CountProperty = this.color2CountProperty || null;
   }
 
-  proportionPlayground.register( 'SplotchModel', SplotchModel );
+  proportionPlayground.register( 'Splotch', Splotch );
 
-  return inherit( PropertySet, SplotchModel, {
+  return inherit( PropertySet, Splotch, {
 
     /**
      *
-     * @param {SplotchModel} splotchModel
+     * @param {Splotch} splotchModel
      * @returns {boolean}
      * @public
      */

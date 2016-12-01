@@ -23,7 +23,7 @@ define( function( require ) {
    *
    * @constructor
    */
-  function BilliardsTableModel() {
+  function BilliardsTable() {
     PropertySet.call( this, {
       length: 1, // {number} @public - the number of grid units vertical
       width: 1 // {number} @public - the number of grid units horizontal
@@ -53,14 +53,14 @@ define( function( require ) {
     ], this.restartBall.bind( this ) );
   }
 
-  proportionPlayground.register( 'BilliardsTableModel', BilliardsTableModel );
+  proportionPlayground.register( 'BilliardsTable', BilliardsTable );
 
   // Ball has collided with the wall, re-center at nearest integral coordinates so the trace doesn't get off course
   function round( x, y ) {
     return new Vector2( Math.round( x ), Math.round( y ) );
   }
 
-  return inherit( PropertySet, BilliardsTableModel, {
+  return inherit( PropertySet, BilliardsTable, {
 
     /**
      * Restart the ball in the correct location and notify observers.

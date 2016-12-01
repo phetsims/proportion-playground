@@ -12,23 +12,23 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var SplotchModel = require( 'PROPORTION_PLAYGROUND/explore/model/paint/SplotchModel' );
-  var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
+  var Splotch = require( 'PROPORTION_PLAYGROUND/explore/model/paint/Splotch' );
+  var Scene = require( 'PROPORTION_PLAYGROUND/explore/model/Scene' );
 
   /**
    *
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
    */
-  function PaintSceneModel( predictMode ) {
-    ExploreSceneModel.call( this, predictMode );
+  function PaintScene( predictMode ) {
+    Scene.call( this, predictMode );
 
     // @public {BooleanProperty} - Whether the paints should be shown in shades of black and white
     this.grayscaleProperty = new BooleanProperty( false );
 
     // @public (read-only) - the models for each splotch
-    this.splotch1Model = new SplotchModel();
-    this.splotch2Model = new SplotchModel();
+    this.splotch1Model = new Splotch();
+    this.splotch2Model = new Splotch();
 
     predictMode && this.registerChangeProperties( [
       this.splotch1Model.color1CountProperty,
@@ -38,16 +38,16 @@ define( function( require ) {
     ] );
   }
 
-  proportionPlayground.register( 'PaintSceneModel', PaintSceneModel );
+  proportionPlayground.register( 'PaintScene', PaintScene );
 
-  return inherit( ExploreSceneModel, PaintSceneModel, {
+  return inherit( Scene, PaintScene, {
 
     /**
      * Reset the model and both child splotches.
      * @public
      */
     reset: function() {
-      ExploreSceneModel.prototype.reset.call( this );
+      Scene.prototype.reset.call( this );
       this.grayscaleProperty.reset();
 
       this.splotch1Model.reset();

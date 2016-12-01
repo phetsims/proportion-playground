@@ -10,21 +10,21 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var BilliardsTableModel = require( 'PROPORTION_PLAYGROUND/explore/model/billiards/BilliardsTableModel' );
-  var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
+  var BilliardsTable = require( 'PROPORTION_PLAYGROUND/explore/model/billiards/BilliardsTable' );
+  var Scene = require( 'PROPORTION_PLAYGROUND/explore/model/Scene' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
    */
-  function BilliardsSceneModel( predictMode ) {
+  function BilliardsScene( predictMode ) {
     var self = this;
-    ExploreSceneModel.call( this, predictMode );
+    Scene.call( this, predictMode );
 
     // @public
-    this.table1 = new BilliardsTableModel();
-    this.table2 = new BilliardsTableModel();
+    this.table1 = new BilliardsTable();
+    this.table2 = new BilliardsTable();
 
     var changeProperties = [
       this.table1.widthProperty,
@@ -43,16 +43,16 @@ define( function( require ) {
     } );
   }
 
-  proportionPlayground.register( 'BilliardsSceneModel', BilliardsSceneModel );
+  proportionPlayground.register( 'BilliardsScene', BilliardsScene );
 
-  return inherit( ExploreSceneModel, BilliardsSceneModel, {
+  return inherit( Scene, BilliardsScene, {
 
     /**
      * Resets the scene model
      * @public
      */
     reset: function() {
-      ExploreSceneModel.prototype.reset.call( this );
+      Scene.prototype.reset.call( this );
       this.table1.reset();
       this.table2.reset();
     },

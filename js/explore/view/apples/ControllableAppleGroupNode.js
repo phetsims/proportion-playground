@@ -31,7 +31,7 @@ define( function( require ) {
   var APPLE_RED = 'rgb(237,28,36)'; // color sampled from apple-red.png
 
   /**
-   * @param {AppleGroupModel} appleGroupModel - the model
+   * @param {AppleGroup} appleGroupModel - the model
    * @param {Image|mipmap} appleImage - the image to show for the apple grid and and apple icons
    * @param {Property.<boolean>} showCostPerAppleProperty - true if the price tag should be shown
    * @param {Property.<boolean>} revealProperty - true if the answer representation should be shown

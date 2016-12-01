@@ -11,8 +11,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var AppleGroupModel = require( 'PROPORTION_PLAYGROUND/explore/model/apples/AppleGroupModel' );
-  var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
+  var AppleGroup = require( 'PROPORTION_PLAYGROUND/explore/model/apples/AppleGroup' );
+  var Scene = require( 'PROPORTION_PLAYGROUND/explore/model/Scene' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
@@ -20,15 +20,15 @@ define( function( require ) {
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
    */
-  function AppleSceneModel( predictMode ) {
-    ExploreSceneModel.call( this, predictMode );
+  function AppleScene( predictMode ) {
+    Scene.call( this, predictMode );
 
     // @public {BooleanProperty}
     this.showCostPerAppleProperty = new BooleanProperty( false );
 
     // @public
-    this.redAppleGroup = new AppleGroupModel();
-    this.greenAppleGroup = new AppleGroupModel();
+    this.redAppleGroup = new AppleGroup();
+    this.greenAppleGroup = new AppleGroup();
 
     predictMode && this.registerChangeProperties( [
       this.redAppleGroup.numberOfApplesProperty,
@@ -38,16 +38,16 @@ define( function( require ) {
     ] );
   }
 
-  proportionPlayground.register( 'AppleSceneModel', AppleSceneModel );
+  proportionPlayground.register( 'AppleScene', AppleScene );
 
-  return inherit( ExploreSceneModel, AppleSceneModel, {
+  return inherit( Scene, AppleScene, {
 
     /**
      * Reset the model
      * @public
      */
     reset: function() {
-      ExploreSceneModel.prototype.reset.call( this );
+      Scene.prototype.reset.call( this );
       this.showCostPerAppleProperty.reset();
 
       this.redAppleGroup.reset();

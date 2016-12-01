@@ -36,7 +36,7 @@ define( function( require ) {
   /**
    *
    * @param {Vector2} center - position (in layout bounds) where the table should be centered
-   * @param {BilliardsTableModel} billiardsTableModel - the model
+   * @param {BilliardsTable} billiardsTableModel - the model
    * @param {Object} [options]
    * @constructor
    */

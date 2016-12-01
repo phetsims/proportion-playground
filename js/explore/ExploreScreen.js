@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ExploreModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreModel' );
+  var ProportionModel = require( 'PROPORTION_PLAYGROUND/explore/model/ProportionModel' );
   var ExploreScreenView = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
@@ -33,7 +33,7 @@ define( function( require ) {
     };
 
     Screen.call( this,
-      function() { return new ExploreModel( false ); },
+      function() { return new ProportionModel( false ); },
       function( model ) { return new ExploreScreenView( model ); },
       options );
   }

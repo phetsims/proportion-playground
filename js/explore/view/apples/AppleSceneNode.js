@@ -36,7 +36,7 @@ define( function( require ) {
   /**
    *
    * @param {Bounds2} layoutBounds - the box within which to lay out all components
-   * @param {AppleSceneModel} appleSceneModel - the model
+   * @param {AppleScene} appleSceneModel - the model
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
    */

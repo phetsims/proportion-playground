@@ -19,7 +19,7 @@ define( function( require ) {
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
    */
-  function ExploreSceneModel( predictMode ) {
+  function Scene( predictMode ) {
     this.predictMode = predictMode;
 
     // @public {BooleanProperty} - Whether the visual representation is being shown
@@ -31,14 +31,15 @@ define( function( require ) {
     this.showBothProperty = new BooleanProperty( false );
   }
 
-  proportionPlayground.register( 'ExploreSceneModel', ExploreSceneModel );
+  proportionPlayground.register( 'Scene', Scene );
 
-  return inherit( Object, ExploreSceneModel, {
+  return inherit( Object, Scene, {
     /**
      * Resets the scene
      * @public
      */
     reset: function() {
+      // Owned properties
       this.revealProperty.reset();
       this.showBothProperty.reset();
     },

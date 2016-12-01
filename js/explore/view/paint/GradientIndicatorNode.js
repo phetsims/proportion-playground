@@ -27,7 +27,7 @@ define( function( require ) {
   /**
    *
    * @param {Bounds2} layoutBounds - the visible region for the screen
-   * @param {PaintSceneModel} paintSceneModel - the model
+   * @param {PaintScene} paintSceneModel - the model
    * @param {Property.<boolean>} revealProperty - true if the gradient triangle indicators representation should be shown
    * @param {Object} [options] - node options
    * @constructor
@@ -81,7 +81,7 @@ define( function( require ) {
      * Auxiliary function that updates the left or right triangle indicator node.
      *
      * @param {Node} indicator - the left or right triangle node
-     * @param {SplotchModel} splotchModel - the model
+     * @param {Splotch} splotchModel - the model
      * @param {function} condition - additional condition indicating whether the indicator node should be shown.
      * @returns {Function}
      */

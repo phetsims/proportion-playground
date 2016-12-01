@@ -15,7 +15,7 @@ define( function( require ) {
   var ExploreScreenView = require( 'PROPORTION_PLAYGROUND/explore/view/ExploreScreenView' );
 
   /**
-   * @param {ExploreModel} exploreModel
+   * @param {ProportionModel} exploreModel
    * @constructor
    */
   function PredictScreenView( exploreModel ) {

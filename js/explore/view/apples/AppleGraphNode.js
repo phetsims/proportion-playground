@@ -28,7 +28,7 @@ define( function( require ) {
   /**
    *
    * @param {Bounds2} layoutBounds - the visible screen bounds in view coordinates (before isometric scaling)
-   * @param {AppleSceneModel} appleSceneModel - the model
+   * @param {AppleScene} appleSceneModel - the model
    * @param {Property.<boolean>} revealProperty - true if the representation is being shown.
    * @param {Object} [options] - Node options
    * @constructor
@@ -68,7 +68,7 @@ define( function( require ) {
     /**
      *
      * @param {Node} indicator - the left/right triangle node
-     * @param {AppleGroupModel} appleGroup - the model
+     * @param {AppleGroup} appleGroup - the model
      * @param {function} condition - supplemental condition for showing the indicator
      * @returns {Function}
      */

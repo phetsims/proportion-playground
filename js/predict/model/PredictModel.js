@@ -11,16 +11,16 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ExploreModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreModel' );
+  var ProportionModel = require( 'PROPORTION_PLAYGROUND/explore/model/ProportionModel' );
 
   /**
    * @constructor
    */
   function PredictModel() {
-    ExploreModel.call( this, true );
+    ProportionModel.call( this, true );
   }
 
   proportionPlayground.register( 'PredictModel', PredictModel );
 
-  return inherit( ExploreModel, PredictModel );
+  return inherit( ProportionModel, PredictModel );
 } );

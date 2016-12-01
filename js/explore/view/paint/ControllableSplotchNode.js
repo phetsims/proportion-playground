@@ -23,7 +23,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {SplotchModel} splotchModel - the model
+   * @param {Splotch} splotchModel - the model
    * @param {Property.<boolean>} grayscaleProperty - property that indicates whether colors are shown as grayscale
    * @param {Property.<boolean>} revealProperty - indicates whether the billiards table should be shown
    * @constructor

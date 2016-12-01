@@ -10,16 +10,16 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var NecklaceModel = require( 'PROPORTION_PLAYGROUND/explore/model/necklace/NecklaceModel' );
+  var Necklace = require( 'PROPORTION_PLAYGROUND/explore/model/necklace/Necklace' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ExploreSceneModel = require( 'PROPORTION_PLAYGROUND/explore/model/ExploreSceneModel' );
+  var Scene = require( 'PROPORTION_PLAYGROUND/explore/model/Scene' );
 
-  function NecklaceSceneModel( predictMode ) {
-    ExploreSceneModel.call( this, predictMode );
+  function NecklaceScene( predictMode ) {
+    Scene.call( this, predictMode );
 
     // @public
-    this.necklace1Model = new NecklaceModel();
-    this.necklace2Model = new NecklaceModel();
+    this.necklace1Model = new Necklace();
+    this.necklace2Model = new Necklace();
 
     predictMode && this.registerChangeProperties( [
       this.necklace1Model.roundBeadCountProperty,
@@ -29,16 +29,16 @@ define( function( require ) {
     ] );
   }
 
-  proportionPlayground.register( 'NecklaceSceneModel', NecklaceSceneModel );
+  proportionPlayground.register( 'NecklaceScene', NecklaceScene );
 
-  return inherit( ExploreSceneModel, NecklaceSceneModel, {
+  return inherit( Scene, NecklaceScene, {
 
     /**
      * Resets the entire scene model
      * @public
      */
     reset: function() {
-      ExploreSceneModel.prototype.reset.call( this );
+      Scene.prototype.reset.call( this );
       this.necklace1Model.reset();
       this.necklace2Model.reset();
     }

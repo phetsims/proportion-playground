@@ -28,7 +28,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {NecklaceModel} necklaceModel - the model
+   * @param {Necklace} necklaceModel - the model
    * @param {Property.<boolean>} revealProperty - true if the necklace should be shown.
    * @constructor
    */

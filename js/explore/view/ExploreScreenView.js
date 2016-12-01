@@ -21,7 +21,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**
-   * @param {ExploreModel} exploreModel - the model
+   * @param {ProportionModel} exploreModel - the model
    * @constructor
    */
   function ExploreScreenView( exploreModel ) {

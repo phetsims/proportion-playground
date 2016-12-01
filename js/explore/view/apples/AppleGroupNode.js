@@ -36,7 +36,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {AppleGroupModel} appleGroupModel - the model for the apple group
+   * @param {AppleGroup} appleGroupModel - the model for the apple group
    * @param {Image|mipmap} appleImage - the image to show for each apple
    * @param {Property.<boolean>} showCostPerAppleProperty - indicates whether the price tag should be shown
    * @constructor
