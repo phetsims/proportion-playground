@@ -16,13 +16,11 @@ define( function( require ) {
   var Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
 
   /**
+   * @constructor
    *
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
-   * @constructor
    */
   function PaintScene( predictMode ) {
-    Scene.call( this, predictMode );
-
     // @public {BooleanProperty} - Whether the paints should be shown in shades of black and white
     this.grayscaleProperty = new BooleanProperty( false );
 
@@ -30,12 +28,10 @@ define( function( require ) {
     this.leftSplotch = new Splotch();
     this.rightSplotch = new Splotch();
 
-    predictMode && this.registerChangeProperties( [
-      this.leftSplotch.leftColorCountProperty,
-      this.leftSplotch.rightColorCountProperty,
-      this.rightSplotch.leftColorCountProperty,
-      this.rightSplotch.rightColorCountProperty
-    ] );
+    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
+    this.quantityProperties = this.leftSplotch.quantityProperties.concat( this.rightSplotch.quantityProperties );
+
+    Scene.call( this, predictMode );
   }
 
   proportionPlayground.register( 'PaintScene', PaintScene );

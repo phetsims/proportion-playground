@@ -28,6 +28,12 @@ define( function( require ) {
 
     // @public {Range} - Allowed range of bead counts
     this.beadCountRange = new Range( 0, ProportionPlaygroundConstants.MAX_BEADS );
+
+    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
+    this.quantityProperties = [
+      this.roundBeadCountProperty,
+      this.squareBeadCountProperty
+    ];
   }
 
   proportionPlayground.register( 'Necklace', Necklace );

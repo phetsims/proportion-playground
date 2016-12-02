@@ -51,6 +51,12 @@ define( function( require ) {
       this.lengthProperty,
       this.widthProperty
     ], this.restartBall.bind( this ) );
+
+    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
+    this.quantityProperties = [
+      this.lengthProperty,
+      this.widthProperty
+    ];
   }
 
   proportionPlayground.register( 'BilliardsTable', BilliardsTable );

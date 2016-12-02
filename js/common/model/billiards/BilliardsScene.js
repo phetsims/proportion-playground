@@ -20,19 +20,15 @@ define( function( require ) {
    */
   function BilliardsScene( predictMode ) {
     var self = this;
-    Scene.call( this, predictMode );
 
     // @public
     this.table1 = new BilliardsTable();
     this.table2 = new BilliardsTable();
 
-    var changeProperties = [
-      this.table1.widthProperty,
-      this.table1.lengthProperty,
-      this.table2.widthProperty,
-      this.table2.lengthProperty
-    ];
-    predictMode && this.registerChangeProperties( changeProperties );
+    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
+    this.quantityProperties = this.table1.quantityProperties.concat( this.table2.quantityProperties );
+
+    Scene.call( this, predictMode );
 
     // When the table is revealed, restart the balls.
     this.revealProperty.link( function( reveal ) {

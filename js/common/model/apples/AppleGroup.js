@@ -16,7 +16,6 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
 
   /**
-   *
    * @constructor
    */
   function AppleGroup() {
@@ -31,6 +30,12 @@ define( function( require ) {
 
     // @public {Range}
     this.totalCostRange = new Range( 0, 20 );
+
+    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
+    this.quantityProperties = [
+      this.numberOfApplesProperty,
+      this.totalCostProperty
+    ];
   }
 
   proportionPlayground.register( 'AppleGroup', AppleGroup );

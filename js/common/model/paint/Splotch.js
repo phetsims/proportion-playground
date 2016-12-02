@@ -27,6 +27,12 @@ define( function( require ) {
 
     // @public (read-only) the range for colors
     this.colorCountRange = new Range( 0, 20 );
+
+    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
+    this.quantityProperties = [
+      this.leftColorCountProperty,
+      this.rightColorCountProperty
+    ];
   }
 
   proportionPlayground.register( 'Splotch', Splotch );
@@ -49,6 +55,7 @@ define( function( require ) {
      */
     hasEquivalentValue: function( splotchModel ) {
       // compare ratios between sims, accounting for /0
+      //TODO: cleanup
       return this.ratio1 === splotchModel.ratio1 && this.ratio2 === splotchModel.ratio2;
     },
 

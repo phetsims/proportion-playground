@@ -15,18 +15,14 @@ define( function( require ) {
   var Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
 
   function NecklaceScene( predictMode ) {
-    Scene.call( this, predictMode );
-
     // @public
     this.leftNecklace = new Necklace();
     this.rightNecklace = new Necklace();
 
-    predictMode && this.registerChangeProperties( [
-      this.leftNecklace.roundBeadCountProperty,
-      this.leftNecklace.squareBeadCountProperty,
-      this.rightNecklace.roundBeadCountProperty,
-      this.rightNecklace.squareBeadCountProperty
-    ] );
+    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
+    this.quantityProperties = this.leftNecklace.quantityProperties.concat( this.rightNecklace.quantityProperties );
+
+    Scene.call( this, predictMode );
   }
 
   proportionPlayground.register( 'NecklaceScene', NecklaceScene );

@@ -15,9 +15,9 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
+   * @constructor
    *
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
-   * @constructor
    */
   function Scene( predictMode ) {
     this.predictMode = predictMode;
@@ -29,6 +29,12 @@ define( function( require ) {
     // @public {BooleanProperty} - Whether both representations are shown
     // TODO: consider rename
     this.showBothProperty = new BooleanProperty( false );
+
+    //TODO: Close to being able to avoid passing in predictMode at all
+    if ( predictMode ) {
+      // In the predict screen, hide representations when one of the spinners is changed
+      Property.multilink( this.quantityProperties, this.revealProperty.set.bind( this.revealProperty, false ) );
+    }
   }
 
   proportionPlayground.register( 'Scene', Scene );
@@ -42,23 +48,6 @@ define( function( require ) {
       // Owned properties
       this.revealProperty.reset();
       this.showBothProperty.reset();
-    },
-
-    /**
-     * Register properties that would trigger a revealed representation to be hidden, in the Predict screen.
-     * @protected
-     *
-     * TODO: better type doc
-     * @param {Property[]} properties - the array of Property instances that cause the representation to be masked
-     */
-    registerChangeProperties: function( properties ) {
-      assert && assert( this.predictMode, 'only register change properties for predict mode' );
-      var self = this;
-
-      // In the predict screen, when one of the spinner is changed, hide the representations again.
-      Property.multilink( properties, function() {
-        self.revealProperty.value = false;
-      } );
     }
   } );
 } );

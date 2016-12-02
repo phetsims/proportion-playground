@@ -16,13 +16,11 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
+   * @constructor
    *
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
-   * @constructor
    */
   function AppleScene( predictMode ) {
-    Scene.call( this, predictMode );
-
     // @public {BooleanProperty}
     this.showCostPerAppleProperty = new BooleanProperty( false );
 
@@ -30,12 +28,10 @@ define( function( require ) {
     this.redAppleGroup = new AppleGroup();
     this.greenAppleGroup = new AppleGroup();
 
-    predictMode && this.registerChangeProperties( [
-      this.redAppleGroup.numberOfApplesProperty,
-      this.redAppleGroup.totalCostProperty,
-      this.greenAppleGroup.numberOfApplesProperty,
-      this.greenAppleGroup.totalCostProperty
-    ] );
+    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
+    this.quantityProperties = this.redAppleGroup.quantityProperties.concat( this.greenAppleGroup.quantityProperties );
+
+    Scene.call( this, predictMode );
   }
 
   proportionPlayground.register( 'AppleScene', AppleScene );
