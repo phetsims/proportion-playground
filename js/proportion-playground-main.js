@@ -20,8 +20,8 @@ define( function( require ) {
   var simOptions = {
     credits: {
       leadDesign: 'Amanda McGarry',
-      softwareDevelopment: 'Andrea Lin, Sam Reid',
-      team: 'Karina Hensberry, Jonathan Olson, Ariel Paul, Kathy Perkins, Beth Stade, Ian Whitacre',
+      softwareDevelopment: 'Andrea Lin, Sam Reid, Jonathan Olson',
+      team: 'Karina Hensberry, Ariel Paul, Kathy Perkins, Beth Stade, Ian Whitacre',
       qualityAssurance: '',
       graphicArts: 'Mariah Hermsmeyer',
       thanks: 'This sim builds (in part) on prior work by our colleagues at SRI and the SunBay team (http://sunbay.sri.com/).'
