@@ -120,8 +120,8 @@ define( function( require ) {
         // How much time until we hit said boundaries.
         var timeLeftX = ( boundaryX - position.x ) / velocity.x;
         var timeLeftY = ( boundaryY - position.y ) / velocity.y;
-        assert && assert( timeLeftX > 0 );
-        assert && assert( timeLeftY > 0 );
+        assert && assert( timeLeftX >= 0 );
+        assert && assert( timeLeftY >= 0 );
 
         // Time until hitting the first wall
         var minTimeLeft = Math.min( timeLeftX, timeLeftY );
