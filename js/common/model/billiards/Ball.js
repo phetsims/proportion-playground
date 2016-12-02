@@ -40,7 +40,7 @@ define( function( require ) {
      * @param {number} y - the y coordinate for the ball
      */
     restartBall: function( x, y ) {
-      //REVIEW: why would we start at a non-zero position?
+      //TODO: why would we start at a non-zero position?
       this.positionProperty.value = new Vector2( x, y );
 
       // initially the ball starts in the bottom left corner and moves up and to the right.
