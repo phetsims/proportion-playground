@@ -22,19 +22,19 @@ define( function( require ) {
     var self = this;
 
     // @public
-    this.table1 = new BilliardsTable();
-    this.table2 = new BilliardsTable();
+    this.leftTable = new BilliardsTable();
+    this.rightTable = new BilliardsTable();
 
     // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
-    this.quantityProperties = this.table1.quantityProperties.concat( this.table2.quantityProperties );
+    this.quantityProperties = this.leftTable.quantityProperties.concat( this.rightTable.quantityProperties );
 
     Scene.call( this, predictMode );
 
     // When the table is revealed, restart the balls.
     this.revealProperty.link( function( reveal ) {
       if ( reveal ) {
-        self.table1.restartBall();
-        self.table2.restartBall();
+        self.leftTable.restartBall();
+        self.rightTable.restartBall();
       }
     } );
   }
@@ -42,27 +42,29 @@ define( function( require ) {
   proportionPlayground.register( 'BilliardsScene', BilliardsScene );
 
   return inherit( Scene, BilliardsScene, {
-
     /**
      * Resets the scene model
      * @public
      */
     reset: function() {
       Scene.prototype.reset.call( this );
-      this.table1.reset();
-      this.table2.reset();
+
+      this.leftTable.reset();
+      this.rightTable.reset();
     },
 
     /**
      * Moves the balls which have been revealed.
-     * @param dt
      * @public
+     *
+     * @param {number} dt
      */
     step: function( dt ) {
+      //TODO: can we handle visibility for each in a more general way?
       if ( this.revealProperty.value ) {
-        this.table1.step( dt );
+        this.leftTable.step( dt );
         if ( this.showBothProperty.value ) {
-          this.table2.step( dt );
+          this.rightTable.step( dt );
         }
       }
     }

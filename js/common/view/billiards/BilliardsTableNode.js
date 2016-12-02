@@ -163,8 +163,8 @@ define( function( require ) {
       billiardsTableModel.lengthProperty,
       billiardsTableModel.widthProperty
     ], function() {
-      var length = billiardsTableModel.length;
-      var width = billiardsTableModel.width;
+      var length = billiardsTableModel.lengthProperty.value;
+      var width = billiardsTableModel.widthProperty.value;
 
       var brownEdgeLineWidth = 8;
       var scaledWidth = width * SCALE;

@@ -38,5 +38,14 @@ define( function( require ) {
 
   proportionPlayground.register( 'Necklace', Necklace );
 
-  return inherit( Object, Necklace );
+  return inherit( Object, Necklace, {
+    /**
+     * Reset the necklace.
+     * @public
+     */
+    reset: function() {
+      this.roundBeadCountProperty.reset();
+      this.squareBeadCountProperty.reset();
+    }
+  } );
 } );

@@ -24,7 +24,7 @@ define( function( require ) {
     // @public {BooleanProperty}
     this.showCostPerAppleProperty = new BooleanProperty( false );
 
-    // @public
+    // @public {AppleGroup}
     this.redAppleGroup = new AppleGroup();
     this.greenAppleGroup = new AppleGroup();
 

@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Ball = require( 'PROPORTION_PLAYGROUND/common/model/billiards/Ball' );
@@ -20,18 +20,15 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   /**
-   *
    * @constructor
    */
   function BilliardsTable() {
-    PropertySet.call( this, {
-      length: 1, // {number} @public - the number of grid units vertical
-      width: 1 // {number} @public - the number of grid units horizontal
-    } );
+    // @public {NumberProperty} - Number of grid units vertically
+    // TODO: heightProperty???
+    this.lengthProperty = new NumberProperty( 1 );
 
-    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA
-    this.lengthProperty = this.lengthProperty || null;
-    this.widthProperty = this.widthProperty || null;
+    // @public {NumberProperty} - Number of grid units horizontally
+    this.widthProperty = new NumberProperty( 1 );
 
     // @public (read-only) - the allowed values for length and width
     this.range = new RangeWithValue( 1, 20 );
@@ -66,14 +63,14 @@ define( function( require ) {
     return new Vector2( Math.round( x ), Math.round( y ) );
   }
 
-  return inherit( PropertySet, BilliardsTable, {
+  return inherit( Object, BilliardsTable, {
 
     /**
      * Restart the ball in the correct location and notify observers.
      * @public
      */
     restartBall: function() {
-      this.ball.restartBall( 0, this.length );
+      this.ball.restartBall( 0, this.lengthProperty.value );
       this.collisionPoints.clear();
       this.restartEmitter.emit();
     },
@@ -83,7 +80,8 @@ define( function( require ) {
      * @public
      */
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      this.lengthProperty.reset();
+      this.widthProperty.reset();
       this.restartBall();
     },
 
@@ -109,11 +107,14 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
+      var length = this.lengthProperty.value;
+      var width = this.widthProperty.value;
 
       // Cap DT
       dt = Math.min( dt, 1 / 60 * 2 );
 
-      if ( this.length === 0 || this.width === 0 ) {
+      //TODO: Can this happen?
+      if ( length === 0 || width === 0 ) {
         return;
       }
       if ( this.collisionPoints.length === 0 ) {
@@ -125,14 +126,15 @@ define( function( require ) {
       var vy = this.ball.velocity.y;
       var x = this.ball.position.x;
       var y = this.ball.position.y;
-      if ( vx > 0 && x >= this.width ) {
-        this.bounce( -1, 1, this.width, y );
+
+      if ( vx > 0 && x >= width ) {
+        this.bounce( -1, 1, width, y );
       }
       if ( vx < 0 && x <= 0 ) {
         this.bounce( -1, 1, 0, y );
       }
-      if ( vy > 0 && y >= this.length ) {
-        this.bounce( 1, -1, x, this.length );
+      if ( vy > 0 && y >= length ) {
+        this.bounce( 1, -1, x, length );
       }
       if ( vy < 0 && y <= 0 ) {
         this.bounce( 1, -1, x, 0 );
@@ -141,9 +143,9 @@ define( function( require ) {
       // Stop the ball when it strikes a corner
       if (
         this.ball.position.equals( new Vector2( 0, 0 ) ) ||
-        this.ball.position.equals( new Vector2( 0, this.length ) ) ||
-        this.ball.position.equals( new Vector2( this.width, 0 ) ) ||
-        this.ball.position.equals( new Vector2( this.width, this.length ) )
+        this.ball.position.equals( new Vector2( 0, length ) ) ||
+        this.ball.position.equals( new Vector2( width, 0 ) ) ||
+        this.ball.position.equals( new Vector2( width, length ) )
       ) {
         this.ball.velocity = new Vector2();
       }

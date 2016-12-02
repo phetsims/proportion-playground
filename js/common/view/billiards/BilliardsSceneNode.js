@@ -31,8 +31,8 @@ define( function( require ) {
     var self = this;
 
     // Create the left/right tables
-    var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table1, billiardsSceneModel.revealProperty );
-    var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.table2, billiardsSceneModel.revealProperty, {
+    var billiardsTableNode1 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.leftTable, billiardsSceneModel.revealProperty );
+    var billiardsTableNode2 = new BilliardsTableNodeWithSpinners( layoutBounds, billiardsSceneModel.rightTable, billiardsSceneModel.revealProperty, {
       side: 'right'
     } );
 
