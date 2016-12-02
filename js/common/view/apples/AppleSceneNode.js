@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Node that displays everything for the Apple scene
+ * Node that displays everything for the Apple scene.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -29,16 +29,12 @@ define( function( require ) {
   // strings
   var costPerAppleString = require( 'string!PROPORTION_PLAYGROUND/costPerApple' );
 
-  // constants
-  var CHECK_BOX_INSET = 10;
-  var ICON_SCALE_OPTIONS = { scale: 0.2 };
-
   /**
+   * @constructor
    *
    * @param {AppleScene} scene - the model
    * @param {Bounds2} layoutBounds - the box within which to lay out all components
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
-   * @constructor
    */
   function AppleSceneNode( scene, layoutBounds, predictMode ) {
     var self = this;
@@ -46,11 +42,14 @@ define( function( require ) {
     // Create child nodes to be displayed
     var redAppleGroupNode = new ControllableAppleGroupNode( scene.redAppleGroup, redAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
     var greenAppleGroupNode = new ControllableAppleGroupNode( scene.greenAppleGroup, greenAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
-    var appleGraphNode = new AppleGraphNode( layoutBounds, scene, scene.revealProperty );
+    var appleGraphNode = new AppleGraphNode( scene, {
+      centerY: 250
+    } );
 
     // Create icons for the ABSwitch
-    var greenAppleImageNode = new Image( greenAppleImage, ICON_SCALE_OPTIONS );
-    var redAppleImageNode = new Image( redAppleImage, ICON_SCALE_OPTIONS );
+    var iconScaleOptions = { scale: 0.2 };
+    var greenAppleImageNode = new Image( greenAppleImage, iconScaleOptions );
+    var redAppleImageNode = new Image( redAppleImage, iconScaleOptions );
 
     // Create the switch that toggles between showing 1 and 2 groups
     var abSwitch = new ABSwitch( scene.showBothProperty,
@@ -86,11 +85,13 @@ define( function( require ) {
       if ( showBoth ) {
         redAppleGroupNode.x = layoutBounds.width * 1 / 3;
         greenAppleGroupNode.x = layoutBounds.width * 0.85;
+        appleGraphNode.x = layoutBounds.centerX;
 
         self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
         redAppleGroupNode.x = layoutBounds.width / 2;
+        appleGraphNode.x = layoutBounds.right * 0.7;
 
         self.mutateRevealButton( { centerX: layoutBounds.centerX + 200 } );
       }
@@ -100,7 +101,8 @@ define( function( require ) {
     this.moveABSwitchToBottomCenter( abSwitch );
 
     // Price tag checkbox goes in the bottom left
-    showCostPerAppleCheckBox.leftBottom = layoutBounds.leftBottom.plusXY( CHECK_BOX_INSET, -CHECK_BOX_INSET );
+    var checkBoxInset = 10;
+    showCostPerAppleCheckBox.leftBottom = layoutBounds.leftBottom.plusXY( checkBoxInset, -checkBoxInset );
   }
 
   proportionPlayground.register( 'AppleSceneNode', AppleSceneNode );

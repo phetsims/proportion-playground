@@ -26,16 +26,12 @@ define( function( require ) {
   var ARROW_LINE_WIDTH = 2;
 
   /**
-   *
-   * @param {Bounds2} layoutBounds - the visible screen bounds in view coordinates (before isometric scaling)
-   * @param {AppleScene} appleSceneModel - the model
-   * @param {Property.<boolean>} revealProperty - true if the representation is being shown.
-   * @param {Object} [options] - Node options
    * @constructor
+   *
+   * @param {AppleScene} scene - the model
+   * @param {Object} [options] - Node options
    */
-  function AppleGraphNode( layoutBounds, appleSceneModel, revealProperty, options ) {
-    var self = this;
-
+  function AppleGraphNode( scene, options ) {
     // The vertical arrow for the graph
     var arrowNode = new ArrowNode( 0, ARROW_HEIGHT, 0, -ARROW_OVERSHOOT, { tailWidth: ARROW_LINE_WIDTH } );
 
@@ -52,7 +48,7 @@ define( function( require ) {
     } ) );
 
     // Create the triangle indicators
-    var leftIndicator = new TriangleNode( 'left', { right: - ARROW_WIDTH / 2 } );
+    var leftIndicator = new TriangleNode( 'left', { right: -ARROW_WIDTH / 2 } );
     var rightIndicator = new TriangleNode( 'right', { left: ARROW_WIDTH / 2 } );
 
     Node.call( this, {
@@ -63,8 +59,6 @@ define( function( require ) {
       ]
     } );
 
-    this.mutate( options );
-
     /**
      *
      * @param {Node} indicator - the left/right triangle node
@@ -72,13 +66,13 @@ define( function( require ) {
      * @param {function} condition - supplemental condition for showing the indicator
      * @returns {Function}
      */
-    var createIndicatorUpdateFunction = function( indicator, appleGroup, condition ) {
+    var updateIndicator = function( indicator, appleGroup, condition ) {
       return function() {
         if ( appleGroup.numberOfApplesProperty.value === 0 ) {
           indicator.visible = false;
         }
         else {
-          indicator.visible = condition() && revealProperty.get();
+          indicator.visible = condition() && scene.revealProperty.get();
           indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, appleGroup.costPerApple );
         }
       };
@@ -86,38 +80,34 @@ define( function( require ) {
 
     // Update the left indicator when salient properties change
     Property.multilink( [
-      appleSceneModel.redAppleGroup.totalCostProperty,
-      appleSceneModel.redAppleGroup.numberOfApplesProperty,
-      revealProperty
-    ], createIndicatorUpdateFunction( leftIndicator, appleSceneModel.redAppleGroup, function() {return true;} ) );
+      scene.redAppleGroup.totalCostProperty,
+      scene.redAppleGroup.numberOfApplesProperty,
+      scene.revealProperty
+    ], updateIndicator( leftIndicator, scene.redAppleGroup, function() {return true;} ) );
 
     // Update the right indicator when salient properties change
     Property.multilink( [
-      appleSceneModel.greenAppleGroup.totalCostProperty,
-      appleSceneModel.greenAppleGroup.numberOfApplesProperty,
-      appleSceneModel.showBothProperty,
-      revealProperty
-    ], createIndicatorUpdateFunction( rightIndicator, appleSceneModel.greenAppleGroup, function() {return appleSceneModel.showBothProperty.value;} ) );
+      scene.greenAppleGroup.totalCostProperty,
+      scene.greenAppleGroup.numberOfApplesProperty,
+      scene.showBothProperty,
+      scene.revealProperty
+    ], updateIndicator( rightIndicator, scene.greenAppleGroup, function() {return scene.showBothProperty.value;} ) );
 
     // Update the indicator fills when salient properties change
     Property.multilink( [
-      appleSceneModel.redAppleGroup.totalCostProperty,
-      appleSceneModel.redAppleGroup.numberOfApplesProperty,
-      appleSceneModel.greenAppleGroup.totalCostProperty,
-      appleSceneModel.greenAppleGroup.numberOfApplesProperty,
-      appleSceneModel.showBothProperty
+      scene.redAppleGroup.totalCostProperty,
+      scene.redAppleGroup.numberOfApplesProperty,
+      scene.greenAppleGroup.totalCostProperty,
+      scene.greenAppleGroup.numberOfApplesProperty,
+      scene.showBothProperty
     ], function() {
-      var equivalent = appleSceneModel.redAppleGroup.hasEquivalentValue( appleSceneModel.greenAppleGroup );
-      var fill = (equivalent && appleSceneModel.showBothProperty.value) ? 'black' : 'white';
+      var equivalent = scene.redAppleGroup.hasEquivalentValue( scene.greenAppleGroup );
+      var fill = (equivalent && scene.showBothProperty.value) ? 'black' : 'white';
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );
 
-    // Set the location of the graph
-    appleSceneModel.showBothProperty.link( function( showBoth ) {
-      self.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
-    } );
-    this.centerY = 250;
+    this.mutate( options );
   }
 
   proportionPlayground.register( 'AppleGraphNode', AppleGraphNode );
