@@ -106,7 +106,7 @@ define( function( require ) {
     } );
 
     // When the ball moves, update the live (unbounced) line streaming from the ball and update the ball's location
-    billiardsTableModel.ball.positionProperty.link( function( position ) {
+    billiardsTableModel.ballPositionProperty.link( function( position ) {
       var a = billiardsTableModel.collisionPoints.getArray();
       var previousPoint = a[ a.length - 1 ];
       if ( previousPoint ) {

@@ -26,15 +26,6 @@ define( function( require ) {
     this.rightTable = new BilliardsTable( this.rightVisibleProperty );
 
     this.initializeRatios( this.leftTable, this.rightTable );
-
-    // When the table is revealed, restart the balls.
-    var self = this;
-    this.revealProperty.link( function( reveal ) {
-      if ( reveal ) {
-        self.leftTable.restartBall();
-        self.rightTable.restartBall();
-      }
-    } );
   }
 
   proportionPlayground.register( 'BilliardsScene', BilliardsScene );

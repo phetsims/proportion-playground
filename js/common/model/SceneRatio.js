@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var Emitter = require( 'AXON/Emitter' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
@@ -25,6 +25,20 @@ define( function( require ) {
 
     // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
     this.quantityProperties = quantityProperties;
+
+    // @public {Emitter} - Fires when there is a change to a quantity property while visible, or when visibility changes
+    this.visibleChangeEmitter = new Emitter();
+
+    // Hook up our visible-change emitter
+    var self = this;
+    visibleProperty.lazyLink( this.visibleChangeEmitter.emit.bind( this.visibleChangeEmitter ) );
+    quantityProperties.forEach( function( quantityProperty ) {
+      quantityProperty.lazyLink( function() {
+        if ( visibleProperty.value ) {
+          self.visibleChangeEmitter.emit();
+        }
+      } );
+    } );
   }
 
   proportionPlayground.register( 'SceneRatio', SceneRatio );

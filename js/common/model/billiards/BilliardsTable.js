@@ -14,12 +14,14 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Range = require( 'DOT/Range' );
   var Util = require( 'DOT/Util' );
-  var Ball = require( 'PROPORTION_PLAYGROUND/common/model/billiards/Ball' );
   var Vector2 = require( 'DOT/Vector2' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Emitter = require( 'AXON/Emitter' );
   var Property = require( 'AXON/Property' );
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
+
+  // constants
+  var SPEED = 8; // Ball speed, in pixels per second
 
   var scratchVector = new Vector2();
 
@@ -38,8 +40,11 @@ define( function( require ) {
     // @public (read-only) - the allowed values for length and width
     this.range = new Range( 1, 20 );
 
-    // @public (read-only)
-    this.ball = new Ball();
+    // @public {Property.<Vector2>} - The position of the ball in pixels
+    this.ballPositionProperty = new Property( new Vector2() );
+
+    // @public {Vector2} - The velocity of the ball in pixels per second
+    this.ballVelocity = new Vector2( SPEED, -SPEED );
 
     // Keep track of collision points so the path can be shown as array of lines.
     // @public {ObservableArray.<Vector2>} (read-only) - the points where the ball has collided with the walls
@@ -54,7 +59,7 @@ define( function( require ) {
     ] );
 
     // Restart the ball when the length or width changes
-    Property.multilink( this.quantityProperties, this.restartBall.bind( this ) );
+    this.visibleChangeEmitter.addListener( this.restartBall.bind( this ) );
   }
 
   proportionPlayground.register( 'BilliardsTable', BilliardsTable );
@@ -65,7 +70,10 @@ define( function( require ) {
      * @public
      */
     restartBall: function() {
-      this.ball.restartBall( 0, this.heightProperty.value );
+      // initially the ball starts in the bottom left corner and moves up and to the right.
+      this.ballPositionProperty.value = new Vector2( 0, this.heightProperty.value );
+      this.ballVelocity.setXY( SPEED, -SPEED );
+
       this.collisionPoints.clear();
       this.restartEmitter.emit();
     },
@@ -98,8 +106,8 @@ define( function( require ) {
       assert && assert( width > 0 && height > 0 );
 
       // Mutable vectors (we'll copy position to the new Property value at the end)
-      var position = scratchVector.set( this.ball.positionProperty.value );
-      var velocity = this.ball.velocity;
+      var position = scratchVector.set( this.ballPositionProperty.value );
+      var velocity = this.ballVelocity;
 
       // Bail out if the ball has stopped
       if ( velocity.magnitude() === 0 ) {
@@ -160,13 +168,13 @@ define( function( require ) {
           // Stop the ball when we hit a corner
           if ( ( position.x === 0 || position.x === width ) &&
                ( position.y === 0 || position.y === height ) ) {
-            this.ball.velocity.setXY( 0, 0 );
+            this.ballVelocity.setXY( 0, 0 );
           }
         }
       }
 
       // Since we used a mutable vector for position, copy it over to the Property
-      this.ball.positionProperty.value = position.copy();
+      this.ballPositionProperty.value = position.copy();
     }
   } );
 } );
