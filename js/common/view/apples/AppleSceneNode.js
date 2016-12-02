@@ -40,6 +40,7 @@ define( function( require ) {
     var self = this;
 
     // Create child nodes to be displayed
+    //TODO: simplify what is passed?
     var redAppleGroupNode = new ControllableAppleGroupNode( scene.redAppleGroup, redAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
     var greenAppleGroupNode = new ControllableAppleGroupNode( scene.greenAppleGroup, greenAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
     var appleGraphNode = new AppleGraphNode( scene, {
@@ -83,15 +84,15 @@ define( function( require ) {
       greenAppleGroupNode.visible = showBoth;
 
       if ( showBoth ) {
-        redAppleGroupNode.x = layoutBounds.width * 1 / 3;
-        greenAppleGroupNode.x = layoutBounds.width * 0.85;
+        redAppleGroupNode.right = layoutBounds.width * 0.45;
+        greenAppleGroupNode.left = layoutBounds.width * 0.55;
         appleGraphNode.x = layoutBounds.centerX;
 
         self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
-        redAppleGroupNode.x = layoutBounds.width / 2;
-        appleGraphNode.x = layoutBounds.right * 0.7;
+        redAppleGroupNode.centerX = layoutBounds.width / 2;
+        appleGraphNode.left = redAppleGroupNode.right + layoutBounds.width * 0.05;
 
         self.mutateRevealButton( { centerX: layoutBounds.centerX + 200 } );
       }
@@ -99,6 +100,9 @@ define( function( require ) {
 
     // Align the ABSwitch at the bottom center of the screen
     this.moveABSwitchToBottomCenter( abSwitch );
+
+    redAppleGroupNode.bottom = abSwitch.top - 15;
+    greenAppleGroupNode.bottom = abSwitch.top - 15;
 
     // Price tag checkbox goes in the bottom left
     var checkBoxInset = 10;

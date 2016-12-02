@@ -15,7 +15,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var Property = require( 'AXON/Property' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
@@ -68,7 +67,7 @@ define( function( require ) {
     // Only show the representation if it is being revealed
     revealProperty.linkAttribute( appleGroupNode, 'visible' );
 
-    function toVBox( numberPicker, label ) {
+    function pickerWithLabel( numberPicker, label ) {
       return new VBox( {
         spacing: 10,
         children: [
@@ -81,18 +80,18 @@ define( function( require ) {
       } );
     }
 
+    var costPickerGroup = pickerWithLabel( totalCostNumberPicker, totalCostString );
+    var applePickerGroup = pickerWithLabel( numberOfApplesNumberPicker, applesString );
+
+    costPickerGroup.centerX = appleGroupNode.coinLayer.centerX;
+    applePickerGroup.centerX = appleGroupNode.appleLayer.centerX;
+    costPickerGroup.top = applePickerGroup.top = appleGroupNode.bottom + 40;
+
     Node.call( this, {
       children: [
         appleGroupNode,
-        new HBox( {
-          spacing: 150, // distance between the spinners
-          y: 430,
-          centerX: -140, // position one spinner under coin stack, other under apple stack
-          children: [
-            toVBox( totalCostNumberPicker, totalCostString ),
-            toVBox( numberOfApplesNumberPicker, applesString )
-          ]
-        } )
+        costPickerGroup,
+        applePickerGroup
       ]
     } );
   }

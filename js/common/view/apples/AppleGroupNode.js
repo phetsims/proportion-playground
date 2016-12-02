@@ -31,65 +31,66 @@ define( function( require ) {
   var APPLE_IMAGE_SCALE = 0.35; // Reduction factor for showing the image
   var COIN_IMAGE_SCALE = 0.7; // Reduction factor for showing the image
   var APPLES_PER_ROW = 5;
-  var DISTANCE_BETWEEN_COINS_AND_APPLES = 65;
-  var Y_OFFSET_OPTIONS = { y: 320 };
 
   /**
-   *
-   * @param {AppleGroup} appleGroupModel - the model for the apple group
-   * @param {Image|mipmap} appleImage - the image to show for each apple
-   * @param {Property.<boolean>} showCostPerAppleProperty - indicates whether the price tag should be shown
    * @constructor
+   *
+   * @param {AppleGroup} appleGroup - the model for the apple group
+   * @param {HTMLImageElement|Array} appleImage - The image to show for each apple (possibly with a mipmap)
+   * @param {Property.<boolean>} showCostPerAppleProperty - indicates whether the price tag should be shown
    */
-  function AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty ) {
-    var appleLayer = new Node( Y_OFFSET_OPTIONS );
-    var coinLayer = new Node( Y_OFFSET_OPTIONS );
+  function AppleGroupNode( appleGroup, appleImage, showCostPerAppleProperty ) {
+
     var priceTagLayer = new Node( { x: -132, y: 110 } );
-    var appleLayerX = -APPLES_PER_ROW * appleImage[ 0 ].width * APPLE_IMAGE_SCALE / 2;
-    Node.call( this, {
-      children: [ coinLayer, appleLayer, priceTagLayer ]
-    } );
 
     // Show/hide the price tag
-    showCostPerAppleProperty.link( function( showCostPerApple ) {
-      priceTagLayer.visible = showCostPerApple;
+    showCostPerAppleProperty.linkAttribute( priceTagLayer, 'visible' );
+
+    // {Image}
+    var appleImageNode = new Image( appleImage, { scale: APPLE_IMAGE_SCALE } );
+    var coinImageNode = new Image( coinImage, { scale: COIN_IMAGE_SCALE } );
+
+    var appleNodes = _.range( 0, appleGroup.numberOfApplesRange.max ).map( function( appleNumber ) {
+      return new Node( {
+        children: [ appleImageNode ],
+        x: ( APPLES_PER_ROW - ( appleNumber % APPLES_PER_ROW ) - 1 ) * appleImageNode.width,
+        y: Math.floor( appleNumber / APPLES_PER_ROW ) * appleImageNode.height / 2
+      } );
+    } );
+
+    // @public {Node} - Exposed so we can properly align controls with the apples
+    this.appleLayer = new Node( {
+      children: appleNodes
+    } );
+
+    var coinNodes = _.range( 0, appleGroup.totalCostRange.max ).map( function( coinNumber ) {
+      return new Node( {
+        children: [ coinImageNode ],
+        y: -coinNumber * coinImageNode.height / 6
+      } );
+    } );
+
+    // @public {Node} - Exposed so we can properly align controls with the coins
+    this.coinLayer = new Node( {
+      children: coinNodes
     } );
 
     // Show the grid of apples
-    appleGroupModel.numberOfApplesProperty.link( function( numberOfApples ) {
-      var appleArray = [];
-      var x = 0;
-      var y = 0;
-      for ( var i = 0; i < numberOfApples; i++ ) {
-        var image = new Image( appleImage, { scale: APPLE_IMAGE_SCALE, x: x, y: y } );
-        appleArray.unshift( image ); // prepend to get z-order correct
-        x = image.right;
-        if ( x >= image.width * APPLES_PER_ROW ) {
-          x = 0;
-          y = y - image.height / 2; // group up, the same as the coins grow for consistency
-        }
-      }
-      appleLayer.children = appleArray;
-
-      appleLayer.x = appleLayerX;
+    appleGroup.numberOfApplesProperty.link( function( numberOfApples ) {
+      appleNodes.forEach( function( appleNode, index ) {
+        appleNode.visible = appleGroup.numberOfApplesRange.max - index <= numberOfApples;
+      } );
     } );
 
     // Show the stack of coins
-    appleGroupModel.totalCostProperty.link( function( totalCost ) {
-      var coinArray = [];
-      var x = 0;
-      var y = 0;
-      for ( var i = 0; i < totalCost; i++ ) {
-        var image = new Image( coinImage, { scale: COIN_IMAGE_SCALE, x: x, y: y } );
-        coinArray.push( image );
-        y = y - image.height / 6;
-      }
-      coinLayer.children = coinArray;
-      coinLayer.x = appleLayerX - coinImage[ 0 ].width * COIN_IMAGE_SCALE - DISTANCE_BETWEEN_COINS_AND_APPLES;
+    appleGroup.totalCostProperty.link( function( totalCost ) {
+      coinNodes.forEach( function( coinNode, index ) {
+        coinNode.visible = index < totalCost;
+      } );
     } );
 
     // Update the price tag
-    Property.multilink( [ appleGroupModel.totalCostProperty, appleGroupModel.numberOfApplesProperty ], function( totalCost, numberOfApples ) {
+    Property.multilink( [ appleGroup.totalCostProperty, appleGroup.numberOfApplesProperty ], function( totalCost, numberOfApples ) {
       var pricePerApple = totalCost / numberOfApples;
       var fixed = Util.toFixed( pricePerApple, 2 );
       if ( numberOfApples === 0 ) {
@@ -110,6 +111,14 @@ define( function( require ) {
         xMargin: 12,
         yMargin: 12
       } ) ];
+    } );
+
+    this.appleLayer.left = priceTagLayer.left = this.coinLayer.right + 60;
+    this.appleLayer.bottom = this.coinLayer.bottom;
+    priceTagLayer.bottom = this.appleLayer.top - 20;
+
+    Node.call( this, {
+      children: [ this.coinLayer, this.appleLayer, priceTagLayer ]
     } );
   }
 
