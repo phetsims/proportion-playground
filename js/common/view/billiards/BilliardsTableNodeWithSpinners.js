@@ -39,7 +39,7 @@ define( function( require ) {
     options = _.extend( { side: 'left' }, options );
 
     // The number pickers for choosing and displaying the length and width
-    var lengthNumberPicker = new NumberPicker( billiardsTableModel.lengthProperty, new Property( billiardsTableModel.range ), NUMBER_PICKER_OPTIONS );
+    var lengthNumberPicker = new NumberPicker( billiardsTableModel.heightProperty, new Property( billiardsTableModel.range ), NUMBER_PICKER_OPTIONS );
     var widthNumberPicker = new NumberPicker( billiardsTableModel.widthProperty, new Property( billiardsTableModel.range ), NUMBER_PICKER_OPTIONS );
 
     // The table itself, with the ball/holes/gridlines/etc.

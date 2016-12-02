@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Range = require( 'DOT/Range' );
 
@@ -40,7 +39,7 @@ define( function( require ) {
 
   proportionPlayground.register( 'AppleGroup', AppleGroup );
 
-  return inherit( PropertySet, AppleGroup, {
+  return inherit( Object, AppleGroup, {
     /**
      * Resets to original values.
      * @public
