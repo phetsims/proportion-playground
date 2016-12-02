@@ -32,8 +32,8 @@ define( function( require ) {
     this.necklaceSceneModel = necklaceSceneModel;
 
     // Create the left and right necklace nodes, each with their own NumberPickers
-    var firstControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace1Model, necklaceSceneModel.revealProperty );
-    var secondControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.necklace2Model, necklaceSceneModel.revealProperty );
+    var firstControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.leftNecklace, necklaceSceneModel.revealProperty );
+    var secondControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.rightNecklace, necklaceSceneModel.revealProperty );
 
     // Create the switch that chooses between 1 vs 2 necklaces
     var abSwitch = new ABSwitch( necklaceSceneModel.showBothProperty,

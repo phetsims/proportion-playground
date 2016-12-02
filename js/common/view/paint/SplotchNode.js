@@ -23,13 +23,13 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property.<number>} color1Property - the number of color1 to include
-   * @param {Property.<number>} color2Property - the number of color2 to include
+   * @param {Property.<number>} leftColorProperty - the number of leftColor to include
+   * @param {Property.<number>} rightColorProperty - the number of rightColor to include
    * @param {Property.<boolean>} grayscaleProperty - whether to show as grayscale (true) or colorized (false)
    * @param {Object} [options] - node options
    * @constructor
    */
-  function SplotchNode( color1Property, color2Property, grayscaleProperty, options ) {
+  function SplotchNode( leftColorProperty, rightColorProperty, grayscaleProperty, options ) {
 
     var self = this;
 
@@ -46,11 +46,11 @@ define( function( require ) {
      * Update the fill of the splotch.
      */
     var updateFill = function() {
-      var color1Amount = color1Property.value;
-      var color2Amount = color2Property.value;
+      var leftColorAmount = leftColorProperty.value;
+      var rightColorAmount = rightColorProperty.value;
 
-      var total = color1Amount + color2Amount;
-      var blendAmount = color2Amount / total;
+      var total = leftColorAmount + rightColorAmount;
+      var blendAmount = rightColorAmount / total;
 
       if ( total > 0 ) {
 
@@ -68,10 +68,10 @@ define( function( require ) {
     };
 
     // When the color amounts change, update the size and color of the splotch.
-    Property.multilink( [ color1Property, color2Property ], function( color1, color2 ) {
+    Property.multilink( [ leftColorProperty, rightColorProperty ], function( leftColor, rightColor ) {
       updateFill();
 
-      var total = color1 + color2;
+      var total = leftColor + rightColor;
 
       // The area of the paint splotch grows linearly as a function of number of splotch
       var twoPi = Math.PI * 2;

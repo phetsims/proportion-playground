@@ -53,6 +53,10 @@ define( function( require ) {
      * @returns {boolean}
      */
     hasEquivalentValue: function( appleGroup ) {
+      // We're always guaranteed at least one apple
+      assert && assert( this.numberOfApplesProperty.value > 0 );
+      assert && assert( appleGroup.numberOfApplesProperty.value > 0 );
+
       return this.costPerApple === appleGroup.costPerApple;
     },
 
@@ -63,7 +67,7 @@ define( function( require ) {
      * @returns {number}
      */
     get costPerApple() {
-      //TODO: consider a derived property
+      //TODO: consider a derived property?
       return this.totalCostProperty.value / this.numberOfApplesProperty.value;
     }
   } );

@@ -87,14 +87,14 @@ define( function( require ) {
      */
     var createIndicatorUpdateFunction = function( indicator, splotchModel, condition ) {
       return function() {
-        var total = splotchModel.color1Count + splotchModel.color2Count;
+        var total = splotchModel.leftColorCountProperty.value + splotchModel.rightColorCountProperty.value;
         if ( total === 0 ) {
           indicator.visible = false;
         }
         else {
           indicator.visible = condition() && revealProperty.get();
 
-          var proportion = splotchModel.color2Count / total;
+          var proportion = splotchModel.rightColorCountProperty.value / total;
           indicator.centerY = proportion * GRADIENT_HEIGHT;
         }
       };
@@ -102,28 +102,28 @@ define( function( require ) {
 
     // Update the left triangle indicator node when its parameters change.
     Property.multilink( [
-      paintSceneModel.splotch1Model.color1CountProperty,
-      paintSceneModel.splotch1Model.color2CountProperty,
+      paintSceneModel.leftSplotch.leftColorCountProperty,
+      paintSceneModel.leftSplotch.rightColorCountProperty,
       revealProperty
-    ], createIndicatorUpdateFunction( leftIndicator, paintSceneModel.splotch1Model, function() {return true;} ) );
+    ], createIndicatorUpdateFunction( leftIndicator, paintSceneModel.leftSplotch, function() {return true;} ) );
 
     // Update the right triangle indicator node when its parameters change.
     Property.multilink( [
-      paintSceneModel.splotch2Model.color1CountProperty,
-      paintSceneModel.splotch2Model.color2CountProperty,
+      paintSceneModel.rightSplotch.leftColorCountProperty,
+      paintSceneModel.rightSplotch.rightColorCountProperty,
       paintSceneModel.showBothProperty,
       revealProperty
-    ], createIndicatorUpdateFunction( rightIndicator, paintSceneModel.splotch2Model, function() {return paintSceneModel.showBothProperty.value;} ) );
+    ], createIndicatorUpdateFunction( rightIndicator, paintSceneModel.rightSplotch, function() {return paintSceneModel.showBothProperty.value;} ) );
 
     // Update the fills of the triangle indicator nodes
     Property.multilink( [
-      paintSceneModel.splotch1Model.color1CountProperty,
-      paintSceneModel.splotch1Model.color2CountProperty,
-      paintSceneModel.splotch2Model.color1CountProperty,
-      paintSceneModel.splotch2Model.color2CountProperty,
+      paintSceneModel.leftSplotch.leftColorCountProperty,
+      paintSceneModel.leftSplotch.rightColorCountProperty,
+      paintSceneModel.rightSplotch.leftColorCountProperty,
+      paintSceneModel.rightSplotch.rightColorCountProperty,
       paintSceneModel.showBothProperty
     ], function() {
-      var equivalent = paintSceneModel.splotch1Model.hasEquivalentValue( paintSceneModel.splotch2Model );
+      var equivalent = paintSceneModel.leftSplotch.hasEquivalentValue( paintSceneModel.rightSplotch );
       var fill = (equivalent && paintSceneModel.showBothProperty.value) ? 'black' : 'white';
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;

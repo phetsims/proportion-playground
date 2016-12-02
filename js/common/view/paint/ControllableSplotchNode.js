@@ -41,9 +41,9 @@ define( function( require ) {
     };
 
     // Left-side number pickers for blue/black
-    var picker1Color = createNumberPicker( splotchModel.color1CountProperty, { color: ColorMap.getColor( 0 ) } );
-    var picker1Black = createNumberPicker( splotchModel.color1CountProperty, { color: 'black' } );
-    var color1CountPicker = new Node( {
+    var picker1Color = createNumberPicker( splotchModel.leftColorCountProperty, { color: ColorMap.getColor( 0 ) } );
+    var picker1Black = createNumberPicker( splotchModel.leftColorCountProperty, { color: 'black' } );
+    var leftColorCountPicker = new Node( {
       children: [
         picker1Color,
         picker1Black
@@ -51,9 +51,9 @@ define( function( require ) {
     } );
 
     // Right-side number pickers for yellow/white
-    var picker2Color = createNumberPicker( splotchModel.color2CountProperty, { color: ColorMap.getColor( 1 ) } );
-    var picker2Black = createNumberPicker( splotchModel.color2CountProperty, { color: 'white' } );
-    var color2CountPicker = new Node( {
+    var picker2Color = createNumberPicker( splotchModel.rightColorCountProperty, { color: ColorMap.getColor( 1 ) } );
+    var picker2Black = createNumberPicker( splotchModel.rightColorCountProperty, { color: 'white' } );
+    var rightColorCountPicker = new Node( {
       children: [
         picker2Color,
         picker2Black
@@ -69,7 +69,7 @@ define( function( require ) {
     } );
 
     // Wrap in a node so the visible flags don't collide
-    var splotchNode = new Node( { children: [ new SplotchNode( splotchModel.color1CountProperty, splotchModel.color2CountProperty, grayscaleProperty ) ] } );
+    var splotchNode = new Node( { children: [ new SplotchNode( splotchModel.leftColorCountProperty, splotchModel.rightColorCountProperty, grayscaleProperty ) ] } );
     revealProperty.linkAttribute( splotchNode, 'visible' );
 
     Node.call( this, {
@@ -80,8 +80,8 @@ define( function( require ) {
           y: 450,
           centerX: 0, // position around the origin
           children: [
-            color1CountPicker,
-            color2CountPicker
+            leftColorCountPicker,
+            rightColorCountPicker
           ]
         } )
       ]

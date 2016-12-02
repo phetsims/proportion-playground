@@ -27,14 +27,14 @@ define( function( require ) {
     this.grayscaleProperty = new BooleanProperty( false );
 
     // @public (read-only) - the models for each splotch
-    this.splotch1Model = new Splotch();
-    this.splotch2Model = new Splotch();
+    this.leftSplotch = new Splotch();
+    this.rightSplotch = new Splotch();
 
     predictMode && this.registerChangeProperties( [
-      this.splotch1Model.color1CountProperty,
-      this.splotch1Model.color2CountProperty,
-      this.splotch2Model.color1CountProperty,
-      this.splotch2Model.color2CountProperty
+      this.leftSplotch.leftColorCountProperty,
+      this.leftSplotch.rightColorCountProperty,
+      this.rightSplotch.leftColorCountProperty,
+      this.rightSplotch.rightColorCountProperty
     ] );
   }
 
@@ -50,8 +50,8 @@ define( function( require ) {
       Scene.prototype.reset.call( this );
       this.grayscaleProperty.reset();
 
-      this.splotch1Model.reset();
-      this.splotch2Model.reset();
+      this.leftSplotch.reset();
+      this.rightSplotch.reset();
     }
   } );
 } );

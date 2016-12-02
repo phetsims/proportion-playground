@@ -40,8 +40,8 @@ define( function( require ) {
     var self = this;
 
     // Create the left/right splotches and their NumberPickers
-    var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.splotch1Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
-    var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.splotch2Model, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
+    var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.leftSplotch, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
+    var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.rightSplotch, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
 
     // Create the ABSwitch that chooses 1 or 2 splotches
     var splotchNode = new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, ICON_SCALE_OPTIONS );
