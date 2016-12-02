@@ -60,48 +60,26 @@ define( function( require ) {
     } );
 
     /**
-     *
      * @param {Node} indicator - the left/right triangle node
      * @param {AppleGroup} appleGroup - the model
-     * @param {function} condition - supplemental condition for showing the indicator
-     * @returns {Function}
      */
-    var updateIndicator = function( indicator, appleGroup, condition ) {
-      return function() {
-        if ( appleGroup.numberOfApplesProperty.value === 0 ) {
-          indicator.visible = false;
-        }
-        else {
-          indicator.visible = condition() && scene.revealProperty.get();
-          var costPerApple = appleGroup.totalCostProperty.value / appleGroup.numberOfApplesProperty.value;
-          indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
-        }
-      };
+    function updateIndicator( indicator, appleGroup ) {
+      indicator.visible = appleGroup.numberOfApplesProperty.value > 0 && appleGroup.visibleProperty.value;
+      var costPerApple = appleGroup.totalCostProperty.value / appleGroup.numberOfApplesProperty.value;
+      if ( isFinite( costPerApple ) ) {
+        indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
+      }
     };
+    var updateLeftIndicator = updateIndicator.bind( undefined, leftIndicator, scene.redAppleGroup );
+    var updateRightIndicator = updateIndicator.bind( undefined, rightIndicator, scene.greenAppleGroup );
 
-    // Update the left indicator when salient properties change
-    Property.multilink( [
-      scene.redAppleGroup.totalCostProperty,
-      scene.redAppleGroup.numberOfApplesProperty,
-      scene.revealProperty
-    ], updateIndicator( leftIndicator, scene.redAppleGroup, function() {return true;} ) );
-
-    // Update the right indicator when salient properties change
-    Property.multilink( [
-      scene.greenAppleGroup.totalCostProperty,
-      scene.greenAppleGroup.numberOfApplesProperty,
-      scene.showBothProperty,
-      scene.revealProperty
-    ], updateIndicator( rightIndicator, scene.greenAppleGroup, function() {return scene.showBothProperty.value;} ) );
+    scene.redAppleGroup.visibleChangeEmitter.addListener( updateLeftIndicator );
+    scene.greenAppleGroup.visibleChangeEmitter.addListener( updateRightIndicator );
+    updateLeftIndicator();
+    updateRightIndicator();
 
     // Update the indicator fills when salient properties change
-    Property.multilink( [
-      scene.redAppleGroup.totalCostProperty,
-      scene.redAppleGroup.numberOfApplesProperty,
-      scene.greenAppleGroup.totalCostProperty,
-      scene.greenAppleGroup.numberOfApplesProperty,
-      scene.showBothProperty
-    ], function() {
+    Property.multilink( scene.quantityProperties.concat( [ scene.showBothProperty ] ), function() {
       var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : 'white';
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;

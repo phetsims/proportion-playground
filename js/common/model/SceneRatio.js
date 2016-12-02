@@ -62,10 +62,10 @@ define( function( require ) {
      */
     isEquivalentTo: function( ratio ) {
       // Division by zero in both places will have Infinity === Infinity, which is OK.
-      return ( this.quantityProperties[ 0 ].value / this.quantityProperties[ 1 ] ===
-               ratio.quantityProperties[ 0 ].value / ratio.quantityProperties[ 1 ] ) &&
-             ( this.quantityProperties[ 1 ].value / this.quantityProperties[ 0 ] ===
-               ratio.quantityProperties[ 1 ].value / ratio.quantityProperties[ 0 ] );
+      return ( this.quantityProperties[ 0 ].value / this.quantityProperties[ 1 ].value ===
+               ratio.quantityProperties[ 0 ].value / ratio.quantityProperties[ 1 ].value ) &&
+             ( this.quantityProperties[ 1 ].value / this.quantityProperties[ 0 ].value ===
+               ratio.quantityProperties[ 1 ].value / ratio.quantityProperties[ 0 ].value );
     }
   } );
 } );
