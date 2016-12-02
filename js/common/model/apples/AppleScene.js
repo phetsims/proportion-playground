@@ -21,33 +21,29 @@ define( function( require ) {
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
   function AppleScene( predictMode ) {
+    Scene.call( this, predictMode );
+
     // @public {BooleanProperty}
     this.showCostPerAppleProperty = new BooleanProperty( false );
 
     // @public {AppleGroup}
-    this.redAppleGroup = new AppleGroup();
-    this.greenAppleGroup = new AppleGroup();
+    this.redAppleGroup = new AppleGroup( this.leftVisibleProperty );
+    this.greenAppleGroup = new AppleGroup( this.rightVisibleProperty );
 
-    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
-    this.quantityProperties = this.redAppleGroup.quantityProperties.concat( this.greenAppleGroup.quantityProperties );
-
-    Scene.call( this, predictMode );
+    this.initializeRatios( this.redAppleGroup, this.greenAppleGroup );
   }
 
   proportionPlayground.register( 'AppleScene', AppleScene );
 
   return inherit( Scene, AppleScene, {
-
     /**
      * Reset the model
      * @public
      */
     reset: function() {
       Scene.prototype.reset.call( this );
-      this.showCostPerAppleProperty.reset();
 
-      this.redAppleGroup.reset();
-      this.greenAppleGroup.reset();
+      this.showCostPerAppleProperty.reset();
     }
   } );
 } );

@@ -19,13 +19,16 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Emitter = require( 'AXON/Emitter' );
   var Property = require( 'AXON/Property' );
+  var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
 
   var scratchVector = new Vector2();
 
   /**
    * @constructor
+   *
+   * @param {BooleanProperty} visibleProperty - Whether we are visible or not
    */
-  function BilliardsTable() {
+  function BilliardsTable( visibleProperty ) {
     // @public {NumberProperty} - Number of grid units horizontally
     this.widthProperty = new NumberProperty( 1 );
 
@@ -45,11 +48,10 @@ define( function( require ) {
     // @public {Emitter} (read-only) - emits when the ball was restarted
     this.restartEmitter = new Emitter();
 
-    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
-    this.quantityProperties = [
+    SceneRatio.call( this, visibleProperty, [
       this.widthProperty,
       this.heightProperty
-    ];
+    ] );
 
     // Restart the ball when the length or width changes
     Property.multilink( this.quantityProperties, this.restartBall.bind( this ) );
@@ -57,7 +59,7 @@ define( function( require ) {
 
   proportionPlayground.register( 'BilliardsTable', BilliardsTable );
 
-  return inherit( Object, BilliardsTable, {
+  return inherit( SceneRatio, BilliardsTable, {
     /**
      * Restart the ball in the correct location and notify observers.
      * @public
@@ -71,10 +73,11 @@ define( function( require ) {
     /**
      * Reset the table and restart the ball.
      * @public
+     * @override
      */
     reset: function() {
-      this.widthProperty.reset();
-      this.heightProperty.reset();
+      SceneRatio.prototype.reset.call( this );
+
       this.restartBall();
     },
 

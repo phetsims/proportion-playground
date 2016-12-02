@@ -73,7 +73,8 @@ define( function( require ) {
         }
         else {
           indicator.visible = condition() && scene.revealProperty.get();
-          indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, appleGroup.costPerApple );
+          var costPerApple = appleGroup.totalCostProperty.value / appleGroup.numberOfApplesProperty.value;
+          indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
         }
       };
     };
@@ -101,8 +102,7 @@ define( function( require ) {
       scene.greenAppleGroup.numberOfApplesProperty,
       scene.showBothProperty
     ], function() {
-      var equivalent = scene.redAppleGroup.hasEquivalentValue( scene.greenAppleGroup );
-      var fill = (equivalent && scene.showBothProperty.value) ? 'black' : 'white';
+      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : 'white';
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );

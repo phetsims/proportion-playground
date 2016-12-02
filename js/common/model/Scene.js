@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
@@ -20,6 +21,7 @@ define( function( require ) {
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
   function Scene( predictMode ) {
+    // TODO: visibility doc
     this.predictMode = predictMode;
 
     // @public {BooleanProperty} - Whether the visual representation is being shown
@@ -30,16 +32,47 @@ define( function( require ) {
     // TODO: consider rename
     this.showBothProperty = new BooleanProperty( false );
 
-    //TODO: Close to being able to avoid passing in predictMode at all
-    if ( predictMode ) {
-      // In the predict screen, hide representations when one of the spinners is changed
-      Property.multilink( this.quantityProperties, this.revealProperty.set.bind( this.revealProperty, false ) );
-    }
+    // @public {Property.<boolean>} - Whether the left ratio is visible.
+    this.leftVisibleProperty = this.revealProperty;
+
+    // @public {Property.<boolean>} - Whether the right ratio is visible.
+    this.rightVisibleProperty = DerivedProperty.and( [ this.revealProperty, this.showBothProperty ] );
   }
 
   proportionPlayground.register( 'Scene', Scene );
 
   return inherit( Object, Scene, {
+    /**
+     * Initializes the Scene with the two SceneRatio objects.
+     * @protected
+     *
+     * @param {SceneRatio} leftRatio
+     * @param {SceneRatio} rightRatio
+     */
+    initializeRatios: function( leftRatio, rightRatio ) {
+      // @public {Array.<SceneRatio>}
+      this.ratios = [ leftRatio, rightRatio ];
+
+      // @public {Array.<NumberProperty>}
+      this.quantityProperties = leftRatio.quantityProperties.concat( rightRatio.quantityProperties );
+
+      //TODO: Close to being able to avoid passing in predictMode at all
+      if ( this.predictMode ) {
+        // In the predict screen, hide representations when one of the spinners is changed
+        Property.multilink( this.quantityProperties, this.revealProperty.set.bind( this.revealProperty, false ) );
+      }
+    },
+
+    /**
+     * Returns whether our two ratios are equivalent (handling division by 0 properly).
+     * @public
+     *
+     * @returns {boolean}
+     */
+    areRatiosEquivalent: function() {
+      return this.ratios[ 0 ].isEquivalentTo( this.ratios[ 1 ] );
+    },
+
     /**
      * Steps the scene forward in time.
      * @public
@@ -58,6 +91,10 @@ define( function( require ) {
       // Owned properties
       this.revealProperty.reset();
       this.showBothProperty.reset();
+
+      this.ratios.forEach( function( sceneRatio ) {
+        sceneRatio.reset();
+      } );
     }
   } );
 } );

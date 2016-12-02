@@ -19,18 +19,16 @@ define( function( require ) {
    * @constructor
    */
   function BilliardsScene( predictMode ) {
-    var self = this;
-
-    // @public
-    this.leftTable = new BilliardsTable();
-    this.rightTable = new BilliardsTable();
-
-    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
-    this.quantityProperties = this.leftTable.quantityProperties.concat( this.rightTable.quantityProperties );
-
     Scene.call( this, predictMode );
 
+    // @public
+    this.leftTable = new BilliardsTable( this.leftVisibleProperty );
+    this.rightTable = new BilliardsTable( this.rightVisibleProperty );
+
+    this.initializeRatios( this.leftTable, this.rightTable );
+
     // When the table is revealed, restart the balls.
+    var self = this;
     this.revealProperty.link( function( reveal ) {
       if ( reveal ) {
         self.leftTable.restartBall();
@@ -42,17 +40,6 @@ define( function( require ) {
   proportionPlayground.register( 'BilliardsScene', BilliardsScene );
 
   return inherit( Scene, BilliardsScene, {
-    /**
-     * Resets the scene model
-     * @public
-     */
-    reset: function() {
-      Scene.prototype.reset.call( this );
-
-      this.leftTable.reset();
-      this.rightTable.reset();
-    },
-
     /**
      * Moves the balls which have been revealed.
      * @public

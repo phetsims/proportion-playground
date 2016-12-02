@@ -21,33 +21,29 @@ define( function( require ) {
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
   function PaintScene( predictMode ) {
+    Scene.call( this, predictMode );
+
     // @public {BooleanProperty} - Whether the paints should be shown in shades of black and white
     this.grayscaleProperty = new BooleanProperty( false );
 
     // @public (read-only) - the models for each splotch
-    this.leftSplotch = new Splotch();
-    this.rightSplotch = new Splotch();
+    this.leftSplotch = new Splotch( this.leftVisibleProperty );
+    this.rightSplotch = new Splotch( this.rightVisibleProperty );
 
-    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
-    this.quantityProperties = this.leftSplotch.quantityProperties.concat( this.rightSplotch.quantityProperties );
-
-    Scene.call( this, predictMode );
+    this.initializeRatios( this.leftSplotch, this.rightSplotch );
   }
 
   proportionPlayground.register( 'PaintScene', PaintScene );
 
   return inherit( Scene, PaintScene, {
-
     /**
      * Reset the model and both child splotches.
      * @public
      */
     reset: function() {
       Scene.prototype.reset.call( this );
-      this.grayscaleProperty.reset();
 
-      this.leftSplotch.reset();
-      this.rightSplotch.reset();
+      this.grayscaleProperty.reset();
     }
   } );
 } );

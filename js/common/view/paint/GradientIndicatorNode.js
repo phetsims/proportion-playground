@@ -25,14 +25,14 @@ define( function( require ) {
   var GRADIENT_HEIGHT = 300;
 
   /**
+   * @constructor
    *
    * @param {Bounds2} layoutBounds - the visible region for the screen
-   * @param {PaintScene} paintSceneModel - the model
+   * @param {PaintScene} scene - the model
    * @param {Property.<boolean>} revealProperty - true if the gradient triangle indicators representation should be shown
    * @param {Object} [options] - node options
-   * @constructor
    */
-  function GradientIndicatorNode( layoutBounds, paintSceneModel, revealProperty, options ) {
+  function GradientIndicatorNode( layoutBounds, scene, revealProperty, options ) {
     var self = this;
 
     /**
@@ -61,7 +61,7 @@ define( function( require ) {
     var rightIndicator = new TriangleNode( 'right', { left: GRADIENT_WIDTH } );
 
     // Show colored/gray based on the user selection
-    paintSceneModel.grayscaleProperty.link( function( grayscale ) {
+    scene.grayscaleProperty.link( function( grayscale ) {
       colorGradient.visible = !grayscale;
       grayscaleGradient.visible = grayscale;
     } );
@@ -102,35 +102,34 @@ define( function( require ) {
 
     // Update the left triangle indicator node when its parameters change.
     Property.multilink( [
-      paintSceneModel.leftSplotch.leftColorCountProperty,
-      paintSceneModel.leftSplotch.rightColorCountProperty,
+      scene.leftSplotch.leftColorCountProperty,
+      scene.leftSplotch.rightColorCountProperty,
       revealProperty
-    ], createIndicatorUpdateFunction( leftIndicator, paintSceneModel.leftSplotch, function() {return true;} ) );
+    ], createIndicatorUpdateFunction( leftIndicator, scene.leftSplotch, function() {return true;} ) );
 
     // Update the right triangle indicator node when its parameters change.
     Property.multilink( [
-      paintSceneModel.rightSplotch.leftColorCountProperty,
-      paintSceneModel.rightSplotch.rightColorCountProperty,
-      paintSceneModel.showBothProperty,
+      scene.rightSplotch.leftColorCountProperty,
+      scene.rightSplotch.rightColorCountProperty,
+      scene.showBothProperty,
       revealProperty
-    ], createIndicatorUpdateFunction( rightIndicator, paintSceneModel.rightSplotch, function() {return paintSceneModel.showBothProperty.value;} ) );
+    ], createIndicatorUpdateFunction( rightIndicator, scene.rightSplotch, function() {return scene.showBothProperty.value;} ) );
 
     // Update the fills of the triangle indicator nodes
     Property.multilink( [
-      paintSceneModel.leftSplotch.leftColorCountProperty,
-      paintSceneModel.leftSplotch.rightColorCountProperty,
-      paintSceneModel.rightSplotch.leftColorCountProperty,
-      paintSceneModel.rightSplotch.rightColorCountProperty,
-      paintSceneModel.showBothProperty
+      scene.leftSplotch.leftColorCountProperty,
+      scene.leftSplotch.rightColorCountProperty,
+      scene.rightSplotch.leftColorCountProperty,
+      scene.rightSplotch.rightColorCountProperty,
+      scene.showBothProperty
     ], function() {
-      var equivalent = paintSceneModel.leftSplotch.hasEquivalentValue( paintSceneModel.rightSplotch );
-      var fill = (equivalent && paintSceneModel.showBothProperty.value) ? 'black' : 'white';
+      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : 'white';
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );
 
     // Position the node
-    paintSceneModel.showBothProperty.link( function( showBoth ) {
+    scene.showBothProperty.link( function( showBoth ) {
       self.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
     } );
 

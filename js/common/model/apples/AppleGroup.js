@@ -12,12 +12,15 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
   var Range = require( 'DOT/Range' );
 
   /**
    * @constructor
+   *
+   * @param {BooleanProperty} visibleProperty - Whether we are visible or not
    */
-  function AppleGroup() {
+  function AppleGroup( visibleProperty ) {
     // @public {NumberProperty} - How many apples are in this group
     this.numberOfApplesProperty = new NumberProperty( 1 );
 
@@ -30,49 +33,13 @@ define( function( require ) {
     // @public {Range}
     this.totalCostRange = new Range( 0, 20 );
 
-    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
-    this.quantityProperties = [
+    SceneRatio.call( this, visibleProperty, [
       this.numberOfApplesProperty,
       this.totalCostProperty
-    ];
+    ] );
   }
 
   proportionPlayground.register( 'AppleGroup', AppleGroup );
 
-  return inherit( Object, AppleGroup, {
-    /**
-     * Resets to original values.
-     * @public
-     */
-    reset: function() {
-      this.numberOfApplesProperty.reset();
-      this.totalCostProperty.reset();
-    },
-
-    /**
-     * Returns whether this group has an equivalent ratio to the other group.
-     * @public
-     *
-     * @param {AppleGroup} appleGroup
-     * @returns {boolean}
-     */
-    hasEquivalentValue: function( appleGroup ) {
-      // We're always guaranteed at least one apple
-      assert && assert( this.numberOfApplesProperty.value > 0 );
-      assert && assert( appleGroup.numberOfApplesProperty.value > 0 );
-
-      return this.costPerApple === appleGroup.costPerApple;
-    },
-
-    /**
-     * Returns the cost per apple
-     * @public
-     *
-     * @returns {number}
-     */
-    get costPerApple() {
-      //TODO: consider a derived property?
-      return this.totalCostProperty.value / this.numberOfApplesProperty.value;
-    }
-  } );
+  return inherit( SceneRatio, AppleGroup );
 } );

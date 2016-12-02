@@ -15,11 +15,14 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Range = require( 'DOT/Range' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
 
   /**
    * @constructor
+   *
+   * @param {BooleanProperty} visibleProperty - Whether we are visible or not
    */
-  function Necklace() {
+  function Necklace( visibleProperty ) {
     // @public {NumberProperty} - Quantity of round beads in the necklace
     this.roundBeadCountProperty = new NumberProperty( 0 );
 
@@ -29,23 +32,13 @@ define( function( require ) {
     // @public {Range} - Allowed range of bead counts
     this.beadCountRange = new Range( 0, ProportionPlaygroundConstants.MAX_BEADS );
 
-    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
-    this.quantityProperties = [
+    SceneRatio.call( this, visibleProperty, [
       this.roundBeadCountProperty,
       this.squareBeadCountProperty
-    ];
+    ] );
   }
 
   proportionPlayground.register( 'Necklace', Necklace );
 
-  return inherit( Object, Necklace, {
-    /**
-     * Reset the necklace.
-     * @public
-     */
-    reset: function() {
-      this.roundBeadCountProperty.reset();
-      this.squareBeadCountProperty.reset();
-    }
-  } );
+  return inherit( SceneRatio, Necklace );
 } );
