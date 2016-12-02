@@ -20,7 +20,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
-  var ProportionSceneNode = require( 'PROPORTION_PLAYGROUND/common/view/ProportionSceneNode' );
+  var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
 
   // images
   var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
@@ -35,25 +35,25 @@ define( function( require ) {
 
   /**
    *
+   * @param {AppleScene} scene - the model
    * @param {Bounds2} layoutBounds - the box within which to lay out all components
-   * @param {AppleScene} appleSceneModel - the model
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
    */
-  function AppleSceneNode( layoutBounds, appleSceneModel, predictMode ) {
+  function AppleSceneNode( scene, layoutBounds, predictMode ) {
     var self = this;
 
     // Create child nodes to be displayed
-    var redAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.redAppleGroup, redAppleImage, appleSceneModel.showCostPerAppleProperty, appleSceneModel.revealProperty );
-    var greenAppleGroupNode = new ControllableAppleGroupNode( appleSceneModel.greenAppleGroup, greenAppleImage, appleSceneModel.showCostPerAppleProperty, appleSceneModel.revealProperty );
-    var appleGraphNode = new AppleGraphNode( layoutBounds, appleSceneModel, appleSceneModel.revealProperty );
+    var redAppleGroupNode = new ControllableAppleGroupNode( scene.redAppleGroup, redAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
+    var greenAppleGroupNode = new ControllableAppleGroupNode( scene.greenAppleGroup, greenAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
+    var appleGraphNode = new AppleGraphNode( layoutBounds, scene, scene.revealProperty );
 
     // Create icons for the ABSwitch
     var greenAppleImageNode = new Image( greenAppleImage, ICON_SCALE_OPTIONS );
     var redAppleImageNode = new Image( redAppleImage, ICON_SCALE_OPTIONS );
 
     // Create the switch that toggles between showing 1 and 2 groups
-    var abSwitch = new ABSwitch( appleSceneModel.showBothProperty,
+    var abSwitch = new ABSwitch( scene.showBothProperty,
       false, new HBox( {
         children: [
           new HStrut( greenAppleImageNode.width ),
@@ -72,15 +72,15 @@ define( function( require ) {
     var showCostPerAppleCheckBox = new CheckBox( new Text( costPerAppleString, {
       maxWidth: 293, // ceiling value from ?stringTest=double for English
       fontSize: ProportionPlaygroundConstants.CONTROL_FONT_SIZE
-    } ), appleSceneModel.showCostPerAppleProperty );
+    } ), scene.showCostPerAppleProperty );
 
     // Super call and add children
-    ProportionSceneNode.call( this, appleSceneModel, layoutBounds, appleSceneModel.revealProperty, predictMode, 60, {
+    SceneNode.call( this, scene, layoutBounds, predictMode, 60, {
       children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch, showCostPerAppleCheckBox, appleGraphNode ]
     } );
 
     // When the "show both" ABSwitch is toggled, change which apple groups are displayed and update their layouts
-    appleSceneModel.showBothProperty.link( function( showBoth ) {
+    scene.showBothProperty.link( function( showBoth ) {
       greenAppleGroupNode.visible = showBoth;
 
       if ( showBoth ) {
@@ -105,5 +105,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'AppleSceneNode', AppleSceneNode );
 
-  return inherit( ProportionSceneNode, AppleSceneNode );
+  return inherit( SceneNode, AppleSceneNode );
 } );

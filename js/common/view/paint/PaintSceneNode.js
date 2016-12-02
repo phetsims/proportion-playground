@@ -20,7 +20,7 @@ define( function( require ) {
   var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientIndicatorNode' );
   var Property = require( 'AXON/Property' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var ProportionSceneNode = require( 'PROPORTION_PLAYGROUND/common/view/ProportionSceneNode' );
+  var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
 
   // strings
@@ -31,21 +31,21 @@ define( function( require ) {
 
   /**
    *
+   * @param {PaintScene} scene
    * @param {Bounds2} layoutBounds - bounds withing which the scene will be shown
-   * @param {PaintScene} paintSceneModel - the model
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
    */
-  function PaintSceneNode( layoutBounds, paintSceneModel, predictMode ) {
+  function PaintSceneNode( scene, layoutBounds, predictMode ) {
     var self = this;
 
     // Create the left/right splotches and their NumberPickers
-    var controllableSplotchNode1 = new ControllableSplotchNode( paintSceneModel.leftSplotch, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
-    var controllableSplotchNode2 = new ControllableSplotchNode( paintSceneModel.rightSplotch, paintSceneModel.grayscaleProperty, paintSceneModel.revealProperty );
+    var controllableSplotchNode1 = new ControllableSplotchNode( scene.leftSplotch, scene.grayscaleProperty, scene.revealProperty );
+    var controllableSplotchNode2 = new ControllableSplotchNode( scene.rightSplotch, scene.grayscaleProperty, scene.revealProperty );
 
     // Create the ABSwitch that chooses 1 or 2 splotches
-    var splotchNode = new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, ICON_SCALE_OPTIONS );
-    var abSwitch = new ABSwitch( paintSceneModel.showBothProperty,
+    var splotchNode = new SplotchNode( new Property( 1 ), new Property( 0 ), scene.grayscaleProperty, ICON_SCALE_OPTIONS );
+    var abSwitch = new ABSwitch( scene.showBothProperty,
       false, new HBox( {
         spacing: 10,
         children: [
@@ -56,18 +56,18 @@ define( function( require ) {
       true, new HBox( {
         spacing: 10,
         children: [
-          new SplotchNode( new Property( 1 ), new Property( 0 ), paintSceneModel.grayscaleProperty, ICON_SCALE_OPTIONS ),
-          new SplotchNode( new Property( 1 ), new Property( 1 ), paintSceneModel.grayscaleProperty, ICON_SCALE_OPTIONS )
+          new SplotchNode( new Property( 1 ), new Property( 0 ), scene.grayscaleProperty, ICON_SCALE_OPTIONS ),
+          new SplotchNode( new Property( 1 ), new Property( 1 ), scene.grayscaleProperty, ICON_SCALE_OPTIONS )
         ]
       } )
     );
 
-    ProportionSceneNode.call( this, paintSceneModel, layoutBounds, paintSceneModel.revealProperty, predictMode, 98, {
+    SceneNode.call( this, scene, layoutBounds, predictMode, 98, {
       children: [ controllableSplotchNode1, controllableSplotchNode2, abSwitch ]
     } );
 
     // When the ABSwitch is toggled, show one/both of the splotches.
-    paintSceneModel.showBothProperty.link( function( showBoth ) {
+    scene.showBothProperty.link( function( showBoth ) {
       controllableSplotchNode2.visible = showBoth;
 
       // Controllable necklace nodes have x=0 at their center
@@ -88,18 +88,18 @@ define( function( require ) {
     var grayscaleCheckBox = new CheckBox( new Text( blackAndWhiteString, {
       maxWidth: 280, // ceiling value from ?stringTest=double for English
       fontSize: ProportionPlaygroundConstants.CONTROL_FONT_SIZE
-    } ), paintSceneModel.grayscaleProperty, {
+    } ), scene.grayscaleProperty, {
       left: layoutBounds.left + 5,
       bottom: layoutBounds.bottom - 5
     } );
     this.addChild( grayscaleCheckBox );
 
     // The vertical gradient indicator
-    var gradientIndicatorNode = new GradientIndicatorNode( layoutBounds, paintSceneModel, paintSceneModel.revealProperty );
+    var gradientIndicatorNode = new GradientIndicatorNode( layoutBounds, scene, scene.revealProperty );
     this.addChild( gradientIndicatorNode );
   }
 
   proportionPlayground.register( 'PaintSceneNode', PaintSceneNode );
 
-  return inherit( ProportionSceneNode, PaintSceneNode );
+  return inherit( SceneNode, PaintSceneNode );
 } );

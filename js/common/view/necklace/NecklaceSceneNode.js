@@ -15,28 +15,27 @@ define( function( require ) {
   var ABSwitch = require( 'SUN/ABSwitch' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
-  var ProportionSceneNode = require( 'PROPORTION_PLAYGROUND/common/view/ProportionSceneNode' );
+  var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
 
   // constants
   var ICON_SCALE_OPTIONS = { scale: 0.2 };
 
   /**
-   *
-   * @param {Bounds2} layoutBounds - the visible bounds of the sim
-   * @param {NecklaceScene} necklaceSceneModel - the model
-   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
+   *
+   * @param {NecklaceScene} scene - the model
+   * @param {Bounds2} layoutBounds - the visible bounds of the sim
+   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
-  function NecklaceSceneNode( layoutBounds, necklaceSceneModel, predictMode ) {
+  function NecklaceSceneNode( scene, layoutBounds, predictMode ) {
     var self = this;
-    this.necklaceScene = necklaceSceneModel;
 
     // Create the left and right necklace nodes, each with their own NumberPickers
-    var firstControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.leftNecklace, necklaceSceneModel.revealProperty );
-    var secondControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.rightNecklace, necklaceSceneModel.revealProperty );
+    var firstControllableNecklaceNode = new ControllableNecklaceNode( scene.leftNecklace, scene.revealProperty );
+    var secondControllableNecklaceNode = new ControllableNecklaceNode( scene.rightNecklace, scene.revealProperty );
 
     // Create the switch that chooses between 1 vs 2 necklaces
-    var abSwitch = new ABSwitch( necklaceSceneModel.showBothProperty,
+    var abSwitch = new ABSwitch( scene.showBothProperty,
       false, new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ),
       true, new HBox( {
         children: [
@@ -44,12 +43,12 @@ define( function( require ) {
       } ) );
 
     // Super call
-    ProportionSceneNode.call( this, necklaceSceneModel, layoutBounds, necklaceSceneModel.revealProperty, predictMode, 87, {
+    SceneNode.call( this, scene, layoutBounds, predictMode, 87, {
       children: [ firstControllableNecklaceNode, secondControllableNecklaceNode, abSwitch ]
     } );
 
     // When 2 necklaces are selected, show both
-    necklaceSceneModel.showBothProperty.link( function( showBoth ) {
+    scene.showBothProperty.link( function( showBoth ) {
       secondControllableNecklaceNode.visible = showBoth;
 
       // Controllable necklace nodes have x=0 at their center
@@ -72,5 +71,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'NecklaceSceneNode', NecklaceSceneNode );
 
-  return inherit( ProportionSceneNode, NecklaceSceneNode );
+  return inherit( SceneNode, NecklaceSceneNode );
 } );

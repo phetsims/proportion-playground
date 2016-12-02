@@ -20,13 +20,12 @@ define( function( require ) {
    *
    * @param {Scene} scene - Our scene to display
    * @param {Bounds2} layoutBounds - visible bounds within which the UI must fit
-   * @param {Property.<boolean>} revealProperty - true if the representations should be shown
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @param {number} revealButtonDistanceFromLayoutBoundsBottom - how high from the bottom of the screen to place the
    *                 reveal button
    * @param {Object} [options] - node options
    */
-  function ProportionSceneNode( scene, layoutBounds, revealProperty, predictMode, revealButtonDistanceFromLayoutBoundsBottom, options ) {
+  function SceneNode( scene, layoutBounds, predictMode, revealButtonDistanceFromLayoutBoundsBottom, options ) {
     this.scene = scene;
     this.layoutBounds = layoutBounds;
     Node.call( this, options );
@@ -35,16 +34,16 @@ define( function( require ) {
     if ( predictMode ) {
 
       // @private
-      this.revealButton = new RevealButton( revealProperty, {
+      this.revealButton = new RevealButton( scene.revealProperty, {
         bottom: layoutBounds.maxY - revealButtonDistanceFromLayoutBoundsBottom
       } );
       this.addChild( this.revealButton );
     }
   }
 
-  proportionPlayground.register( 'ProportionSceneNode', ProportionSceneNode );
+  proportionPlayground.register( 'SceneNode', SceneNode );
 
-  return inherit( Node, ProportionSceneNode, {
+  return inherit( Node, SceneNode, {
 
     /**
      * Mutate the reveal, often to set its location.

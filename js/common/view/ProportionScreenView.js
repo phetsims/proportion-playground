@@ -45,24 +45,24 @@ define( function( require ) {
       top: 5
     } ) );
 
-    // One node for each scene.
-    var necklaceSceneNode = new NecklaceSceneNode( this.layoutBounds, model.necklaceScene, model.predictMode );
-    var paintSceneNode = new PaintSceneNode( this.layoutBounds, model.paintScene, model.predictMode );
-    var billiardsSceneNode = new BilliardsSceneNode( this.layoutBounds, model.billiardsScene, model.predictMode );
-    var appleSceneNode = new AppleSceneNode( this.layoutBounds, model.appleScene, model.predictMode );
-
     // Store by index for lookup by radio button index
-    var sceneNodes = [ necklaceSceneNode, paintSceneNode, billiardsSceneNode, appleSceneNode ];
+    var sceneNodes = [
+      new NecklaceSceneNode( model.necklaceScene, this.layoutBounds, model.predictMode ),
+      new PaintSceneNode( model.paintScene, this.layoutBounds, model.predictMode ),
+      new BilliardsSceneNode( model.billiardsScene, this.layoutBounds, model.predictMode ),
+      new AppleSceneNode( model.appleScene, this.layoutBounds, model.predictMode )
+    ];
 
-    var sceneParent = new Node();
-    this.addChild( sceneParent );
+    var sceneContainer = new Node();
+    this.addChild( sceneContainer );
 
     // When the scene radio button is selected, show the selected scene
     model.sceneProperty.link( function( scene ) {
+      // Find our matching SceneNode
       var sceneNode = _.find( sceneNodes, function( sceneNode ) {
         return sceneNode.scene === scene;
       } );
-      sceneParent.children = [ sceneNode ];
+      sceneContainer.children = [ sceneNode ];
     } );
   }
 
