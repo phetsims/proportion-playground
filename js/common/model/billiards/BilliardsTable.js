@@ -20,6 +20,8 @@ define( function( require ) {
   var Emitter = require( 'AXON/Emitter' );
   var Property = require( 'AXON/Property' );
 
+  var scratchVector = new Vector2();
+
   /**
    * @constructor
    */
@@ -77,68 +79,91 @@ define( function( require ) {
     },
 
     /**
-     * Generalized function for handling bouncing off any wall.
-     *
-     * @param {number} xVelocityScale - how much to scale the velocity in the x-direction (1 or -1)
-     * @param {number} yVelocityScale - how much to scale the velocity in the y-direction (1 or -1)
-     * @param {number} x - the rounded off collision point (so errors don't accumulate)
-     * @param {number} y - the rounded off collision point (so errors don't accumulate)
-     * @private
-     */
-    bounce: function( xVelocityScale, yVelocityScale, x, y ) {
-      this.ball.velocity.x *= xVelocityScale;
-      this.ball.velocity.y *= yVelocityScale;
-      this.ball.positionProperty.value = new Vector2( Util.roundSymmetric( x ), Util.roundSymmetric( y ) );
-      this.collisionPoints.push( this.ball.positionProperty.value.copy() );
-    },
-
-    /**
      * Moves the ball forward in time, and handles collisions.
-     * @param {number} dt - time to move forward in seconds
      * @public
+     *
+     * @param {number} dt - Time to move forward in seconds
      */
     step: function( dt ) {
       // Cap DT
-      dt = Math.min( dt, 1 / 30 );
+      //TODO: move cap to main model entry point
+      dt = Math.min( dt, 0.25 );
 
       var width = this.widthProperty.value;
       var height = this.heightProperty.value;
 
       assert && assert( width > 0 && height > 0 );
 
-      if ( this.collisionPoints.height === 0 ) {
-        this.collisionPoints.add( this.ball.positionProperty.value.copy() );
-      }
-      //TODO: Propertification made this ugly and looks slow, fix it
-      this.ball.positionProperty.value = this.ball.positionProperty.value.plus( this.ball.velocity.times( dt ) );
+      // Mutable vectors (we'll copy position to the new Property value at the end)
+      var position = scratchVector.set( this.ball.positionProperty.value );
+      var velocity = this.ball.velocity;
 
-      var vx = this.ball.velocity.x;
-      var vy = this.ball.velocity.y;
-      var x = this.ball.positionProperty.value.x;
-      var y = this.ball.positionProperty.value.y;
-
-      if ( vx > 0 && x >= width ) {
-        this.bounce( -1, 1, width, y );
-      }
-      if ( vx < 0 && x <= 0 ) {
-        this.bounce( -1, 1, 0, y );
-      }
-      if ( vy > 0 && y >= height ) {
-        this.bounce( 1, -1, x, height );
-      }
-      if ( vy < 0 && y <= 0 ) {
-        this.bounce( 1, -1, x, 0 );
+      // Bail out if the ball has stopped
+      if ( velocity.magnitude() === 0 ) {
+        return;
       }
 
-      // Stop the ball when it strikes a corner
-      if (
-        this.ball.positionProperty.value.equals( new Vector2( 0, 0 ) ) ||
-        this.ball.positionProperty.value.equals( new Vector2( 0, height ) ) ||
-        this.ball.positionProperty.value.equals( new Vector2( width, 0 ) ) ||
-        this.ball.positionProperty.value.equals( new Vector2( width, height ) )
-      ) {
-        this.ball.velocity.setXY( 0, 0 );
+      // Create a collision point at the very start if we have no collision points
+      if ( this.collisionPoints.length === 0 ) {
+        this.collisionPoints.add( position.copy() );
       }
+
+      // Keep bouncing while we still can (and have time left)
+      while ( velocity.magnitude() > 0 && dt > 0 ) {
+        // What are the wall x/y values in the direction we're traveling
+        var boundaryX = velocity.x > 0 ? width : 0;
+        var boundaryY = velocity.y > 0 ? height : 0;
+
+        // How much time until we hit said boundaries.
+        var timeLeftX = ( boundaryX - position.x ) / velocity.x;
+        var timeLeftY = ( boundaryY - position.y ) / velocity.y;
+        assert && assert( timeLeftX > 0 );
+        assert && assert( timeLeftY > 0 );
+
+        // Time until hitting the first wall
+        var minTimeLeft = Math.min( timeLeftX, timeLeftY );
+
+        // We won't make it to a wall, just step forward and use up DT
+        if ( dt < minTimeLeft ) {
+          position.add( velocity.times( dt ) );
+          dt = 0;
+        }
+        // We'll bounce off (and possibly continue afterwards)
+        else {
+          // Step to the position on the wall
+          position.add( velocity.times( minTimeLeft ) );
+
+          // Round (so our collision and end points are nice)
+          //TODO: add Vector2 function for this
+          position.x = Util.roundSymmetric( position.x );
+          position.y = Util.roundSymmetric( position.y );
+
+          // Record the bounce
+          this.collisionPoints.push( position.copy() );
+
+          // Sanity check, in case imprecise computations puts us over the boundary
+          if ( minTimeLeft > 0 ) {
+            dt -= minTimeLeft;
+          }
+
+          // If we bounced on the left or right
+          if ( timeLeftX === minTimeLeft ) {
+            velocity.x *= -1;
+          }
+          if ( timeLeftY === minTimeLeft ) {
+            velocity.y *= -1;
+          }
+
+          // Stop the ball when we hit a corner
+          if ( ( position.x === 0 || position.x === width ) &&
+               ( position.y === 0 || position.y === height ) ) {
+            this.ball.velocity.setXY( 0, 0 );
+          }
+        }
+      }
+
+      // Since we used a mutable vector for position, copy it over to the Property
+      this.ball.positionProperty.value = position.copy();
     }
   } );
 } );
