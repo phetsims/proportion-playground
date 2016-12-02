@@ -11,29 +11,26 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   /**
    * @constructor
    */
   function Necklace() {
-    PropertySet.call( this, {
-      roundBeadCount: 0, // {number} @public the number of round beads in the necklace
-      squareBeadCount: 0 // {number} @public the number of square beads in the necklace
-    } );
+    // @public {NumberProperty} - Quantity of round beads in the necklace
+    this.roundBeadCountProperty = new NumberProperty( 0 );
 
-    // Allowed range of bead counts
-    this.beadCountRange = new RangeWithValue( 0, ProportionPlaygroundConstants.MAX_BEADS );
+    // @public {NumberProperty} - Quantity of square beads in the necklace
+    this.squareBeadCountProperty = new NumberProperty( 0 );
 
-    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA
-    this.roundBeadCountProperty = this.roundBeadCountProperty || null;
-    this.squareBeadCountProperty = this.squareBeadCountProperty || null;
+    // @public {Range} - Allowed range of bead counts
+    this.beadCountRange = new Range( 0, ProportionPlaygroundConstants.MAX_BEADS );
   }
 
   proportionPlayground.register( 'Necklace', Necklace );
 
-  return inherit( PropertySet, Necklace );
+  return inherit( Object, Necklace );
 } );
