@@ -41,6 +41,16 @@ define( function( require ) {
 
   return inherit( Object, Scene, {
     /**
+     * Steps the scene forward in time.
+     * @public
+     *
+     * @param {number} dt
+     */
+    step: function( dt ) {
+      // Default is no-op (override when behavior is needed)
+    },
+
+    /**
      * Resets the scene
      * @public
      */

@@ -29,7 +29,7 @@ define( function( require ) {
    */
   function NecklaceSceneNode( layoutBounds, necklaceSceneModel, predictMode ) {
     var self = this;
-    this.necklaceSceneModel = necklaceSceneModel;
+    this.necklaceScene = necklaceSceneModel;
 
     // Create the left and right necklace nodes, each with their own NumberPickers
     var firstControllableNecklaceNode = new ControllableNecklaceNode( necklaceSceneModel.leftNecklace, necklaceSceneModel.revealProperty );
@@ -44,7 +44,7 @@ define( function( require ) {
       } ) );
 
     // Super call
-    ProportionSceneNode.call( this, layoutBounds, necklaceSceneModel.revealProperty, predictMode, 87, {
+    ProportionSceneNode.call( this, necklaceSceneModel, layoutBounds, necklaceSceneModel.revealProperty, predictMode, 87, {
       children: [ firstControllableNecklaceNode, secondControllableNecklaceNode, abSwitch ]
     } );
 

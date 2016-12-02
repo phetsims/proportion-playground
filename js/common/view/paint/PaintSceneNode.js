@@ -62,7 +62,7 @@ define( function( require ) {
       } )
     );
 
-    ProportionSceneNode.call( this, layoutBounds, paintSceneModel.revealProperty, predictMode, 98, {
+    ProportionSceneNode.call( this, paintSceneModel, layoutBounds, paintSceneModel.revealProperty, predictMode, 98, {
       children: [ controllableSplotchNode1, controllableSplotchNode2, abSwitch ]
     } );
 

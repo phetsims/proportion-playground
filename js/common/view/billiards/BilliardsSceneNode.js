@@ -47,7 +47,7 @@ define( function( require ) {
       } )
     );
 
-    ProportionSceneNode.call( this, layoutBounds, billiardsSceneModel.revealProperty, predictMode, 60, {
+    ProportionSceneNode.call( this, billiardsSceneModel, layoutBounds, billiardsSceneModel.revealProperty, predictMode, 60, {
       children: [ billiardsTableNode1, billiardsTableNode2, abSwitch ]
     } );
 

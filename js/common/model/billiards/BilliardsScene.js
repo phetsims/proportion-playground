@@ -56,10 +56,13 @@ define( function( require ) {
     /**
      * Moves the balls which have been revealed.
      * @public
+     * @override
      *
      * @param {number} dt
      */
     step: function( dt ) {
+      Scene.prototype.step.call( dt );
+
       //TODO: can we handle visibility for each in a more general way?
       if ( this.revealProperty.value ) {
         this.leftTable.step( dt );

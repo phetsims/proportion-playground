@@ -75,7 +75,7 @@ define( function( require ) {
     } ), appleSceneModel.showCostPerAppleProperty );
 
     // Super call and add children
-    ProportionSceneNode.call( this, layoutBounds, appleSceneModel.revealProperty, predictMode, 60, {
+    ProportionSceneNode.call( this, appleSceneModel, layoutBounds, appleSceneModel.revealProperty, predictMode, 60, {
       children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch, showCostPerAppleCheckBox, appleGraphNode ]
     } );
 

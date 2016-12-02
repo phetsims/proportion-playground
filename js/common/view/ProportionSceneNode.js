@@ -16,16 +16,18 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
 
   /**
+   * @constructor
    *
+   * @param {Scene} scene - Our scene to display
    * @param {Bounds2} layoutBounds - visible bounds within which the UI must fit
    * @param {Property.<boolean>} revealProperty - true if the representations should be shown
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @param {number} revealButtonDistanceFromLayoutBoundsBottom - how high from the bottom of the screen to place the
    *                 reveal button
    * @param {Object} [options] - node options
-   * @constructor
    */
-  function ProportionSceneNode( layoutBounds, revealProperty, predictMode, revealButtonDistanceFromLayoutBoundsBottom, options ) {
+  function ProportionSceneNode( scene, layoutBounds, revealProperty, predictMode, revealButtonDistanceFromLayoutBoundsBottom, options ) {
+    this.scene = scene;
     this.layoutBounds = layoutBounds;
     Node.call( this, options );
 

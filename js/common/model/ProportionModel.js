@@ -24,24 +24,22 @@ define( function( require ) {
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
   function ProportionModel( predictMode ) {
-    // @public {number} 0-indexed, indicating the scene
-    //TODO: consider this containing the entire sceneModel
-    this.sceneProperty = new Property( ProportionPlaygroundQueryParameters.scene );
-
     // @public (read-only) - the model for each scene
-    this.necklaceSceneModel = new NecklaceScene( predictMode );
-    this.paintSceneModel = new PaintScene( predictMode );
-    this.billiardsSceneModel = new BilliardsScene( predictMode );
-    this.appleSceneModel = new AppleScene( predictMode );
+    this.necklaceScene = new NecklaceScene( predictMode );
+    this.paintScene = new PaintScene( predictMode );
+    this.billiardsScene = new BilliardsScene( predictMode );
+    this.appleScene = new AppleScene( predictMode );
 
-    // Also keep track of the models so they can be addressed as a group (for reset) or by index (for stepping)
-    // @private
-    this.models = [
-      this.necklaceSceneModel,
-      this.paintSceneModel,
-      this.billiardsSceneModel,
-      this.appleSceneModel
+    // @private {Array.<Scene>} - List of all scenes in order (can be handled as a group)
+    this.scenes = [
+      this.necklaceScene,
+      this.paintScene,
+      this.billiardsScene,
+      this.appleScene
     ];
+
+    // @public {Property.<Scene>} - Our currently-selected scene (can change with a query parameter)
+    this.sceneProperty = new Property( this.scenes[ ProportionPlaygroundQueryParameters.scene ] );
 
     // @public (read-only) - for the Predict screen, show a reveal button
     this.predictMode = predictMode;
@@ -51,27 +49,25 @@ define( function( require ) {
 
   return inherit( Object, ProportionModel, {
     /**
-     * Reset the model and all of the models for each scene.
+     * Reset the model and all of the scenes.
      * @public
      */
     reset: function() {
       this.sceneProperty.reset();
-      this.models.forEach( function( model ) {
-        model.reset();
+
+      this.scenes.forEach( function( scene ) {
+        scene.reset();
       } );
     },
 
     /**
-     * Step forward in time by dt
+     * Step forward in time by dt.
      * @public
      *
      * @param {number} dt - time passed in seconds
      */
     step: function( dt ) {
-
-      // If the model has a step function, call it.
-      var activeModel = this.models[ this.sceneProperty.value ];
-      activeModel.step && activeModel.step( dt );
+      this.sceneProperty.value.step( dt );
     }
   } );
 } );

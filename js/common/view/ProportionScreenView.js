@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * View for scene-based
  * View node for the Explore screen, or for Predict screen if the model has predictMode set to true.
  *
  * @author Sam Reid (PhET Interactive Simulations)
@@ -21,45 +22,46 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**
-   * @param {ProportionModel} exploreModel - the model
    * @constructor
+   *
+   * @param {ProportionModel} model - the model
    */
-  function ProportionScreenView( exploreModel ) {
+  function ProportionScreenView( model ) {
 
     ScreenView.call( this );
 
     // Reset All button
-    var resetAllButton = new ResetAllButton( {
+    this.addChild( new ResetAllButton( {
       listener: function() {
-        exploreModel.reset();
+        model.reset();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
-    } );
-    this.addChild( resetAllButton );
+    } ) );
 
-    // Radio buttons that choose between the scenes.
-    this.sceneSelectionRadioButtonGroup = new SceneSelectionRadioButtonGroup( exploreModel.sceneProperty, {
+    // Scene selection radio buttons
+    this.addChild( new SceneSelectionRadioButtonGroup( model, {
       centerX: this.layoutBounds.centerX,
       top: 5
-    } );
-    this.addChild( this.sceneSelectionRadioButtonGroup );
+    } ) );
 
     // One node for each scene.
-    var necklaceSceneNode = new NecklaceSceneNode( this.layoutBounds, exploreModel.necklaceSceneModel, exploreModel.predictMode );
-    var paintSceneNode = new PaintSceneNode( this.layoutBounds, exploreModel.paintSceneModel, exploreModel.predictMode );
-    var billiardsSceneNode = new BilliardsSceneNode( this.layoutBounds, exploreModel.billiardsSceneModel, exploreModel.predictMode );
-    var appleSceneNode = new AppleSceneNode( this.layoutBounds, exploreModel.appleSceneModel, exploreModel.predictMode );
+    var necklaceSceneNode = new NecklaceSceneNode( this.layoutBounds, model.necklaceScene, model.predictMode );
+    var paintSceneNode = new PaintSceneNode( this.layoutBounds, model.paintScene, model.predictMode );
+    var billiardsSceneNode = new BilliardsSceneNode( this.layoutBounds, model.billiardsScene, model.predictMode );
+    var appleSceneNode = new AppleSceneNode( this.layoutBounds, model.appleScene, model.predictMode );
 
     // Store by index for lookup by radio button index
-    var sceneArray = [ necklaceSceneNode, paintSceneNode, billiardsSceneNode, appleSceneNode ];
+    var sceneNodes = [ necklaceSceneNode, paintSceneNode, billiardsSceneNode, appleSceneNode ];
 
     var sceneParent = new Node();
     this.addChild( sceneParent );
 
     // When the scene radio button is selected, show the selected scene
-    exploreModel.sceneProperty.link( function( scene ) {
-      var sceneNode = sceneArray[ scene ];
+    model.sceneProperty.link( function( scene ) {
+      var sceneNode = _.find( sceneNodes, function( sceneNode ) {
+        return sceneNode.scene === scene;
+      } );
       sceneParent.children = [ sceneNode ];
     } );
   }

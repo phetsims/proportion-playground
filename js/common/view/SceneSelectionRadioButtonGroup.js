@@ -22,11 +22,11 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property.<number> sceneProperty - property indicating the index of the selected scene.
+   * @param {ProportionModel} model
    * @param {Object} [options] - node options
    * @constructor
    */
-  function SceneSelectionRadioButtonGroup( sceneProperty, options ) {
+  function SceneSelectionRadioButtonGroup( model, options ) {
 
     // Create one icon per scene
     var necklaceIcon = new StaticNecklaceNode( 14, 7, { scale: 0.2 } );
@@ -39,17 +39,17 @@ define( function( require ) {
     billiardTableIcon.mutate( { scale: necklaceIcon.height / billiardTableIcon.height } );
     redAppleIcon.mutate( { scale: necklaceIcon.height / redAppleIcon.height } );
 
-    RadioButtonGroup.call( this, sceneProperty, [ {
-      value: 0,
+    RadioButtonGroup.call( this, model.sceneProperty, [ {
+      value: model.necklaceScene,
       node: necklaceIcon
     }, {
-      value: 1,
+      value: model.paintScene,
       node: paintBucketIcon
     }, {
-      value: 2,
+      value: model.billiardsScene,
       node: billiardTableIcon
     }, {
-      value: 3,
+      value: model.appleScene,
       node: redAppleIcon
     } ], {
       orientation: 'horizontal',
