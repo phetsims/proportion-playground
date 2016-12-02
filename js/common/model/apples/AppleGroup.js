@@ -10,60 +10,61 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var PropertySet = require( 'AXON/PropertySet' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
 
   /**
    *
    * @constructor
    */
   function AppleGroup() {
-    PropertySet.call( this, {
-      numberOfApples: 1, // @public
-      totalCost: 0 // @public
-    } );
+    // @public {NumberProperty} - How many apples are in this group
+    this.numberOfApplesProperty = new NumberProperty( 1 );
 
-    this.totalCostRange = new RangeWithValue( 0, 20 ); // @public
-    this.numberOfApplesRange = new RangeWithValue( 1, 20 ); // @public
+    // @public {NumberProperty} - Total cost of all of the apples
+    this.totalCostProperty = new NumberProperty( 0 );
 
-    // @public (read-only) These assignments provide improved highlighting and navigation in IntelliJ IDEA
-    this.numberOfApplesProperty = this.numberOfApplesProperty || null;
-    this.totalCostProperty = this.totalCostProperty || null;
+    // @public {Range}
+    this.numberOfApplesRange = new Range( 1, 20 );
+
+    // @public {Range}
+    this.totalCostRange = new Range( 0, 20 );
   }
 
   proportionPlayground.register( 'AppleGroup', AppleGroup );
 
   return inherit( PropertySet, AppleGroup, {
-
     /**
-     * Returns true if the other model has an equivalent value to this model, accounts for divide by zero.
-     * @param {AppleGroup} appleGroupModel
-     * @returns {boolean}
+     * Resets to original values.
      * @public
      */
-    hasEquivalentValue: function( appleGroupModel ) {
+    reset: function() {
+      this.numberOfApplesProperty.reset();
+      this.totalCostProperty.reset();
+    },
 
-      // compare ratios between sims, accounting for /0
-      return this.ratio1 === appleGroupModel.ratio1 && this.ratio2 === appleGroupModel.ratio2;
+    /**
+     * Returns whether this group has an equivalent ratio to the other group.
+     * @public
+     *
+     * @param {AppleGroup} appleGroup
+     * @returns {boolean}
+     */
+    hasEquivalentValue: function( appleGroup ) {
+      return this.costPerApple === appleGroup.costPerApple;
     },
 
     /**
      * Returns the cost per apple
+     * @public
+     *
      * @returns {number}
-     * @private
      */
-    get ratio1() {
-      return this.totalCost / this.numberOfApples;
-    },
-
-    /**
-     * Returns the number of apples per dollar
-     * @returns {number}
-     * @private
-     */
-    get ratio2() {
-      return this.numberOfApples / this.totalCost;
+    get costPerApple() {
+      //TODO: consider a derived property
+      return this.totalCostProperty.value / this.numberOfApplesProperty.value;
     }
   } );
 } );

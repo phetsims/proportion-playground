@@ -74,13 +74,12 @@ define( function( require ) {
      */
     var createIndicatorUpdateFunction = function( indicator, appleGroup, condition ) {
       return function() {
-        var costPerApple = appleGroup.totalCost / appleGroup.numberOfApples;
-        if ( appleGroup.numberOfApples === 0 ) {
+        if ( appleGroup.numberOfApplesProperty.value === 0 ) {
           indicator.visible = false;
         }
         else {
           indicator.visible = condition() && revealProperty.get();
-          indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
+          indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, appleGroup.costPerApple );
         }
       };
     };
