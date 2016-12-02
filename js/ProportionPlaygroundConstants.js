@@ -3,13 +3,18 @@
 /**
  * Constants for the Proportions Playground sim.
  *
+ * TODO: should this move to common/ ?
+ *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
+  var Bounds2 = require( 'DOT/Bounds2' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   var ProportionPlaygroundConstants = {
+    LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
+
     BEAD_DIAMETER: 18,
     BEADS_PINK: '#d0275c',
     BEADS_BLUE: '#2f358f',
@@ -19,6 +24,7 @@ define( function( require ) {
     SCREEN_BACKGROUND_COLOR: '#fcf3eb',
     MAX_BEADS: 20
   };
+
   proportionPlayground.register( 'ProportionPlaygroundConstants', ProportionPlaygroundConstants );
 
   return ProportionPlaygroundConstants;

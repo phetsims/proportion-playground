@@ -25,9 +25,8 @@ define( function( require ) {
    *
    * @param {BilliardsSceneNode} scene - the model
    * @param {Bounds2} layoutBounds - the region within which all visual components should be layed out
-   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
-  function BilliardsSceneNode( scene, layoutBounds, predictMode ) {
+  function BilliardsSceneNode( scene, layoutBounds ) {
     var self = this;
 
     // Create the left/right tables
@@ -47,7 +46,7 @@ define( function( require ) {
       } )
     );
 
-    SceneNode.call( this, scene, layoutBounds, predictMode, 60, {
+    SceneNode.call( this, scene, layoutBounds, {
       children: [ billiardsTableNode1, billiardsTableNode2, abSwitch ]
     } );
 

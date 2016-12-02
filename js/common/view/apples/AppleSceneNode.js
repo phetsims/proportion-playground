@@ -34,9 +34,8 @@ define( function( require ) {
    *
    * @param {AppleScene} scene - the model
    * @param {Bounds2} layoutBounds - the box within which to lay out all components
-   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
-  function AppleSceneNode( scene, layoutBounds, predictMode ) {
+  function AppleSceneNode( scene, layoutBounds ) {
     var self = this;
 
     // Create child nodes to be displayed
@@ -75,7 +74,7 @@ define( function( require ) {
     } ), scene.showCostPerAppleProperty );
 
     // Super call and add children
-    SceneNode.call( this, scene, layoutBounds, predictMode, 60, {
+    SceneNode.call( this, scene, layoutBounds, {
       children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch, showCostPerAppleCheckBox, appleGraphNode ]
     } );
 

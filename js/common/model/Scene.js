@@ -21,7 +21,7 @@ define( function( require ) {
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
   function Scene( predictMode ) {
-    // TODO: visibility doc
+    // @public {boolean} - Whether predictions should be made for this scene.
     this.predictMode = predictMode;
 
     // @public {BooleanProperty} - Whether the visual representation is being shown

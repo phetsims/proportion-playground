@@ -33,10 +33,9 @@ define( function( require ) {
    *
    * @param {PaintScene} scene
    * @param {Bounds2} layoutBounds - bounds withing which the scene will be shown
-   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
    */
-  function PaintSceneNode( scene, layoutBounds, predictMode ) {
+  function PaintSceneNode( scene, layoutBounds ) {
     var self = this;
 
     // Create the left/right splotches and their NumberPickers
@@ -62,7 +61,7 @@ define( function( require ) {
       } )
     );
 
-    SceneNode.call( this, scene, layoutBounds, predictMode, 98, {
+    SceneNode.call( this, scene, layoutBounds, {
       children: [ controllableSplotchNode1, controllableSplotchNode2, abSwitch ]
     } );
 

@@ -20,22 +20,19 @@ define( function( require ) {
    *
    * @param {Scene} scene - Our scene to display
    * @param {Bounds2} layoutBounds - visible bounds within which the UI must fit
-   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
-   * @param {number} revealButtonDistanceFromLayoutBoundsBottom - how high from the bottom of the screen to place the
-   *                 reveal button
    * @param {Object} [options] - node options
    */
-  function SceneNode( scene, layoutBounds, predictMode, revealButtonDistanceFromLayoutBoundsBottom, options ) {
+  function SceneNode( scene, layoutBounds, options ) {
+    // @public {Scene} - The main model for this scene
     this.scene = scene;
     this.layoutBounds = layoutBounds;
     Node.call( this, options );
 
     // For predict mode, add a reveal button that show the representations
-    if ( predictMode ) {
-
+    if ( scene.predictMode ) {
       // @private
       this.revealButton = new RevealButton( scene.revealProperty, {
-        bottom: layoutBounds.maxY - revealButtonDistanceFromLayoutBoundsBottom
+        bottom: layoutBounds.maxY - 87 //TODO: layout customization needed here?
       } );
       this.addChild( this.revealButton );
     }

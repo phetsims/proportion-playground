@@ -19,6 +19,7 @@ define( function( require ) {
   var PaintSceneNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintSceneNode' );
   var BilliardsSceneNode = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsSceneNode' );
   var AppleSceneNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleSceneNode' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**
@@ -28,7 +29,9 @@ define( function( require ) {
    */
   function ProportionScreenView( model ) {
 
-    ScreenView.call( this );
+    ScreenView.call( this, {
+      layoutBounds: ProportionPlaygroundConstants.LAYOUT_BOUNDS
+    } );
 
     // Reset All button
     this.addChild( new ResetAllButton( {
@@ -47,10 +50,10 @@ define( function( require ) {
 
     // Store by index for lookup by radio button index
     var sceneNodes = [
-      new NecklaceSceneNode( model.necklaceScene, this.layoutBounds, model.predictMode ),
-      new PaintSceneNode( model.paintScene, this.layoutBounds, model.predictMode ),
-      new BilliardsSceneNode( model.billiardsScene, this.layoutBounds, model.predictMode ),
-      new AppleSceneNode( model.appleScene, this.layoutBounds, model.predictMode )
+      new NecklaceSceneNode( model.necklaceScene, this.layoutBounds ),
+      new PaintSceneNode( model.paintScene, this.layoutBounds ),
+      new BilliardsSceneNode( model.billiardsScene, this.layoutBounds ),
+      new AppleSceneNode( model.appleScene, this.layoutBounds )
     ];
 
     var sceneContainer = new Node();

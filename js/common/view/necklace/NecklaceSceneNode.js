@@ -25,9 +25,8 @@ define( function( require ) {
    *
    * @param {NecklaceScene} scene - the model
    * @param {Bounds2} layoutBounds - the visible bounds of the sim
-   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
-  function NecklaceSceneNode( scene, layoutBounds, predictMode ) {
+  function NecklaceSceneNode( scene, layoutBounds ) {
     var self = this;
 
     // Create the left and right necklace nodes, each with their own NumberPickers
@@ -43,7 +42,7 @@ define( function( require ) {
       } ) );
 
     // Super call
-    SceneNode.call( this, scene, layoutBounds, predictMode, 87, {
+    SceneNode.call( this, scene, layoutBounds, {
       children: [ firstControllableNecklaceNode, secondControllableNecklaceNode, abSwitch ]
     } );
 
@@ -59,7 +58,7 @@ define( function( require ) {
         self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
-        firstControllableNecklaceNode.x = layoutBounds.width / 2;
+        firstControllableNecklaceNode.x = layoutBounds.centerX;
 
         self.mutateRevealButton( { left: layoutBounds.centerX + 110 } );
       }
