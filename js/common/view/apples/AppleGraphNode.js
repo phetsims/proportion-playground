@@ -14,7 +14,8 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Line = require( 'SCENERY/nodes/Line' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
   var TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
   var Property = require( 'AXON/Property' );
@@ -24,6 +25,9 @@ define( function( require ) {
   var ARROW_WIDTH = 3;
   var ARROW_HEIGHT = 300;
   var ARROW_LINE_WIDTH = 2;
+
+  var TICK_X = 10;
+
 
   /**
    * @constructor
@@ -36,15 +40,17 @@ define( function( require ) {
     var arrowNode = new ArrowNode( 0, ARROW_HEIGHT, 0, -ARROW_OVERSHOOT, { tailWidth: ARROW_LINE_WIDTH } );
 
     // Tick marks for 0, 1/2 and 1 up the chart.
-    var lineOptions = { stroke: 'black', lineWidth: ARROW_LINE_WIDTH };
-    arrowNode.addChild( new Line( -10, 0, 10, 0, lineOptions ).mutate( {
-      centerY: Util.linear( 0, 20, ARROW_HEIGHT, 0, 20 )
-    } ) );
-    arrowNode.addChild( new Line( -10, 0, 10, 0, lineOptions ).mutate( {
-      centerY: Util.linear( 0, 20, ARROW_HEIGHT, 0, 10 )
-    } ) );
-    arrowNode.addChild( new Line( -10, 0, 10, 0, lineOptions ).mutate( {
-      centerY: Util.linear( 0, 20, ARROW_HEIGHT, 0, 0 )
+    var tickLocations = [ 0, 0.5, 1 ].map( function( ratio ) {
+      return Util.linear( 0, 1, ARROW_HEIGHT, 0, ratio );
+    } );
+    // moveTo/lineTo for each tick
+    var tickShape = _.reduce( tickLocations, function( shape, location ) {
+      return shape.moveTo( -TICK_X, location )
+                  .lineTo( TICK_X, location );
+    }, new Shape() );
+    arrowNode.addChild( new Path( tickShape, {
+      stroke: 'black',
+      lineWidth: ARROW_LINE_WIDTH
     } ) );
 
     // Create the triangle indicators
@@ -69,7 +75,7 @@ define( function( require ) {
       if ( isFinite( costPerApple ) ) {
         indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
       }
-    };
+    }
     var updateLeftIndicator = updateIndicator.bind( undefined, leftIndicator, scene.redAppleGroup );
     var updateRightIndicator = updateIndicator.bind( undefined, rightIndicator, scene.greenAppleGroup );
 

@@ -31,18 +31,18 @@ define( function( require ) {
   var APPLE_RED = 'rgb(237,28,36)'; // color sampled from apple-red.png
 
   /**
-   * @param {AppleGroup} appleGroupModel - the model
+   * @param {AppleGroup} appleGroup - the model
    * @param {Image|mipmap} appleImage - the image to show for the apple grid and and apple icons
    * @param {Property.<boolean>} showCostPerAppleProperty - true if the price tag should be shown
    * @param {Property.<boolean>} revealProperty - true if the answer representation should be shown
    * @constructor
    */
-  function ControllableAppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty, revealProperty ) {
+  function ControllableAppleGroupNode( appleGroup, appleImage, showCostPerAppleProperty, revealProperty ) {
 
     // Create the total cost spinner
     var totalCostNumberPicker = new NumberPicker(
-      appleGroupModel.totalCostProperty,
-      new Property( appleGroupModel.totalCostRange ),
+      appleGroup.totalCostProperty,
+      new Property( appleGroup.totalCostRange ),
       _.extend( {
           color: 'black',
 
@@ -57,13 +57,13 @@ define( function( require ) {
 
     // Create the number of apples spinner
     var numberOfApplesNumberPicker = new NumberPicker(
-      appleGroupModel.numberOfApplesProperty,
-      new Property( appleGroupModel.numberOfApplesRange ),
+      appleGroup.numberOfApplesProperty,
+      new Property( appleGroup.numberOfApplesRange ),
       _.extend( { color: APPLE_RED }, NUMBER_PICKER_OPTIONS )
     );
 
     // Create the place where apples and coins will be shown.
-    var appleGroupNode = new AppleGroupNode( appleGroupModel, appleImage, showCostPerAppleProperty );
+    var appleGroupNode = new AppleGroupNode( appleGroup, appleImage, showCostPerAppleProperty );
 
     // Only show the representation if it is being revealed
     revealProperty.linkAttribute( appleGroupNode, 'visible' );

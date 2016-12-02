@@ -33,6 +33,10 @@ define( function( require ) {
     // @public {Range}
     this.totalCostRange = new Range( 0, 20 );
 
+    // @public {number}
+    //TODO: check if we use this
+    this.maximumUnitCost = this.totalCostRange.max / this.numberOfApplesRange.min;
+
     SceneRatio.call( this, visibleProperty, [
       this.numberOfApplesProperty,
       this.totalCostProperty
