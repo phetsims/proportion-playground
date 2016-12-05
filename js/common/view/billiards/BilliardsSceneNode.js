@@ -12,7 +12,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var BilliardsTableNodeWithSpinners = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableNodeWithSpinners' );
-  var ABSwitch = require( 'SUN/ABSwitch' );
   var BilliardTableIcon = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardTableIcon' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
@@ -35,19 +34,15 @@ define( function( require ) {
       side: 'right'
     } );
 
-    // Create the switch that toggles between 1 or 2 tables showing.
-    var abSwitch = new ABSwitch( scene.showBothProperty,
-      false, new BilliardTableIcon( 120, 120, ICON_SCALE_OPTIONS ),
-      true, new HBox( {
+    SceneNode.call( this, scene, layoutBounds, {
+      leftSwitchIcon: new BilliardTableIcon( 120, 120, ICON_SCALE_OPTIONS ),
+      rightSwitchIcon: new HBox( {
         spacing: 10,
         children: [
           new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ),
           new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ) ]
-      } )
-    );
-
-    SceneNode.call( this, scene, layoutBounds, {
-      children: [ billiardsTableNode1, billiardsTableNode2, abSwitch ]
+      } ),
+      children: [ billiardsTableNode1, billiardsTableNode2 ]
     } );
 
     // When the ABSwitch is toggled, show/hide the rightmost table and update the layout.
@@ -64,9 +59,6 @@ define( function( require ) {
         self.mutateRevealButton( { left: layoutBounds.left + 200 } );
       }
     } );
-
-    // Position the ABSwitch at the bottom center of the layout bounds.
-    this.moveABSwitchToBottomCenter( abSwitch );
 
     // Move the tables down a bit so they are centered vertically
     var tableNodeOffsetY = 20;

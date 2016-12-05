@@ -12,7 +12,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ControllableNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/ControllableNecklaceNode' );
-  var ABSwitch = require( 'SUN/ABSwitch' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
@@ -33,17 +32,14 @@ define( function( require ) {
     var firstControllableNecklaceNode = new ControllableNecklaceNode( scene.leftNecklace, scene.revealProperty );
     var secondControllableNecklaceNode = new ControllableNecklaceNode( scene.rightNecklace, scene.revealProperty );
 
-    // Create the switch that chooses between 1 vs 2 necklaces
-    var abSwitch = new ABSwitch( scene.showBothProperty,
-      false, new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ),
-      true, new HBox( {
-        children: [
-          new StaticNecklaceNode( 10, 5, ICON_SCALE_OPTIONS ), new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ) ]
-      } ) );
-
     // Super call
     SceneNode.call( this, scene, layoutBounds, {
-      children: [ firstControllableNecklaceNode, secondControllableNecklaceNode, abSwitch ]
+      leftSwitchIcon: new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ),
+      rightSwitchIcon: new HBox( {
+        children: [
+          new StaticNecklaceNode( 10, 5, ICON_SCALE_OPTIONS ), new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ) ]
+      } ),
+      children: [ firstControllableNecklaceNode, secondControllableNecklaceNode ]
     } );
 
     // When 2 necklaces are selected, show both
@@ -63,9 +59,6 @@ define( function( require ) {
         self.mutateRevealButton( { left: layoutBounds.centerX + 110 } );
       }
     } );
-
-    // Position the ABSwitch at the bottom center of the layoutBounds
-    this.moveABSwitchToBottomCenter( abSwitch );
   }
 
   proportionPlayground.register( 'NecklaceSceneNode', NecklaceSceneNode );

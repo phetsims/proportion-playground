@@ -13,12 +13,11 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ControllableAppleGroupNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/ControllableAppleGroupNode' );
   var AppleGraphNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGraphNode' );
-  var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
   var CheckBox = require( 'SUN/CheckBox' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
 
@@ -51,22 +50,6 @@ define( function( require ) {
     var greenAppleImageNode = new Image( greenAppleImage, iconScaleOptions );
     var redAppleImageNode = new Image( redAppleImage, iconScaleOptions );
 
-    // Create the switch that toggles between showing 1 and 2 groups
-    var abSwitch = new ABSwitch( scene.showBothProperty,
-      false, new HBox( {
-        children: [
-          new HStrut( greenAppleImageNode.width ),
-          redAppleImageNode
-        ]
-      } ),
-      true, new HBox( {
-        children: [
-          new Image( redAppleImage, { scale: 0.2 } ),
-          greenAppleImageNode
-        ]
-      } )
-    );
-
     // Check box that shows the cost per apple in a price tag
     var showCostPerAppleCheckBox = new CheckBox( new Text( costPerAppleString, {
       maxWidth: 293, // ceiling value from ?stringTest=double for English
@@ -75,7 +58,12 @@ define( function( require ) {
 
     // Super call and add children
     SceneNode.call( this, scene, layoutBounds, {
-      children: [ redAppleGroupNode, greenAppleGroupNode, abSwitch, showCostPerAppleCheckBox, appleGraphNode ]
+      leftSwitchIcon: new Node( { children: [ redAppleImageNode ] } ),
+      rightSwitchIcon: new HBox( { children: [
+        new Node( { children: [ redAppleImageNode ] } ),
+        new Node( { children: [ greenAppleImageNode ] } )
+      ] } ),
+      children: [ redAppleGroupNode, greenAppleGroupNode, showCostPerAppleCheckBox, appleGraphNode ]
     } );
 
     // When the "show both" ABSwitch is toggled, change which apple groups are displayed and update their layouts
@@ -97,11 +85,8 @@ define( function( require ) {
       }
     } );
 
-    // Align the ABSwitch at the bottom center of the screen
-    this.moveABSwitchToBottomCenter( abSwitch );
-
-    redAppleGroupNode.bottom = abSwitch.top - 15;
-    greenAppleGroupNode.bottom = abSwitch.top - 15;
+    redAppleGroupNode.bottom = layoutBounds.bottom - 60;
+    greenAppleGroupNode.bottom = layoutBounds.bottom - 60;
 
     // Price tag checkbox goes in the bottom left
     var checkBoxInset = 10;

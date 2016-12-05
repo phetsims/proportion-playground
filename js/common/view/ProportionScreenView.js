@@ -56,6 +56,10 @@ define( function( require ) {
       new AppleSceneNode( model.appleScene, this.layoutBounds )
     ];
 
+    sceneNodes.forEach( function( scene ) {
+      scene.addShowBothSwitch();
+    } );
+
     var sceneContainer = new Node();
     this.addChild( sceneContainer );
 

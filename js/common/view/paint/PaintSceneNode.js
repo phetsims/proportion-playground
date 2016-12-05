@@ -14,7 +14,6 @@ define( function( require ) {
   var ControllableSplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/ControllableSplotchNode' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
-  var ABSwitch = require( 'SUN/ABSwitch' );
   var Text = require( 'SCENERY/nodes/Text' );
   var CheckBox = require( 'SUN/CheckBox' );
   var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientIndicatorNode' );
@@ -44,25 +43,23 @@ define( function( require ) {
 
     // Create the ABSwitch that chooses 1 or 2 splotches
     var splotchNode = new SplotchNode( new Property( 1 ), new Property( 0 ), scene.grayscaleProperty, ICON_SCALE_OPTIONS );
-    var abSwitch = new ABSwitch( scene.showBothProperty,
-      false, new HBox( {
+
+    SceneNode.call( this, scene, layoutBounds, {
+      leftSwitchIcon: new HBox( {
         spacing: 10,
         children: [
           new HStrut( splotchNode.width ), // The spacer makes it easy to keep the ABSwitch centered
           splotchNode
         ]
       } ),
-      true, new HBox( {
+      rightSwitchIcon: new HBox( {
         spacing: 10,
         children: [
           new SplotchNode( new Property( 1 ), new Property( 0 ), scene.grayscaleProperty, ICON_SCALE_OPTIONS ),
           new SplotchNode( new Property( 1 ), new Property( 1 ), scene.grayscaleProperty, ICON_SCALE_OPTIONS )
         ]
-      } )
-    );
-
-    SceneNode.call( this, scene, layoutBounds, {
-      children: [ controllableSplotchNode1, controllableSplotchNode2, abSwitch ]
+      } ),
+      children: [ controllableSplotchNode1, controllableSplotchNode2 ]
     } );
 
     // When the ABSwitch is toggled, show one/both of the splotches.
@@ -81,7 +78,6 @@ define( function( require ) {
         self.mutateRevealButton( { left: layoutBounds.centerX + 100 } );
       }
     } );
-    this.moveABSwitchToBottomCenter( abSwitch );
 
     // CheckBox to choose between colorized or black and white
     var grayscaleCheckBox = new CheckBox( new Text( blackAndWhiteString, {

@@ -13,7 +13,11 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RevealButton = require( 'PROPORTION_PLAYGROUND/common/view/RevealButton' );
-  var Line = require( 'SCENERY/nodes/Line' );
+  var ABSwitch = require( 'SUN/ABSwitch' );
+  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+
+  // left and right labels for the switches should all share
+  var switchAlignGroup = new AlignGroup();
 
   /**
    * @constructor
@@ -23,10 +27,18 @@ define( function( require ) {
    * @param {Object} [options] - node options
    */
   function SceneNode( scene, layoutBounds, options ) {
+    options = _.extend( {
+      leftSwitchIcon: null, // {Node}, required
+      rightSwitchIcon: null // {Node}, required
+    }, options );
+
     // @public {Scene} - The main model for this scene
     this.scene = scene;
     this.layoutBounds = layoutBounds;
     Node.call( this, options );
+
+    this.leftSwitchIcon = switchAlignGroup.createBox( options.leftSwitchIcon, { xAlign: 'right' } );
+    this.rightSwitchIcon = switchAlignGroup.createBox( options.rightSwitchIcon, { xAlign: 'left' } );
 
     // For predict mode, add a reveal button that show the representations
     if ( scene.predictMode ) {
@@ -41,6 +53,20 @@ define( function( require ) {
   proportionPlayground.register( 'SceneNode', SceneNode );
 
   return inherit( Node, SceneNode, {
+    /**
+     * Adds the "showBoth" ABSwitch.
+     * @public
+     *
+     * We have to do this later, since we need all of the scenes' switchIcons to be created/sized first. When ABSwitch
+     * can handle resizing content, we can inline this.
+     */
+    addShowBothSwitch: function() {
+      this.addChild( new ABSwitch( this.scene.showBothProperty,
+        false, this.leftSwitchIcon,
+        true, this.rightSwitchIcon, {
+        centerBottom: this.layoutBounds.centerBottom.plusXY( 0, -5 )
+      } ) );
+    },
 
     /**
      * Mutate the reveal, often to set its location.
@@ -48,39 +74,8 @@ define( function( require ) {
      * @protected
      */
     mutateRevealButton: function( options ) {
+      //TODO: improve
       this.revealButton && this.revealButton.mutate( options );
-    },
-
-    /**
-     * Position the ABSwitch at the bottom center of the screen.
-     * As long as the height of the labels is less than or equal to 1.6 (empirically chosen) times the height of the
-     * toggle button, the toggle button location will remain fixed.
-     * @param {Node} abSwitch - the switch that chooses between 1-2 representations
-     */
-    moveABSwitchToBottomCenter: function( abSwitch ) {
-
-      // find center coordinates of the toggle button (onOffSwitch)
-      var buttonX = abSwitch.children[ 0 ].center.x;
-      var buttonY = abSwitch.children[ 0 ].center.y;
-
-      // the greatest width of the two labels
-      var maxLabelWidth = Math.max( abSwitch.children[ 1 ].width, abSwitch.children[ 2 ].width );
-
-      // Calculate the layout bound values of the ab switch.
-      // The new width is based on the max label width and the new height is 1.6 times the height of the toggle button.
-      var halfWidth = maxLabelWidth + abSwitch.children[ 0 ].width;
-      var halfHeight = abSwitch.children[ 0 ].height * 0.8;
-
-      // Add horizontal and vertical struts that cause the center of ABSwitch to be the same as center of button.
-      var HStrut = new Line( buttonX - halfWidth, buttonY, buttonX + halfWidth, buttonY );
-      var VStrut = new Line( buttonX, buttonY - halfHeight, buttonX, buttonY + halfHeight );
-      abSwitch.addChild( HStrut );
-      abSwitch.addChild( VStrut );
-      HStrut.moveToBack();
-      VStrut.moveToBack();
-
-      // position ABSwitch at the bottom center of the screen, with some spacing
-      abSwitch.centerBottom = this.layoutBounds.centerBottom.plusXY( 0, -5 );
     }
   } );
 } );
