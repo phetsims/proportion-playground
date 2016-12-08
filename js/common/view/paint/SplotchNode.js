@@ -38,8 +38,6 @@ define( function( require ) {
   function SplotchNode( splotch, grayscaleProperty, options ) {
     SceneRatioNode.call( this, splotch );
 
-    var self = this;
-
     var splotchPath = new Path( splotchShape, { stroke: 'black' } );
     this.addChild( splotchPath );
 
@@ -80,7 +78,7 @@ define( function( require ) {
       var scale = Util.linear( 0, 40, maxScale / twoPi, maxScale, total );
       splotchPath.setScaleMagnitude( scale );
       splotchPath.center = new Vector2( 0, 250 );
-      self.visible = total > 0;
+      splotchPath.visible = total > 0;
     } );
     grayscaleProperty.link( updateFill );
 

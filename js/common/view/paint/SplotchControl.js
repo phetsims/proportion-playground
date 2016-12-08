@@ -70,12 +70,8 @@ define( function( require ) {
       picker2Color.visible = !grayscale;
     } );
 
-    // Wrap in a node so the visible flags don't collide
-    var splotchNode = new Node( { children: [ new SplotchNode( splotch, grayscaleProperty ) ] } );
-    revealProperty.linkAttribute( splotchNode, 'visible' );
-
     this.children = [
-      splotchNode,
+      new SplotchNode( splotch, grayscaleProperty ),
       new HBox( {
         spacing: 10,
         y: 450,
