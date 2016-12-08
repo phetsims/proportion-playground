@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ControllableNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/ControllableNecklaceNode' );
+  var NecklaceControl = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceControl' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
@@ -29,8 +29,8 @@ define( function( require ) {
     var self = this;
 
     // Create the left and right necklace nodes, each with their own NumberPickers
-    var firstControllableNecklaceNode = new ControllableNecklaceNode( scene.leftNecklace, scene.revealProperty );
-    var secondControllableNecklaceNode = new ControllableNecklaceNode( scene.rightNecklace, scene.revealProperty );
+    var firstNecklaceControl = new NecklaceControl( scene.leftNecklace, scene.revealProperty );
+    var secondNecklaceControl = new NecklaceControl( scene.rightNecklace, scene.revealProperty );
 
     // Super call
     SceneNode.call( this, scene, layoutBounds, {
@@ -39,22 +39,22 @@ define( function( require ) {
         children: [
           new StaticNecklaceNode( 10, 5, ICON_SCALE_OPTIONS ), new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ) ]
       } ),
-      children: [ firstControllableNecklaceNode, secondControllableNecklaceNode ]
+      children: [ firstNecklaceControl, secondNecklaceControl ]
     } );
 
     // When 2 necklaces are selected, show both
     scene.showBothProperty.link( function( showBoth ) {
-      secondControllableNecklaceNode.visible = showBoth;
+      secondNecklaceControl.visible = showBoth;
 
       // Controllable necklace nodes have x=0 at their center
       if ( showBoth ) {
-        firstControllableNecklaceNode.x = layoutBounds.width * 1 / 3;
-        secondControllableNecklaceNode.x = layoutBounds.width * 2 / 3;
+        firstNecklaceControl.x = layoutBounds.width * 1 / 3;
+        secondNecklaceControl.x = layoutBounds.width * 2 / 3;
 
         self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
-        firstControllableNecklaceNode.x = layoutBounds.centerX;
+        firstNecklaceControl.x = layoutBounds.centerX;
 
         self.mutateRevealButton( { left: layoutBounds.centerX + 110 } );
       }

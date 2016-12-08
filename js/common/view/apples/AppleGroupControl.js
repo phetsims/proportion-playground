@@ -36,7 +36,7 @@ define( function( require ) {
    * @param {Property.<boolean>} revealProperty - true if the answer representation should be shown
    * @constructor
    */
-  function ControllableAppleGroupNode( appleGroup, appleImage, showCostPerAppleProperty, revealProperty ) {
+  function AppleGroupControl( appleGroup, appleImage, showCostPerAppleProperty, revealProperty ) {
 
     // Create the total cost spinner
     var totalCostNumberPicker = new NumberPicker(
@@ -96,7 +96,7 @@ define( function( require ) {
     } );
   }
 
-  proportionPlayground.register( 'ControllableAppleGroupNode', ControllableAppleGroupNode );
+  proportionPlayground.register( 'AppleGroupControl', AppleGroupControl );
 
-  return inherit( Node, ControllableAppleGroupNode );
+  return inherit( Node, AppleGroupControl );
 } );

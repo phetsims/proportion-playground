@@ -35,7 +35,7 @@ define( function( require ) {
    * @param {Object} [options] - node layout options
    * @constructor
    */
-  function BilliardsTableNodeWithSpinners( layoutBounds, billiardsTableModel, revealProperty, options ) {
+  function BilliardsTableControl( layoutBounds, billiardsTableModel, revealProperty, options ) {
     options = _.extend( { side: 'left' }, options );
 
     // The number pickers for choosing and displaying the length and width
@@ -86,7 +86,7 @@ define( function( require ) {
     } );
   }
 
-  proportionPlayground.register( 'BilliardsTableNodeWithSpinners', BilliardsTableNodeWithSpinners );
+  proportionPlayground.register( 'BilliardsTableControl', BilliardsTableControl );
 
-  return inherit( Node, BilliardsTableNodeWithSpinners );
+  return inherit( Node, BilliardsTableControl );
 } );

@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ControllableAppleGroupNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/ControllableAppleGroupNode' );
+  var AppleGroupControl = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGroupControl' );
   var AppleGraphNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGraphNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var CheckBox = require( 'SUN/CheckBox' );
@@ -39,8 +39,8 @@ define( function( require ) {
 
     // Create child nodes to be displayed
     //TODO: simplify what is passed?
-    var redAppleGroupNode = new ControllableAppleGroupNode( scene.redAppleGroup, redAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
-    var greenAppleGroupNode = new ControllableAppleGroupNode( scene.greenAppleGroup, greenAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
+    var redAppleGroupNode = new AppleGroupControl( scene.redAppleGroup, redAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
+    var greenAppleGroupNode = new AppleGroupControl( scene.greenAppleGroup, greenAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
     var appleGraphNode = new AppleGraphNode( scene, {
       centerY: 250
     } );

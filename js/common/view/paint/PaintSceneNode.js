@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ControllableSplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/ControllableSplotchNode' );
+  var SplotchControl = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchControl' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -38,8 +38,8 @@ define( function( require ) {
     var self = this;
 
     // Create the left/right splotches and their NumberPickers
-    var controllableSplotchNode1 = new ControllableSplotchNode( scene.leftSplotch, scene.grayscaleProperty, scene.revealProperty );
-    var controllableSplotchNode2 = new ControllableSplotchNode( scene.rightSplotch, scene.grayscaleProperty, scene.revealProperty );
+    var controllableSplotchNode1 = new SplotchControl( scene.leftSplotch, scene.grayscaleProperty, scene.revealProperty );
+    var controllableSplotchNode2 = new SplotchControl( scene.rightSplotch, scene.grayscaleProperty, scene.revealProperty );
 
     // Create the ABSwitch that chooses 1 or 2 splotches
     var splotchNode = new SplotchNode( new Property( 1 ), new Property( 0 ), scene.grayscaleProperty, ICON_SCALE_OPTIONS );

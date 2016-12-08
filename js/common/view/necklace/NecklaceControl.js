@@ -32,7 +32,7 @@ define( function( require ) {
    * @param {Property.<boolean>} revealProperty - true if the necklace should be shown.
    * @constructor
    */
-  function ControllableNecklaceNode( necklaceModel, revealProperty ) {
+  function NecklaceControl( necklaceModel, revealProperty ) {
 
     /**
      * Auxiliary function that creates a NumberPicker for a given color
@@ -84,7 +84,7 @@ define( function( require ) {
     } );
   }
 
-  proportionPlayground.register( 'ControllableNecklaceNode', ControllableNecklaceNode );
+  proportionPlayground.register( 'NecklaceControl', NecklaceControl );
 
-  return inherit( Node, ControllableNecklaceNode );
+  return inherit( Node, NecklaceControl );
 } );

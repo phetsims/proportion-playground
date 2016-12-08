@@ -28,7 +28,7 @@ define( function( require ) {
    * @param {Property.<boolean>} revealProperty - indicates whether the billiards table should be shown
    * @constructor
    */
-  function ControllableSplotchNode( splotchModel, grayscaleProperty, revealProperty ) {
+  function SplotchControl( splotchModel, grayscaleProperty, revealProperty ) {
 
     /**
      * Auxiliary function that creates a NumberPicker for a given color
@@ -88,7 +88,7 @@ define( function( require ) {
     } );
   }
 
-  proportionPlayground.register( 'ControllableSplotchNode', ControllableSplotchNode );
+  proportionPlayground.register( 'SplotchControl', SplotchControl );
 
-  return inherit( Node, ControllableSplotchNode );
+  return inherit( Node, SplotchControl );
 } );
