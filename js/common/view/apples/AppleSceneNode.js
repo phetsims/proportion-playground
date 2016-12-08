@@ -58,13 +58,17 @@ define( function( require ) {
 
     // Super call and add children
     SceneNode.call( this, scene, layoutBounds, {
+      leftControl: redAppleGroupControl,
+      rightControl: greenAppleGroupControl,
       leftSwitchIcon: new Node( { children: [ redAppleImageNode ] } ),
       rightSwitchIcon: new HBox( { children: [
         new Node( { children: [ redAppleImageNode ] } ),
         new Node( { children: [ greenAppleImageNode ] } )
-      ] } ),
-      children: [ redAppleGroupControl, greenAppleGroupControl, showCostPerAppleCheckBox, appleGraphNode ]
+      ] } )
     } );
+
+    this.addChild( showCostPerAppleCheckBox );
+    this.addChild( appleGraphNode );
 
     // When the "show both" ABSwitch is toggled, change which apple groups are displayed and update their layouts
     scene.showBothProperty.link( function( showBoth ) {

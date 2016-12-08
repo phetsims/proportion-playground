@@ -38,14 +38,15 @@ define( function( require ) {
     } );
 
     SceneNode.call( this, scene, layoutBounds, {
+      leftControl: billiardsTableLeftControl,
+      rightControl: billiardsTableRightControl,
       leftSwitchIcon: new BilliardTableIcon( 120, 120, ICON_SCALE_OPTIONS ),
       rightSwitchIcon: new HBox( {
         spacing: 10,
         children: [
           new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ),
           new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ) ]
-      } ),
-      children: [ billiardsTableLeftControl, billiardsTableRightControl ]
+      } )
     } );
 
     // When the ABSwitch is toggled, show/hide the rightmost table and update the layout.

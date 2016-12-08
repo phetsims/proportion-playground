@@ -29,30 +29,31 @@ define( function( require ) {
     var self = this;
 
     // Create the left and right necklace nodes, each with their own NumberPickers
-    var firstNecklaceControl = new NecklaceControl( scene.leftNecklace, scene.revealProperty );
-    var secondNecklaceControl = new NecklaceControl( scene.rightNecklace, scene.revealProperty );
+    var leftNecklaceControl = new NecklaceControl( scene.leftNecklace, scene.revealProperty );
+    var rightNecklaceControl = new NecklaceControl( scene.rightNecklace, scene.revealProperty );
 
     // Super call
     SceneNode.call( this, scene, layoutBounds, {
+      leftControl: leftNecklaceControl,
+      rightControl: rightNecklaceControl,
       leftSwitchIcon: new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ),
       rightSwitchIcon: new HBox( {
         children: [
           new StaticNecklaceNode( 10, 5, ICON_SCALE_OPTIONS ), new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ) ]
-      } ),
-      children: [ firstNecklaceControl, secondNecklaceControl ]
+      } )
     } );
 
     // When 2 necklaces are selected, show both
     scene.showBothProperty.link( function( showBoth ) {
       // Controllable necklace nodes have x=0 at their center
       if ( showBoth ) {
-        firstNecklaceControl.x = layoutBounds.width * 1 / 3;
-        secondNecklaceControl.x = layoutBounds.width * 2 / 3;
+        leftNecklaceControl.x = layoutBounds.width * 1 / 3;
+        rightNecklaceControl.x = layoutBounds.width * 2 / 3;
 
         self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
-        firstNecklaceControl.x = layoutBounds.centerX;
+        leftNecklaceControl.x = layoutBounds.centerX;
 
         self.mutateRevealButton( { left: layoutBounds.centerX + 110 } );
       }

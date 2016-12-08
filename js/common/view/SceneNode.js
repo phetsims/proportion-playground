@@ -27,15 +27,29 @@ define( function( require ) {
    * @param {Object} [options] - node options
    */
   function SceneNode( scene, layoutBounds, options ) {
+    var self = this;
+
     options = _.extend( {
+      leftControl: null, // {Node}
+      rightControl: null, // {Node}
       leftSwitchIcon: null, // {Node}, required
-      rightSwitchIcon: null // {Node}, required
+      rightSwitchIcon: null, // {Node}, required
+      revealSingleLocation: 'right' // 'right' or 'bottom', direction from the pickerContainer
     }, options );
+
+    // @protected
+    this.leftControl = options.leftControl;
+    this.rightControl = options.rightControl;
 
     // @public {Scene} - The main model for this scene
     this.scene = scene;
     this.layoutBounds = layoutBounds;
-    Node.call( this, options );
+    Node.call( this, {
+      children: [
+        this.leftControl,
+        this.rightControl
+      ]
+    } );
 
     this.leftSwitchIcon = switchAlignGroup.createBox( options.leftSwitchIcon, { xAlign: 'right' } );
     this.rightSwitchIcon = switchAlignGroup.createBox( options.rightSwitchIcon, { xAlign: 'left' } );
@@ -48,6 +62,22 @@ define( function( require ) {
       } );
       this.addChild( this.revealButton );
     }
+
+    scene.showBothProperty.link( function( showBoth ) {
+      if ( showBoth ) {
+        // TODO
+      }
+      else {
+        if ( self.revealButton ) {
+          if ( options.revealSingleLocation === 'right' ) {
+            // TODO
+          }
+          else {
+            // TODO
+          }
+        }
+      }
+    } );
   }
 
   proportionPlayground.register( 'SceneNode', SceneNode );

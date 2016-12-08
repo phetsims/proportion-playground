@@ -45,13 +45,15 @@ define( function( require ) {
     greenSplotch.rightColorCountProperty.value = 1;
 
     // Create the left/right splotches and their NumberPickers
-    var controllableSplotchNode1 = new SplotchControl( scene.leftSplotch, scene.grayscaleProperty, scene.revealProperty );
-    var controllableSplotchNode2 = new SplotchControl( scene.rightSplotch, scene.grayscaleProperty, scene.revealProperty );
+    var leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.grayscaleProperty, scene.revealProperty );
+    var rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.grayscaleProperty, scene.revealProperty );
 
     // Create the ABSwitch that chooses 1 or 2 splotches
     var splotchNode = new SplotchNode( blueSplotch, scene.grayscaleProperty, ICON_SCALE_OPTIONS );
 
     SceneNode.call( this, scene, layoutBounds, {
+      leftControl: leftSplotchControl,
+      rightControl: rightSplotchControl,
       leftSwitchIcon: new HBox( {
         spacing: 10,
         children: [
@@ -65,21 +67,20 @@ define( function( require ) {
           new SplotchNode( blueSplotch, scene.grayscaleProperty, ICON_SCALE_OPTIONS ),
           new SplotchNode( greenSplotch, scene.grayscaleProperty, ICON_SCALE_OPTIONS )
         ]
-      } ),
-      children: [ controllableSplotchNode1, controllableSplotchNode2 ]
+      } )
     } );
 
     // When the ABSwitch is toggled, show one/both of the splotches.
     scene.showBothProperty.link( function( showBoth ) {
       // Controllable necklace nodes have x=0 at their center
       if ( showBoth ) {
-        controllableSplotchNode1.x = layoutBounds.width * 1 / 3;
-        controllableSplotchNode2.x = layoutBounds.width * 2 / 3;
+        leftSplotchControl.x = layoutBounds.width * 1 / 3;
+        rightSplotchControl.x = layoutBounds.width * 2 / 3;
 
         self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
-        controllableSplotchNode1.x = layoutBounds.width / 2;
+        leftSplotchControl.x = layoutBounds.width / 2;
         self.mutateRevealButton( { left: layoutBounds.centerX + 100 } );
       }
     } );
