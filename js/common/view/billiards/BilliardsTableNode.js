@@ -21,6 +21,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   var Util = require( 'DOT/Util' );
 
   // constants
@@ -34,15 +35,14 @@ define( function( require ) {
   };
 
   /**
+   * @constructor
    *
    * @param {Vector2} center - position (in layout bounds) where the table should be centered
-   * @param {BilliardsTable} billiardsTableModel - the model
+   * @param {BilliardsTable} billiardsTable - the model
    * @param {Object} [options]
-   * @constructor
    */
-  function BilliardsTableNode( center, billiardsTableModel, options ) {
-
-    var self = this;
+  function BilliardsTableNode( center, billiardsTable, options ) {
+    SceneRatioNode.call( this, billiardsTable );
 
     var gridLinesNode = new Node();
     var linesNode = new Node();
@@ -88,13 +88,13 @@ define( function( require ) {
     var bottomRightHoleNode = createCircle();
 
     // When the ball restarts, clear the history of lines
-    billiardsTableModel.restartEmitter.addListener( function() {
+    billiardsTable.restartEmitter.addListener( function() {
       linesNode.children = [];
     } );
 
     // When the ball bounces, add a new line to the static array of lines.
-    billiardsTableModel.collisionPoints.addItemAddedListener( function( currentPoint ) {
-      var a = billiardsTableModel.collisionPoints.getArray();
+    billiardsTable.collisionPoints.addItemAddedListener( function( currentPoint ) {
+      var a = billiardsTable.collisionPoints.getArray();
       var previousPoint = a[ a.length - 2 ];
       if ( previousPoint ) {
         linesNode.addChild( new Line(
@@ -106,8 +106,8 @@ define( function( require ) {
     } );
 
     // When the ball moves, update the live (unbounced) line streaming from the ball and update the ball's location
-    billiardsTableModel.ballPositionProperty.link( function( position ) {
-      var a = billiardsTableModel.collisionPoints.getArray();
+    billiardsTable.ballPositionProperty.link( function( position ) {
+      var a = billiardsTable.collisionPoints.getArray();
       var previousPoint = a[ a.length - 1 ];
       if ( previousPoint ) {
         currentLineNode.setLine( previousPoint.x * SCALE, previousPoint.y * SCALE, position.x * SCALE, position.y * SCALE );
@@ -144,8 +144,8 @@ define( function( require ) {
           // change width so its within the acceptable range
           property.value = Util.clamp(
             startProperty + change,
-            billiardsTableModel.range.min,
-            billiardsTableModel.range.max
+            billiardsTable.range.min,
+            billiardsTable.range.max
           );
         }
 
@@ -153,18 +153,18 @@ define( function( require ) {
     };
 
     // When a side of the table is dragged, the appropriate width or length changes.
-    createDragListener( leftDragger, billiardsTableModel.widthProperty, 'x', -1 );
-    createDragListener( rightDragger, billiardsTableModel.widthProperty, 'x', 1 );
-    createDragListener( topDragger, billiardsTableModel.heightProperty, 'y', -1 );
-    createDragListener( bottomDragger, billiardsTableModel.heightProperty, 'y', 1 );
+    createDragListener( leftDragger, billiardsTable.widthProperty, 'x', -1 );
+    createDragListener( rightDragger, billiardsTable.widthProperty, 'x', 1 );
+    createDragListener( topDragger, billiardsTable.heightProperty, 'y', -1 );
+    createDragListener( bottomDragger, billiardsTable.heightProperty, 'y', 1 );
 
     // When the table is resized, redraw it.
     Property.multilink( [
-      billiardsTableModel.heightProperty,
-      billiardsTableModel.widthProperty
+      billiardsTable.heightProperty,
+      billiardsTable.widthProperty
     ], function() {
-      var length = billiardsTableModel.heightProperty.value;
-      var width = billiardsTableModel.widthProperty.value;
+      var length = billiardsTable.heightProperty.value;
+      var width = billiardsTable.widthProperty.value;
 
       var brownEdgeLineWidth = 8;
       var scaledWidth = width * SCALE;
@@ -216,7 +216,7 @@ define( function( require ) {
       topRightHoleNode.translation = greenRectangle.translation.plusXY( width * SCALE, 0 );
     } );
 
-    Node.call( self, {
+    this.mutate( _.extend( {
       children: [
         brownRectangle,
         greenRectangle,
@@ -227,14 +227,10 @@ define( function( require ) {
         bottomRightHoleNode,
         ballNode
       ]
-    } );
-    self.mutate( options );
-
-    //TODO: common to each visual representation?
-    billiardsTableModel.visibleProperty.linkAttribute( this, 'visible' );
+    }, options ) );
   }
 
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );
 
-  return inherit( Node, BilliardsTableNode );
+  return inherit( SceneRatioNode, BilliardsTableNode );
 } );

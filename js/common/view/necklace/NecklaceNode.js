@@ -11,23 +11,24 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
   var Property = require( 'AXON/Property' );
+  var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
 
   /**
    *
-   * @param {Necklace} necklaceModel - the model
+   * @param {Necklace} necklace - the model
    * @constructor
    */
-  function NecklaceNode( necklaceModel ) {
+  function NecklaceNode( necklace ) {
+    SceneRatioNode.call( this, necklace );
+
     var self = this;
-    Node.call( this );
 
     // When the bead counts change, update the view
     Property.multilink( [
-      necklaceModel.roundBeadCountProperty,
-      necklaceModel.squareBeadCountProperty
+      necklace.roundBeadCountProperty,
+      necklace.squareBeadCountProperty
     ], function( roundBeadCount, squareBeadCount ) {
       self.children = [ new StaticNecklaceNode( roundBeadCount, squareBeadCount ) ];
       if ( roundBeadCount + squareBeadCount > 0 ) {
@@ -35,12 +36,9 @@ define( function( require ) {
         self.centerY = 245;
       }
     } );
-
-    //TODO: common to each visual representation?
-    necklaceModel.visibleProperty.linkAttribute( this, 'visible' );
   }
 
   proportionPlayground.register( 'NecklaceNode', NecklaceNode );
 
-  return inherit( Node, NecklaceNode );
+  return inherit( SceneRatioNode, NecklaceNode );
 } );

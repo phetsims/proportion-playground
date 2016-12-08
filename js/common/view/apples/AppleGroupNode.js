@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Panel = require( 'SUN/Panel' );
@@ -40,6 +41,7 @@ define( function( require ) {
    * @param {Property.<boolean>} showCostPerAppleProperty - indicates whether the price tag should be shown
    */
   function AppleGroupNode( appleGroup, appleImage, showCostPerAppleProperty ) {
+    SceneRatioNode.call( this, appleGroup );
 
     var priceTagLayer = new Node( { x: -132, y: 110 } );
 
@@ -117,15 +119,10 @@ define( function( require ) {
     this.appleLayer.bottom = this.coinLayer.bottom;
     priceTagLayer.bottom = this.appleLayer.top - 20;
 
-    Node.call( this, {
-      children: [ this.coinLayer, this.appleLayer, priceTagLayer ]
-    } );
-
-    //TODO: common to each visual representation?
-    appleGroup.visibleProperty.linkAttribute( this, 'visible' );
+    this.children = [ this.coinLayer, this.appleLayer, priceTagLayer ];
   }
 
   proportionPlayground.register( 'AppleGroupNode', AppleGroupNode );
 
-  return inherit( Node, AppleGroupNode );
+  return inherit( SceneRatioNode, AppleGroupNode );
 } );
