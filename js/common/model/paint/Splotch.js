@@ -18,9 +18,10 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {BooleanProperty} visibleProperty - Whether we are visible or not
+   * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
+   * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
-  function Splotch( visibleProperty ) {
+  function Splotch( visibleProperty, controlsVisibleProperty ) {
 
     // @public {NumberProperty} - Amount of paint from the color choice on the left
     this.leftColorCountProperty = new NumberProperty( 0 );
@@ -31,7 +32,7 @@ define( function( require ) {
     // @public (read-only) the range for colors
     this.colorCountRange = new Range( 0, 20 );
 
-    SceneRatio.call( this, visibleProperty, [
+    SceneRatio.call( this, visibleProperty, controlsVisibleProperty, [
       this.leftColorCountProperty,
       this.rightColorCountProperty
     ] );

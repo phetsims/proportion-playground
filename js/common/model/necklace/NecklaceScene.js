@@ -18,8 +18,8 @@ define( function( require ) {
     Scene.call( this, predictMode );
 
     // @public
-    this.leftNecklace = new Necklace( this.leftVisibleProperty );
-    this.rightNecklace = new Necklace( this.rightVisibleProperty );
+    this.leftNecklace = new Necklace( this.leftVisibleProperty, this.leftControlsVisibleProperty );
+    this.rightNecklace = new Necklace( this.rightVisibleProperty, this.rightControlsVisibleProperty );
 
     this.initializeRatios( this.leftNecklace, this.rightNecklace );
   }

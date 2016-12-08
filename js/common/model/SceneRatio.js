@@ -16,12 +16,16 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {BooleanProperty} - Whether we are visible or not
-   * @param {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
+   * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
+   * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
+   * @param {Array.<NumberProperty>} quantityProperties - Properties that indicate a numerator or denominator in our ratio
    */
-  function SceneRatio( visibleProperty, quantityProperties ) {
-    // @public {BooleanProperty} - Whether we are visible or not
+  function SceneRatio( visibleProperty, controlsVisibleProperty, quantityProperties ) {
+    // @public {Property.<boolean>} - Whether we are visible or not
     this.visibleProperty = visibleProperty;
+
+    // @public {Property.<boolean>} - Whether our controls are visible
+    this.controlsVisibleProperty = controlsVisibleProperty;
 
     // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
     this.quantityProperties = quantityProperties;

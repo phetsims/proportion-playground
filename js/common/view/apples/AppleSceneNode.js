@@ -39,8 +39,8 @@ define( function( require ) {
 
     // Create child nodes to be displayed
     //TODO: simplify what is passed?
-    var redAppleGroupNode = new AppleGroupControl( scene.redAppleGroup, redAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
-    var greenAppleGroupNode = new AppleGroupControl( scene.greenAppleGroup, greenAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
+    var redAppleGroupControl = new AppleGroupControl( scene.redAppleGroup, redAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
+    var greenAppleGroupControl = new AppleGroupControl( scene.greenAppleGroup, greenAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
     var appleGraphNode = new AppleGraphNode( scene, {
       centerY: 250
     } );
@@ -63,30 +63,28 @@ define( function( require ) {
         new Node( { children: [ redAppleImageNode ] } ),
         new Node( { children: [ greenAppleImageNode ] } )
       ] } ),
-      children: [ redAppleGroupNode, greenAppleGroupNode, showCostPerAppleCheckBox, appleGraphNode ]
+      children: [ redAppleGroupControl, greenAppleGroupControl, showCostPerAppleCheckBox, appleGraphNode ]
     } );
 
     // When the "show both" ABSwitch is toggled, change which apple groups are displayed and update their layouts
     scene.showBothProperty.link( function( showBoth ) {
-      greenAppleGroupNode.visible = showBoth;
-
       if ( showBoth ) {
-        redAppleGroupNode.right = layoutBounds.width * 0.45;
-        greenAppleGroupNode.left = layoutBounds.width * 0.55;
+        redAppleGroupControl.right = layoutBounds.width * 0.45;
+        greenAppleGroupControl.left = layoutBounds.width * 0.55;
         appleGraphNode.x = layoutBounds.centerX;
 
         self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
-        redAppleGroupNode.centerX = layoutBounds.width / 2;
-        appleGraphNode.left = redAppleGroupNode.right + layoutBounds.width * 0.05;
+        redAppleGroupControl.centerX = layoutBounds.width / 2;
+        appleGraphNode.left = redAppleGroupControl.right + layoutBounds.width * 0.05;
 
         self.mutateRevealButton( { centerX: layoutBounds.centerX + 200 } );
       }
     } );
 
-    redAppleGroupNode.bottom = layoutBounds.bottom - 60;
-    greenAppleGroupNode.bottom = layoutBounds.bottom - 60;
+    redAppleGroupControl.bottom = layoutBounds.bottom - 60;
+    greenAppleGroupControl.bottom = layoutBounds.bottom - 60;
 
     // Price tag checkbox goes in the bottom left
     var checkBoxInset = 10;

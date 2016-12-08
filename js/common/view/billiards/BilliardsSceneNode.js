@@ -47,8 +47,6 @@ define( function( require ) {
 
     // When the ABSwitch is toggled, show/hide the rightmost table and update the layout.
     scene.showBothProperty.link( function( showBoth ) {
-      billiardsTableNode2.visible = showBoth;
-
       if ( showBoth ) {
         billiardsTableNode1.left = 10;
         billiardsTableNode2.right = layoutBounds.right - 10;

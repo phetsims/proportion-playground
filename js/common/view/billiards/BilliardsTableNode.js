@@ -229,6 +229,9 @@ define( function( require ) {
       ]
     } );
     self.mutate( options );
+
+    //TODO: common to each visual representation?
+    billiardsTableModel.visibleProperty.linkAttribute( this, 'visible' );
   }
 
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );

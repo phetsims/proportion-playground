@@ -20,9 +20,10 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {BooleanProperty} visibleProperty - Whether we are visible or not
+   * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
+   * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
-  function Necklace( visibleProperty ) {
+  function Necklace( visibleProperty, controlsVisibleProperty ) {
     // @public {NumberProperty} - Quantity of round beads in the necklace
     this.roundBeadCountProperty = new NumberProperty( 0 );
 
@@ -32,7 +33,7 @@ define( function( require ) {
     // @public {Range} - Allowed range of bead counts
     this.beadCountRange = new Range( 0, ProportionPlaygroundConstants.MAX_BEADS );
 
-    SceneRatio.call( this, visibleProperty, [
+    SceneRatio.call( this, visibleProperty, controlsVisibleProperty, [
       this.roundBeadCountProperty,
       this.squareBeadCountProperty
     ] );

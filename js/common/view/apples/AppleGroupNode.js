@@ -120,6 +120,9 @@ define( function( require ) {
     Node.call( this, {
       children: [ this.coinLayer, this.appleLayer, priceTagLayer ]
     } );
+
+    //TODO: common to each visual representation?
+    appleGroup.visibleProperty.linkAttribute( this, 'visible' );
   }
 
   proportionPlayground.register( 'AppleGroupNode', AppleGroupNode );

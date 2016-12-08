@@ -35,6 +35,9 @@ define( function( require ) {
         self.centerY = 245;
       }
     } );
+
+    //TODO: common to each visual representation?
+    necklaceModel.visibleProperty.linkAttribute( this, 'visible' );
   }
 
   proportionPlayground.register( 'NecklaceNode', NecklaceNode );

@@ -64,9 +64,6 @@ define( function( require ) {
     // Create the place where apples and coins will be shown.
     var appleGroupNode = new AppleGroupNode( appleGroup, appleImage, showCostPerAppleProperty );
 
-    // Only show the representation if it is being revealed
-    revealProperty.linkAttribute( appleGroupNode, 'visible' );
-
     function pickerWithLabel( numberPicker, label ) {
       return new VBox( {
         spacing: 10,
@@ -94,6 +91,9 @@ define( function( require ) {
         applePickerGroup
       ]
     } );
+
+    //TODO: common to each control?
+    appleGroup.controlsVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   proportionPlayground.register( 'AppleGroupControl', AppleGroupControl );

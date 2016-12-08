@@ -18,9 +18,10 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {BooleanProperty} visibleProperty - Whether we are visible or not
+   * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
+   * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
-  function AppleGroup( visibleProperty ) {
+  function AppleGroup( visibleProperty, controlsVisibleProperty ) {
     // @public {NumberProperty} - How many apples are in this group
     this.numberOfApplesProperty = new NumberProperty( 1 );
 
@@ -37,7 +38,7 @@ define( function( require ) {
     //TODO: check if we use this
     this.maximumUnitCost = this.totalCostRange.max / this.numberOfApplesRange.min;
 
-    SceneRatio.call( this, visibleProperty, [
+    SceneRatio.call( this, visibleProperty, controlsVisibleProperty, [
       this.numberOfApplesProperty,
       this.totalCostProperty
     ] );

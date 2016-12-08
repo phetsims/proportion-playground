@@ -23,12 +23,12 @@ define( function( require ) {
 
   /**
    *
-   * @param {Splotch} splotchModel - the model
+   * @param {Splotch} splotch - the model
    * @param {Property.<boolean>} grayscaleProperty - property that indicates whether colors are shown as grayscale
    * @param {Property.<boolean>} revealProperty - indicates whether the billiards table should be shown
    * @constructor
    */
-  function SplotchControl( splotchModel, grayscaleProperty, revealProperty ) {
+  function SplotchControl( splotch, grayscaleProperty, revealProperty ) {
 
     /**
      * Auxiliary function that creates a NumberPicker for a given color
@@ -37,12 +37,12 @@ define( function( require ) {
      * @returns NumberPicker
      */
     var createNumberPicker = function( property, options ) {
-      return new NumberPicker( property, new Property( splotchModel.colorCountRange ), _.extend( options, NUMBER_PICKER_OPTIONS ) );
+      return new NumberPicker( property, new Property( splotch.colorCountRange ), _.extend( options, NUMBER_PICKER_OPTIONS ) );
     };
 
     // Left-side number pickers for blue/black
-    var picker1Color = createNumberPicker( splotchModel.leftColorCountProperty, { color: ColorMap.getColor( 0 ) } );
-    var picker1Black = createNumberPicker( splotchModel.leftColorCountProperty, { color: 'black' } );
+    var picker1Color = createNumberPicker( splotch.leftColorCountProperty, { color: ColorMap.getColor( 0 ) } );
+    var picker1Black = createNumberPicker( splotch.leftColorCountProperty, { color: 'black' } );
     var leftColorCountPicker = new Node( {
       children: [
         picker1Color,
@@ -51,8 +51,8 @@ define( function( require ) {
     } );
 
     // Right-side number pickers for yellow/white
-    var picker2Color = createNumberPicker( splotchModel.rightColorCountProperty, { color: ColorMap.getColor( 1 ) } );
-    var picker2Black = createNumberPicker( splotchModel.rightColorCountProperty, { color: 'white' } );
+    var picker2Color = createNumberPicker( splotch.rightColorCountProperty, { color: ColorMap.getColor( 1 ) } );
+    var picker2Black = createNumberPicker( splotch.rightColorCountProperty, { color: 'white' } );
     var rightColorCountPicker = new Node( {
       children: [
         picker2Color,
@@ -69,7 +69,7 @@ define( function( require ) {
     } );
 
     // Wrap in a node so the visible flags don't collide
-    var splotchNode = new Node( { children: [ new SplotchNode( splotchModel.leftColorCountProperty, splotchModel.rightColorCountProperty, grayscaleProperty ) ] } );
+    var splotchNode = new Node( { children: [ new SplotchNode( splotch, grayscaleProperty ) ] } );
     revealProperty.linkAttribute( splotchNode, 'visible' );
 
     Node.call( this, {
@@ -86,6 +86,9 @@ define( function( require ) {
         } )
       ]
     } );
+
+    //TODO: common to each control?
+    splotch.controlsVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   proportionPlayground.register( 'SplotchControl', SplotchControl );

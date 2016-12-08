@@ -10,14 +10,15 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SplotchControl = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchControl' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
+  var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
   var Text = require( 'SCENERY/nodes/Text' );
   var CheckBox = require( 'SUN/CheckBox' );
   var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientIndicatorNode' );
-  var Property = require( 'AXON/Property' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -37,12 +38,18 @@ define( function( require ) {
   function PaintSceneNode( scene, layoutBounds ) {
     var self = this;
 
+    var blueSplotch = new Splotch( new BooleanProperty( true ), new BooleanProperty( true ) );
+    blueSplotch.leftColorCountProperty.value = 1;
+    var greenSplotch = new Splotch( new BooleanProperty( true ), new BooleanProperty( true ) );
+    greenSplotch.leftColorCountProperty.value = 1;
+    greenSplotch.rightColorCountProperty.value = 1;
+
     // Create the left/right splotches and their NumberPickers
     var controllableSplotchNode1 = new SplotchControl( scene.leftSplotch, scene.grayscaleProperty, scene.revealProperty );
     var controllableSplotchNode2 = new SplotchControl( scene.rightSplotch, scene.grayscaleProperty, scene.revealProperty );
 
     // Create the ABSwitch that chooses 1 or 2 splotches
-    var splotchNode = new SplotchNode( new Property( 1 ), new Property( 0 ), scene.grayscaleProperty, ICON_SCALE_OPTIONS );
+    var splotchNode = new SplotchNode( blueSplotch, scene.grayscaleProperty, ICON_SCALE_OPTIONS );
 
     SceneNode.call( this, scene, layoutBounds, {
       leftSwitchIcon: new HBox( {
@@ -55,8 +62,8 @@ define( function( require ) {
       rightSwitchIcon: new HBox( {
         spacing: 10,
         children: [
-          new SplotchNode( new Property( 1 ), new Property( 0 ), scene.grayscaleProperty, ICON_SCALE_OPTIONS ),
-          new SplotchNode( new Property( 1 ), new Property( 1 ), scene.grayscaleProperty, ICON_SCALE_OPTIONS )
+          new SplotchNode( blueSplotch, scene.grayscaleProperty, ICON_SCALE_OPTIONS ),
+          new SplotchNode( greenSplotch, scene.grayscaleProperty, ICON_SCALE_OPTIONS )
         ]
       } ),
       children: [ controllableSplotchNode1, controllableSplotchNode2 ]
@@ -64,8 +71,6 @@ define( function( require ) {
 
     // When the ABSwitch is toggled, show one/both of the splotches.
     scene.showBothProperty.link( function( showBoth ) {
-      controllableSplotchNode2.visible = showBoth;
-
       // Controllable necklace nodes have x=0 at their center
       if ( showBoth ) {
         controllableSplotchNode1.x = layoutBounds.width * 1 / 3;

@@ -27,8 +27,8 @@ define( function( require ) {
     this.showCostPerAppleProperty = new BooleanProperty( false );
 
     // @public {AppleGroup}
-    this.redAppleGroup = new AppleGroup( this.leftVisibleProperty );
-    this.greenAppleGroup = new AppleGroup( this.rightVisibleProperty );
+    this.redAppleGroup = new AppleGroup( this.leftVisibleProperty, this.leftControlsVisibleProperty );
+    this.greenAppleGroup = new AppleGroup( this.rightVisibleProperty, this.rightControlsVisibleProperty );
 
     this.initializeRatios( this.redAppleGroup, this.greenAppleGroup );
   }

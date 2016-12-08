@@ -28,9 +28,10 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {BooleanProperty} visibleProperty - Whether we are visible or not
+   * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
+   * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
-  function BilliardsTable( visibleProperty ) {
+  function BilliardsTable( visibleProperty, controlsVisibleProperty ) {
     // @public {NumberProperty} - Number of grid units horizontally
     this.widthProperty = new NumberProperty( 1 );
 
@@ -53,7 +54,7 @@ define( function( require ) {
     // @public {Emitter} (read-only) - emits when the ball was restarted
     this.restartEmitter = new Emitter();
 
-    SceneRatio.call( this, visibleProperty, [
+    SceneRatio.call( this, visibleProperty, controlsVisibleProperty, [
       this.widthProperty,
       this.heightProperty
     ] );

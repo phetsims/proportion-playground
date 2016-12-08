@@ -37,6 +37,12 @@ define( function( require ) {
 
     // @public {Property.<boolean>} - Whether the right ratio is visible.
     this.rightVisibleProperty = DerivedProperty.and( [ this.revealProperty, this.showBothProperty ] );
+
+    // @public {Property.<boolean>} - Whether the controls for the left ratio are visible
+    this.leftControlsVisibleProperty = new BooleanProperty( true );
+
+    // @public {Property.<boolean>} - Whether the controls for the right ratio are visible
+    this.rightControlsVisibleProperty = this.showBothProperty;
   }
 
   proportionPlayground.register( 'Scene', Scene );

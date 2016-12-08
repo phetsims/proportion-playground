@@ -44,8 +44,6 @@ define( function( require ) {
 
     // When 2 necklaces are selected, show both
     scene.showBothProperty.link( function( showBoth ) {
-      secondNecklaceControl.visible = showBoth;
-
       // Controllable necklace nodes have x=0 at their center
       if ( showBoth ) {
         firstNecklaceControl.x = layoutBounds.width * 1 / 3;

@@ -27,8 +27,8 @@ define( function( require ) {
     this.grayscaleProperty = new BooleanProperty( false );
 
     // @public (read-only) - the models for each splotch
-    this.leftSplotch = new Splotch( this.leftVisibleProperty );
-    this.rightSplotch = new Splotch( this.rightVisibleProperty );
+    this.leftSplotch = new Splotch( this.leftVisibleProperty, this.leftControlsVisibleProperty );
+    this.rightSplotch = new Splotch( this.rightVisibleProperty, this.rightControlsVisibleProperty );
 
     this.initializeRatios( this.leftSplotch, this.rightSplotch );
   }

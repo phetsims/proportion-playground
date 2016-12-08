@@ -30,25 +30,22 @@ define( function( require ) {
   /**
    *
    * @param {Bounds2} layoutBounds - coordinates within which all user interface components must be visible
-   * @param {BilliardsTable} billiardsTableModel - the model
+   * @param {BilliardsTable} billiardsTable - the model
    * @param {Property.<boolean>} revealProperty - indicates whether the billiards table should be shown
    * @param {Object} [options] - node layout options
    * @constructor
    */
-  function BilliardsTableControl( layoutBounds, billiardsTableModel, revealProperty, options ) {
+  function BilliardsTableControl( layoutBounds, billiardsTable, revealProperty, options ) {
     options = _.extend( { side: 'left' }, options );
 
     // The number pickers for choosing and displaying the length and width
-    var lengthNumberPicker = new NumberPicker( billiardsTableModel.heightProperty, new Property( billiardsTableModel.range ), NUMBER_PICKER_OPTIONS );
-    var widthNumberPicker = new NumberPicker( billiardsTableModel.widthProperty, new Property( billiardsTableModel.range ), NUMBER_PICKER_OPTIONS );
+    var lengthNumberPicker = new NumberPicker( billiardsTable.heightProperty, new Property( billiardsTable.range ), NUMBER_PICKER_OPTIONS );
+    var widthNumberPicker = new NumberPicker( billiardsTable.widthProperty, new Property( billiardsTable.range ), NUMBER_PICKER_OPTIONS );
 
     // The table itself, with the ball/holes/gridlines/etc.
-    var billiardsTableNode = new BilliardsTableNode( new Vector2( 280, layoutBounds.centerY ), billiardsTableModel, {
+    var billiardsTableNode = new BilliardsTableNode( new Vector2( 280, layoutBounds.centerY ), billiardsTable, {
       x: options.side === 'left' ? 0 : -100
     } );
-
-    // Only show the table when it is revealed
-    revealProperty.linkAttribute( billiardsTableNode, 'visible' );
 
     /**
      * Adds a text label to a spinner.
@@ -84,6 +81,9 @@ define( function( require ) {
         billiardsTableNode
       ]
     } );
+
+    //TODO: common to each control?
+    billiardsTable.controlsVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   proportionPlayground.register( 'BilliardsTableControl', BilliardsTableControl );

@@ -22,16 +22,18 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   /**
-   *
-   * @param {Property.<number>} leftColorProperty - the number of leftColor to include
-   * @param {Property.<number>} rightColorProperty - the number of rightColor to include
+   * @param {Splotch} splotch - Our model
    * @param {Property.<boolean>} grayscaleProperty - whether to show as grayscale (true) or colorized (false)
    * @param {Object} [options] - node options
    * @constructor
    */
-  function SplotchNode( leftColorProperty, rightColorProperty, grayscaleProperty, options ) {
+  function SplotchNode( splotch, grayscaleProperty, options ) {
 
     var self = this;
+
+    // TODO
+    var leftColorProperty = splotch.leftColorCountProperty;
+    var rightColorProperty = splotch.rightColorCountProperty;
 
     // SVG declaration for the splotch shape. Generated from AI file => cut shape => save svg => cut newlines.
     // Removed a discontinuity manually. Represented as kite shape so we can easily change color.
@@ -84,6 +86,9 @@ define( function( require ) {
     grayscaleProperty.link( updateFill );
 
     this.mutate( options );
+
+    //TODO: common to each visual representation?
+    splotch.visibleProperty.linkAttribute( this, 'visible' );
   }
 
   proportionPlayground.register( 'SplotchNode', SplotchNode );

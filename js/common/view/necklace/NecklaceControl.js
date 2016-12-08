@@ -28,11 +28,11 @@ define( function( require ) {
 
   /**
    *
-   * @param {Necklace} necklaceModel - the model
+   * @param {Necklace} necklace - the model
    * @param {Property.<boolean>} revealProperty - true if the necklace should be shown.
    * @constructor
    */
-  function NecklaceControl( necklaceModel, revealProperty ) {
+  function NecklaceControl( necklace, revealProperty ) {
 
     /**
      * Auxiliary function that creates a NumberPicker for a given color
@@ -41,15 +41,15 @@ define( function( require ) {
      * @returns NumberPicker
      */
     var createNumberPicker = function( property, options ) {
-      return new NumberPicker( property, new Property( necklaceModel.beadCountRange ), _.extend( options, NUMBER_PICKER_OPTIONS ) );
+      return new NumberPicker( property, new Property( necklace.beadCountRange ), _.extend( options, NUMBER_PICKER_OPTIONS ) );
     };
 
     // NumberPickers to choose the number of each type of bead
-    var roundBeadNumberPicker = createNumberPicker( necklaceModel.roundBeadCountProperty, { color: PINK } );
-    var squareBeadNumberPicker = createNumberPicker( necklaceModel.squareBeadCountProperty, { color: BLUE } );
+    var roundBeadNumberPicker = createNumberPicker( necklace.roundBeadCountProperty, { color: PINK } );
+    var squareBeadNumberPicker = createNumberPicker( necklace.squareBeadCountProperty, { color: BLUE } );
 
     // The necklace itself
-    var necklaceNode = new NecklaceNode( necklaceModel );
+    var necklaceNode = new NecklaceNode( necklace );
 
     /**
      * Adds an icon to a numberPicker
@@ -63,9 +63,6 @@ define( function( require ) {
         children: [ icon, numberPicker ]
       } );
     };
-
-    // Only show the necklace when it is revealed
-    revealProperty.linkAttribute( necklaceNode, 'visible' );
 
     // Super call
     Node.call( this, {
@@ -82,6 +79,9 @@ define( function( require ) {
         } )
       ]
     } );
+
+    //TODO: common to each control?
+    necklace.controlsVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   proportionPlayground.register( 'NecklaceControl', NecklaceControl );
