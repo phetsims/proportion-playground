@@ -48,18 +48,10 @@ define( function( require ) {
     // Create the place where apples and coins will be shown.
     var appleGroupNode = new AppleGroupNode( appleGroup, appleImage, showCostPerAppleProperty );
 
-    var costPicker = this.leftPicker;
-    var applePicker = this.rightPicker;
+    this.addChild( appleGroupNode );
+    this.addBottomPickersWithLocation( appleGroupNode.coinLayer.centerX, appleGroupNode.appleLayer.centerX );
 
-    costPicker.centerX = appleGroupNode.coinLayer.centerX;
-    applePicker.centerX = appleGroupNode.appleLayer.centerX;
-    costPicker.top = applePicker.top = appleGroupNode.bottom + 40;
-
-    this.children = [
-      appleGroupNode,
-      costPicker,
-      applePicker
-    ];
+    appleGroupNode.bottom = this.pickerContainer.top - 30;
   }
 
   proportionPlayground.register( 'AppleGroupControl', AppleGroupControl );

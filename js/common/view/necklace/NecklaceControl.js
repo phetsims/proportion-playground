@@ -12,7 +12,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/RoundBeadNode' );
   var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/SquareBeadNode' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
@@ -23,10 +22,10 @@ define( function( require ) {
   var BLUE = ProportionPlaygroundConstants.BEADS_BLUE;
 
   /**
+   * @constructor
    *
    * @param {Necklace} necklace - the model
    * @param {Property.<boolean>} revealProperty - true if the necklace should be shown.
-   * @constructor
    */
   function NecklaceControl( necklace, revealProperty ) {
     SceneRatioControl.call( this, necklace, {
@@ -37,20 +36,8 @@ define( function( require ) {
     } );
 
     // The necklace itself
-    var necklaceNode = new NecklaceNode( necklace );
-
-    this.children = [
-      necklaceNode,
-      new HBox( {
-        spacing: 15,
-        y: 420,
-        centerX: 0, // position around the origin
-        children: [
-          this.leftPicker,
-          this.rightPicker
-        ]
-      } )
-    ];
+    this.addChild( new NecklaceNode( necklace ) ); // TODO: how is this positioned?
+    this.addBottomPickers();
   }
 
   proportionPlayground.register( 'NecklaceControl', NecklaceControl );

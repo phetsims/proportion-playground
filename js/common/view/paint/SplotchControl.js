@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
   var ColorMap = require( 'PROPORTION_PLAYGROUND/common/view/paint/ColorMap' );
@@ -30,18 +29,8 @@ define( function( require ) {
       pickerColorProperty: grayscaleProperty
     } );
 
-    this.children = [
-      new SplotchNode( splotch, grayscaleProperty ),
-      new HBox( {
-        spacing: 10,
-        y: 450,
-        centerX: 0, // position around the origin
-        children: [
-          this.leftPicker,
-          this.rightPicker
-        ]
-      } )
-    ];
+    this.addChild( new SplotchNode( splotch, grayscaleProperty ) ); // TODO: how is this positioned?
+    this.addBottomPickers();
   }
 
   proportionPlayground.register( 'SplotchControl', SplotchControl );

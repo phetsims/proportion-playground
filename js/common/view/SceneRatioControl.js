@@ -13,12 +13,15 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+
+  var PICKER_BOTTOM = 550;
 
   /**
    * @constructor
@@ -92,9 +95,41 @@ define( function( require ) {
     //TODO {Node}
     this.leftPicker = createPickers( sceneRatio.leftProperty, sceneRatio.leftRange, options.leftPickerColor, options.leftPickerLabel, options.leftPickerOptions );
     this.rightPicker = createPickers( sceneRatio.rightProperty, sceneRatio.rightRange, options.rightPickerColor, options.rightPickerLabel, options.rightPickerOptions );
+    this.pickerContainer = null; // @protected
   }
 
   proportionPlayground.register( 'SceneRatioControl', SceneRatioControl );
 
-  return inherit( Node, SceneRatioControl );
+  return inherit( Node, SceneRatioControl, {
+    /**
+     * Add both pickers to the bottom-middle.
+     * @protected
+     */
+    addBottomPickers: function() {
+      this.pickerContainer = new HBox( {
+        spacing: 15,
+        bottom: PICKER_BOTTOM,
+        centerX: 0,
+        children: [ this.leftPicker, this.rightPicker ]
+      } );
+      this.addChild( this.pickerContainer );
+    },
+
+    /**
+     * Add both pickers to the bottom, with horizontal centers specified
+     * @protected
+     *
+     * @param {number} leftPickerX
+     * @param {number} rightPickerX
+     */
+    addBottomPickersWithLocation: function( leftPickerX, rightPickerX ) {
+      this.leftPicker.centerX = leftPickerX;
+      this.rightPicker.centerX = rightPickerX;
+      this.leftPicker.bottom = this.rightPicker.bottom = PICKER_BOTTOM;
+      this.pickerContainer = new Node( {
+        children: [ this.leftPicker, this.rightPicker ]
+      } );
+      this.addChild( this.pickerContainer );
+    }
+  } );
 } );
