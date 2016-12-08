@@ -29,19 +29,16 @@ define( function( require ) {
     this.totalCostProperty = new NumberProperty( 0 );
 
     // @public {Range}
+    //TODO: do we need this outside of the SceneRatio call?
     this.numberOfApplesRange = new Range( 1, 20 );
 
     // @public {Range}
+    //TODO: do we need this outside of the SceneRatio call?
     this.totalCostRange = new Range( 0, 20 );
 
-    // @public {number}
-    //TODO: check if we use this
-    this.maximumUnitCost = this.totalCostRange.max / this.numberOfApplesRange.min;
-
-    SceneRatio.call( this, visibleProperty, controlsVisibleProperty, [
-      this.numberOfApplesProperty,
-      this.totalCostProperty
-    ] );
+    SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
+                     this.numberOfApplesProperty, this.numberOfApplesRange,
+                     this.totalCostProperty, this.totalCostRange );
   }
 
   proportionPlayground.register( 'AppleGroup', AppleGroup );

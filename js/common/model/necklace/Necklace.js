@@ -31,12 +31,12 @@ define( function( require ) {
     this.squareBeadCountProperty = new NumberProperty( 0 );
 
     // @public {Range} - Allowed range of bead counts
+    //TODO: do we need this outside of the SceneRatio call?
     this.beadCountRange = new Range( 0, ProportionPlaygroundConstants.MAX_BEADS );
 
-    SceneRatio.call( this, visibleProperty, controlsVisibleProperty, [
-      this.roundBeadCountProperty,
-      this.squareBeadCountProperty
-    ] );
+    SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
+                     this.roundBeadCountProperty, this.beadCountRange,
+                     this.squareBeadCountProperty, this.beadCountRange );
   }
 
   proportionPlayground.register( 'Necklace', Necklace );

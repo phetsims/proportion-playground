@@ -39,6 +39,7 @@ define( function( require ) {
     this.heightProperty = new NumberProperty( 1 );
 
     // @public (read-only) - the allowed values for length and width
+    //TODO: do we need this outside of the SceneRatio call?
     this.range = new Range( 1, 20 );
 
     // @public {Property.<Vector2>} - The position of the ball in pixels
@@ -54,10 +55,9 @@ define( function( require ) {
     // @public {Emitter} (read-only) - emits when the ball was restarted
     this.restartEmitter = new Emitter();
 
-    SceneRatio.call( this, visibleProperty, controlsVisibleProperty, [
-      this.widthProperty,
-      this.heightProperty
-    ] );
+    SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
+                     this.widthProperty, this.range,
+                     this.heightProperty, this.range );
 
     // Restart the ball when the length or width changes
     this.visibleChangeEmitter.addListener( this.restartBall.bind( this ) );

@@ -30,12 +30,12 @@ define( function( require ) {
     this.rightColorCountProperty = new NumberProperty( 0 );
 
     // @public (read-only) the range for colors
+    //TODO: do we need this outside of the SceneRatio call?
     this.colorCountRange = new Range( 0, 20 );
 
-    SceneRatio.call( this, visibleProperty, controlsVisibleProperty, [
-      this.leftColorCountProperty,
-      this.rightColorCountProperty
-    ] );
+    SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
+                     this.leftColorCountProperty, this.colorCountRange,
+                     this.rightColorCountProperty, this.colorCountRange );
   }
 
   proportionPlayground.register( 'Splotch', Splotch );

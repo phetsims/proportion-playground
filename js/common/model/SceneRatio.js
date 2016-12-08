@@ -18,17 +18,32 @@ define( function( require ) {
    *
    * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
-   * @param {Array.<NumberProperty>} quantityProperties - Properties that indicate a numerator or denominator in our ratio
+   * @param {Property.<number>} leftProperty - The numeric value for our ratio's left value
+   * @param {Range} leftRange - The range of valid values for our leftProperty
+   * @param {Property.<number>} rightProperty - The numeric value for our ratio's right value
+   * @param {Range} rightRange - The range of valid values for our rightProperty
    */
-  function SceneRatio( visibleProperty, controlsVisibleProperty, quantityProperties ) {
+  function SceneRatio( visibleProperty, controlsVisibleProperty, leftProperty, leftRange, rightProperty, rightRange ) {
     // @public {Property.<boolean>} - Whether we are visible or not
     this.visibleProperty = visibleProperty;
 
     // @public {Property.<boolean>} - Whether our controls are visible
     this.controlsVisibleProperty = controlsVisibleProperty;
 
+    // @public {Property.<boolean>} - Left numeric value
+    this.leftProperty = leftProperty;
+
+    // @public {Range} - Range for the left numeric value
+    this.leftRange = leftRange;
+
+    // @public {Property.<boolean>} - Right numeric value
+    this.rightProperty = rightProperty;
+
+    // @public {Range} - Range for the right numeric value
+    this.rightRange = rightRange;
+
     // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
-    this.quantityProperties = quantityProperties;
+    this.quantityProperties = [ leftProperty, rightProperty ];
 
     // @public {Emitter} - Fires when there is a change to a quantity property while visible, or when visibility changes
     this.visibleChangeEmitter = new Emitter();
@@ -36,7 +51,7 @@ define( function( require ) {
     // Hook up our visible-change emitter
     var self = this;
     visibleProperty.lazyLink( this.visibleChangeEmitter.emit.bind( this.visibleChangeEmitter ) );
-    quantityProperties.forEach( function( quantityProperty ) {
+    this.quantityProperties.forEach( function( quantityProperty ) {
       quantityProperty.lazyLink( function() {
         if ( visibleProperty.value ) {
           self.visibleChangeEmitter.emit();
