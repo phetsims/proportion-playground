@@ -13,6 +13,8 @@ define( function( require ) {
   // modules
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Bounds2 = require( 'DOT/Bounds2' );
+  var Vector2 = require( 'DOT/Vector2' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
@@ -37,12 +39,12 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {Vector2} center - position (in layout bounds) where the table should be centered
    * @param {BilliardsTable} billiardsTable - the model
-   * @param {Object} [options]
    */
-  function BilliardsTableNode( center, billiardsTable, options ) {
+  function BilliardsTableNode( billiardsTable ) {
     SceneRatioNode.call( this, billiardsTable );
+
+    var self = this;
 
     var gridLinesNode = new Node();
     var linesNode = new Node();
@@ -172,6 +174,10 @@ define( function( require ) {
       var lineWidthAmount = brownEdgeLineWidth * 2;
 
       brownRectangle.setRect( 0, 0, scaledWidth + lineWidthAmount, scaledHeight + lineWidthAmount );
+      //TODO: cleanup?
+      self.localBounds = Bounds2.point( 0, 0 ).dilatedXY(
+        billiardsTable.range.max * SCALE / 2 + brownEdgeLineWidth,
+        billiardsTable.range.max * SCALE / 2 + brownEdgeLineWidth );
       greenRectangle.setRect( 0, 0, scaledWidth, scaledHeight );
 
       leftDragger.setRect( 0, 0, lineWidthAmount / 2, scaledHeight );
@@ -198,7 +204,7 @@ define( function( require ) {
       gridLinesNode.children = createGridLines();
 
       // center the rectangles
-      greenRectangle.center = center;
+      greenRectangle.center = new Vector2( 0, 0 );
       brownRectangle.center = greenRectangle.center;
 
       // center the draggers
@@ -216,18 +222,16 @@ define( function( require ) {
       topRightHoleNode.translation = greenRectangle.translation.plusXY( width * SCALE, 0 );
     } );
 
-    this.mutate( _.extend( {
-      children: [
-        brownRectangle,
-        greenRectangle,
-        draggersLayer,
-        lineLayer,
-        topLeftHoleNode,
-        topRightHoleNode,
-        bottomRightHoleNode,
-        ballNode
-      ]
-    }, options ) );
+    this.children = [
+      brownRectangle,
+      greenRectangle,
+      draggersLayer,
+      lineLayer,
+      topLeftHoleNode,
+      topRightHoleNode,
+      bottomRightHoleNode,
+      ballNode
+    ];
   }
 
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );

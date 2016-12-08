@@ -11,10 +11,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableNode' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
-  var Vector2 = require( 'DOT/Vector2' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // strings
@@ -40,26 +40,36 @@ define( function( require ) {
     // TODO: enum? Or have this on the model?
     options = _.extend( { side: 'left' }, options );
 
-    // The table itself, with the ball/holes/gridlines/etc.
-    var billiardsTableNode = new BilliardsTableNode( new Vector2( 280, layoutBounds.centerY ), billiardsTable, {
-      x: options.side === 'left' ? 0 : -100
-    } );
+    // @public - The table itself, with the ball/holes/gridlines/etc.
+    this.billiardsTableNode = new BilliardsTableNode( billiardsTable );
 
-    this.children = [
-      new VBox( {
-        spacing: 30,
-        y: 100,
-        centerX: options.side === 'left' ? 0 : 450, // position around the origin
-        children: [
-          this.leftPicker,
-          this.rightPicker
-        ]
-      } ),
-      billiardsTableNode
-    ];
+    this.pickerContainer = new VBox( {
+      spacing: 30,
+      children: [
+        this.leftPicker,
+        this.rightPicker
+      ]
+    } );
+    this.addChild( new HBox( {
+      spacing: 30,
+      children: options.side === 'left' ? [ this.pickerContainer, this.billiardsTableNode ] :
+                                          [ this.billiardsTableNode, this.pickerContainer ]
+    } ) );
+
+    this.mutate( options );
   }
 
   proportionPlayground.register( 'BilliardsTableControl', BilliardsTableControl );
 
-  return inherit( SceneRatioControl, BilliardsTableControl );
+  return inherit( SceneRatioControl, BilliardsTableControl, {
+    /**
+     * Sets the center of our billiardsTableNode (not our whole control) to the given centerX.
+     * @public
+     *
+     * @param {number} centerX
+     */
+    setBilliardsCenter: function( centerX ) {
+      this.x = centerX - this.billiardsTableNode.centerX;
+    }
+  } );
 } );

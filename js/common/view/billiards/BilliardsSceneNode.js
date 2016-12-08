@@ -29,8 +29,11 @@ define( function( require ) {
     var self = this;
 
     // Create the left/right tables
-    var billiardsTableNode1 = new BilliardsTableControl( layoutBounds, scene.leftTable, scene.revealProperty );
-    var billiardsTableNode2 = new BilliardsTableControl( layoutBounds, scene.rightTable, scene.revealProperty, {
+    var billiardsTableLeftControl = new BilliardsTableControl( layoutBounds, scene.leftTable, scene.revealProperty, {
+      centerY: layoutBounds.centerY
+    } );
+    var billiardsTableRightControl = new BilliardsTableControl( layoutBounds, scene.rightTable, scene.revealProperty, {
+      centerY: layoutBounds.centerY,
       side: 'right'
     } );
 
@@ -42,26 +45,21 @@ define( function( require ) {
           new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ),
           new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ) ]
       } ),
-      children: [ billiardsTableNode1, billiardsTableNode2 ]
+      children: [ billiardsTableLeftControl, billiardsTableRightControl ]
     } );
 
     // When the ABSwitch is toggled, show/hide the rightmost table and update the layout.
     scene.showBothProperty.link( function( showBoth ) {
       if ( showBoth ) {
-        billiardsTableNode1.left = 10;
-        billiardsTableNode2.right = layoutBounds.right - 10;
-        self.mutateRevealButton( { left: layoutBounds.left + 10 } );
+        billiardsTableLeftControl.left = 20;
+        billiardsTableRightControl.right = layoutBounds.right - 20;
+        self.mutateRevealButton( { left: layoutBounds.left + 10 } ); // TODO: better handling of the reveal button
       }
       else {
-        billiardsTableNode1.left = 200;
-        self.mutateRevealButton( { left: layoutBounds.left + 200 } );
+        billiardsTableLeftControl.setBilliardsCenter( layoutBounds.centerX );
+        self.mutateRevealButton( { left: layoutBounds.left + 200 } ); // TODO: better handling of the reveal button
       }
     } );
-
-    // Move the tables down a bit so they are centered vertically
-    var tableNodeOffsetY = 20;
-    billiardsTableNode1.y = tableNodeOffsetY;
-    billiardsTableNode2.y = tableNodeOffsetY;
   }
 
   proportionPlayground.register( 'BilliardsSceneNode', BilliardsSceneNode );
