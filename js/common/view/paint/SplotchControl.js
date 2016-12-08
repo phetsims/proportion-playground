@@ -16,6 +16,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
+  var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
   var ColorMap = require( 'PROPORTION_PLAYGROUND/common/view/paint/ColorMap' );
 
   // constants
@@ -29,6 +30,7 @@ define( function( require ) {
    * @constructor
    */
   function SplotchControl( splotch, grayscaleProperty, revealProperty ) {
+    SceneRatioControl.call( this, splotch );
 
     /**
      * Auxiliary function that creates a NumberPicker for a given color
@@ -72,26 +74,21 @@ define( function( require ) {
     var splotchNode = new Node( { children: [ new SplotchNode( splotch, grayscaleProperty ) ] } );
     revealProperty.linkAttribute( splotchNode, 'visible' );
 
-    Node.call( this, {
-      children: [
-        splotchNode,
-        new HBox( {
-          spacing: 10,
-          y: 450,
-          centerX: 0, // position around the origin
-          children: [
-            leftColorCountPicker,
-            rightColorCountPicker
-          ]
-        } )
-      ]
-    } );
-
-    //TODO: common to each control?
-    splotch.controlsVisibleProperty.linkAttribute( this, 'visible' );
+    this.children = [
+      splotchNode,
+      new HBox( {
+        spacing: 10,
+        y: 450,
+        centerX: 0, // position around the origin
+        children: [
+          leftColorCountPicker,
+          rightColorCountPicker
+        ]
+      } )
+    ];
   }
 
   proportionPlayground.register( 'SplotchControl', SplotchControl );
 
-  return inherit( Node, SplotchControl );
+  return inherit( SceneRatioControl, SplotchControl );
 } );

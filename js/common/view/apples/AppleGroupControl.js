@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var AppleGroupNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGroupNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var Property = require( 'AXON/Property' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -37,6 +37,7 @@ define( function( require ) {
    * @constructor
    */
   function AppleGroupControl( appleGroup, appleImage, showCostPerAppleProperty, revealProperty ) {
+    SceneRatioControl.call( this, appleGroup );
 
     // Create the total cost spinner
     var totalCostNumberPicker = new NumberPicker(
@@ -84,19 +85,14 @@ define( function( require ) {
     applePickerGroup.centerX = appleGroupNode.appleLayer.centerX;
     costPickerGroup.top = applePickerGroup.top = appleGroupNode.bottom + 40;
 
-    Node.call( this, {
-      children: [
-        appleGroupNode,
-        costPickerGroup,
-        applePickerGroup
-      ]
-    } );
-
-    //TODO: common to each control?
-    appleGroup.controlsVisibleProperty.linkAttribute( this, 'visible' );
+    this.children = [
+      appleGroupNode,
+      costPickerGroup,
+      applePickerGroup
+    ];
   }
 
   proportionPlayground.register( 'AppleGroupControl', AppleGroupControl );
 
-  return inherit( Node, AppleGroupControl );
+  return inherit( SceneRatioControl, AppleGroupControl );
 } );

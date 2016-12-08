@@ -11,12 +11,12 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var Property = require( 'AXON/Property' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableNode' );
+  var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
   var Vector2 = require( 'DOT/Vector2' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
@@ -36,6 +36,8 @@ define( function( require ) {
    * @constructor
    */
   function BilliardsTableControl( layoutBounds, billiardsTable, revealProperty, options ) {
+    SceneRatioControl.call( this, billiardsTable );
+
     options = _.extend( { side: 'left' }, options );
 
     // The number pickers for choosing and displaying the length and width
@@ -66,27 +68,21 @@ define( function( require ) {
       } );
     };
 
-    // Super call
-    Node.call( this, {
-      children: [
-        new VBox( {
-          spacing: 30,
-          y: 100,
-          centerX: options.side === 'left' ? 0 : 450, // position around the origin
-          children: [
-            toVBox( lengthString, lengthNumberPicker ),
-            toVBox( widthString, widthNumberPicker )
-          ]
-        } ),
-        billiardsTableNode
-      ]
-    } );
-
-    //TODO: common to each control?
-    billiardsTable.controlsVisibleProperty.linkAttribute( this, 'visible' );
+    this.children = [
+      new VBox( {
+        spacing: 30,
+        y: 100,
+        centerX: options.side === 'left' ? 0 : 450, // position around the origin
+        children: [
+          toVBox( lengthString, lengthNumberPicker ),
+          toVBox( widthString, widthNumberPicker )
+        ]
+      } ),
+      billiardsTableNode
+    ];
   }
 
   proportionPlayground.register( 'BilliardsTableControl', BilliardsTableControl );
 
-  return inherit( Node, BilliardsTableControl );
+  return inherit( SceneRatioControl, BilliardsTableControl );
 } );

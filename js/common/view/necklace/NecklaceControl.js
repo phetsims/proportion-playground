@@ -12,13 +12,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var Property = require( 'AXON/Property' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/RoundBeadNode' );
   var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/SquareBeadNode' );
+  var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   // constants
@@ -33,6 +33,7 @@ define( function( require ) {
    * @constructor
    */
   function NecklaceControl( necklace, revealProperty ) {
+    SceneRatioControl.call( this, necklace );
 
     /**
      * Auxiliary function that creates a NumberPicker for a given color
@@ -64,27 +65,21 @@ define( function( require ) {
       } );
     };
 
-    // Super call
-    Node.call( this, {
-      children: [
-        necklaceNode,
-        new HBox( {
-          spacing: 15,
-          y: 420,
-          centerX: 0, // position around the origin
-          children: [
-            toVBox( new RoundBeadNode(), roundBeadNumberPicker ),
-            toVBox( new SquareBeadNode(), squareBeadNumberPicker )
-          ]
-        } )
-      ]
-    } );
-
-    //TODO: common to each control?
-    necklace.controlsVisibleProperty.linkAttribute( this, 'visible' );
+    this.children = [
+      necklaceNode,
+      new HBox( {
+        spacing: 15,
+        y: 420,
+        centerX: 0, // position around the origin
+        children: [
+          toVBox( new RoundBeadNode(), roundBeadNumberPicker ),
+          toVBox( new SquareBeadNode(), squareBeadNumberPicker )
+        ]
+      } )
+    ];
   }
 
   proportionPlayground.register( 'NecklaceControl', NecklaceControl );
 
-  return inherit( Node, NecklaceControl );
+  return inherit( SceneRatioControl, NecklaceControl );
 } );
