@@ -49,14 +49,11 @@ define( function( require ) {
       if ( showBoth ) {
         leftNecklaceControl.x = layoutBounds.width * 1 / 3;
         rightNecklaceControl.x = layoutBounds.width * 2 / 3;
-
-        self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
         leftNecklaceControl.x = layoutBounds.centerX;
-
-        self.mutateRevealButton( { left: layoutBounds.centerX + 110 } );
       }
+      self.updateRevealButton();
     } );
   }
 

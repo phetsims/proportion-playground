@@ -76,13 +76,11 @@ define( function( require ) {
       if ( showBoth ) {
         leftSplotchControl.x = layoutBounds.width * 1 / 3;
         rightSplotchControl.x = layoutBounds.width * 2 / 3;
-
-        self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
         leftSplotchControl.x = layoutBounds.width / 2;
-        self.mutateRevealButton( { left: layoutBounds.centerX + 100 } );
       }
+      self.updateRevealButton();
     } );
 
     // CheckBox to choose between colorized or black and white

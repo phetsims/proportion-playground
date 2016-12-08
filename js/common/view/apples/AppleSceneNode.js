@@ -76,15 +76,12 @@ define( function( require ) {
         redAppleGroupControl.right = layoutBounds.width * 0.45;
         greenAppleGroupControl.left = layoutBounds.width * 0.55;
         appleGraphNode.x = layoutBounds.centerX;
-
-        self.mutateRevealButton( { centerX: layoutBounds.centerX } );
       }
       else {
         redAppleGroupControl.centerX = layoutBounds.width / 2;
         appleGraphNode.left = redAppleGroupControl.right + layoutBounds.width * 0.05;
-
-        self.mutateRevealButton( { centerX: layoutBounds.centerX + 200 } );
       }
+      self.updateRevealButton();
     } );
 
     redAppleGroupControl.bottom = layoutBounds.bottom - 60;

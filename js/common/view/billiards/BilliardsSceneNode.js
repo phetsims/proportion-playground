@@ -46,7 +46,8 @@ define( function( require ) {
         children: [
           new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ),
           new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ) ]
-      } )
+      } ),
+      revealLocation: 'bottom'
     } );
 
     // When the ABSwitch is toggled, show/hide the rightmost table and update the layout.
@@ -54,12 +55,11 @@ define( function( require ) {
       if ( showBoth ) {
         billiardsTableLeftControl.left = 20;
         billiardsTableRightControl.right = layoutBounds.right - 20;
-        self.mutateRevealButton( { left: layoutBounds.left + 10 } ); // TODO: better handling of the reveal button
       }
       else {
         billiardsTableLeftControl.setBilliardsCenter( layoutBounds.centerX );
-        self.mutateRevealButton( { left: layoutBounds.left + 200 } ); // TODO: better handling of the reveal button
       }
+      self.updateRevealButton();
     } );
   }
 

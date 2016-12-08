@@ -27,19 +27,22 @@ define( function( require ) {
    * @param {Object} [options] - node options
    */
   function SceneNode( scene, layoutBounds, options ) {
-    var self = this;
-
     options = _.extend( {
       leftControl: null, // {Node}
       rightControl: null, // {Node}
       leftSwitchIcon: null, // {Node}, required
       rightSwitchIcon: null, // {Node}, required
-      revealSingleLocation: 'right' // 'right' or 'bottom', direction from the pickerContainer
+      revealLocation: 'right' // 'right' or 'bottom', direction from the pickerContainer
     }, options );
 
     // @protected
+    this.layoutBounds = options.layoutBounds;
     this.leftControl = options.leftControl;
     this.rightControl = options.rightControl;
+
+    // @private
+    this.revealLocation = options.revealLocation;
+    this.revealBothOffset = options.revealBothOffset;
 
     // @public {Scene} - The main model for this scene
     this.scene = scene;
@@ -62,22 +65,6 @@ define( function( require ) {
       } );
       this.addChild( this.revealButton );
     }
-
-    scene.showBothProperty.link( function( showBoth ) {
-      if ( showBoth ) {
-        // TODO
-      }
-      else {
-        if ( self.revealButton ) {
-          if ( options.revealSingleLocation === 'right' ) {
-            // TODO
-          }
-          else {
-            // TODO
-          }
-        }
-      }
-    } );
   }
 
   proportionPlayground.register( 'SceneNode', SceneNode );
@@ -99,13 +86,27 @@ define( function( require ) {
     },
 
     /**
-     * Mutate the reveal, often to set its location.
-     * @param {Object} [options] - options for the reveal button
+     * Moves the reveal button to the desired position.
      * @protected
      */
-    mutateRevealButton: function( options ) {
-      //TODO: improve
-      this.revealButton && this.revealButton.mutate( options );
+    updateRevealButton: function() {
+      // Only does something if we have a button
+      if ( !this.revealButton ) { return; }
+
+      if ( this.revealLocation === 'right' ) {
+        if ( this.scene.showBothProperty.value ) {
+          this.revealButton.centerX = this.layoutBounds.centerX;
+          this.revealButton.centerY = this.layoutBounds.bottom - 118;
+        }
+        else {
+          var pickerContainerBounds = this.leftControl.localToParentBounds( this.leftControl.pickerContainer.bounds );
+          this.revealButton.left = pickerContainerBounds.right + 30;
+          this.revealButton.centerY = this.layoutBounds.bottom - 118;
+        }
+      } else {
+        this.revealButton.centerX = this.layoutBounds.centerX;
+        this.revealButton.centerY = this.layoutBounds.bottom - 82;
+      }
     }
   } );
 } );

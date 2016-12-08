@@ -28,7 +28,6 @@ define( function( require ) {
 
   var TICK_X = 10;
 
-
   /**
    * @constructor
    *
