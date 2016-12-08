@@ -32,11 +32,12 @@ define( function( require ) {
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
   function BilliardsTable( visibleProperty, controlsVisibleProperty ) {
-    // @public {NumberProperty} - Number of grid units horizontally
-    this.widthProperty = new NumberProperty( 1 );
 
     // @public {NumberProperty} - Number of grid units vertically
-    this.heightProperty = new NumberProperty( 1 );
+    this.lengthProperty = new NumberProperty( 1 );
+
+    // @public {NumberProperty} - Number of grid units horizontally
+    this.widthProperty = new NumberProperty( 1 );
 
     // @public (read-only) - the allowed values for length and width
     //TODO: do we need this outside of the SceneRatio call?
@@ -56,8 +57,8 @@ define( function( require ) {
     this.restartEmitter = new Emitter();
 
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
-                     this.widthProperty, this.range,
-                     this.heightProperty, this.range );
+                     this.lengthProperty, this.range,
+                     this.widthProperty, this.range );
 
     // Restart the ball when the length or width changes
     this.visibleChangeEmitter.addListener( this.restartBall.bind( this ) );
@@ -72,7 +73,7 @@ define( function( require ) {
      */
     restartBall: function() {
       // initially the ball starts in the bottom left corner and moves up and to the right.
-      this.ballPositionProperty.value = new Vector2( 0, this.heightProperty.value );
+      this.ballPositionProperty.value = new Vector2( 0, this.lengthProperty.value );
       this.ballVelocity.setXY( SPEED, -SPEED );
 
       this.collisionPoints.clear();
@@ -102,9 +103,9 @@ define( function( require ) {
       dt = Math.min( dt, 0.25 );
 
       var width = this.widthProperty.value;
-      var height = this.heightProperty.value;
+      var length = this.lengthProperty.value;
 
-      assert && assert( width > 0 && height > 0 );
+      assert && assert( width > 0 && length > 0 );
 
       // Mutable vectors (we'll copy position to the new Property value at the end)
       var position = scratchVector.set( this.ballPositionProperty.value );
@@ -124,7 +125,7 @@ define( function( require ) {
       while ( velocity.magnitude() > 0 && dt > 0 ) {
         // What are the wall x/y values in the direction we're traveling
         var boundaryX = velocity.x > 0 ? width : 0;
-        var boundaryY = velocity.y > 0 ? height : 0;
+        var boundaryY = velocity.y > 0 ? length : 0;
 
         // How much time until we hit said boundaries.
         var timeLeftX = ( boundaryX - position.x ) / velocity.x;
@@ -168,7 +169,7 @@ define( function( require ) {
 
           // Stop the ball when we hit a corner
           if ( ( position.x === 0 || position.x === width ) &&
-               ( position.y === 0 || position.y === height ) ) {
+               ( position.y === 0 || position.y === length ) ) {
             this.ballVelocity.setXY( 0, 0 );
           }
         }

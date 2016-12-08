@@ -19,9 +19,6 @@ define( function( require ) {
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
   var ColorMap = require( 'PROPORTION_PLAYGROUND/common/view/paint/ColorMap' );
 
-  // constants
-  var NUMBER_PICKER_OPTIONS = { scale: 2 };
-
   /**
    *
    * @param {Splotch} splotch - the model
@@ -30,7 +27,9 @@ define( function( require ) {
    * @constructor
    */
   function SplotchControl( splotch, grayscaleProperty, revealProperty ) {
-    SceneRatioControl.call( this, splotch );
+    SceneRatioControl.call( this, splotch, {
+
+    } );
 
     /**
      * Auxiliary function that creates a NumberPicker for a given color
@@ -39,7 +38,7 @@ define( function( require ) {
      * @returns NumberPicker
      */
     var createNumberPicker = function( property, options ) {
-      return new NumberPicker( property, new Property( splotch.colorCountRange ), _.extend( options, NUMBER_PICKER_OPTIONS ) );
+      return new NumberPicker( property, new Property( splotch.colorCountRange ), _.extend( options, { scale: 2 } ) );
     };
 
     // Left-side number pickers for blue/black

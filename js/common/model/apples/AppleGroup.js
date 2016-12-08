@@ -22,23 +22,24 @@ define( function( require ) {
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
   function AppleGroup( visibleProperty, controlsVisibleProperty ) {
-    // @public {NumberProperty} - How many apples are in this group
-    this.numberOfApplesProperty = new NumberProperty( 1 );
 
     // @public {NumberProperty} - Total cost of all of the apples
     this.totalCostProperty = new NumberProperty( 0 );
 
-    // @public {Range}
-    //TODO: do we need this outside of the SceneRatio call?
-    this.numberOfApplesRange = new Range( 1, 20 );
+    // @public {NumberProperty} - How many apples are in this group
+    this.numberOfApplesProperty = new NumberProperty( 1 );
 
     // @public {Range}
     //TODO: do we need this outside of the SceneRatio call?
     this.totalCostRange = new Range( 0, 20 );
 
+    // @public {Range}
+    //TODO: do we need this outside of the SceneRatio call?
+    this.numberOfApplesRange = new Range( 1, 20 );
+
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
-                     this.numberOfApplesProperty, this.numberOfApplesRange,
-                     this.totalCostProperty, this.totalCostRange );
+                     this.totalCostProperty, this.totalCostRange,
+                     this.numberOfApplesProperty, this.numberOfApplesRange );
   }
 
   proportionPlayground.register( 'AppleGroup', AppleGroup );

@@ -13,11 +13,6 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var AppleGroupNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGroupNode' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
-  var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
-  var Property = require( 'AXON/Property' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
@@ -26,69 +21,44 @@ define( function( require ) {
   var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
   // constants
-  var NUMBER_PICKER_OPTIONS = { scale: 2 };
   var APPLE_RED = 'rgb(237,28,36)'; // color sampled from apple-red.png
 
   /**
+   * @constructor
+   *
    * @param {AppleGroup} appleGroup - the model
    * @param {Image|mipmap} appleImage - the image to show for the apple grid and and apple icons
    * @param {Property.<boolean>} showCostPerAppleProperty - true if the price tag should be shown
    * @param {Property.<boolean>} revealProperty - true if the answer representation should be shown
-   * @constructor
    */
   function AppleGroupControl( appleGroup, appleImage, showCostPerAppleProperty, revealProperty ) {
-    SceneRatioControl.call( this, appleGroup );
-
-    // Create the total cost spinner
-    var totalCostNumberPicker = new NumberPicker(
-      appleGroup.totalCostProperty,
-      new Property( appleGroup.totalCostRange ),
-      _.extend( {
-          color: 'black',
-
-          // Put a $ sign in front of the spinner number
-          formatText: function( text ) {
-            return StringUtils.format( pricePatternString, text );
-          }
-        },
-        NUMBER_PICKER_OPTIONS
-      )
-    );
-
-    // Create the number of apples spinner
-    var numberOfApplesNumberPicker = new NumberPicker(
-      appleGroup.numberOfApplesProperty,
-      new Property( appleGroup.numberOfApplesRange ),
-      _.extend( { color: APPLE_RED }, NUMBER_PICKER_OPTIONS )
-    );
+    SceneRatioControl.call( this, appleGroup, {
+      leftPickerLabel: totalCostString,
+      leftPickerColor: 'black',
+      leftPickerOptions: {
+        // Put a $ sign in front of the spinner number
+        formatText: function( text ) {
+          return StringUtils.format( pricePatternString, text );
+        }
+      },
+      rightPickerLabel: applesString,
+      rightPickerColor: APPLE_RED
+    } );
 
     // Create the place where apples and coins will be shown.
     var appleGroupNode = new AppleGroupNode( appleGroup, appleImage, showCostPerAppleProperty );
 
-    function pickerWithLabel( numberPicker, label ) {
-      return new VBox( {
-        spacing: 10,
-        children: [
-          new Text( label, {
-            maxWidth: 202, // ceiling value from ?stringTest=double for English
-            fontSize: ProportionPlaygroundConstants.CONTROL_FONT_SIZE
-          } ),
-          numberPicker
-        ]
-      } );
-    }
+    var costPicker = this.leftPicker;
+    var applePicker = this.rightPicker;
 
-    var costPickerGroup = pickerWithLabel( totalCostNumberPicker, totalCostString );
-    var applePickerGroup = pickerWithLabel( numberOfApplesNumberPicker, applesString );
-
-    costPickerGroup.centerX = appleGroupNode.coinLayer.centerX;
-    applePickerGroup.centerX = appleGroupNode.appleLayer.centerX;
-    costPickerGroup.top = applePickerGroup.top = appleGroupNode.bottom + 40;
+    costPicker.centerX = appleGroupNode.coinLayer.centerX;
+    applePicker.centerX = appleGroupNode.appleLayer.centerX;
+    costPicker.top = applePicker.top = appleGroupNode.bottom + 40;
 
     this.children = [
       appleGroupNode,
-      costPickerGroup,
-      applePickerGroup
+      costPicker,
+      applePicker
     ];
   }
 

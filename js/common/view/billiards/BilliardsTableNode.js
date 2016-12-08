@@ -155,15 +155,15 @@ define( function( require ) {
     // When a side of the table is dragged, the appropriate width or length changes.
     createDragListener( leftDragger, billiardsTable.widthProperty, 'x', -1 );
     createDragListener( rightDragger, billiardsTable.widthProperty, 'x', 1 );
-    createDragListener( topDragger, billiardsTable.heightProperty, 'y', -1 );
-    createDragListener( bottomDragger, billiardsTable.heightProperty, 'y', 1 );
+    createDragListener( topDragger, billiardsTable.lengthProperty, 'y', -1 );
+    createDragListener( bottomDragger, billiardsTable.lengthProperty, 'y', 1 );
 
     // When the table is resized, redraw it.
     Property.multilink( [
-      billiardsTable.heightProperty,
+      billiardsTable.lengthProperty,
       billiardsTable.widthProperty
     ], function() {
-      var length = billiardsTable.heightProperty.value;
+      var length = billiardsTable.lengthProperty.value;
       var width = billiardsTable.widthProperty.value;
 
       var brownEdgeLineWidth = 8;
