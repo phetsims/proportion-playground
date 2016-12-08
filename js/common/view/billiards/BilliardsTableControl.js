@@ -31,9 +31,9 @@ define( function( require ) {
    */
   function BilliardsTableControl( layoutBounds, billiardsTable, revealProperty, options ) {
     SceneRatioControl.call( this, billiardsTable, {
-      leftPickerColor: ProportionPlaygroundConstants.BILLIARDS_BROWN,
+      leftPickerColors: [ ProportionPlaygroundConstants.BILLIARDS_BROWN ],
       leftPickerLabel: lengthString,
-      rightPickerColor: ProportionPlaygroundConstants.BILLIARDS_BROWN,
+      rightPickerColors: [ ProportionPlaygroundConstants.BILLIARDS_BROWN ],
       rightPickerLabel: widthString
     } );
 

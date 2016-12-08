@@ -27,23 +27,37 @@ define( function( require ) {
    * @constructor
    *
    * @param {SceneRatio} sceneRatio
+   * @param {Object} [options]
    */
   function SceneRatioControl( sceneRatio, options ) {
     options = _.extend( {
-      //TODO doc
-      leftPickerColor: 'black',
-      rightPickerColor: 'black',
-      leftPickerOptions: {},
-      rightPickerOptions: {},
-      leftPickerLabel: null, // {Node|string}
-      rightPickerLabel: null, // {Node|string}
-      pickerColorProperty: null
+      // Usually one color is provided, but we need to handle multiple colors for the paint scene.
+      // If there is more than one color, then pickerColorProperty will control which color is visible.
+      leftPickerColors: [ 'black' ], // {Array.<Color|string>}
+      rightPickerColors: [ 'black' ], // {Array.<Color|string>}
+      // Other options provided directly to the picker
+      leftPickerOptions: {}, // {Object}
+      rightPickerOptions: {}, // {Object}
+      leftPickerLabel: null, // {Node|string|null}
+      rightPickerLabel: null, // {Node|string|null}
+      pickerColorProperty: null // {Property.<boolean>|null} - Currently true when the second color should be shown.
     }, options );
 
     Node.call( this, options );
 
     sceneRatio.controlsVisibleProperty.linkAttribute( this, 'visible' );
 
+    /**
+     * Creates a single picker, with an optional label and options.
+     * @private
+     *
+     * @param {Property.<number>} property - The numeric value
+     * @param {Range} range - The range of possible values
+     * @param {Color|string} color
+     * @param {Node|string|null} label - If available, will be placed above the picker. Strings will use Text.
+     * @param {Object} pickerOptions - Any options to provide directly to the NumberPicker
+     * @returns {Node}
+     */
     function createPicker( property, range, color, label, pickerOptions ) {
       var picker = new NumberPicker(
         property,
@@ -54,13 +68,16 @@ define( function( require ) {
         }, pickerOptions )
       );
 
+      // If there is a label, we'll add it above the picker
       if ( label ) {
+        // Convert a string label to a Text node.
         if ( typeof label === 'string' ) {
           label = new Text( label, {
             maxWidth: 180, //TODO: check
             font: new PhetFont( ProportionPlaygroundConstants.CONTROL_FONT_SIZE )
           } );
         }
+
         return new VBox( {
           spacing: 10,
           children: [
@@ -68,34 +85,58 @@ define( function( require ) {
             picker
           ]
         } );
+      // With no label, return the picker directly
       } else {
         return picker;
       }
     }
 
-    function createPickers( property, range, color, label, pickerOptions ) {
-      if ( color instanceof Array ) {
-        var pickers = color.map( function( singleColor ) {
+    /**
+     * Creates a Node representing a single picker (may include multiple pickers due to needing multiple colors)
+     * @private
+     *
+     * @param {Property.<number>} property - The numeric value
+     * @param {Range} range - The range of possible values
+     * @param {Color|string} color
+     * @param {Node|string|null} label - If available, will be placed above the picker. Strings will use Text.
+     * @param {Object} pickerOptions - Any options to provide directly to the NumberPicker
+     * @returns {Node}
+     */
+    function createPickers( property, range, colors, label, pickerOptions ) {
+      assert && assert( colors.length === 1 || colors.length === 2 );
+
+      // With multiple colors, we need to overlay multiple pickers.
+      // See https://github.com/phetsims/scenery-phet/issues/287
+      if ( colors.length > 1 ) {
+        // {Array.<Node>}
+        var pickers = colors.map( function( singleColor ) {
           return createPicker( property, range, singleColor, label, pickerOptions );
         } );
+
         // Only show the picker that should be visible
         options.pickerColorProperty.link( function( showSecond ) {
           pickers[ 0 ].visible = !showSecond;
           pickers[ 1 ].visible = showSecond;
         } );
+
         return new Node( {
           children: pickers
         } );
       }
+      // Return a single picker directly
       else {
-        return createPicker( property, range, color, label, pickerOptions );
+        return createPicker( property, range, colors[ 0 ], label, pickerOptions );
       }
     }
 
-    //TODO {Node}
-    this.leftPicker = createPickers( sceneRatio.leftProperty, sceneRatio.leftRange, options.leftPickerColor, options.leftPickerLabel, options.leftPickerOptions );
-    this.rightPicker = createPickers( sceneRatio.rightProperty, sceneRatio.rightRange, options.rightPickerColor, options.rightPickerLabel, options.rightPickerOptions );
-    this.pickerContainer = null; // @protected
+    // @protected {Node}
+    this.leftPicker = createPickers( sceneRatio.leftProperty, sceneRatio.leftRange, options.leftPickerColors,
+                                     options.leftPickerLabel, options.leftPickerOptions );
+    this.rightPicker = createPickers( sceneRatio.rightProperty, sceneRatio.rightRange, options.rightPickerColors,
+                                      options.rightPickerLabel, options.rightPickerOptions );
+
+    // @protected {Node|null} - Will be initialized when one of the add-picker functions is called.
+    this.pickerContainer = null;
   }
 
   proportionPlayground.register( 'SceneRatioControl', SceneRatioControl );

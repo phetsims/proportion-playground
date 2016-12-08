@@ -34,7 +34,7 @@ define( function( require ) {
   function AppleGroupControl( appleGroup, appleImage, showCostPerAppleProperty, revealProperty ) {
     SceneRatioControl.call( this, appleGroup, {
       leftPickerLabel: totalCostString,
-      leftPickerColor: 'black',
+      leftPickerColors: [ 'black' ],
       leftPickerOptions: {
         // Put a $ sign in front of the spinner number
         formatText: function( text ) {
@@ -42,7 +42,7 @@ define( function( require ) {
         }
       },
       rightPickerLabel: applesString,
-      rightPickerColor: APPLE_RED
+      rightPickerColors: [ APPLE_RED ]
     } );
 
     // Create the place where apples and coins will be shown.

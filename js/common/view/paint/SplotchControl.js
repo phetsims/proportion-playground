@@ -24,8 +24,8 @@ define( function( require ) {
    */
   function SplotchControl( splotch, grayscaleProperty, revealProperty ) {
     SceneRatioControl.call( this, splotch, {
-      leftPickerColor: [ ColorMap.getColor( 0 ), 'black' ],
-      rightPickerColor: [ ColorMap.getColor( 1 ), 'white' ],
+      leftPickerColors: [ ColorMap.getColor( 0 ), 'black' ],
+      rightPickerColors: [ ColorMap.getColor( 1 ), 'white' ],
       pickerColorProperty: grayscaleProperty
     } );
 
