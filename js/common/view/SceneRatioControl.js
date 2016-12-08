@@ -33,7 +33,8 @@ define( function( require ) {
       leftPickerOptions: {},
       rightPickerOptions: {},
       leftPickerLabel: null, // {Node|string}
-      rightPickerLabel: null // {Node|string}
+      rightPickerLabel: null, // {Node|string}
+      pickerColorProperty: null
     }, options );
 
     Node.call( this, options );
@@ -69,9 +70,28 @@ define( function( require ) {
       }
     }
 
+    function createPickers( property, range, color, label, pickerOptions ) {
+      if ( color instanceof Array ) {
+        var pickers = color.map( function( singleColor ) {
+          return createPicker( property, range, singleColor, label, pickerOptions );
+        } );
+        // Only show the picker that should be visible
+        options.pickerColorProperty.link( function( showSecond ) {
+          pickers[ 0 ].visible = !showSecond;
+          pickers[ 1 ].visible = showSecond;
+        } );
+        return new Node( {
+          children: pickers
+        } );
+      }
+      else {
+        return createPicker( property, range, color, label, pickerOptions );
+      }
+    }
+
     //TODO {Node}
-    this.leftPicker = createPicker( sceneRatio.leftProperty, sceneRatio.leftRange, options.leftPickerColor, options.leftPickerLabel, options.leftPickerOptions );
-    this.rightPicker = createPicker( sceneRatio.rightProperty, sceneRatio.rightRange, options.rightPickerColor, options.rightPickerLabel, options.rightPickerOptions );
+    this.leftPicker = createPickers( sceneRatio.leftProperty, sceneRatio.leftRange, options.leftPickerColor, options.leftPickerLabel, options.leftPickerOptions );
+    this.rightPicker = createPickers( sceneRatio.rightProperty, sceneRatio.rightRange, options.rightPickerColor, options.rightPickerLabel, options.rightPickerOptions );
   }
 
   proportionPlayground.register( 'SceneRatioControl', SceneRatioControl );
