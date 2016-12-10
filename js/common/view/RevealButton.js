@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var BooleanRoundStickyToggleButton = require( 'SUN/buttons/BooleanRoundStickyToggleButton' );
+  var BooleanRoundToggleButton = require( 'SUN/buttons/BooleanRoundToggleButton' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
@@ -21,8 +21,9 @@ define( function( require ) {
    * @constructor
    */
   function RevealButton( revealingProperty, options ) {
-    BooleanRoundStickyToggleButton.call( this, revealingProperty, {
-      content: new FontAwesomeNode( 'eye_open' ),
+    var revealedNode = new FontAwesomeNode( 'eye_open' );
+    var hiddenNode = new FontAwesomeNode( 'eye_close' );
+    BooleanRoundToggleButton.call( this, revealedNode, hiddenNode, revealingProperty, {
       minXMargin: 10,
       minYMargin: 10
     } );
@@ -31,5 +32,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'RevealButton', RevealButton );
 
-  return inherit( BooleanRoundStickyToggleButton, RevealButton );
+  return inherit( BooleanRoundToggleButton, RevealButton );
 } );
