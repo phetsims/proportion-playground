@@ -13,18 +13,16 @@ define( function( require ) {
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SplotchControl = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchControl' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
   var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var CheckBox = require( 'SUN/CheckBox' );
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
   var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientIndicatorNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
-
-  // strings
-  var blackAndWhiteString = require( 'string!PROPORTION_PLAYGROUND/blackAndWhite' );
+  var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
+  var GradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientNode' );
 
   // constants
   var ICON_SCALE_OPTIONS = { scale: 0.7 };
@@ -45,11 +43,11 @@ define( function( require ) {
     greenSplotch.rightColorCountProperty.value = 1;
 
     // Create the left/right splotches and their NumberPickers
-    var leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.grayscaleProperty, scene.revealProperty );
-    var rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.grayscaleProperty, scene.revealProperty );
+    var leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.paintChoiceProperty, scene.revealProperty );
+    var rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, scene.revealProperty );
 
     // Create the ABSwitch that chooses 1 or 2 splotches
-    var splotchNode = new SplotchNode( blueSplotch, scene.grayscaleProperty, ICON_SCALE_OPTIONS );
+    var splotchNode = new SplotchNode( blueSplotch, scene.paintChoiceProperty, ICON_SCALE_OPTIONS );
 
     SceneNode.call( this, scene, layoutBounds, {
       leftControl: leftSplotchControl,
@@ -64,8 +62,8 @@ define( function( require ) {
       rightSwitchIcon: new HBox( {
         spacing: 10,
         children: [
-          new SplotchNode( blueSplotch, scene.grayscaleProperty, ICON_SCALE_OPTIONS ),
-          new SplotchNode( greenSplotch, scene.grayscaleProperty, ICON_SCALE_OPTIONS )
+          new SplotchNode( blueSplotch, scene.paintChoiceProperty, ICON_SCALE_OPTIONS ),
+          new SplotchNode( greenSplotch, scene.paintChoiceProperty, ICON_SCALE_OPTIONS )
         ]
       } )
     } );
@@ -83,15 +81,22 @@ define( function( require ) {
       self.updateRevealButton();
     } );
 
-    // CheckBox to choose between colorized or black and white
-    var grayscaleCheckBox = new CheckBox( new Text( blackAndWhiteString, {
-      maxWidth: 280, // ceiling value from ?stringTest=double for English
-      fontSize: ProportionPlaygroundConstants.CONTROL_FONT_SIZE
-    } ), scene.grayscaleProperty, {
-      left: layoutBounds.left + 5,
-      bottom: layoutBounds.bottom - 5
-    } );
-    this.addChild( grayscaleCheckBox );
+    this.addChild( new VerticalAquaRadioButtonGroup(
+      PaintChoice.CHOICES.map( function( paintChoice ) {
+        var gradientNode = new GradientNode( 25, 220, paintChoice.getColor.bind( paintChoice ), {
+          rotation: -Math.PI / 2, scale: 0.5
+        } );
+        return {
+          node: new AlignBox( gradientNode, { leftMargin: 5 } ),
+          property: scene.paintChoiceProperty,
+          value: paintChoice
+        };
+      } ), {
+      // options
+      spacing: 10,
+      left: layoutBounds.left + 15,
+      bottom: layoutBounds.bottom - 15
+    } ) );
 
     // The vertical gradient indicator
     var gradientIndicatorNode = new GradientIndicatorNode( layoutBounds, scene, scene.revealProperty );

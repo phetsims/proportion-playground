@@ -11,13 +11,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ColorMap = require( 'PROPORTION_PLAYGROUND/common/view/paint/ColorMap' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var Vector3 = require( 'DOT/Vector3' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Color = require( 'SCENERY/util/Color' );
   var Util = require( 'DOT/Util' );
   var Property = require( 'AXON/Property' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
@@ -31,11 +28,11 @@ define( function( require ) {
 
   /**
    * @param {Splotch} splotch - Our model
-   * @param {Property.<boolean>} grayscaleProperty - whether to show as grayscale (true) or colorized (false)
+   * @param {Property.<PaintChoice>} paintChoiceProperty - Holds our current paint choice
    * @param {Object} [options] - node options
    * @constructor
    */
-  function SplotchNode( splotch, grayscaleProperty, options ) {
+  function SplotchNode( splotch, paintChoiceProperty, options ) {
     SceneRatioNode.call( this, splotch );
 
     var splotchPath = new Path( splotchShape, { stroke: 'black' } );
@@ -52,14 +49,7 @@ define( function( require ) {
       var blendAmount = rightColorAmount / total;
 
       if ( total > 0 ) {
-
-        if ( grayscaleProperty.value ) {
-          var blended = new Vector3( 0, 0, 0 ).blend( new Vector3( 255, 255, 255 ), blendAmount );
-          splotchPath.fill = new Color( blended.x, blended.y, blended.z );
-        }
-        else {
-          splotchPath.fill = ColorMap.getColor( blendAmount );
-        }
+        splotchPath.fill = paintChoiceProperty.value.getColor( blendAmount );
       }
       else {
         splotchPath.fill = null;
@@ -80,7 +70,7 @@ define( function( require ) {
       splotchPath.center = new Vector2( 0, 250 );
       splotchPath.visible = total > 0;
     } );
-    grayscaleProperty.link( updateFill );
+    paintChoiceProperty.link( updateFill );
 
     this.mutate( options );
   }

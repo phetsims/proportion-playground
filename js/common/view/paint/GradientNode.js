@@ -12,7 +12,6 @@ define( function( require ) {
   // modules
   var Node = require( 'SCENERY/nodes/Node' );
   var Util = require( 'DOT/Util' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
@@ -43,11 +42,10 @@ define( function( require ) {
       context.fillRect( 0, i, width, 1 );
     }
 
-    var imageNode = new Image( canvas.toDataURL() );
-
-    // since the Image's bounds aren't immediately computed, we override it here
-    imageNode.setLocalBounds( new Bounds2( 0, 0, width, height ) );
-    this.addChild( imageNode );
+    this.addChild( new Image( canvas.toDataURL(), {
+      initialWidth: width,
+      initialHeight: height
+    } ) );
 
     // outline.
     this.addChild( new Rectangle( 0, 0, width, height, { stroke: 'black', lineWidth: 2 } ) );

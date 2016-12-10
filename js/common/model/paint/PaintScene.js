@@ -10,8 +10,9 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var Property = require( 'AXON/Property' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
   var Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
 
@@ -23,8 +24,8 @@ define( function( require ) {
   function PaintScene( predictMode ) {
     Scene.call( this, predictMode );
 
-    // @public {BooleanProperty} - Whether the paints should be shown in shades of black and white
-    this.grayscaleProperty = new BooleanProperty( false );
+    // @public {Property.<PaintChoice>} - What two paints (left and right) are currently used.
+    this.paintChoiceProperty = new Property( PaintChoice.BLUE_YELLOW );
 
     // @public (read-only) - the models for each splotch
     this.leftSplotch = new Splotch( this.leftVisibleProperty, this.leftControlsVisibleProperty );
@@ -43,7 +44,7 @@ define( function( require ) {
     reset: function() {
       Scene.prototype.reset.call( this );
 
-      this.grayscaleProperty.reset();
+      this.paintChoiceProperty.reset();
     }
   } );
 } );

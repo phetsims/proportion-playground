@@ -32,7 +32,7 @@ define( function( require ) {
   function SceneRatioControl( sceneRatio, options ) {
     options = _.extend( {
       // Usually one color is provided, but we need to handle multiple colors for the paint scene.
-      // If there is more than one color, then pickerColorProperty will control which color is visible.
+      // If there is more than one color, then paintChoiceProperty will control which color is visible.
       leftPickerColors: [ 'black' ], // {Array.<Color|string>}
       rightPickerColors: [ 'black' ], // {Array.<Color|string>}
       // Other options provided directly to the picker
@@ -40,7 +40,7 @@ define( function( require ) {
       rightPickerOptions: {}, // {Object}
       leftPickerLabel: null, // {Node|string|null}
       rightPickerLabel: null, // {Node|string|null}
-      pickerColorProperty: null // {Property.<boolean>|null} - Currently true when the second color should be shown.
+      paintChoiceProperty: null // {Property.<PaintChoice>|null} - Currently true when the second color should be shown.
     }, options );
 
     Node.call( this, options );
@@ -103,20 +103,21 @@ define( function( require ) {
      * @returns {Node}
      */
     function createPickers( property, range, colors, label, pickerOptions ) {
-      assert && assert( colors.length === 1 || colors.length === 2 );
-
       // With multiple colors, we need to overlay multiple pickers.
       // See https://github.com/phetsims/scenery-phet/issues/287
       if ( colors.length > 1 ) {
         // {Array.<Node>}
         var pickers = colors.map( function( singleColor ) {
-          return createPicker( property, range, singleColor, label, pickerOptions );
+          var picker = createPicker( property, range, singleColor, label, pickerOptions );
+          picker.sceneColor = singleColor; // tag, so we can compare later
+          return picker;
         } );
 
         // Only show the picker that should be visible
-        options.pickerColorProperty.link( function( showSecond ) {
-          pickers[ 0 ].visible = !showSecond;
-          pickers[ 1 ].visible = showSecond;
+        options.paintChoiceProperty.link( function( colorChoice ) {
+          pickers.forEach( function( picker ) {
+            picker.visible = picker.sceneColor === colorChoice.leftColor || picker.sceneColor === colorChoice.rightColor;
+          } );
         } );
 
         return new Node( {

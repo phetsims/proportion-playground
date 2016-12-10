@@ -13,23 +13,23 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
-  var ColorMap = require( 'PROPORTION_PLAYGROUND/common/view/paint/ColorMap' );
+  var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
 
   /**
    *
    * @param {Splotch} splotch - the model
-   * @param {Property.<boolean>} grayscaleProperty - property that indicates whether colors are shown as grayscale
+   * @param {Property.<PaintChoice>} paintChoiceProperty - Holds our current paint choice
    * @param {Property.<boolean>} revealProperty - indicates whether the billiards table should be shown
    * @constructor
    */
-  function SplotchControl( splotch, grayscaleProperty, revealProperty ) {
+  function SplotchControl( splotch, paintChoiceProperty, revealProperty ) {
     SceneRatioControl.call( this, splotch, {
-      leftPickerColors: [ ColorMap.getColor( 0 ), 'black' ],
-      rightPickerColors: [ ColorMap.getColor( 1 ), 'white' ],
-      pickerColorProperty: grayscaleProperty
+      leftPickerColors: PaintChoice.CHOICES.map( function( choice ) { return choice.leftColor; } ),
+      rightPickerColors: PaintChoice.CHOICES.map( function( choice ) { return choice.rightColor; } ),
+      paintChoiceProperty: paintChoiceProperty
     } );
 
-    this.addChild( new SplotchNode( splotch, grayscaleProperty ) ); // TODO: how is this positioned?
+    this.addChild( new SplotchNode( splotch, paintChoiceProperty ) ); // TODO: how is this positioned?
     this.addBottomPickers();
   }
 

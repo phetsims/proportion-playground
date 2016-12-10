@@ -12,11 +12,9 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var GradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientNode' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Vector3 = require( 'DOT/Vector3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ColorMap = require( 'PROPORTION_PLAYGROUND/common/view/paint/ColorMap' );
+  var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   var TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
   var Property = require( 'AXON/Property' );
 
@@ -35,25 +33,11 @@ define( function( require ) {
   function GradientIndicatorNode( layoutBounds, scene, revealProperty, options ) {
     var self = this;
 
-    /**
-     *
-     * @param {function} map - function that maps from (0-1) to Color
-     * @returns {*}
-     */
-    var createGradientNode = function( map ) {
-      return new GradientNode( GRADIENT_WIDTH, GRADIENT_HEIGHT, map );
-    };
-
-    // Create the gradients
-    var colorGradient = createGradientNode( function( parameter ) {
-      return ColorMap.getColor( parameter );
-    } );
-    var grayscaleGradient = createGradientNode( function( parameter ) {
-      var blackVector = new Vector3( 0, 0, 0 );
-      var whiteVector = new Vector3( 1, 1, 1 );
-
-      var blended = blackVector.blend( whiteVector, parameter );
-      return new Color( blended.x * 255, blended.y * 255, blended.z * 255 );
+    // Create the cradients
+    var gradientNodes = PaintChoice.CHOICES.map( function( paintChoice ) {
+      var gradientNode = new GradientNode( GRADIENT_WIDTH, GRADIENT_HEIGHT, paintChoice.getColor.bind( paintChoice ) );
+      gradientNode.paintChoice = paintChoice;
+      return gradientNode;
     } );
 
     // Triangle indicators on the left/right
@@ -61,18 +45,17 @@ define( function( require ) {
     var rightIndicator = new TriangleNode( 'right', { left: GRADIENT_WIDTH } );
 
     // Show colored/gray based on the user selection
-    scene.grayscaleProperty.link( function( grayscale ) {
-      colorGradient.visible = !grayscale;
-      grayscaleGradient.visible = grayscale;
+    scene.paintChoiceProperty.link( function( paintChoice ) {
+      gradientNodes.forEach( function( gradientNode ) {
+        gradientNode.visible = gradientNode.paintChoice === paintChoice;
+      } );
     } );
 
     Node.call( this, {
-      children: [
-        colorGradient,
-        grayscaleGradient,
+      children: gradientNodes.concat( [
         leftIndicator,
         rightIndicator
-      ]
+      ] )
     } );
 
     this.mutate( options );
