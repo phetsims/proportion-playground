@@ -43,6 +43,9 @@ define( function( require ) {
 
     // @public {Property.<boolean>} - Whether the controls for the right ratio are visible
     this.rightControlsVisibleProperty = this.showBothProperty;
+
+    // @public {Property.<boolean>} - Whether the left or right value of the ratio has changed
+    this.valueChangedProperty = new BooleanProperty( false );
   }
 
   proportionPlayground.register( 'Scene', Scene );
@@ -66,6 +69,7 @@ define( function( require ) {
       if ( this.predictMode ) {
         // In the predict screen, hide representations when one of the spinners is changed
         Property.multilink( this.quantityProperties, this.revealProperty.set.bind( this.revealProperty, false ) );
+        Property.lazyMultilink( this.quantityProperties, this.valueChangedProperty.set.bind( this.valueChangedProperty, true ) );
       }
     },
 
@@ -101,6 +105,9 @@ define( function( require ) {
       this.ratios.forEach( function( sceneRatio ) {
         sceneRatio.reset();
       } );
+
+      // After resetting the ratios
+      this.valueChangedProperty.reset();
     }
   } );
 } );
