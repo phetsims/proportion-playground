@@ -70,14 +70,14 @@ define( function( require ) {
      */
     var createIndicatorUpdateFunction = function( indicator, splotchModel, condition ) {
       return function() {
-        var total = splotchModel.leftColorCountProperty.value + splotchModel.rightColorCountProperty.value;
+        var total = splotchModel.visibleLeftColorProperty.value + splotchModel.visibleRightColorProperty.value;
         if ( total === 0 ) {
           indicator.visible = false;
         }
         else {
           indicator.visible = condition() && revealProperty.get();
 
-          var proportion = splotchModel.rightColorCountProperty.value / total;
+          var proportion = splotchModel.visibleRightColorProperty.value / total;
           indicator.centerY = proportion * GRADIENT_HEIGHT;
         }
       };
@@ -85,25 +85,25 @@ define( function( require ) {
 
     // Update the left triangle indicator node when its parameters change.
     Property.multilink( [
-      scene.leftSplotch.leftColorCountProperty,
-      scene.leftSplotch.rightColorCountProperty,
+      scene.leftSplotch.visibleLeftColorProperty,
+      scene.leftSplotch.visibleRightColorProperty,
       revealProperty
     ], createIndicatorUpdateFunction( leftIndicator, scene.leftSplotch, function() {return true;} ) );
 
     // Update the right triangle indicator node when its parameters change.
     Property.multilink( [
-      scene.rightSplotch.leftColorCountProperty,
-      scene.rightSplotch.rightColorCountProperty,
+      scene.rightSplotch.visibleLeftColorProperty,
+      scene.rightSplotch.visibleRightColorProperty,
       scene.showBothProperty,
       revealProperty
     ], createIndicatorUpdateFunction( rightIndicator, scene.rightSplotch, function() {return scene.showBothProperty.value;} ) );
 
     // Update the fills of the triangle indicator nodes
     Property.multilink( [
-      scene.leftSplotch.leftColorCountProperty,
-      scene.leftSplotch.rightColorCountProperty,
-      scene.rightSplotch.leftColorCountProperty,
-      scene.rightSplotch.rightColorCountProperty,
+      scene.leftSplotch.visibleLeftColorProperty,
+      scene.leftSplotch.visibleRightColorProperty,
+      scene.rightSplotch.visibleLeftColorProperty,
+      scene.rightSplotch.visibleRightColorProperty,
       scene.showBothProperty
     ], function() {
       var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : null;

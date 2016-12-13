@@ -42,8 +42,8 @@ define( function( require ) {
      * Update the fill of the splotch.
      */
     var updateFill = function() {
-      var leftColorAmount = splotch.leftColorCountProperty.value;
-      var rightColorAmount = splotch.rightColorCountProperty.value;
+      var leftColorAmount = splotch.visibleLeftColorProperty.value;
+      var rightColorAmount = splotch.visibleRightColorProperty.value;
 
       var total = leftColorAmount + rightColorAmount;
       var blendAmount = rightColorAmount / total;
@@ -57,7 +57,7 @@ define( function( require ) {
     };
 
     // When the color amounts change, update the size and color of the splotch.
-    Property.multilink( [ splotch.leftColorCountProperty, splotch.rightColorCountProperty ], function( leftColor, rightColor ) {
+    Property.multilink( [ splotch.visibleLeftColorProperty, splotch.visibleRightColorProperty ], function( leftColor, rightColor ) {
       updateFill();
 
       var total = leftColor + rightColor;

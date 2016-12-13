@@ -28,6 +28,7 @@ define( function( require ) {
    * @param {ProportionModel} model - the model
    */
   function ProportionScreenView( model ) {
+    var self = this;
 
     ScreenView.call( this, {
       layoutBounds: ProportionPlaygroundConstants.LAYOUT_BOUNDS
@@ -49,14 +50,14 @@ define( function( require ) {
     } ) );
 
     // Store by index for lookup by radio button index
-    var sceneNodes = [
+    this.sceneNodes = [
       new NecklaceSceneNode( model.necklaceScene, this.layoutBounds ),
       new PaintSceneNode( model.paintScene, this.layoutBounds ),
       new BilliardsSceneNode( model.billiardsScene, this.layoutBounds ),
       new AppleSceneNode( model.appleScene, this.layoutBounds )
     ];
 
-    sceneNodes.forEach( function( scene ) {
+    this.sceneNodes.forEach( function( scene ) {
       scene.addShowBothSwitch();
     } );
 
@@ -66,7 +67,7 @@ define( function( require ) {
     // When the scene radio button is selected, show the selected scene
     model.sceneProperty.link( function( scene ) {
       // Find our matching SceneNode
-      var sceneNode = _.find( sceneNodes, function( sceneNode ) {
+      var sceneNode = _.find( self.sceneNodes, function( sceneNode ) {
         return sceneNode.scene === scene;
       } );
       sceneContainer.children = [ sceneNode ];
@@ -75,5 +76,18 @@ define( function( require ) {
 
   proportionPlayground.register( 'ProportionScreenView', ProportionScreenView );
 
-  return inherit( ScreenView, ProportionScreenView );
+  return inherit( ScreenView, ProportionScreenView, {
+    /**
+     * Steps forward in time.
+     * @public
+     *
+     * @param {number} dt - In seconds
+     */
+    step: function( dt ) {
+      var visibleBounds = this.visibleBoundsProperty.value;
+      for ( var i = 0; i < this.sceneNodes.length; i++ ) {
+        this.sceneNodes[ i ].step( dt, visibleBounds );
+      }
+    }
+  } );
 } );
