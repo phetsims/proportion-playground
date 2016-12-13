@@ -24,7 +24,7 @@ define( function( require ) {
   var GradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientNode' );
 
   // constants
-  var ICON_SCALE_OPTIONS = { scale: 0.6 };
+  var ICON_SCALE_OPTIONS = { scale: 0.5 };
 
   /**
    * @constructor
@@ -36,7 +36,7 @@ define( function( require ) {
     var self = this;
 
     var blueSplotch = new Splotch( new BooleanProperty( true ), new BooleanProperty( true ) );
-    blueSplotch.leftColorCountProperty.value = 1;
+    blueSplotch.leftColorCountProperty.value = 2;
     var greenSplotch = new Splotch( new BooleanProperty( true ), new BooleanProperty( true ) );
     greenSplotch.leftColorCountProperty.value = 1;
     greenSplotch.rightColorCountProperty.value = 1;
