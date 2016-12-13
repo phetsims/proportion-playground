@@ -72,8 +72,9 @@ define( function( require ) {
     scene.showBothProperty.link( function( showBoth ) {
       // Controllable necklace nodes have x=0 at their center
       if ( showBoth ) {
-        leftSplotchControl.x = layoutBounds.width * 1 / 3;
-        rightSplotchControl.x = layoutBounds.width * 2 / 3;
+        var ratio = 4 / 13;
+        leftSplotchControl.x = layoutBounds.width * ratio;
+        rightSplotchControl.x = layoutBounds.width * ( 1 - ratio );
       }
       else {
         leftSplotchControl.x = layoutBounds.width / 2;
