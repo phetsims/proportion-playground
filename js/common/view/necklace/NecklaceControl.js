@@ -32,7 +32,7 @@ define( function( require ) {
       leftPickerColors: [ PINK ],
       leftPickerLabel: new RoundBeadNode(),
       rightPickerColors: [ BLUE ],
-      rightPickerLabel: new SquareBeadNode()
+      rightPickerLabel: new SquareBeadNode( 0 )
     } );
 
     // The necklace itself

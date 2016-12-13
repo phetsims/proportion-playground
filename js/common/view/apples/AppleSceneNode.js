@@ -18,6 +18,8 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
 
@@ -47,8 +49,9 @@ define( function( require ) {
 
     // Create icons for the ABSwitch
     var iconScaleOptions = { scale: 0.2 };
-    var greenAppleImageNode = new Image( greenAppleImage, iconScaleOptions );
-    var redAppleImageNode = new Image( redAppleImage, iconScaleOptions );
+    var iconGroup = new AlignGroup();
+    var greenAppleImageNode = new AlignBox( new Image( greenAppleImage, iconScaleOptions ), { group: iconGroup } );
+    var redAppleImageNode = new AlignBox( new Image( redAppleImage, iconScaleOptions ), { group: iconGroup } );
 
     // Check box that shows the cost per apple in a price tag
     var showCostPerAppleCheckBox = new CheckBox( new Text( costPerAppleString, {

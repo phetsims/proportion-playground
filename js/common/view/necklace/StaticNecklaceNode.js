@@ -68,7 +68,7 @@ define( function( require ) {
         children.push( new RoundBeadNode() );
       }
       for ( k = 0; k < squareBeadCount; k++ ) {
-        children.push( new SquareBeadNode() );
+        children.push( new SquareBeadNode( 0 ) );
       }
 
       // shape for the necklace line
@@ -114,7 +114,7 @@ define( function( require ) {
         x += xOffset * 2;
       }
       for ( k = 0; k < squareBeadCount; k++ ) {
-        children.push( new SquareBeadNode( { x: x } ) );
+        children.push( new SquareBeadNode( 0, { x: x } ) );
         x += xOffset * 2;
       }
 
@@ -311,7 +311,7 @@ define( function( require ) {
           if ( types[ i ] === 'round' ) {
             children.push( new RoundBeadNode( { center: center } ) );
           } else {
-            children.push( new SquareBeadNode( { center: center, rotation: angle } ) );
+            children.push( new SquareBeadNode( angle, { center: center } ) );
           }
         }
 
