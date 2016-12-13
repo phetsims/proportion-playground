@@ -71,6 +71,18 @@ define( function( require ) {
 
   return inherit( Node, SceneNode, {
     /**
+     * Steps forward in time.
+     * @public
+     *
+     * @param {number} dt - In seconds
+     * @param {Bounds2} visibleBounds
+     */
+    step: function( dt, visibleBounds ) {
+      this.leftControl.step && this.leftControl.step( dt, visibleBounds );
+      this.rightControl.step && this.rightControl.step( dt, visibleBounds );
+    },
+
+    /**
      * Adds the "showBoth" ABSwitch.
      * @public
      *

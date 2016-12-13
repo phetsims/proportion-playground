@@ -28,10 +28,10 @@ define( function( require ) {
   var ICON_SCALE_OPTIONS = { scale: 0.7 };
 
   /**
+   * @constructor
    *
    * @param {PaintScene} scene
    * @param {Bounds2} layoutBounds - bounds withing which the scene will be shown
-   * @constructor
    */
   function PaintSceneNode( scene, layoutBounds ) {
     var self = this;
@@ -43,8 +43,8 @@ define( function( require ) {
     greenSplotch.rightColorCountProperty.value = 1;
 
     // Create the left/right splotches and their NumberPickers
-    var leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.paintChoiceProperty, scene.revealProperty );
-    var rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, scene.revealProperty );
+    var leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.paintChoiceProperty, scene.revealProperty, -1 );
+    var rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, scene.revealProperty, 1 );
 
     // Create the ABSwitch that chooses 1 or 2 splotches
     var splotchNode = new SplotchNode( blueSplotch, scene.paintChoiceProperty, ICON_SCALE_OPTIONS );

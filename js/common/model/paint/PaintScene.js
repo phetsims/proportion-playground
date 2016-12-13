@@ -38,6 +38,17 @@ define( function( require ) {
 
   return inherit( Scene, PaintScene, {
     /**
+     * Steps forward in time
+     * @public
+     *
+     * @param {number} dt - In seconds
+     */
+    step: function( dt ) {
+      this.leftSplotch.step( dt );
+      this.rightSplotch.step( dt );
+    },
+
+    /**
      * Reset the model and both child splotches.
      * @public
      */
