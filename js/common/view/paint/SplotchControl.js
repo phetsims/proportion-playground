@@ -49,7 +49,9 @@ define( function( require ) {
     this.balloonNodes = [];
 
     splotch.balloons.addItemAddedListener( function( balloon ) {
-      var balloonNode = new PaintBalloonNode( balloon, paintChoiceProperty, new Vector2(), new Vector2() );
+      var randomStart = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 150 );
+      var randomEnd = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 30 );
+      var balloonNode = new PaintBalloonNode( balloon, paintChoiceProperty, randomStart, randomEnd );
       self.addChild( balloonNode );
       self.balloonNodes.push( balloonNode );
     } );

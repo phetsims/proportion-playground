@@ -34,6 +34,7 @@ define( function( require ) {
     this.startOffset = startOffset;
     this.endOffset = endOffset;
 
+
     var body = new Circle( 20, {
       stroke: 'black'
     } );
@@ -58,15 +59,22 @@ define( function( require ) {
      * @public
      */
     position: function( startPosition, endPosition ) {
+      var ratio = this.paintBalloon.getRatioToEnd();
+
       startPosition = scratchStartVector.set( startPosition ).add( this.startOffset );
       endPosition = scratchEndVector.set( endPosition ).add( this.endOffset );
 
-      // TODO: arc
-      var ratio = this.paintBalloon.getRatioToEnd();
-      scratchPosition.setXY( startPosition.x + ratio * ( endPosition.x - startPosition.x ),
-                             startPosition.y + ratio * ( endPosition.y - startPosition.y ) );
+      //TODO: doc
+      var baseX = startPosition.x + Math.pow( ratio, 0.8 ) * ( endPosition.x - startPosition.x );
+      var baseY = startPosition.y + ratio * ( endPosition.y - startPosition.y );
+      var elevationY = ratio - ratio * ratio;
+      scratchPosition.setXY( baseX,
+                             baseY + -600 * elevationY );
 
       this.center = scratchPosition;
+
+      var distanceRatio = 0.25 + 0.75 * ratio;
+      this.setScaleMagnitude( 1 / distanceRatio );
     },
 
     /**
