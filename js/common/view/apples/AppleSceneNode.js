@@ -42,7 +42,7 @@ define( function( require ) {
     var redAppleGroupControl = new AppleGroupControl( scene.redAppleGroup, redAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
     var greenAppleGroupControl = new AppleGroupControl( scene.greenAppleGroup, greenAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
     var appleGraphNode = new AppleGraphNode( scene, {
-      centerY: 250
+      centerY: 265
     } );
 
     // Create icons for the ABSwitch

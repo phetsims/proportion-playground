@@ -17,6 +17,9 @@
   "totalCost": {
     "value": "Total Cost"
   },
+  "appleCost": {
+    "value": "Apple cost"
+  },
   "apples": {
     "value": "Apples"
   },

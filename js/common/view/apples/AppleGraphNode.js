@@ -12,6 +12,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
@@ -20,6 +22,8 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
   var Property = require( 'AXON/Property' );
+
+  var appleCostString = require( 'string!PROPORTION_PLAYGROUND/appleCost' );
 
   // constants
   var ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick
@@ -57,11 +61,19 @@ define( function( require ) {
     var leftIndicator = new TriangleNode( 'left', { right: -ARROW_WIDTH / 2 } );
     var rightIndicator = new TriangleNode( 'right', { left: ARROW_WIDTH / 2 } );
 
+    var label = new Text( appleCostString, {
+      font: new PhetFont( 20 ),
+      centerX: arrowNode.centerX,
+      bottom: arrowNode.top - 15,
+      maxWidth: 300
+    } );
+
     Node.call( this, {
       children: [
         arrowNode,
         leftIndicator,
-        rightIndicator
+        rightIndicator,
+        label
       ]
     } );
 
