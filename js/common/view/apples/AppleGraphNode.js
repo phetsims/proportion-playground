@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
@@ -85,7 +86,7 @@ define( function( require ) {
 
     // Update the indicator fills when salient properties change
     Property.multilink( scene.quantityProperties.concat( [ scene.showBothProperty ] ), function() {
-      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : 'white';
+      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR;
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );

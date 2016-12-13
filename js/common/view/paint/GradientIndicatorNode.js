@@ -106,7 +106,7 @@ define( function( require ) {
       scene.rightSplotch.rightColorCountProperty,
       scene.showBothProperty
     ], function() {
-      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : 'white';
+      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : null;
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );
