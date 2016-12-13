@@ -14,10 +14,15 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
 
   var scratchStartVector = new Vector2();
   var scratchEndVector = new Vector2();
   var scratchPosition = new Vector2();
+
+  var SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
+  // A = pi * r^2, r = sqrt( A / pi )
+  var BALLOON_RADIUS = Math.sqrt( SPLOTCH_AREA / Math.PI );
 
   /**
    * @constructor
@@ -35,7 +40,7 @@ define( function( require ) {
     this.endOffset = endOffset;
 
 
-    var body = new Circle( 20, {
+    var body = new Circle( BALLOON_RADIUS, {
       stroke: 'black'
     } );
     function updateBalloonColor( colorChoice ) {

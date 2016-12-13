@@ -11,11 +11,13 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   var PaintBalloonNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintBalloonNode' );
+  var PaintDripNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintDripNode' );
 
   // Used as scratch vectors below
   var startVector = new Vector2();
@@ -37,9 +39,14 @@ define( function( require ) {
       paintChoiceProperty: paintChoiceProperty
     } );
 
+    var dripLayer = new Node();
+    var balloonLayer = new Node();
+
     // @private
     this.splotchNode = new SplotchNode( splotch, paintChoiceProperty );
+    this.addChild( dripLayer );
     this.addChild( this.splotchNode ); // TODO: how is this positioned?
+    this.addChild( balloonLayer );
     this.addBottomPickers();
 
     // @private {number}
@@ -52,7 +59,7 @@ define( function( require ) {
       var randomStart = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 150 );
       var randomEnd = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 30 );
       var balloonNode = new PaintBalloonNode( balloon, paintChoiceProperty, randomStart, randomEnd );
-      self.addChild( balloonNode );
+      balloonLayer.addChild( balloonNode );
       self.balloonNodes.push( balloonNode );
     } );
 
@@ -61,8 +68,28 @@ define( function( require ) {
         var balloonNode = self.balloonNodes[ i ];
         if ( balloonNode.paintBalloon === balloon ) {
           self.balloonNodes.splice( i, 1 );
-          self.removeChild( balloonNode );
+          balloonLayer.removeChild( balloonNode );
           balloonNode.dispose();
+        }
+      }
+    } );
+
+    // @private {Array.<PaintDripNode>}
+    this.dripNodes = [];
+
+    splotch.drips.addItemAddedListener( function( drip ) {
+      var dripNode = new PaintDripNode( drip, paintChoiceProperty );
+      dripLayer.addChild( dripNode );
+      self.dripNodes.push( dripNode );
+    } );
+
+    splotch.drips.addItemRemovedListener( function( drip ) {
+      for ( var i = self.dripNodes.length - 1; i >= 0; i-- ) {
+        var dripNode = self.dripNodes[ i ];
+        if ( dripNode.paintDrip === drip ) {
+          self.dripNodes.splice( i, 1 );
+          dripLayer.removeChild( dripNode );
+          dripNode.dispose();
         }
       }
     } );
@@ -79,14 +106,18 @@ define( function( require ) {
      * @param {Bounds2} visibleBounds
      */
     step: function( dt, visibleBounds ) {
-      if ( this.balloonNodes.length ) {
+      if ( this.balloonNodes.length || this.dripNodes.length ) {
         visibleBounds = this.parentToLocalBounds( visibleBounds );
 
         var startLocation = startVector.setXY( visibleBounds.centerX + 0.55 * this.initialBalloonSign * visibleBounds.width,
                                                visibleBounds.bottom * 0.8 );
-        var endLocation = this.splotchNode.center;
+        var splotchLocation = this.splotchNode.center;
         for ( var i = 0; i < this.balloonNodes.length; i++ ) {
-          this.balloonNodes[ i ].position( startLocation, endLocation );
+          this.balloonNodes[ i ].position( startLocation, splotchLocation );
+        }
+
+        for ( i = this.dripNodes.length - 1; i >= 0; i-- ) {
+          this.dripNodes[ i ].position( splotchLocation, visibleBounds.bottom );
         }
       }
     }

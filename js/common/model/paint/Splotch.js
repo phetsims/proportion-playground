@@ -17,6 +17,7 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
   var PaintBalloon = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintBalloon' );
+  var PaintDrip = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintDrip' );
 
   /**
    * @constructor
@@ -45,6 +46,9 @@ define( function( require ) {
     // @public {ObservableArray.<PaintBalloon>}
     this.balloons = new ObservableArray();
 
+    // @public {ObservableArray.<PaintDrip>}
+    this.drips = new ObservableArray();
+
     // @public (read-only) the range for colors
     //TODO: do we need this outside of the SceneRatio call?
     this.colorCountRange = new Range( 0, 20 );
@@ -65,6 +69,9 @@ define( function( require ) {
         else {
           // immediately remove
           currentCountProperty.value -= delta;
+          self.drips.push( new PaintDrip( isLeft, function( drip ) {
+            self.drips.remove( drip );
+          } ) );
         }
       } );
     }
@@ -89,6 +96,17 @@ define( function( require ) {
       // Step balloons in reverse order, since they can remove themselves
       for ( var i = this.balloons.length - 1; i >= 0; i-- ) {
         this.balloons.get( i ).step( dt );
+      }
+
+      for ( i = this.drips.length - 1; i >= 0; i-- ) {
+        this.drips.get( i ).step( dt );
+      }
+    },
+
+    //TODO: doc
+    hitBalloons: function() {
+      for ( var i = this.balloons.length - 1; i >= 0; i-- ) {
+        this.balloons.get( i ).hit();
       }
     },
 
