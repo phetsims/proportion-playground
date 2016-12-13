@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundQueryParameters = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundQueryParameters' );
   var Range = require( 'DOT/Range' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -19,9 +20,6 @@ define( function( require ) {
   var Emitter = require( 'AXON/Emitter' );
   var Property = require( 'AXON/Property' );
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
-
-  // constants
-  var SPEED = 8; // Ball speed, in pixels per second
 
   var scratchVector = new Vector2();
 
@@ -47,7 +45,7 @@ define( function( require ) {
     this.ballPositionProperty = new Property( new Vector2() );
 
     // @public {Vector2} - The velocity of the ball in pixels per second
-    this.ballVelocity = new Vector2( SPEED, -SPEED );
+    this.ballVelocity = new Vector2();
 
     // Keep track of collision points so the path can be shown as array of lines.
     // @public {ObservableArray.<Vector2>} (read-only) - the points where the ball has collided with the walls
@@ -55,6 +53,8 @@ define( function( require ) {
 
     // @public {Emitter} (read-only) - emits when the ball was restarted
     this.restartEmitter = new Emitter();
+
+    this.restartBall(); // Helps initialize in one place
 
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
                      this.lengthProperty, this.range,
@@ -72,9 +72,46 @@ define( function( require ) {
      * @public
      */
     restartBall: function() {
+      // For readability
+      var a = this.lengthProperty.value;
+      var b = this.widthProperty.value;
+
+      // So we can handle isomorphic cases. For bumps and distance, think of unwrapping the path, and compute the LCM (a*b after GCD).
+      var gcd = Util.gcd( a, b );
+      var numBumps = ( a + b ) / gcd - 1; // including the 'end' bump
+      var distance = a * b * Math.sqrt( 2 ) / ( gcd * gcd ); // Simply across an (a/gcd)x(b/gcd) square
+
+      var inputExpr = ProportionPlaygroundQueryParameters.billiardSpeed;
+
+      // This is likely to be safe. What could go wrong? How can this be escaped?
+      //TODO: remove this query parameter
+      if ( inputExpr.replace( /Math\.sqrt/g, '' )
+                    .replace( /Math\.pow/g, '' )
+                    .replace( /distance/g, '' )
+                    .replace( /bumps/g, '' )
+                    .replace( /gcd/g, '' )
+                    .replace( /a/g, '' )
+                    .replace( /b/g, '' )
+                    .replace( /\(/g, '' )
+                    .replace( /\)/g, '' )
+                    .replace( /\*/g, '' )
+                    .replace( /\//g, '' )
+                    .replace( /\+/g, '' )
+                    .replace( /\-/g, '' )
+                    .replace( / /g, '' )
+                    .replace( /\d/g, '' ).length !== 0 ) {
+        throw new Error( 'No XSS' );
+      }
+
+      var speedExpr = '(function( a, b, distance, bumps, gcd ) { return ' + inputExpr + '; } )';
+
+      // Our linter will never discover this. MUAHAHAHAHAHAHAHA
+      var speed = window.eval( speedExpr )( a, b, distance, numBumps, gcd );
+      // var speed = 8 * Math.sqrt( distance ) / Math.sqrt( numBumps );
+
       // initially the ball starts in the bottom left corner and moves up and to the right.
       this.ballPositionProperty.value = new Vector2( 0, this.lengthProperty.value );
-      this.ballVelocity.setXY( SPEED, -SPEED );
+      this.ballVelocity.setXY( speed, -speed );
 
       this.collisionPoints.clear();
       this.restartEmitter.emit();

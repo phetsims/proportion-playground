@@ -17,6 +17,11 @@ define( function( require ) {
     scene: {
       type: 'number',
       defaultValue: 0
+    },
+
+    billiardSpeed: {
+      type: 'string',
+      defaultValue: '8 * Math.sqrt( distance ) / Math.sqrt( bumps )'
     }
   } );
 
