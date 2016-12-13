@@ -12,24 +12,24 @@
     "value": "Game"
   },
   "costPerApple": {
-    "value": "Cost per apple"
+    "value": "Cost per Apple"
   },
   "totalCost": {
     "value": "Total Cost"
   },
   "appleCost": {
-    "value": "Apple cost"
+    "value": "Apple Cost"
   },
   "apples": {
     "value": "Apples"
   },
   "length": {
-    "value": "length"
+    "value": "Length"
   },
   "pricePattern": {
     "value": "${0}"
   },
   "width": {
-    "value": "width"
+    "value": "Width"
   }
 }
