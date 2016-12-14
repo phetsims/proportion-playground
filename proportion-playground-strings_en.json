@@ -8,9 +8,6 @@
   "predict": {
     "value": "Predict"
   },
-  "game": {
-    "value": "Game"
-  },
   "costPerApple": {
     "value": "Cost per Apple"
   },
