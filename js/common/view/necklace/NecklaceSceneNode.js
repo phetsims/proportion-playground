@@ -70,5 +70,10 @@ define( function( require ) {
 
   proportionPlayground.register( 'NecklaceSceneNode', NecklaceSceneNode );
 
-  return inherit( SceneNode, NecklaceSceneNode );
+  return inherit( SceneNode, NecklaceSceneNode, {
+    // TODO: with option  @override
+    canCenterRevealButton: function() {
+      return false;
+    }
+  } );
 } );

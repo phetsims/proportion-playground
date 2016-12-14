@@ -97,6 +97,11 @@ define( function( require ) {
       } ) );
     },
 
+    // TODO: with option
+    canCenterRevealButton: function() {
+      return true;
+    },
+
     /**
      * Moves the reveal button to the desired position.
      * @protected
@@ -107,7 +112,12 @@ define( function( require ) {
 
       if ( this.revealLocation === 'right' ) {
         if ( this.scene.showBothProperty.value ) {
-          this.revealButton.centerX = this.layoutBounds.centerX;
+          if ( this.canCenterRevealButton() ) {
+            this.revealButton.centerX = this.layoutBounds.centerX;
+          }
+          else {
+            this.revealButton.right = this.layoutBounds.right - 10;
+          }
           this.revealButton.centerY = this.layoutBounds.bottom - 118;
         }
         else {
