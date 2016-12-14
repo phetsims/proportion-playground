@@ -14,6 +14,7 @@ define( function( require ) {
   var NecklaceControl = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceControl' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
+  var PatternPanel = require( 'PROPORTION_PLAYGROUND/common/view/necklace/PatternPanel' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
 
   // constants
@@ -31,6 +32,7 @@ define( function( require ) {
     // Create the left and right necklace nodes, each with their own NumberPickers
     var leftNecklaceControl = new NecklaceControl( scene.leftNecklace, scene.revealProperty );
     var rightNecklaceControl = new NecklaceControl( scene.rightNecklace, scene.revealProperty );
+    var patternPanel = new PatternPanel( scene.leftNecklace, scene.rightNecklace );
 
     // Super call
     SceneNode.call( this, scene, layoutBounds, {
@@ -47,13 +49,22 @@ define( function( require ) {
     scene.showBothProperty.link( function( showBoth ) {
       // Controllable necklace nodes have x=0 at their center
       if ( showBoth ) {
-        leftNecklaceControl.x = layoutBounds.width * 1 / 3;
-        rightNecklaceControl.x = layoutBounds.width * 2 / 3;
+        var ratio = 2 / 7;
+        leftNecklaceControl.x = layoutBounds.width * ratio;
+        rightNecklaceControl.x = layoutBounds.width * ( 1 - ratio );
       }
       else {
         leftNecklaceControl.x = layoutBounds.centerX;
       }
       self.updateRevealButton();
+    } );
+
+    this.addChild( patternPanel );
+
+    // Position the pattern panel
+    scene.showBothProperty.link( function( showBoth ) {
+      patternPanel.top = 85;
+      patternPanel.centerX = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.73;
     } );
   }
 

@@ -26,6 +26,9 @@
   "pricePattern": {
     "value": "${0}"
   },
+  "pattern": {
+    "value": "Pattern"
+  },
   "width": {
     "value": "Width"
   }
