@@ -87,6 +87,9 @@ define( function( require ) {
       //TODO: remove this query parameter
       if ( inputExpr.replace( /Math\.sqrt/g, '' )
                     .replace( /Math\.pow/g, '' )
+                    .replace( /Math\.min/g, '' )
+                    .replace( /Math\.max/g, '' )
+                    .replace( /Math\.abs/g, '' )
                     .replace( /distance/g, '' )
                     .replace( /bumps/g, '' )
                     .replace( /gcd/g, '' )
@@ -98,6 +101,7 @@ define( function( require ) {
                     .replace( /\//g, '' )
                     .replace( /\+/g, '' )
                     .replace( /\-/g, '' )
+                    .replace( /,/g, '' )
                     .replace( / /g, '' )
                     .replace( /\d/g, '' ).length !== 0 ) {
         throw new Error( 'No XSS' );
