@@ -12,7 +12,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundQueryParameters = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundQueryParameters' );
   var Range = require( 'DOT/Range' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -77,41 +76,13 @@ define( function( require ) {
       var b = this.widthProperty.value;
 
       // So we can handle isomorphic cases. For bumps and distance, think of unwrapping the path, and compute the LCM (a*b after GCD).
-      var gcd = Util.gcd( a, b );
-      var numBumps = ( a + b ) / gcd - 1; // including the 'end' bump
-      var distance = a * b * Math.sqrt( 2 ) / ( gcd * gcd ); // Simply across an (a/gcd)x(b/gcd) square
-
-      var inputExpr = ProportionPlaygroundQueryParameters.billiardSpeed;
-
-      // This is likely to be safe. What could go wrong? How can this be escaped?
-      //TODO: remove this query parameter
-      if ( inputExpr.replace( /Math\.sqrt/g, '' )
-                    .replace( /Math\.pow/g, '' )
-                    .replace( /Math\.min/g, '' )
-                    .replace( /Math\.max/g, '' )
-                    .replace( /Math\.abs/g, '' )
-                    .replace( /distance/g, '' )
-                    .replace( /bumps/g, '' )
-                    .replace( /gcd/g, '' )
-                    .replace( /a/g, '' )
-                    .replace( /b/g, '' )
-                    .replace( /\(/g, '' )
-                    .replace( /\)/g, '' )
-                    .replace( /\*/g, '' )
-                    .replace( /\//g, '' )
-                    .replace( /\+/g, '' )
-                    .replace( /\-/g, '' )
-                    .replace( /,/g, '' )
-                    .replace( / /g, '' )
-                    .replace( /\d/g, '' ).length !== 0 ) {
-        throw new Error( 'No XSS' );
-      }
-
-      var speedExpr = '(function( a, b, distance, bumps, gcd ) { return ' + inputExpr + '; } )';
-
-      // Our linter will never discover this. MUAHAHAHAHAHAHAHA
-      var speed = window.eval( speedExpr )( a, b, distance, numBumps, gcd );
+      // var gcd = Util.gcd( a, b );
+      // var numBumps = ( a + b ) / gcd - 1; // including the 'end' bump
+      // var distance = a * b * Math.sqrt( 2 ) / ( gcd * gcd ); // Simply across an (a/gcd)x(b/gcd) square
       // var speed = 8 * Math.sqrt( distance ) / Math.sqrt( numBumps );
+
+      // See https://github.com/phetsims/proportion-playground/issues/13
+      var speed = 1.5 * Math.sqrt( Math.pow( a, 2 ) + Math.pow( b, 2 ) );
 
       // initially the ball starts in the bottom left corner and moves up and to the right.
       this.ballPositionProperty.value = new Vector2( 0, this.lengthProperty.value );
