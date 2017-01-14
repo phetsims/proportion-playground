@@ -46,8 +46,8 @@ define( function( require ) {
     greenSplotch.hitBalloons();
 
     // Create the left/right splotches and their NumberPickers
-    var leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.paintChoiceProperty, scene.revealProperty, -1 );
-    var rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, scene.revealProperty, 1 );
+    var leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.paintChoiceProperty, !scene.predictMode, -1 );
+    var rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, !scene.predictMode, 1 );
 
     SceneNode.call( this, scene, layoutBounds, {
       leftControl: leftSplotchControl,

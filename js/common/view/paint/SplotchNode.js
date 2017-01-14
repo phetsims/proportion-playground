@@ -35,17 +35,25 @@ define( function( require ) {
   function SplotchNode( splotch, paintChoiceProperty, options ) {
     SceneRatioNode.call( this, splotch );
 
+    options = _.extend( {
+      useVisibleAmounts: false
+    }, options );
+
+    // Use different properties based on whether we are viewing visible amounts
+    var leftColorProperty = options.useVisibleAmounts ? splotch.visibleLeftColorProperty : splotch.leftColorCountProperty;
+    var rightColorProperty = options.useVisibleAmounts ? splotch.visibleRightColorProperty : splotch.rightColorCountProperty;
+
     var splotchPath = new Path( splotchShape, { stroke: 'black' } );
     this.addChild( splotchPath );
 
-this.splotch = splotch;
+    this.splotch = splotch;
 
     /**
      * Update the fill of the splotch.
      */
     var updateFill = function() {
-      var leftColorAmount = splotch.visibleLeftColorProperty.value;
-      var rightColorAmount = splotch.visibleRightColorProperty.value;
+      var leftColorAmount = leftColorProperty.value;
+      var rightColorAmount = rightColorProperty.value;
 
       var total = leftColorAmount + rightColorAmount;
       var blendAmount = rightColorAmount / total;
@@ -59,7 +67,7 @@ this.splotch = splotch;
     };
 
     // When the color amounts change, update the size and color of the splotch.
-    Property.multilink( [ splotch.visibleLeftColorProperty, splotch.visibleRightColorProperty ], function( leftColor, rightColor ) {
+    Property.multilink( [ leftColorProperty, rightColorProperty ], function( leftColor, rightColor ) {
       updateFill();
 
       var total = leftColor + rightColor;

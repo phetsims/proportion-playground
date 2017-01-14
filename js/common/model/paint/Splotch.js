@@ -57,7 +57,7 @@ define( function( require ) {
                      this.leftColorCountProperty, this.colorCountRange,
                      this.rightColorCountProperty, this.colorCountRange );
 
-    function linkBalloonCreation( realCountProperty, currentCountProperty, isLeft ) {
+    function linkBalloonDripCreation( realCountProperty, currentCountProperty, isLeft ) {
       realCountProperty.lazyLink( function( newValue, oldValue ) {
         var delta = Math.abs( newValue - oldValue );
         if ( newValue > oldValue ) {
@@ -76,8 +76,8 @@ define( function( require ) {
       } );
     }
 
-    linkBalloonCreation( this.leftColorCountProperty, this.currentLeftColorProperty, true );
-    linkBalloonCreation( this.rightColorCountProperty, this.currentRightColorProperty, false );
+    linkBalloonDripCreation( this.leftColorCountProperty, this.currentLeftColorProperty, true );
+    linkBalloonDripCreation( this.rightColorCountProperty, this.currentRightColorProperty, false );
   }
 
   proportionPlayground.register( 'Splotch', Splotch );

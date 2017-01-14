@@ -29,17 +29,15 @@ define( function( require ) {
    *
    * @param {PaintBalloon} paintBalloon - Our paint balloon
    * @param {Property.<PaintChoice>} paintChoiceProperty - The current paint choice
-   * @param {Property.<boolean>} visibleProperty - Whether the balloon should be visible
    * @param {Vector2} startOffset - Offset from the typical starting location
    * @param {Vector2} endOffset - Offset from the typical ending location
    */
-  function PaintBalloonNode( paintBalloon, paintChoiceProperty, visibleProperty, startOffset, endOffset ) {
+  function PaintBalloonNode( paintBalloon, paintChoiceProperty, startOffset, endOffset ) {
     Node.call( this );
 
     // TODO: hopefully these are private?
     this.paintBalloon = paintBalloon;
     this.paintChoiceProperty = paintChoiceProperty;
-    this.visibleProperty = visibleProperty;
     this.startOffset = startOffset;
     this.endOffset = endOffset;
 
@@ -52,10 +50,6 @@ define( function( require ) {
     // @private - Stored for disposal
     this.colorChoiceListener = this.updateBalloonColor.bind( this );
     this.paintChoiceProperty.link( this.colorChoiceListener );
-
-    // @private - Stored for disposal
-    this.visibilityListener = this.setVisible.bind( this );
-    this.visibleProperty.link( this.visibilityListener );
   }
 
   proportionPlayground.register( 'PaintBalloonNode', PaintBalloonNode );
@@ -99,7 +93,6 @@ define( function( require ) {
      * @public
      */
     dispose: function() {
-      this.visibleProperty.unlink( this.visibilityListener );
       this.paintChoiceProperty.unlink( this.colorChoiceListener );
     }
   } );

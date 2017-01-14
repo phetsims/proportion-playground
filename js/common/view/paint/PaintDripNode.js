@@ -24,9 +24,8 @@ define( function( require ) {
    *
    * @param {PaintDrip} paintDrip - Our paint drip
    * @param {Property.<PaintChoice>} paintChoiceProperty - The current paint choice
-   * @param {Property.<boolean>} visibleProperty - Whether the drip should be visible
    */
-  function PaintDripNode( paintDrip, paintChoiceProperty, visibleProperty ) {
+  function PaintDripNode( paintDrip, paintChoiceProperty ) {
     Node.call( this );
 
     // @public {PaintDrip}
@@ -34,7 +33,6 @@ define( function( require ) {
 
     // @private
     this.paintChoiceProperty = paintChoiceProperty;
-    this.visibleProperty = visibleProperty;
 
     var topOffset = 20;
     var bottomOffset = 10;
@@ -53,10 +51,6 @@ define( function( require ) {
     // @private - Stored for disposal
     this.colorChoiceListener = this.updateBalloonColor.bind( this );
     this.paintChoiceProperty.link( this.colorChoiceListener );
-
-    // @private - Stored for disposal
-    this.visibilityListener = this.setVisible.bind( this );
-    this.visibleProperty.link( this.visibilityListener );
   }
 
   proportionPlayground.register( 'PaintDripNode', PaintDripNode );
@@ -98,7 +92,6 @@ define( function( require ) {
      * @public
      */
     dispose: function() {
-      this.visibleProperty.unlink( this.visibilityListener );
       this.paintChoiceProperty.unlink( this.colorChoiceListener );
     }
   } );

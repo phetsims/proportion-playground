@@ -27,10 +27,11 @@ define( function( require ) {
    *
    * @param {Splotch} splotch - the model
    * @param {Property.<PaintChoice>} paintChoiceProperty - Holds our current paint choice
-   * @param {Property.<boolean>} revealProperty - indicates whether the billiards table should be shown
+   * @param {boolean} useVisibleAmounts - Whether our visible splotch size should be based on the "visible" counts as
+   *                                      determined by the location of balloons/drips, or by the "real count"
    * @param {number} initialBalloonSign - The sign indicating along the x axis where the initial balloon positions should be located.
    */
-  function SplotchControl( splotch, paintChoiceProperty, revealProperty, initialBalloonSign ) {
+  function SplotchControl( splotch, paintChoiceProperty, useVisibleAmounts, initialBalloonSign ) {
     var self = this;
 
     SceneRatioControl.call( this, splotch, {
@@ -43,7 +44,9 @@ define( function( require ) {
     var balloonLayer = new Node();
 
     // @private
-    this.splotchNode = new SplotchNode( splotch, paintChoiceProperty );
+    this.splotchNode = new SplotchNode( splotch, paintChoiceProperty, {
+      useVisibleAmounts: useVisibleAmounts
+    } );
     this.addChild( dripLayer );
     this.addChild( this.splotchNode ); // TODO: how is this positioned?
     this.addChild( balloonLayer );
@@ -55,44 +58,47 @@ define( function( require ) {
     // @private {Array.<PaintBalloonNode>}
     this.balloonNodes = [];
 
-    splotch.balloons.addItemAddedListener( function( balloon ) {
-      var randomStart = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 150 );
-      var randomEnd = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 30 );
-      var balloonNode = new PaintBalloonNode( balloon, paintChoiceProperty, revealProperty, randomStart, randomEnd );
-      balloonLayer.addChild( balloonNode );
-      self.balloonNodes.push( balloonNode );
-    } );
-
-    splotch.balloons.addItemRemovedListener( function( balloon ) {
-      for ( var i = self.balloonNodes.length - 1; i >= 0; i-- ) {
-        var balloonNode = self.balloonNodes[ i ];
-        if ( balloonNode.paintBalloon === balloon ) {
-          self.balloonNodes.splice( i, 1 );
-          balloonLayer.removeChild( balloonNode );
-          balloonNode.dispose();
-        }
-      }
-    } );
-
     // @private {Array.<PaintDripNode>}
     this.dripNodes = [];
 
-    splotch.drips.addItemAddedListener( function( drip ) {
-      var dripNode = new PaintDripNode( drip, paintChoiceProperty, revealProperty );
-      dripLayer.addChild( dripNode );
-      self.dripNodes.push( dripNode );
-    } );
+    // Never add balloons/drips if we don't use the visible amounts
+    if ( useVisibleAmounts ) {
+      splotch.balloons.addItemAddedListener( function( balloon ) {
+        var randomStart = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 150 );
+        var randomEnd = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 30 );
+        var balloonNode = new PaintBalloonNode( balloon, paintChoiceProperty, randomStart, randomEnd );
+        balloonLayer.addChild( balloonNode );
+        self.balloonNodes.push( balloonNode );
+      } );
 
-    splotch.drips.addItemRemovedListener( function( drip ) {
-      for ( var i = self.dripNodes.length - 1; i >= 0; i-- ) {
-        var dripNode = self.dripNodes[ i ];
-        if ( dripNode.paintDrip === drip ) {
-          self.dripNodes.splice( i, 1 );
-          dripLayer.removeChild( dripNode );
-          dripNode.dispose();
+      splotch.balloons.addItemRemovedListener( function( balloon ) {
+        for ( var i = self.balloonNodes.length - 1; i >= 0; i-- ) {
+          var balloonNode = self.balloonNodes[ i ];
+          if ( balloonNode.paintBalloon === balloon ) {
+            self.balloonNodes.splice( i, 1 );
+            balloonLayer.removeChild( balloonNode );
+            balloonNode.dispose();
+          }
         }
-      }
-    } );
+      } );
+
+      splotch.drips.addItemAddedListener( function( drip ) {
+        var dripNode = new PaintDripNode( drip, paintChoiceProperty );
+        dripLayer.addChild( dripNode );
+        self.dripNodes.push( dripNode );
+      } );
+
+      splotch.drips.addItemRemovedListener( function( drip ) {
+        for ( var i = self.dripNodes.length - 1; i >= 0; i-- ) {
+          var dripNode = self.dripNodes[ i ];
+          if ( dripNode.paintDrip === drip ) {
+            self.dripNodes.splice( i, 1 );
+            dripLayer.removeChild( dripNode );
+            dripNode.dispose();
+          }
+        }
+      } );
+    }
   }
 
   proportionPlayground.register( 'SplotchControl', SplotchControl );
