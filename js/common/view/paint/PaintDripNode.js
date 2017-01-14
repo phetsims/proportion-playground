@@ -24,12 +24,17 @@ define( function( require ) {
    *
    * @param {PaintDrip} paintDrip - Our paint drip
    * @param {Property.<PaintChoice>} paintChoiceProperty - The current paint choice
+   * @param {Property.<boolean>} visibleProperty - Whether the drip should be visible
    */
-  function PaintDripNode( paintDrip, paintChoiceProperty ) {
+  function PaintDripNode( paintDrip, paintChoiceProperty, visibleProperty ) {
     Node.call( this );
 
     // @public {PaintDrip}
     this.paintDrip = paintDrip;
+
+    // @private
+    this.paintChoiceProperty = paintChoiceProperty;
+    this.visibleProperty = visibleProperty;
 
     var topOffset = 20;
     var bottomOffset = 10;
@@ -39,21 +44,19 @@ define( function( require ) {
                            .lineTo( topOffset, -HEIGHT )
                            .close();
     var shapeArea = 2 * bottomOffset * HEIGHT + ( topOffset - bottomOffset ) * HEIGHT;
-    var body = new Path( shape, {
+
+    this.path = new Path( shape, {
       scale: Math.sqrt( SPLOTCH_AREA / shapeArea )
     } );
+    this.addChild( this.path );
 
-    function updateBalloonColor( colorChoice ) {
-      body.fill = paintDrip.isLeft ? colorChoice.leftColor : colorChoice.rightColor;
-    }
-    paintChoiceProperty.link( updateBalloonColor );
+    // @private - Stored for disposal
+    this.colorChoiceListener = this.updateBalloonColor.bind( this );
+    this.paintChoiceProperty.link( this.colorChoiceListener );
 
-    // @private
-    this.disposeDripNode = function() {
-      paintChoiceProperty.unlink( updateBalloonColor );
-    };
-
-    this.addChild( body );
+    // @private - Stored for disposal
+    this.visibilityListener = this.setVisible.bind( this );
+    this.visibleProperty.link( this.visibilityListener );
   }
 
   proportionPlayground.register( 'PaintDripNode', PaintDripNode );
@@ -81,11 +84,22 @@ define( function( require ) {
     },
 
     /**
+     * Updates the drip's color based on the paintChoice
+     * @private
+     *
+     * @param {PaintChoice} paintChoice
+     */
+    updateBalloonColor: function( paintChoice ) {
+      this.path.fill = this.paintDrip.isLeft ? paintChoice.leftColor : paintChoice.rightColor;
+    },
+
+    /**
      * Releases references.
      * @public
      */
     dispose: function() {
-      this.disposeDripNode();
+      this.visibleProperty.unlink( this.visibilityListener );
+      this.paintChoiceProperty.unlink( this.colorChoiceListener );
     }
   } );
 } );

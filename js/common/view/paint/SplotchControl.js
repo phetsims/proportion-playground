@@ -58,7 +58,7 @@ define( function( require ) {
     splotch.balloons.addItemAddedListener( function( balloon ) {
       var randomStart = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 150 );
       var randomEnd = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 30 );
-      var balloonNode = new PaintBalloonNode( balloon, paintChoiceProperty, randomStart, randomEnd );
+      var balloonNode = new PaintBalloonNode( balloon, paintChoiceProperty, revealProperty, randomStart, randomEnd );
       balloonLayer.addChild( balloonNode );
       self.balloonNodes.push( balloonNode );
     } );
@@ -78,7 +78,7 @@ define( function( require ) {
     this.dripNodes = [];
 
     splotch.drips.addItemAddedListener( function( drip ) {
-      var dripNode = new PaintDripNode( drip, paintChoiceProperty );
+      var dripNode = new PaintDripNode( drip, paintChoiceProperty, revealProperty );
       dripLayer.addChild( dripNode );
       self.dripNodes.push( dripNode );
     } );

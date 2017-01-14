@@ -29,31 +29,33 @@ define( function( require ) {
    *
    * @param {PaintBalloon} paintBalloon - Our paint balloon
    * @param {Property.<PaintChoice>} paintChoiceProperty - The current paint choice
+   * @param {Property.<boolean>} visibleProperty - Whether the balloon should be visible
    * @param {Vector2} startOffset - Offset from the typical starting location
    * @param {Vector2} endOffset - Offset from the typical ending location
    */
-  function PaintBalloonNode( paintBalloon, paintChoiceProperty, startOffset, endOffset ) {
+  function PaintBalloonNode( paintBalloon, paintChoiceProperty, visibleProperty, startOffset, endOffset ) {
     Node.call( this );
 
+    // TODO: hopefully these are private?
     this.paintBalloon = paintBalloon;
+    this.paintChoiceProperty = paintChoiceProperty;
+    this.visibleProperty = visibleProperty;
     this.startOffset = startOffset;
     this.endOffset = endOffset;
 
-
-    var body = new Circle( BALLOON_RADIUS, {
+    // @private
+    this.circle = new Circle( BALLOON_RADIUS, {
       stroke: 'black'
     } );
-    function updateBalloonColor( colorChoice ) {
-      body.fill = paintBalloon.isLeft ? colorChoice.leftColor : colorChoice.rightColor;
-    }
-    paintChoiceProperty.link( updateBalloonColor );
+    this.addChild( this.circle );
 
-    // @private
-    this.disposeBalloonNode = function() {
-      paintChoiceProperty.unlink( updateBalloonColor );
-    };
+    // @private - Stored for disposal
+    this.colorChoiceListener = this.updateBalloonColor.bind( this );
+    this.paintChoiceProperty.link( this.colorChoiceListener );
 
-    this.addChild( body );
+    // @private - Stored for disposal
+    this.visibilityListener = this.setVisible.bind( this );
+    this.visibleProperty.link( this.visibilityListener );
   }
 
   proportionPlayground.register( 'PaintBalloonNode', PaintBalloonNode );
@@ -83,11 +85,22 @@ define( function( require ) {
     },
 
     /**
+     * Updates the balloon's color based on the paintChoice
+     * @private
+     *
+     * @param {PaintChoice} paintChoice
+     */
+    updateBalloonColor: function( paintChoice ) {
+      this.circle.fill = this.paintBalloon.isLeft ? paintChoice.leftColor : paintChoice.rightColor;
+    },
+
+    /**
      * Releases references.
      * @public
      */
     dispose: function() {
-      this.disposeBalloonNode();
+      this.visibleProperty.unlink( this.visibilityListener );
+      this.paintChoiceProperty.unlink( this.colorChoiceListener );
     }
   } );
 } );
