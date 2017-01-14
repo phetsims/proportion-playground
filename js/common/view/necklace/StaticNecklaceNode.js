@@ -238,6 +238,7 @@ define( function( require ) {
        * @returns {Object} - dictionary for m, na, and nb. m is the number of patterns, na is the number of round beads
        * per pattern, and nb is the number of square beads per pattern.
        */
+      //TODO: GCD is implemented in DOT/Util
       var solver = function() {
 
         // If there is only one type of bead, there is only one pattern occurence
@@ -263,13 +264,13 @@ define( function( require ) {
       // for each instance of the repeated pattern
       for ( i = 0; i < m; i++ ) {
 
-        // add round
-        for ( var j = 0; j < na; j++ ) {
-          types.push( 'round' );
-        }
         // add square
         for ( var tk = 0; tk < nb; tk++ ) {
           types.push( 'square' );
+        }
+        // add round
+        for ( var j = 0; j < na; j++ ) {
+          types.push( 'round' );
         }
       }
 
