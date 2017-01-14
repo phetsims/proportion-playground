@@ -87,9 +87,6 @@ define( function( require ) {
       self.updateRevealButton();
     } );
 
-    redAppleGroupControl.bottom = layoutBounds.bottom - 60;
-    greenAppleGroupControl.bottom = layoutBounds.bottom - 60;
-
     // Price tag checkbox goes in the bottom left
     var checkBoxInset = 10;
     showCostPerAppleCheckBox.leftBottom = layoutBounds.leftBottom.plusXY( checkBoxInset, -checkBoxInset );

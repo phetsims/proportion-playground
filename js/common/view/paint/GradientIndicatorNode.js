@@ -113,7 +113,7 @@ define( function( require ) {
 
     // Position the node
     scene.showBothProperty.link( function( showBoth ) {
-      self.x = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
+      self.centerX = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
     } );
 
     // Vertical position

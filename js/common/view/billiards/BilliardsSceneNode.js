@@ -28,12 +28,14 @@ define( function( require ) {
   function BilliardsSceneNode( scene, layoutBounds ) {
     var self = this;
 
+    var billiardsCenterY = layoutBounds.height * 0.45;
+
     // Create the left/right tables
     var billiardsTableLeftControl = new BilliardsTableControl( layoutBounds, scene.leftTable, scene.revealProperty, {
-      centerY: layoutBounds.centerY
+      centerY: billiardsCenterY
     } );
     var billiardsTableRightControl = new BilliardsTableControl( layoutBounds, scene.rightTable, scene.revealProperty, {
-      centerY: layoutBounds.centerY,
+      centerY: billiardsCenterY,
       side: 'right'
     } );
 

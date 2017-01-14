@@ -93,7 +93,7 @@ define( function( require ) {
       this.addChild( new ABSwitch( this.scene.showBothProperty,
         false, this.leftSwitchIcon,
         true, this.rightSwitchIcon, {
-        centerBottom: this.layoutBounds.centerBottom.plusXY( 0, -5 )
+        centerBottom: this.layoutBounds.centerBottom.plusXY( 0, -15 )
       } ) );
     },
 
@@ -118,16 +118,16 @@ define( function( require ) {
           else {
             this.revealButton.right = this.layoutBounds.right - 10;
           }
-          this.revealButton.centerY = this.layoutBounds.bottom - 118;
+          this.revealButton.centerY = this.layoutBounds.bottom - 128;
         }
         else {
           var pickerContainerBounds = this.leftControl.localToParentBounds( this.leftControl.pickerContainer.bounds );
           this.revealButton.left = pickerContainerBounds.right + 30;
-          this.revealButton.centerY = this.layoutBounds.bottom - 118;
+          this.revealButton.centerY = this.layoutBounds.bottom - 128;
         }
       } else {
         this.revealButton.centerX = this.layoutBounds.centerX;
-        this.revealButton.centerY = this.layoutBounds.bottom - 82;
+        this.revealButton.centerY = this.layoutBounds.bottom - 100;
       }
     }
   } );

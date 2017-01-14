@@ -21,7 +21,7 @@ define( function( require ) {
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
-  var PICKER_BOTTOM = 550;
+  var PICKER_BOTTOM = 540;
 
   /**
    * @constructor
@@ -152,6 +152,7 @@ define( function( require ) {
         spacing: 15,
         bottom: PICKER_BOTTOM,
         centerX: 0,
+        align: 'bottom', // Some have labels of different height on top
         children: [ this.leftPicker, this.rightPicker ]
       } );
       this.addChild( this.pickerContainer );
