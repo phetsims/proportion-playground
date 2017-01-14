@@ -78,7 +78,7 @@ define( function( require ) {
     } );
 
     Panel.call( this, content, _.extend( {
-      cornerRadius: 0,
+      cornerRadius: 3,
       stroke: '#B3B3B3',
       xMargin: 10
     }, options ) );
