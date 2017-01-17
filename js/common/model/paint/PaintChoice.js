@@ -53,6 +53,23 @@ define( function( require ) {
   }
 
   /**
+   * Power-based blending function, see https://github.com/phetsims/proportion-playground/issues/45.
+   * @private
+   *
+   * @param {number} ratio - From 0 to 1.
+   * @param {number} power - The power level to apply (<1 compresses, >1 stretches, =1 has no change)
+   * @returns {number}
+   */
+  function stretchRatio( ratio, power ) {
+    if ( ratio <= 0.5 ) {
+      return 0.5 * Math.pow( 2 * ratio, power );
+    }
+    else {
+      return 1 - 0.5 * Math.pow( 2 * ( 1 - ratio ), power );
+    }
+  }
+
+  /**
    * @constructor
    * @private
    *
@@ -77,7 +94,7 @@ define( function( require ) {
     getColor: function( blendAmount ) {
       assert && assert( blendAmount >= 0 && blendAmount <= 1, 'Blend amount was out of bounds.' );
 
-      return blendSubtractiveRGBGamma( this.leftColor, this.rightColor, blendAmount );
+      return blendSubtractiveRGBGamma( this.leftColor, this.rightColor, stretchRatio( blendAmount, 1.8 ) );
     },
 
     /**
