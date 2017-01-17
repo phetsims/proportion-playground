@@ -133,16 +133,16 @@ define( function( require ) {
     }
   } );
 
-  var BLUE = new Color( 0x05, 0x70, 0xFF );
-  var YELLOW = new Color( 0xFF, 0xE0, 0x05 );
-  var RED = new Color( 0xFF, 0x25, 0x05 );
-  var BLACK = new Color( 0x25, 0x25, 0x25 );
-  var WHITE = new Color( 0xFF, 0xFF, 0xFF );
+  PaintChoice.BLUE = new Color( 0x05, 0x70, 0xFF );
+  PaintChoice.YELLOW = new Color( 0xFF, 0xE0, 0x05 );
+  PaintChoice.RED = new Color( 0xFF, 0x25, 0x05 );
+  PaintChoice.BLACK = new Color( 0x25, 0x25, 0x25 );
+  PaintChoice.WHITE = new Color( 0xFF, 0xFF, 0xFF );
 
   // Colors are unique instances for convenience later
-  PaintChoice.BLUE_YELLOW = new PaintChoice( BLUE.copy(), YELLOW.copy() );
-  PaintChoice.RED_YELLOW = new PaintChoice( RED.copy(), YELLOW.copy() );
-  PaintChoice.BLACK_WHITE = new PaintChoice( BLACK.copy(), WHITE.copy() );
+  PaintChoice.BLUE_YELLOW = new PaintChoice( PaintChoice.BLUE.copy(), PaintChoice.YELLOW.copy() );
+  PaintChoice.RED_YELLOW = new PaintChoice( PaintChoice.RED.copy(), PaintChoice.YELLOW.copy() );
+  PaintChoice.BLACK_WHITE = new PaintChoice( PaintChoice.BLACK.copy(), PaintChoice.WHITE.copy() );
 
   PaintChoice.CHOICES = [
     PaintChoice.BLUE_YELLOW,

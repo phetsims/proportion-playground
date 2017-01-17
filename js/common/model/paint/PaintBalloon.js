@@ -14,6 +14,8 @@ define( function( require ) {
 
   var TIME_TO_HIT = 0.5; // in Seconds
 
+  var balloonCounter = 0;
+
   /**
    * @constructor
    *
@@ -29,6 +31,9 @@ define( function( require ) {
 
     // @public {function}
     this.hitCallback = hitCallback;
+
+    // @public {number} - Determines which balloon orientation image is used
+    this.balloonType = ( balloonCounter++ ) % 3;
   }
 
   proportionPlayground.register( 'PaintBalloon', PaintBalloon );
