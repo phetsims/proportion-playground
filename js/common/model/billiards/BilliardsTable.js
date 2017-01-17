@@ -31,10 +31,10 @@ define( function( require ) {
   function BilliardsTable( visibleProperty, controlsVisibleProperty ) {
 
     // @public {NumberProperty} - Number of grid units vertically
-    this.lengthProperty = new NumberProperty( 1 );
+    this.lengthProperty = new NumberProperty( 5 );
 
     // @public {NumberProperty} - Number of grid units horizontally
-    this.widthProperty = new NumberProperty( 1 );
+    this.widthProperty = new NumberProperty( 5 );
 
     // @public (read-only) - the allowed values for length and width
     //TODO: do we need this outside of the SceneRatio call?
