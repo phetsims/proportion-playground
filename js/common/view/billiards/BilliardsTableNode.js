@@ -17,6 +17,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var Property = require( 'AXON/Property' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
@@ -28,7 +29,7 @@ define( function( require ) {
 
   // constants
   var SCALE = 18; // from model units to pixels
-  var WHITE_STROKE_OPTIONS = { stroke: 'white' };
+  var WHITE_STROKE_OPTIONS = { stroke: '#eee' };
   var MOVING_LINE_OPTIONS = { stroke: 'white', lineWidth: 2 };
   var BALL_DIAMETER = 10;
   var DRAGGER_OPTIONS = {
@@ -51,10 +52,24 @@ define( function( require ) {
     var currentLineNode = new Line( 0, 0, 0, 0, MOVING_LINE_OPTIONS );
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
-    var brownRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundConstants.BILLIARDS_BROWN } );
+    var blackRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundConstants.BILLIARDS_BROWN } );
     var greenRectangle = new Rectangle( 0, 0, 0, 0, {
       fill: ProportionPlaygroundConstants.BILLIARDS_GREEN
     } );
+
+    var dragHandle = new HBox( {
+      spacing: 1.3,
+      children: [ 0, 1, 2 ].map( function() {
+        return new Circle( 1.2, {
+          fill: 'rgb(102,102,102)'
+        } );
+      } )
+    } );
+
+    var leftDragHandle = new Node( { children: [ dragHandle ], rotation: Math.PI / 2 } );
+    var rightDragHandle = new Node( { children: [ dragHandle ], rotation: Math.PI / 2 } );
+    var topDragHandle = new Node( { children: [ dragHandle ] } );
+    var bottomDragHandle = new Node( { children: [ dragHandle ] } );
 
     // invisible rectangles used to drag the sides of the table to change the dimensions
     var leftDragger = new Rectangle( 0, 0, 0, 0, DRAGGER_OPTIONS );
@@ -168,12 +183,12 @@ define( function( require ) {
       var length = billiardsTable.lengthProperty.value;
       var width = billiardsTable.widthProperty.value;
 
-      var brownEdgeLineWidth = 8;
+      var brownEdgeLineWidth = 11;
       var scaledWidth = width * SCALE;
       var scaledHeight = length * SCALE;
       var lineWidthAmount = brownEdgeLineWidth * 2;
 
-      brownRectangle.setRect( 0, 0, scaledWidth + lineWidthAmount, scaledHeight + lineWidthAmount );
+      blackRectangle.setRect( 0, 0, scaledWidth + lineWidthAmount, scaledHeight + lineWidthAmount );
       //TODO: cleanup?
       self.localBounds = Bounds2.point( 0, 0 ).dilatedXY(
         billiardsTable.range.max * SCALE / 2 + brownEdgeLineWidth,
@@ -205,13 +220,18 @@ define( function( require ) {
 
       // center the rectangles
       greenRectangle.center = new Vector2( 0, 0 );
-      brownRectangle.center = greenRectangle.center;
+      blackRectangle.center = greenRectangle.center;
 
       // center the draggers
       leftDragger.center = greenRectangle.center.plusXY( -( scaledWidth / 2 + lineWidthAmount / 4 ), 0 );
       rightDragger.center = greenRectangle.center.plusXY( scaledWidth / 2 + lineWidthAmount / 4, 0 );
       topDragger.center = greenRectangle.center.plusXY( 0, -( scaledHeight / 2 + lineWidthAmount / 4 ) );
       bottomDragger.center = greenRectangle.center.plusXY( 0, scaledHeight / 2 + lineWidthAmount / 4 );
+
+      leftDragHandle.center = leftDragger.center;
+      rightDragHandle.center = rightDragger.center;
+      topDragHandle.center = topDragger.center;
+      bottomDragHandle.center = bottomDragger.center;
 
       // Position the lines layer
       lineLayer.translation = greenRectangle.translation;
@@ -223,13 +243,17 @@ define( function( require ) {
     } );
 
     this.children = [
-      brownRectangle,
+      blackRectangle,
       greenRectangle,
       draggersLayer,
       lineLayer,
       topLeftHoleNode,
       topRightHoleNode,
       bottomRightHoleNode,
+      leftDragHandle,
+      rightDragHandle,
+      topDragHandle,
+      bottomDragHandle,
       ballNode
     ];
   }
