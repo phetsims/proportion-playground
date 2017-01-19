@@ -46,7 +46,7 @@ define( function( require ) {
     var leftColorProperty = options.useVisibleAmounts ? splotch.visibleLeftColorProperty : splotch.leftColorCountProperty;
     var rightColorProperty = options.useVisibleAmounts ? splotch.visibleRightColorProperty : splotch.rightColorCountProperty;
 
-    var splotchPath = new Path( splotchShape, { stroke: 'black' } );
+    var splotchPath = new Path( splotchShape, { stroke: 'black', lineWidth: 0.7 } );
     this.addChild( splotchPath );
 
     this.splotch = splotch;
