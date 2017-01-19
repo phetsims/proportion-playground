@@ -25,12 +25,12 @@ define( function( require ) {
     mainColor: COLOR.colorUtilsDarker( 0.1 ),
     shadowColor: COLOR.colorUtilsDarker( 0.5 ),
     highlightColor: COLOR.colorUtilsBrighter( 0.5 ),
-    highlightXOffset: 0.3,
+    highlightXOffset: -0.3,
     highlightYOffset: -0.3
   } );
   var backgroundNode = new Circle( DIAMETER * 0.51, {
     fill: COLOR.colorUtilsDarker( 0.6 ),
-    x: -DIAMETER / 30,
+    x: DIAMETER / 30,
     y: DIAMETER / 30
   } );
 

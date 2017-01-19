@@ -67,7 +67,8 @@ define( function( require ) {
     } ) );
 
     this.mutate( _.extend( {
-      children: [ container ]
+      children: [ container ],
+      rotation: -Math.PI / 2
     }, options ) );
   }
 
