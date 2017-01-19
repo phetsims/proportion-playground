@@ -94,7 +94,7 @@ define( function( require ) {
     getColor: function( blendAmount ) {
       assert && assert( blendAmount >= 0 && blendAmount <= 1, 'Blend amount was out of bounds.' );
 
-      return blendSubtractiveRGBGamma( this.leftColor, this.rightColor, stretchRatio( blendAmount, 1.8 ) );
+      return blendSubtractiveRGBGamma( this.leftColor, this.rightColor, stretchRatio( blendAmount, 2.0 ) );
     },
 
     /**
