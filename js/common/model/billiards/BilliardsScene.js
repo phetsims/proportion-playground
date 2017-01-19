@@ -15,15 +15,16 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
-   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @constructor
+   *
+   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
   function BilliardsScene( predictMode ) {
     Scene.call( this, predictMode );
 
     // @public
-    this.leftTable = new BilliardsTable( this.leftVisibleProperty, this.leftControlsVisibleProperty );
-    this.rightTable = new BilliardsTable( this.rightVisibleProperty, this.rightControlsVisibleProperty );
+    this.leftTable = new BilliardsTable( this.leftVisibleProperty, this.leftControlsVisibleProperty, predictMode );
+    this.rightTable = new BilliardsTable( this.rightVisibleProperty, this.rightControlsVisibleProperty, predictMode );
 
     this.initializeRatios( this.leftTable, this.rightTable );
   }

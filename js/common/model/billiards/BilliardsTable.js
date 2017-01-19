@@ -27,14 +27,18 @@ define( function( require ) {
    *
    * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
+   * @param {boolean} isStatic - Whether it can be changed interactively (e.g. by dragging edges)
    */
-  function BilliardsTable( visibleProperty, controlsVisibleProperty ) {
+  function BilliardsTable( visibleProperty, controlsVisibleProperty, isStatic ) {
 
     // @public {NumberProperty} - Number of grid units vertically
     this.lengthProperty = new NumberProperty( 5 );
 
     // @public {NumberProperty} - Number of grid units horizontally
     this.widthProperty = new NumberProperty( 5 );
+
+    // @public {boolean}
+    this.isStatic = isStatic;
 
     // @public (read-only) - the allowed values for length and width
     //TODO: do we need this outside of the SceneRatio call?

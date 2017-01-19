@@ -29,7 +29,7 @@ define( function( require ) {
 
   // constants
   var SCALE = 18; // from model units to pixels
-  var WHITE_STROKE_OPTIONS = { stroke: '#eee' };
+  var GRID_LINE_OPTIONS = { stroke: 'rgb(168,168,168)', lineWidth: 0.5 };
   var MOVING_LINE_OPTIONS = { stroke: 'white', lineWidth: 2 };
   var BALL_DIAMETER = 10;
   var DRAGGER_OPTIONS = {
@@ -98,7 +98,7 @@ define( function( require ) {
 
     // Create the holes for top-left, top-right and bottom-right
     var createCircle = function() {
-      return new Circle( BALL_DIAMETER / 2, { fill: 'black' } );
+      return new Circle( BALL_DIAMETER / 2, { fill: 'rgb(102,102,102)' } );
     };
     var topLeftHoleNode = createCircle();
     var topRightHoleNode = createCircle();
@@ -205,12 +205,12 @@ define( function( require ) {
 
         // vertical lines
         for ( var i = 0; i <= width; i++ ) {
-          gridLines.push( new Line( i * SCALE, 0, i * SCALE, scaledHeight, WHITE_STROKE_OPTIONS ) );
+          gridLines.push( new Line( i * SCALE, 0, i * SCALE, scaledHeight, GRID_LINE_OPTIONS ) );
         }
 
         // horizontal lines
         for ( var k = 0; k <= length; k++ ) {
-          gridLines.push( new Line( 0, k * SCALE, scaledWidth, k * SCALE, WHITE_STROKE_OPTIONS ) );
+          gridLines.push( new Line( 0, k * SCALE, scaledWidth, k * SCALE, GRID_LINE_OPTIONS ) );
         }
         return gridLines;
       };
@@ -242,20 +242,34 @@ define( function( require ) {
       topRightHoleNode.translation = greenRectangle.translation.plusXY( width * SCALE, 0 );
     } );
 
-    this.children = [
-      blackRectangle,
-      greenRectangle,
-      draggersLayer,
-      lineLayer,
-      topLeftHoleNode,
-      topRightHoleNode,
-      bottomRightHoleNode,
-      leftDragHandle,
-      rightDragHandle,
-      topDragHandle,
-      bottomDragHandle,
-      ballNode
-    ];
+    //TODO: cleanup
+    if ( billiardsTable.isStatic ) {
+      this.children = [
+        blackRectangle,
+        greenRectangle,
+        lineLayer,
+        topLeftHoleNode,
+        topRightHoleNode,
+        bottomRightHoleNode,
+        ballNode
+      ];
+    }
+    else {
+      this.children = [
+        blackRectangle,
+        greenRectangle,
+        draggersLayer,
+        lineLayer,
+        topLeftHoleNode,
+        topRightHoleNode,
+        bottomRightHoleNode,
+        leftDragHandle,
+        rightDragHandle,
+        topDragHandle,
+        bottomDragHandle,
+        ballNode
+      ];
+    }
   }
 
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );
