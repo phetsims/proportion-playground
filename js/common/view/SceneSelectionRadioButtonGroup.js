@@ -17,7 +17,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
 
   // images
-  var paintBucketImage = require( 'image!PROPORTION_PLAYGROUND/paint-bucket.png' );
+  var paintSceneImage = require( 'image!PROPORTION_PLAYGROUND/paint-scene.png' );
   var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
 
   /**
@@ -30,12 +30,12 @@ define( function( require ) {
 
     // Create one icon per scene
     var necklaceIcon = new StaticNecklaceNode( 14, 7, { scale: 0.2 } );
-    var paintBucketIcon = new Image( paintBucketImage );
+    var paintSceneIcon = new Image( paintSceneImage );
     var billiardTableIcon = new BilliardTableIcon( 120, 120 );
     var redAppleIcon = new Image( redAppleImage );
 
     // Make other icons same height as 1st icon
-    paintBucketIcon.mutate( { scale: necklaceIcon.height / paintBucketIcon.height } );
+    paintSceneIcon.mutate( { scale: necklaceIcon.height / paintSceneIcon.height } );
     billiardTableIcon.mutate( { scale: necklaceIcon.height / billiardTableIcon.height } );
     redAppleIcon.mutate( { scale: necklaceIcon.height / redAppleIcon.height } );
 
@@ -44,7 +44,7 @@ define( function( require ) {
       node: necklaceIcon
     }, {
       value: model.paintScene,
-      node: paintBucketIcon
+      node: paintSceneIcon
     }, {
       value: model.billiardsScene,
       node: billiardTableIcon
