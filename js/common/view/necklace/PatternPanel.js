@@ -33,6 +33,7 @@ define( function( require ) {
    */
   function PatternPanel( leftNecklace, rightNecklace, options ) {
     var labelNode = new Text( patternString, {
+      maxWidth: 100,
       font: new PhetFont( 20 )
     } );
 
