@@ -41,7 +41,7 @@ define( function( require ) {
       leftPickerLabel: null, // {Node|string|null}
       rightPickerLabel: null, // {Node|string|null}
       paintChoiceProperty: null, // {Property.<PaintChoice>|null} - Currently true when the second color should be shown.
-      pickerLabelMaxWidth: 180
+      pickerLabelMaxWidth: 150
     }, options );
 
     Node.call( this, options );

@@ -118,6 +118,7 @@ define( function( require ) {
       SceneRatio.prototype.reset.call( this );
 
       this.balloons.clear();
+      this.drips.clear();
 
       this.currentLeftColorProperty.reset();
       this.currentRightColorProperty.reset();
