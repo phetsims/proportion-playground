@@ -16,6 +16,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Panel = require( 'SUN/Panel' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
   var Property = require( 'AXON/Property' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -24,13 +25,15 @@ define( function( require ) {
 
   // images
   var coinImage = require( 'mipmap!PROPORTION_PLAYGROUND/coin.png' );
+  var crateBackImage = require( 'mipmap!PROPORTION_PLAYGROUND/crate-back.png' );
+  var crateFrontImage = require( 'mipmap!PROPORTION_PLAYGROUND/crate-front.png' );
 
   // strings
   var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
   // constants
   var APPLE_IMAGE_SCALE = 0.35; // Reduction factor for showing the image
-  var COIN_IMAGE_SCALE = 0.7; // Reduction factor for showing the image
+  var COIN_IMAGE_SCALE = 1.4; // Reduction factor for showing the image
   var APPLES_PER_ROW = 5;
 
   /**
@@ -52,28 +55,48 @@ define( function( require ) {
     var appleImageNode = new Image( appleImage, { scale: APPLE_IMAGE_SCALE } );
     var coinImageNode = new Image( coinImage, { scale: COIN_IMAGE_SCALE } );
 
-    var appleNodes = _.range( 0, appleGroup.numberOfApplesRange.max ).map( function( appleNumber ) {
-      return new Node( {
-        children: [ appleImageNode ],
-        x: ( APPLES_PER_ROW - ( appleNumber % APPLES_PER_ROW ) - 1 ) * appleImageNode.width,
-        y: Math.floor( appleNumber / APPLES_PER_ROW ) * appleImageNode.height / 2
+    // {Array.<Array.<Node>>} - Array of rows, each of which is an array of apple nodes
+    var appleRows = _.range( 0, appleGroup.numberOfApplesRange.max / APPLES_PER_ROW ).map( function( row ) {
+      return _.range( 0, APPLES_PER_ROW ).map( function( column ) {
+        return new Node( {
+          children: [ appleImageNode ],
+          x: ( APPLES_PER_ROW - column ) * appleImageNode.width * 0.8 -
+             row * appleImageNode.width * 0.15,
+          y: row * appleImageNode.height * 0.55
+        } );
       } );
     } );
 
+    var appleNodes = _.flatten( appleRows );
+
+    var stackedAppleNodes = _.flatten( appleRows.map( function( row ) {
+      return row.slice().reverse();
+    } ) );
+
+    var crateImageOffset = new Vector2( -7, -15 );
+
     // @public {Node} - Exposed so we can properly align controls with the apples
-    this.appleLayer = new Node( {
-      children: appleNodes
+    this.appleCrate = new Node( {
+      children: [
+        new Image( crateBackImage, {
+          translation: crateImageOffset
+        } )
+      ].concat( stackedAppleNodes ).concat( [
+        new Image( crateFrontImage, {
+          translation: crateImageOffset
+        } )
+      ] )
     } );
 
     var coinNodes = _.range( 0, appleGroup.totalCostRange.max ).map( function( coinNumber ) {
       return new Node( {
         children: [ coinImageNode ],
-        y: -coinNumber * coinImageNode.height / 6
+        y: -coinNumber * coinImageNode.height / 7
       } );
     } );
 
     // @public {Node} - Exposed so we can properly align controls with the coins
-    this.coinLayer = new Node( {
+    this.coinStack = new Node( {
       children: coinNodes
     } );
 
@@ -115,11 +138,11 @@ define( function( require ) {
       } ) ];
     } );
 
-    this.appleLayer.left = priceTagLayer.left = this.coinLayer.right + 60;
-    this.appleLayer.bottom = this.coinLayer.bottom;
-    priceTagLayer.bottom = this.appleLayer.top - 20;
+    this.appleCrate.left = priceTagLayer.left = this.coinStack.right + 60;
+    this.appleCrate.bottom = this.coinStack.bottom;
+    priceTagLayer.bottom = this.appleCrate.top - 20;
 
-    this.children = [ this.coinLayer, this.appleLayer, priceTagLayer ];
+    this.children = [ this.coinStack, this.appleCrate, priceTagLayer ];
   }
 
   proportionPlayground.register( 'AppleGroupNode', AppleGroupNode );

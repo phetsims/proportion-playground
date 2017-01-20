@@ -49,7 +49,7 @@ define( function( require ) {
     var appleGroupNode = new AppleGroupNode( appleGroup, appleImage, showCostPerAppleProperty );
 
     this.addChild( appleGroupNode );
-    this.addBottomPickersWithLocation( appleGroupNode.coinLayer.centerX, appleGroupNode.appleLayer.centerX );
+    this.addBottomPickersWithLocation( appleGroupNode.coinStack.centerX, appleGroupNode.appleCrate.centerX );
 
     appleGroupNode.bottom = this.pickerContainer.top - 30;
   }
