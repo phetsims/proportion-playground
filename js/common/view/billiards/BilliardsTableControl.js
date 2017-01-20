@@ -34,7 +34,8 @@ define( function( require ) {
       leftPickerColors: [ ProportionPlaygroundConstants.BILLIARDS_BROWN ],
       leftPickerLabel: lengthString,
       rightPickerColors: [ ProportionPlaygroundConstants.BILLIARDS_BROWN ],
-      rightPickerLabel: widthString
+      rightPickerLabel: widthString,
+      pickerLabelMaxWidth: 70
     } );
 
     // TODO: enum? Or have this on the model?

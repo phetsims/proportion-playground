@@ -40,7 +40,8 @@ define( function( require ) {
       rightPickerOptions: {}, // {Object}
       leftPickerLabel: null, // {Node|string|null}
       rightPickerLabel: null, // {Node|string|null}
-      paintChoiceProperty: null // {Property.<PaintChoice>|null} - Currently true when the second color should be shown.
+      paintChoiceProperty: null, // {Property.<PaintChoice>|null} - Currently true when the second color should be shown.
+      pickerLabelMaxWidth: 180
     }, options );
 
     Node.call( this, options );
@@ -73,7 +74,7 @@ define( function( require ) {
         // Convert a string label to a Text node.
         if ( typeof label === 'string' ) {
           label = new Text( label, {
-            maxWidth: 180, //TODO: check
+            maxWidth: options.pickerLabelMaxWidth, //TODO: check
             font: new PhetFont( ProportionPlaygroundConstants.CONTROL_FONT_SIZE )
           } );
         }
