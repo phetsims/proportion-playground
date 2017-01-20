@@ -124,9 +124,9 @@ define( function( require ) {
       else {
         fixed = StringUtils.format( pricePatternString, fixed );
       }
-      var fontSizeOptions = { fontSize: 30 };
+      var fontSizeOptions = { fontSize: 25 };
       priceTagLayer.children = [ new Panel( new VBox( {
-        spacing: 5,
+        spacing: 4,
         children: [
           new Text( fixed, fontSizeOptions ),
           new Line( 0, 0, 100, 0, { lineWidth: 2, stroke: 'black' } ),
@@ -138,9 +138,10 @@ define( function( require ) {
       } ) ];
     } );
 
-    this.appleCrate.left = priceTagLayer.left = this.coinStack.right + 60;
-    this.appleCrate.bottom = this.coinStack.bottom;
-    priceTagLayer.bottom = this.appleCrate.top - 20;
+    this.appleCrate.left = this.coinStack.right + 60;
+    priceTagLayer.centerX = this.appleCrate.centerX - 20;
+    priceTagLayer.bottom = this.coinStack.bottom;
+    this.appleCrate.bottom = priceTagLayer.bottom - 15;
 
     this.children = [ this.coinStack, this.appleCrate, priceTagLayer ];
   }
