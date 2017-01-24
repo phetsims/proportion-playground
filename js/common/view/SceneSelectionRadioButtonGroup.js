@@ -17,7 +17,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
 
   // images
-  var paintSceneImage = require( 'image!PROPORTION_PLAYGROUND/paint-scene.png' );
+  var paintSceneImage = require( 'mipmap!PROPORTION_PLAYGROUND/paint-scene.png' );
   var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
 
   /**
