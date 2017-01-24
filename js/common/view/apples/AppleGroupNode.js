@@ -14,12 +14,14 @@ define( function( require ) {
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var Panel = require( 'SUN/Panel' );
+  var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
   var Property = require( 'AXON/Property' );
   var Line = require( 'SCENERY/nodes/Line' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
@@ -33,7 +35,7 @@ define( function( require ) {
 
   // constants
   var APPLE_IMAGE_SCALE = 0.35; // Reduction factor for showing the image
-  var COIN_IMAGE_SCALE = 1.4; // Reduction factor for showing the image
+  var COIN_IMAGE_SCALE = 0.9; // Reduction factor for showing the image
   var APPLES_PER_ROW = 5;
 
   /**
@@ -91,7 +93,7 @@ define( function( require ) {
     var coinNodes = _.range( 0, appleGroup.totalCostRange.max ).map( function( coinNumber ) {
       return new Node( {
         children: [ coinImageNode ],
-        y: -coinNumber * coinImageNode.height / 7
+        y: -coinNumber * coinImageNode.height / 9
       } );
     } );
 
@@ -125,7 +127,7 @@ define( function( require ) {
         fixed = StringUtils.format( pricePatternString, fixed );
       }
       var fontSizeOptions = { fontSize: 25 };
-      priceTagLayer.children = [ new Panel( new VBox( {
+      var labelBox = new AlignBox( new VBox( {
         spacing: 4,
         children: [
           new Text( fixed, fontSizeOptions ),
@@ -134,14 +136,29 @@ define( function( require ) {
         ]
       } ), {
         xMargin: 12,
-        yMargin: 12
-      } ) ];
+        yMargin: 5
+      } );
+
+      var labelRadius = 14;
+      var labelShape = new Shape().arc( labelBox.left, labelBox.top, labelRadius, Math.PI / 2, 0, true )
+                                  .arc( labelBox.right, labelBox.top, labelRadius, Math.PI, Math.PI / 2, true )
+                                  .arc( labelBox.right, labelBox.bottom, labelRadius, -Math.PI / 2, -Math.PI, true )
+                                  .arc( labelBox.left, labelBox.bottom, labelRadius, 0, -Math.PI / 2, true )
+                                  .close();
+      priceTagLayer.children = [
+        new Path( labelShape, {
+          fill: 'white',
+          stroke: 'black',
+          lineWidth: 1.5
+        } ),
+        labelBox
+      ];
     } );
 
-    this.appleCrate.left = this.coinStack.right + 60;
+    this.appleCrate.left = this.coinStack.right + 40;
     priceTagLayer.centerX = this.appleCrate.centerX - 20;
-    priceTagLayer.bottom = this.coinStack.bottom;
-    this.appleCrate.bottom = priceTagLayer.bottom - 15;
+    this.appleCrate.bottom = this.coinStack.bottom;
+    priceTagLayer.centerY = this.appleCrate.bottom - 46.5;
 
     this.children = [ this.coinStack, this.appleCrate, priceTagLayer ];
   }
