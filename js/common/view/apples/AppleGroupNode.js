@@ -26,6 +26,7 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // images
+  var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
   var coinImage = require( 'mipmap!PROPORTION_PLAYGROUND/coin.png' );
   var crateBackImage = require( 'mipmap!PROPORTION_PLAYGROUND/crate-back.png' );
   var crateFrontImage = require( 'mipmap!PROPORTION_PLAYGROUND/crate-front.png' );
@@ -42,10 +43,9 @@ define( function( require ) {
    * @constructor
    *
    * @param {AppleGroup} appleGroup - the model for the apple group
-   * @param {HTMLImageElement|Array} appleImage - The image to show for each apple (possibly with a mipmap)
    * @param {Property.<boolean>} showCostPerAppleProperty - indicates whether the price tag should be shown
    */
-  function AppleGroupNode( appleGroup, appleImage, showCostPerAppleProperty ) {
+  function AppleGroupNode( appleGroup, showCostPerAppleProperty ) {
     SceneRatioNode.call( this, appleGroup );
 
     var priceTagLayer = new Node( { x: -132, y: 110 } );
@@ -54,7 +54,7 @@ define( function( require ) {
     showCostPerAppleProperty.linkAttribute( priceTagLayer, 'visible' );
 
     // {Image}
-    var appleImageNode = new Image( appleImage, { scale: APPLE_IMAGE_SCALE } );
+    var appleImageNode = new Image( redAppleImage, { scale: APPLE_IMAGE_SCALE } );
     var coinImageNode = new Image( coinImage, { scale: COIN_IMAGE_SCALE } );
 
     // {Array.<Array.<Node>>} - Array of rows, each of which is an array of apple nodes

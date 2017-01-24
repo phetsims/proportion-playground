@@ -27,11 +27,10 @@ define( function( require ) {
    * @constructor
    *
    * @param {AppleGroup} appleGroup - the model
-   * @param {Image|mipmap} appleImage - the image to show for the apple grid and and apple icons
    * @param {Property.<boolean>} showCostPerAppleProperty - true if the price tag should be shown
    * @param {Property.<boolean>} revealProperty - true if the answer representation should be shown
    */
-  function AppleGroupControl( appleGroup, appleImage, showCostPerAppleProperty, revealProperty ) {
+  function AppleGroupControl( appleGroup, showCostPerAppleProperty, revealProperty ) {
     SceneRatioControl.call( this, appleGroup, {
       leftPickerLabel: totalCostString,
       leftPickerColors: [ 'black' ],
@@ -46,7 +45,7 @@ define( function( require ) {
     } );
 
     // Create the place where apples and coins will be shown.
-    var appleGroupNode = new AppleGroupNode( appleGroup, appleImage, showCostPerAppleProperty );
+    var appleGroupNode = new AppleGroupNode( appleGroup, showCostPerAppleProperty );
 
     this.addChild( appleGroupNode );
     this.addBottomPickersWithLocation( appleGroupNode.coinStack.centerX, appleGroupNode.appleCrate.centerX );

@@ -18,14 +18,11 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
 
   // images
   var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
-  var greenAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-green.png' );
 
   // strings
   var costPerAppleString = require( 'string!PROPORTION_PLAYGROUND/costPerApple' );
@@ -41,17 +38,14 @@ define( function( require ) {
 
     // Create child nodes to be displayed
     //TODO: simplify what is passed?
-    var redAppleGroupControl = new AppleGroupControl( scene.redAppleGroup, redAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
-    var greenAppleGroupControl = new AppleGroupControl( scene.greenAppleGroup, greenAppleImage, scene.showCostPerAppleProperty, scene.revealProperty );
+    var redAppleGroupControl = new AppleGroupControl( scene.redAppleGroup, scene.showCostPerAppleProperty, scene.revealProperty );
+    var greenAppleGroupControl = new AppleGroupControl( scene.greenAppleGroup, scene.showCostPerAppleProperty, scene.revealProperty );
     var appleGraphNode = new AppleGraphNode( scene, {
       centerY: 265
     } );
 
     // Create icons for the ABSwitch
-    var iconScaleOptions = { scale: 0.2 };
-    var iconGroup = new AlignGroup();
-    var greenAppleImageNode = new AlignBox( new Image( greenAppleImage, iconScaleOptions ), { group: iconGroup } );
-    var redAppleImageNode = new AlignBox( new Image( redAppleImage, iconScaleOptions ), { group: iconGroup } );
+    var appleImageNode = new Image( redAppleImage, { scale: 0.2 } );
 
     // Check box that shows the cost per apple in a price tag
     var showCostPerAppleCheckBox = new CheckBox( new Text( costPerAppleString, {
@@ -63,10 +57,10 @@ define( function( require ) {
     SceneNode.call( this, scene, layoutBounds, {
       leftControl: redAppleGroupControl,
       rightControl: greenAppleGroupControl,
-      leftSwitchIcon: new Node( { children: [ redAppleImageNode ] } ),
+      leftSwitchIcon: new Node( { children: [ appleImageNode ] } ),
       rightSwitchIcon: new HBox( { children: [
-        new Node( { children: [ redAppleImageNode ] } ),
-        new Node( { children: [ greenAppleImageNode ] } )
+        new Node( { children: [ appleImageNode ] } ),
+        new Node( { children: [ appleImageNode ] } )
       ] } )
     } );
 
