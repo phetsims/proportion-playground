@@ -36,7 +36,7 @@ define( function( require ) {
 
   // constants
   var APPLE_IMAGE_SCALE = 0.35; // Reduction factor for showing the image
-  var COIN_IMAGE_SCALE = 0.9; // Reduction factor for showing the image
+  var COIN_IMAGE_SCALE = 0.5; // Reduction factor for showing the image
   var APPLES_PER_ROW = 5;
 
   /**
@@ -93,7 +93,7 @@ define( function( require ) {
     var coinNodes = _.range( 0, appleGroup.totalCostRange.max ).map( function( coinNumber ) {
       return new Node( {
         children: [ coinImageNode ],
-        y: -coinNumber * coinImageNode.height / 9
+        y: -coinNumber * coinImageNode.height / 10
       } );
     } );
 
