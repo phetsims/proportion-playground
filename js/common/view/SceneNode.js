@@ -60,7 +60,7 @@ define( function( require ) {
     // For predict mode, add a reveal button that show the representations
     if ( scene.predictMode ) {
       // @private
-      this.revealButton = new RevealButton( scene.revealProperty, scene.valueChangedProperty, {
+      this.revealButton = new RevealButton( scene.revealProperty, {
         bottom: layoutBounds.maxY - 87 //TODO: layout customization needed here?
       } );
       this.addChild( this.revealButton );

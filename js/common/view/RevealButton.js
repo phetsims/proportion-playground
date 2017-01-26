@@ -17,11 +17,10 @@ define( function( require ) {
   /**
    *
    * @param {Property.<boolean>} revealingProperty - true if the answer should be shown.
-   * @param {Property.<boolean>} enabledProperty - Whether the button should be enabled.
    * @param {Object} [options]
    * @constructor
    */
-  function RevealButton( revealingProperty, enabledProperty, options ) {
+  function RevealButton( revealingProperty, options ) {
     var revealedNode = new FontAwesomeNode( 'eye_open' );
     var hiddenNode = new FontAwesomeNode( 'eye_close' );
     BooleanRoundToggleButton.call( this, revealedNode, hiddenNode, revealingProperty, {
@@ -29,7 +28,6 @@ define( function( require ) {
       minYMargin: 10
     } );
     this.mutate( options );
-    enabledProperty.linkAttribute( this, 'enabled' );
   }
 
   proportionPlayground.register( 'RevealButton', RevealButton );
