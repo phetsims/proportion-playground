@@ -18,16 +18,18 @@ define( function( require ) {
   /**
    * @constructor
    *
+   * @param {number} initialCost - Intial total cost of all apples
+   * @param {number} initialApples - Initial number of apples
    * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
-  function AppleGroup( visibleProperty, controlsVisibleProperty ) {
+  function AppleGroup( initialCost, initialApples, visibleProperty, controlsVisibleProperty ) {
 
     // @public {NumberProperty} - Total cost of all of the apples
-    this.totalCostProperty = new NumberProperty( 0 );
+    this.totalCostProperty = new NumberProperty( initialCost );
 
     // @public {NumberProperty} - How many apples are in this group
-    this.numberOfApplesProperty = new NumberProperty( 1 );
+    this.numberOfApplesProperty = new NumberProperty( initialApples );
 
     // @public {Range}
     //TODO: do we need this outside of the SceneRatio call?

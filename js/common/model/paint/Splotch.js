@@ -22,18 +22,20 @@ define( function( require ) {
   /**
    * @constructor
    *
+   * @param {number} initialLeftCount - Initial quantity of the left paint
+   * @param {number} initialRightCount - Initial quantity of the right paint
    * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
-  function Splotch( visibleProperty, controlsVisibleProperty ) {
+  function Splotch( initialLeftCount, initialRightCount, visibleProperty, controlsVisibleProperty ) {
     var self = this;
 
     // @public {NumberProperty} - Amount of paint from the color choice on the left (after resulting balloons have landed)
     //TODO: remove count from the name?
-    this.leftColorCountProperty = new NumberProperty( 0 );
+    this.leftColorCountProperty = new NumberProperty( initialLeftCount );
 
     // @public {NumberProperty} - Amount of paint form the color choice on the right (after resulting balloons have landed)
-    this.rightColorCountProperty = new NumberProperty( 0 );
+    this.rightColorCountProperty = new NumberProperty( initialRightCount );
 
     // @private {NumberProperty} - Amount of displayed paint (can increase after balloons hit). Can go negative.
     this.currentLeftColorProperty = new NumberProperty( 0 );

@@ -20,15 +20,17 @@ define( function( require ) {
   /**
    * @constructor
    *
+   * @param {number} initialRoundCount - Initial number of round beads
+   * @param {number} initialSquareCount - Initial number of square beads
    * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
-  function Necklace( visibleProperty, controlsVisibleProperty ) {
+  function Necklace( initialRoundCount, initialSquareCount, visibleProperty, controlsVisibleProperty ) {
     // @public {NumberProperty} - Quantity of round beads in the necklace
-    this.roundBeadCountProperty = new NumberProperty( 0 );
+    this.roundBeadCountProperty = new NumberProperty( initialRoundCount );
 
     // @public {NumberProperty} - Quantity of square beads in the necklace
-    this.squareBeadCountProperty = new NumberProperty( 0 );
+    this.squareBeadCountProperty = new NumberProperty( initialSquareCount );
 
     // @public {Range} - Allowed range of bead counts
     //TODO: do we need this outside of the SceneRatio call?

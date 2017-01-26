@@ -27,9 +27,11 @@ define( function( require ) {
     // @public {Property.<PaintChoice>} - What two paints (left and right) are currently used.
     this.paintChoiceProperty = new Property( PaintChoice.BLUE_YELLOW );
 
+    var initialCount = predictMode ? 5 : 0;
+
     // @public (read-only) - the models for each splotch
-    this.leftSplotch = new Splotch( this.leftVisibleProperty, this.leftControlsVisibleProperty );
-    this.rightSplotch = new Splotch( this.rightVisibleProperty, this.rightControlsVisibleProperty );
+    this.leftSplotch = new Splotch( initialCount, initialCount, this.leftVisibleProperty, this.leftControlsVisibleProperty );
+    this.rightSplotch = new Splotch( initialCount, initialCount, this.rightVisibleProperty, this.rightControlsVisibleProperty );
 
     this.initializeRatios( this.leftSplotch, this.rightSplotch );
   }

@@ -26,9 +26,12 @@ define( function( require ) {
     // @public {BooleanProperty}
     this.showCostPerAppleProperty = new BooleanProperty( false );
 
+    var initialCost = predictMode ? 5 : 0;
+    var initialApples = predictMode ? 5 : 1;
+
     // @public {AppleGroup}
-    this.redAppleGroup = new AppleGroup( this.leftVisibleProperty, this.leftControlsVisibleProperty );
-    this.greenAppleGroup = new AppleGroup( this.rightVisibleProperty, this.rightControlsVisibleProperty );
+    this.redAppleGroup = new AppleGroup( initialCost, initialApples, this.leftVisibleProperty, this.leftControlsVisibleProperty );
+    this.greenAppleGroup = new AppleGroup( initialCost, initialApples, this.rightVisibleProperty, this.rightControlsVisibleProperty );
 
     this.initializeRatios( this.redAppleGroup, this.greenAppleGroup );
   }

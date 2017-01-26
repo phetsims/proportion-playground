@@ -38,9 +38,7 @@ define( function( require ) {
     } );
 
     // Determine the maximum necklace dimensions
-    var maxNecklace = new Necklace( new Property( true ), new Property( true ) );
-    maxNecklace.roundBeadCountProperty.value = 20;
-    maxNecklace.squareBeadCountProperty.value = 19;
+    var maxNecklace = new Necklace( 20, 19, new Property( true ), new Property( true ) );
     var maxPatternBounds = new PatternNode( maxNecklace ).bounds;
     maxPatternBounds.maxX += 2 * maxPatternBounds.width;
 

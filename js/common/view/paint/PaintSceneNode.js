@@ -35,11 +35,8 @@ define( function( require ) {
   function PaintSceneNode( scene, layoutBounds ) {
     var self = this;
 
-    var blueSplotch = new Splotch( new BooleanProperty( true ), new BooleanProperty( true ) );
-    blueSplotch.leftColorCountProperty.value = 2;
-    var greenSplotch = new Splotch( new BooleanProperty( true ), new BooleanProperty( true ) );
-    greenSplotch.leftColorCountProperty.value = 1;
-    greenSplotch.rightColorCountProperty.value = 1;
+    var blueSplotch = new Splotch( 2, 0, new BooleanProperty( true ), new BooleanProperty( true ) );
+    var greenSplotch = new Splotch( 1, 1, new BooleanProperty( true ), new BooleanProperty( true ) );
 
     //TODO: rename
     blueSplotch.hitBalloons();

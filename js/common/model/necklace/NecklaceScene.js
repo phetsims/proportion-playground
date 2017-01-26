@@ -17,9 +17,11 @@ define( function( require ) {
   function NecklaceScene( predictMode ) {
     Scene.call( this, predictMode );
 
+    var initialCount = predictMode ? 5 : 0;
+
     // @public
-    this.leftNecklace = new Necklace( this.leftVisibleProperty, this.leftControlsVisibleProperty );
-    this.rightNecklace = new Necklace( this.rightVisibleProperty, this.rightControlsVisibleProperty );
+    this.leftNecklace = new Necklace( initialCount, initialCount, this.leftVisibleProperty, this.leftControlsVisibleProperty );
+    this.rightNecklace = new Necklace( initialCount, initialCount, this.rightVisibleProperty, this.rightControlsVisibleProperty );
 
     this.initializeRatios( this.leftNecklace, this.rightNecklace );
   }
