@@ -17,7 +17,19 @@ define( function( require ) {
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
 
   var SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
-  var HEIGHT = 15;
+
+  // approximate area 1486.21309056
+  var SHAPE_AREA = 1486.21309056;
+  var xRadius = 20 * 1.1;
+  var yRadius = 18;
+  var yTail = 3;
+  var cp1x = xRadius * 1.4 * 0.6;
+  var cp2x = xRadius * 1.4 * 0.8;
+  var endX = xRadius * 1.4 * 1.5;
+  var dropletShape = new Shape().ellipticalArc( 0, 0, xRadius, yRadius, 0, Math.PI / 2, 3 * Math.PI / 2, false )
+                                .cubicCurveTo( cp1x, -yRadius, cp2x, -yTail, endX, 0 )
+                                .cubicCurveTo( cp2x, yTail, cp1x, yRadius, 0, yRadius )
+                                .close().makeImmutable();
 
   /**
    * @constructor
@@ -34,17 +46,9 @@ define( function( require ) {
     // @private
     this.paintChoiceProperty = paintChoiceProperty;
 
-    var topOffset = 20;
-    var bottomOffset = 10;
-    var shape = new Shape().moveTo( -topOffset, -HEIGHT )
-                           .lineTo( -bottomOffset, 0 )
-                           .lineTo( bottomOffset, 0 )
-                           .lineTo( topOffset, -HEIGHT )
-                           .close();
-    var shapeArea = 2 * bottomOffset * HEIGHT + ( topOffset - bottomOffset ) * HEIGHT;
-
-    this.path = new Path( shape, {
-      scale: Math.sqrt( SPLOTCH_AREA / shapeArea )
+    this.path = new Path( dropletShape, {
+      scale: Math.sqrt( SPLOTCH_AREA / SHAPE_AREA ),
+      rotation: -Math.PI / 2
     } );
     this.addChild( this.path );
 
@@ -64,14 +68,11 @@ define( function( require ) {
       var time = this.paintDrip.timeElapsed;
 
       var bottomAccel = 1600;
-      var topAccel = 1000;
       var bottomDistance = time * time * bottomAccel;
-      var topDistance = Math.pow( time, 2.2 ) * topAccel;
 
       this.centerX = startPosition.x;
       this.y = startPosition.y + 8 + bottomDistance;
-      var scaleY = ( HEIGHT + bottomDistance - topDistance ) / HEIGHT;
-      this.setScaleMagnitude( 1 / scaleY, scaleY );
+      // TODO: set scale on self with setScaleMagnitude?
       if ( this.top > layoutBottom ) {
         this.paintDrip.remove();
       }
