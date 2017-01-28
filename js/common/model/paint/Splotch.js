@@ -10,14 +10,13 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Range = require( 'DOT/Range' );
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
   var PaintBalloon = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintBalloon' );
   var PaintDrip = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintDrip' );
+  var PaintQuantity = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintQuantity' );
 
   /**
    * @constructor
@@ -30,20 +29,42 @@ define( function( require ) {
   function Splotch( initialLeftCount, initialRightCount, visibleProperty, controlsVisibleProperty ) {
     var self = this;
 
+    //TODO: refactor, doc
+    this.leftQuantity = new PaintQuantity( initialLeftCount, function createBalloon( hitCallback ) {
+      self.balloons.push( new PaintBalloon( true, function( balloon ) {
+        self.balloons.remove( balloon );
+        hitCallback();
+      } ) );
+    }, function createDrip() {
+      self.drips.push( new PaintDrip( true, function( drip ) {
+        self.drips.remove( drip );
+      } ) );
+    } );
+    this.rightQuantity = new PaintQuantity( initialRightCount, function createBalloon( hitCallback ) {
+      self.balloons.push( new PaintBalloon( false, function( balloon ) {
+        self.balloons.remove( balloon );
+        hitCallback();
+      } ) );
+    }, function createDrip() {
+      self.drips.push( new PaintDrip( false, function( drip ) {
+        self.drips.remove( drip );
+      } ) );
+    } );
+
     // @public {NumberProperty} - Amount of paint from the color choice on the left (after resulting balloons have landed)
     //TODO: remove count from the name?
-    this.leftColorCountProperty = new NumberProperty( initialLeftCount );
+    this.leftColorCountProperty = this.leftQuantity.realCountProperty;
 
     // @public {NumberProperty} - Amount of paint form the color choice on the right (after resulting balloons have landed)
-    this.rightColorCountProperty = new NumberProperty( initialRightCount );
+    this.rightColorCountProperty = this.rightQuantity.realCountProperty;
 
     // @private {NumberProperty} - Amount of displayed paint (can increase after balloons hit). Can go negative.
-    this.currentLeftColorProperty = new NumberProperty( 0 );
-    this.currentRightColorProperty = new NumberProperty( 0 );
+    this.currentLeftColorProperty = this.leftQuantity.currentCountProperty;
+    this.currentRightColorProperty = this.rightQuantity.currentCountProperty;
 
     // @public {Property.<number>} - Non-negative version of our internal count
-    this.visibleLeftColorProperty = new DerivedProperty( [ this.currentLeftColorProperty ], function( count ) { return Math.max( 0, count ); } );
-    this.visibleRightColorProperty = new DerivedProperty( [ this.currentRightColorProperty ], function( count ) { return Math.max( 0, count ); } );
+    this.visibleLeftColorProperty = this.leftQuantity.visibleCountProperty;
+    this.visibleRightColorProperty = this.rightQuantity.visibleCountProperty;
 
     // @public {ObservableArray.<PaintBalloon>}
     this.balloons = new ObservableArray();
@@ -58,28 +79,6 @@ define( function( require ) {
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
                      this.leftColorCountProperty, this.colorCountRange,
                      this.rightColorCountProperty, this.colorCountRange );
-
-    function linkBalloonDripCreation( realCountProperty, currentCountProperty, isLeft ) {
-      realCountProperty.lazyLink( function( newValue, oldValue ) {
-        var delta = Math.abs( newValue - oldValue );
-        if ( newValue > oldValue ) {
-          self.balloons.push( new PaintBalloon( isLeft, function( balloon ) {
-            self.balloons.remove( balloon );
-            currentCountProperty.value += delta;
-          } ) );
-        }
-        else {
-          // immediately remove
-          currentCountProperty.value -= delta;
-          self.drips.push( new PaintDrip( isLeft, function( drip ) {
-            self.drips.remove( drip );
-          } ) );
-        }
-      } );
-    }
-
-    linkBalloonDripCreation( this.leftColorCountProperty, this.currentLeftColorProperty, true );
-    linkBalloonDripCreation( this.rightColorCountProperty, this.currentRightColorProperty, false );
   }
 
   proportionPlayground.register( 'Splotch', Splotch );
