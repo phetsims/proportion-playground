@@ -35,20 +35,20 @@ define( function( require ) {
         self.balloons.remove( balloon );
         hitCallback();
       } ) );
-    }, function createDrip() {
+    }, function createDrip( amountToDrip, removeCallback ) {
       self.drips.push( new PaintDrip( true, function( drip ) {
         self.drips.remove( drip );
-      } ) );
+      }, amountToDrip, removeCallback, self.visibleLeftColorProperty.value ) );
     } );
     this.rightQuantity = new PaintQuantity( initialRightCount, function createBalloon( hitCallback ) {
       self.balloons.push( new PaintBalloon( false, function( balloon ) {
         self.balloons.remove( balloon );
         hitCallback();
       } ) );
-    }, function createDrip() {
+    }, function createDrip( amountToDrip, removeCallback ) {
       self.drips.push( new PaintDrip( false, function( drip ) {
         self.drips.remove( drip );
-      } ) );
+      }, amountToDrip, removeCallback, self.visibleRightColorProperty.value ) );
     } );
 
     // @public {NumberProperty} - Amount of paint from the color choice on the left (after resulting balloons have landed)
@@ -63,8 +63,8 @@ define( function( require ) {
     this.currentRightColorProperty = this.rightQuantity.currentCountProperty;
 
     // @public {Property.<number>} - Non-negative version of our internal count
-    this.visibleLeftColorProperty = this.leftQuantity.visibleCountProperty;
-    this.visibleRightColorProperty = this.rightQuantity.visibleCountProperty;
+    this.visibleLeftColorProperty = this.leftQuantity.paintAreaProperty;
+    this.visibleRightColorProperty = this.rightQuantity.paintAreaProperty;
 
     // @public {ObservableArray.<PaintBalloon>}
     this.balloons = new ObservableArray();
@@ -118,11 +118,15 @@ define( function( require ) {
     reset: function() {
       SceneRatio.prototype.reset.call( this );
 
+      this.leftQuantity.reset();
+      this.rightQuantity.reset();
+
       this.balloons.clear();
       this.drips.clear();
 
-      this.currentLeftColorProperty.reset();
-      this.currentRightColorProperty.reset();
+      //TODO: necessary for drip removal?
+      this.leftQuantity.reset();
+      this.rightQuantity.reset();
     }
   } );
 } );

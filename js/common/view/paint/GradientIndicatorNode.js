@@ -71,7 +71,7 @@ define( function( require ) {
     var createIndicatorUpdateFunction = function( indicator, splotchModel, condition ) {
       return function() {
         var total = splotchModel.visibleLeftColorProperty.value + splotchModel.visibleRightColorProperty.value;
-        if ( total === 0 ) {
+        if ( total < 1e-6 ) {
           indicator.visible = false;
         }
         else {

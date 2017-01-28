@@ -15,6 +15,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
   var Property = require( 'AXON/Property' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
 
@@ -61,7 +62,7 @@ define( function( require ) {
       var rightColorAmount = rightColorProperty.value;
 
       var total = leftColorAmount + rightColorAmount;
-      var blendAmount = rightColorAmount / total;
+      var blendAmount = Util.clamp( rightColorAmount / total, 0, 1 );
 
       if ( total > 0 ) {
         splotchPath.fill = paintChoiceProperty.value.getColor( blendAmount );

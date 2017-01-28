@@ -12,14 +12,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NumberProperty = require( 'AXON/NumberProperty' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   /**
    * @constructor
    *
    * @param {number} initialCount - Initial quantity of the paint
-   * @param {Function} createBalloon - function( callbackWhenHits )
-   * @param {Function} createDrip - function()
+   * @param {Function} createBalloon - function( callbackWhenHits() )
+   * @param {Function} createDrip - function( amountToRemove: number, dripCallback( amount ) )
    */
   function PaintQuantity( initialCount, createBalloon, createDrip ) {
     // @private
@@ -31,12 +30,6 @@ define( function( require ) {
 
     // @public {NumberProperty} - The model value that increases instantly when balloons hit. Can go negative.
     this.currentCountProperty = new NumberProperty( initialCount );
-
-    // @public {NumberProperty} - The target amount of visible paint (an integer, where the current paint amount should
-    //                            animate towards.
-    this.visibleCountProperty = new DerivedProperty( [ this.currentCountProperty ], function( count ) {
-      return Math.max( 0, count );
-    } );
 
     // @public {NumberProperty} - The visual amount of paint for the meter and splotch.
     this.paintAreaProperty = new NumberProperty( initialCount );
@@ -50,28 +43,38 @@ define( function( require ) {
   proportionPlayground.register( 'PaintQuantity', PaintQuantity );
 
   return inherit( Object, PaintQuantity, {
+    //TODO: doc
+    reset: function() {
+      this.realCountProperty.reset();
+      this.currentCountProperty.reset();
+      this.paintAreaProperty.reset();
+      this.pendingDripsProperty.reset();
+    },
+
     // @private TODO
     realCountChange: function( newCount, oldCount ) {
-      var self = this;
-
       var delta = Math.abs( newCount - oldCount );
       if ( newCount > oldCount ) {
-        this.createBalloon( function() {
-          self.addCurrent( delta );
-        } );
+        this.createBalloon( this.addCurrent.bind( this, delta ) );
       }
       else {
         this.removeCurrent( delta );
       }
     },
 
+    // TODO: doc
+    removeArea: function( amount ) {
+      this.paintAreaProperty.value -= amount;
+    },
+
     addCurrent: function( count ) {
       var amountToDrip = Math.min( count, this.pendingDripsProperty.value );
       var amountToAdd = count - amountToDrip;
+      this.paintAreaProperty.value += count;
       this.currentCountProperty.value += amountToAdd;
       this.pendingDripsProperty.value -= amountToDrip;
       if ( amountToDrip ) {
-        this.createDrip();
+        this.createDrip( amountToDrip, this.removeArea.bind( this ) );
       }
     },
 
@@ -81,7 +84,7 @@ define( function( require ) {
       this.pendingDripsProperty.value += amountToQueue;
       this.currentCountProperty.value -= amountToDrip;
       if ( amountToDrip ) {
-        this.createDrip();
+        this.createDrip( amountToDrip, this.removeArea.bind( this ) );
       }
     }
   } );

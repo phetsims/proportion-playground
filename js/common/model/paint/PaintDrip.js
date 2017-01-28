@@ -17,16 +17,31 @@ define( function( require ) {
    *
    * @param {boolean} isLeft - Whether this balloon contains the left-most color
    * @param {function} leaveCallback - Called with this as a single arg when the paint shouldn't be visible
+   * @param {number} amountToDrip - Total amount of paint balloons to drip away
+   * @param {Function} removeCallback - Call with function( amount ) to remove a certain amount as the drop grows
+   * @param {number} initialSplotchArea - Indicates the intial area, so the intial position can be calibrated
    */
-  function PaintDrip( isLeft, leaveCallback ) {
+  function PaintDrip( isLeft, leaveCallback, amountToDrip, removeCallback, initialSplotchArea ) {
     // @public {number}
     this.timeElapsed = 0;
 
     // @public {boolean}
     this.isLeft = isLeft;
 
-    // @public {function}
+    // @public {Function}
     this.leaveCallback = leaveCallback;
+
+    // @public {number}
+    this.drippedAmount = 0;
+
+    // @public {number}
+    this.amountToDrip = amountToDrip;
+
+    // @public {Function}
+    this.removeCallback = removeCallback;
+
+    // @public {number}
+    this.initialSplotchArea = initialSplotchArea;
   }
 
   proportionPlayground.register( 'PaintDrip', PaintDrip );
@@ -40,6 +55,13 @@ define( function( require ) {
      */
     step: function( dt ) {
       this.timeElapsed += dt;
+
+      var amountToRemove = Math.min( this.amountToDrip, dt * 7 );
+      if ( amountToRemove ) {
+        this.removeCallback( amountToRemove );
+        this.amountToDrip -= amountToRemove;
+        this.drippedAmount += amountToRemove;
+      }
     },
 
     /**

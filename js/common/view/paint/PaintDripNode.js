@@ -71,7 +71,11 @@ define( function( require ) {
       var bottomDistance = time * time * bottomAccel;
 
       this.centerX = startPosition.x;
-      this.y = startPosition.y + 8 + bottomDistance;
+      // constants control the bottom position of the droplet, so that it looks like it comes from the bottom of the splotch
+      this.y = startPosition.y + 8 + bottomDistance - 22 + 12 * Math.sqrt( this.paintDrip.initialSplotchArea );
+
+      this.setScaleMagnitude( this.paintDrip.drippedAmount );
+
       // TODO: set scale on self with setScaleMagnitude?
       if ( this.top > layoutBottom ) {
         this.paintDrip.remove();
