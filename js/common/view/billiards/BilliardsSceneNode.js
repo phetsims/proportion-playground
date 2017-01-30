@@ -22,7 +22,7 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {BilliardsSceneNode} scene - the model
+   * @param {BilliardsScene} scene - the model
    * @param {Bounds2} layoutBounds - the region within which all visual components should be layed out
    */
   function BilliardsSceneNode( scene, layoutBounds ) {
@@ -32,10 +32,12 @@ define( function( require ) {
 
     // Create the left/right tables
     var billiardsTableLeftControl = new BilliardsTableControl( layoutBounds, scene.leftTable, scene.revealProperty, {
-      centerY: billiardsCenterY
+      centerY: billiardsCenterY,
+      allowDragToResize: !scene.predictMode
     } );
     var billiardsTableRightControl = new BilliardsTableControl( layoutBounds, scene.rightTable, scene.revealProperty, {
       centerY: billiardsCenterY,
+      allowDragToResize: !scene.predictMode,
       side: 'right'
     } );
 

@@ -55,7 +55,10 @@ define( function( require ) {
             } )
           ]
         } ),
-        new BilliardsTableNode( billiardsTable )
+        new BilliardsTableNode( billiardsTable, {
+          fullSizeBounds: false,
+          allowDragToResize: false
+        } )
       ]
     } );
 

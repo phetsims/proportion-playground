@@ -41,9 +41,19 @@ define( function( require ) {
    * @constructor
    *
    * @param {BilliardsTable} billiardsTable - the model
+   * @param {Object} [options] - See options below. Also passed to Node's mutate.
    */
-  function BilliardsTableNode( billiardsTable ) {
+  function BilliardsTableNode( billiardsTable, options ) {
     SceneRatioNode.call( this, billiardsTable );
+
+    options = _.extend( {
+      // {boolean} - Whether this node should always take up the bounds for a full-size (20x20) billiards table.
+      fullSizeBounds: true,
+
+      // {boolean} - Whether to allow dragging the borders of the table to resize it. If true, it will show some
+      //             "grippy dots" to indicate it is draggable.
+      allowDragToResize: true
+    }, options );
 
     var self = this;
 
@@ -190,9 +200,11 @@ define( function( require ) {
 
       blackRectangle.setRect( 0, 0, scaledWidth + lineWidthAmount, scaledHeight + lineWidthAmount );
       //TODO: cleanup?
-      self.localBounds = Bounds2.point( 0, 0 ).dilatedXY(
-        billiardsTable.range.max * SCALE / 2 + brownEdgeLineWidth,
-        billiardsTable.range.max * SCALE / 2 + brownEdgeLineWidth );
+      if ( options.fullSizeBounds ) {
+        self.localBounds = Bounds2.point( 0, 0 ).dilatedXY(
+          billiardsTable.range.max * SCALE / 2 + brownEdgeLineWidth,
+          billiardsTable.range.max * SCALE / 2 + brownEdgeLineWidth );
+      }
       greenRectangle.setRect( 0, 0, scaledWidth, scaledHeight );
 
       leftDragger.setRect( 0, 0, lineWidthAmount / 2, scaledHeight );
@@ -243,18 +255,7 @@ define( function( require ) {
     } );
 
     //TODO: cleanup
-    if ( billiardsTable.isStatic ) {
-      this.children = [
-        blackRectangle,
-        greenRectangle,
-        lineLayer,
-        topLeftHoleNode,
-        topRightHoleNode,
-        bottomRightHoleNode,
-        ballNode
-      ];
-    }
-    else {
+    if ( options.allowDragToResize ) {
       this.children = [
         blackRectangle,
         greenRectangle,
@@ -270,6 +271,19 @@ define( function( require ) {
         ballNode
       ];
     }
+    else {
+      this.children = [
+        blackRectangle,
+        greenRectangle,
+        lineLayer,
+        topLeftHoleNode,
+        topRightHoleNode,
+        bottomRightHoleNode,
+        ballNode
+      ];
+    }
+
+    this.mutate( options );
   }
 
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );

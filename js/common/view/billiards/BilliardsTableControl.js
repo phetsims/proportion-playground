@@ -39,10 +39,15 @@ define( function( require ) {
     } );
 
     // TODO: enum? Or have this on the model?
-    options = _.extend( { side: 'left' }, options );
+    options = _.extend( {
+      side: 'left',
+      allowDragToResize: false // Whether resizing is allowed
+    }, options );
 
     // @public - The table itself, with the ball/holes/gridlines/etc.
-    this.billiardsTableNode = new BilliardsTableNode( billiardsTable );
+    this.billiardsTableNode = new BilliardsTableNode( billiardsTable, {
+      allowDragToResize: options.allowDragToResize
+    } );
 
     this.pickerContainer = new VBox( {
       spacing: 30,
