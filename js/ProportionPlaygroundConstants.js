@@ -21,7 +21,6 @@ define( function( require ) {
     CONTROL_FONT_SIZE: 22,
     BILLIARDS_BROWN: '#111', // TODO: not brown
     BILLIARDS_GREEN: '#0a6739',
-    SCREEN_BACKGROUND_COLOR: '#fcf3eb',
     MAX_BEADS: 20
   };
 

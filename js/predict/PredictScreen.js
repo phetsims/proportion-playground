@@ -17,9 +17,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -48,7 +47,7 @@ define( function( require ) {
     var homeScreenIcon = new Node( {
       children: [
         Rectangle.bounds( homeScreenIconBounds, {
-          fill: ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR
+          fill: ProportionPlaygroundColorProfile.backgroundProperty
         } ),
         new AlignBox( new Node( { children: [ orangeSplotchNode, questionRatioText ] } ), {
           alignBounds: homeScreenIconBounds
@@ -59,7 +58,7 @@ define( function( require ) {
     var navigationBarIcon = new Node( {
       children: [
         Rectangle.bounds( homeScreenIconBounds, {
-          fill: ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR
+          fill: ProportionPlaygroundColorProfile.backgroundProperty
         } ),
         new AlignBox( new Node( { children: [ orangeSplotchNode, questionText ] } ), {
           alignBounds: homeScreenIconBounds
@@ -69,7 +68,7 @@ define( function( require ) {
 
     var options = {
       name: predictString,
-      backgroundColorProperty: new Property( Color.toColor( ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR ) ),
+      backgroundColorProperty: ProportionPlaygroundColorProfile.backgroundProperty,
       homeScreenIcon: homeScreenIcon,
       navigationBarIcon: navigationBarIcon
     };

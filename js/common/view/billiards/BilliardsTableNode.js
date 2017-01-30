@@ -100,7 +100,7 @@ define( function( require ) {
       ]
     } );
 
-    var gridLinesNode = this.createGridLinesNode();
+    var gridLinesNode = BilliardsTableNode.createGridLinesNode();
 
     // Layer containing the grid lines and ball lines.  When these were children of the greenRectangle, it caused #19
     // so they have been moved to a separate node
@@ -283,7 +283,14 @@ define( function( require ) {
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );
 
   return inherit( SceneRatioNode, BilliardsTableNode, {
-    // TODO: doc
+
+  }, {
+    /**
+     * Creates a node that contains all of the potentially required grid lines.
+     * @private
+     *
+     * @returns {Node}
+     */
     createGridLinesNode: function() {
       var min = -1;
       var max = BilliardsTable.BILLIARDS_RANGE.max + 1;

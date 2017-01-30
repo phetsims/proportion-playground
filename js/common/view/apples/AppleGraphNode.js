@@ -15,7 +15,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
@@ -98,7 +98,8 @@ define( function( require ) {
 
     // Update the indicator fills when salient properties change
     Property.multilink( scene.quantityProperties.concat( [ scene.showBothProperty ] ), function() {
-      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : ProportionPlaygroundConstants.SCREEN_BACKGROUND_COLOR;
+      // TODO: get the 'black'. Does it need to be the screen background color?
+      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : ProportionPlaygroundColorProfile.backgroundProperty;
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );
