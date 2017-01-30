@@ -15,6 +15,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Shape = require( 'KITE/Shape' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -24,18 +26,20 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var BilliardsTable = require( 'PROPORTION_PLAYGROUND/common/model/billiards/BilliardsTable' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   var Util = require( 'DOT/Util' );
 
   // constants
-  var SCALE = 18; // from model units to pixels
-  var GRID_LINE_OPTIONS = { stroke: 'rgb(168,168,168)', lineWidth: 0.5 };
+  var SCALE = 18; // from model units to view units   TODO: why don't we scale up after? Seems simpler
   var MOVING_LINE_OPTIONS = { stroke: 'white', lineWidth: 2 };
   var BALL_DIAMETER = 10;
   var DRAGGER_OPTIONS = {
     cursor: 'pointer',
     pickable: true
   };
+
+  var GRID_LINE_WIDTH = 0.5;
 
   /**
    * @constructor
@@ -57,7 +61,6 @@ define( function( require ) {
 
     var self = this;
 
-    var gridLinesNode = new Node();
     var linesNode = new Node();
     var currentLineNode = new Line( 0, 0, 0, 0, MOVING_LINE_OPTIONS );
 
@@ -97,10 +100,16 @@ define( function( require ) {
       ]
     } );
 
+    var gridLinesNode = this.createGridLinesNode();
+
     // Layer containing the grid lines and ball lines.  When these were children of the greenRectangle, it caused #19
     // so they have been moved to a separate node
     var lineLayer = new Node( {
-      children: [ gridLinesNode, linesNode, currentLineNode ]
+      children: [
+        gridLinesNode,
+        linesNode,
+        currentLineNode
+      ]
     } );
 
     // The moving ball node
@@ -212,23 +221,8 @@ define( function( require ) {
       topDragger.setRect( 0, 0, scaledWidth, lineWidthAmount / 2 );
       bottomDragger.setRect( 0, 0, scaledWidth, lineWidthAmount / 2 );
 
-      var createGridLines = function() {
-        var gridLines = [];
-
-        // vertical lines
-        for ( var i = 0; i <= width; i++ ) {
-          gridLines.push( new Line( i * SCALE, 0, i * SCALE, scaledHeight, GRID_LINE_OPTIONS ) );
-        }
-
-        // horizontal lines
-        for ( var k = 0; k <= length; k++ ) {
-          gridLines.push( new Line( 0, k * SCALE, scaledWidth, k * SCALE, GRID_LINE_OPTIONS ) );
-        }
-        return gridLines;
-      };
-
-      // grid lines
-      gridLinesNode.children = createGridLines();
+      // Change the area of the grid lines that is shown
+      gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, scaledWidth, scaledHeight ).dilated( GRID_LINE_WIDTH / 2 ) );
 
       // center the rectangles
       greenRectangle.center = new Vector2( 0, 0 );
@@ -288,5 +282,25 @@ define( function( require ) {
 
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );
 
-  return inherit( SceneRatioNode, BilliardsTableNode );
+  return inherit( SceneRatioNode, BilliardsTableNode, {
+    // TODO: doc
+    createGridLinesNode: function() {
+      var min = -1;
+      var max = BilliardsTable.BILLIARDS_RANGE.max + 1;
+      var shape = new Shape();
+
+      // TODO: ditch scale in a bit
+      _.range( min, max + 1 ).forEach( function( n ) {
+        shape.moveTo( n * SCALE, min * SCALE )
+             .lineTo( n * SCALE, max * SCALE );
+        shape.moveTo( min * SCALE, n * SCALE )
+             .lineTo( max * SCALE, n * SCALE );
+      } );
+
+      return new Path( shape, {
+        stroke: 'rgb(168,168,168)', // TODO: common color profile
+        lineWidth: GRID_LINE_WIDTH
+      } );
+    }
+  } );
 } );

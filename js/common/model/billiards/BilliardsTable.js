@@ -22,6 +22,8 @@ define( function( require ) {
 
   var scratchVector = new Vector2();
 
+  var BILLIARDS_RANGE = new Range( 1, 20 );
+
   /**
    * @constructor
    *
@@ -38,7 +40,7 @@ define( function( require ) {
 
     // @public (read-only) - the allowed values for length and width
     //TODO: do we need this outside of the SceneRatio call?
-    this.range = new Range( 1, 20 );
+    this.range = BILLIARDS_RANGE;
 
     // @public {Property.<Vector2>} - The position of the ball in pixels
     this.ballPositionProperty = new Property( new Vector2() );
@@ -186,5 +188,8 @@ define( function( require ) {
       // Since we used a mutable vector for position, copy it over to the Property
       this.ballPositionProperty.value = position.copy();
     }
+  }, {
+    // @public {Range} - Range of possible values for the width and/or the length
+    BILLIARDS_RANGE: BILLIARDS_RANGE
   } );
 } );
