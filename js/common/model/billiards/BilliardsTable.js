@@ -110,10 +110,6 @@ define( function( require ) {
      * @param {number} dt - Time to move forward in seconds
      */
     step: function( dt ) {
-      // Cap DT
-      //TODO: move cap to main model entry point
-      dt = Math.min( dt, 0.25 );
-
       var width = this.widthProperty.value;
       var length = this.lengthProperty.value;
 

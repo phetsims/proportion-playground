@@ -67,6 +67,9 @@ define( function( require ) {
      * @param {number} dt - time passed in seconds
      */
     step: function( dt ) {
+      // Cap DT at the top level
+      dt = Math.min( dt, 0.25 );
+
       this.sceneProperty.value.step( dt );
     }
   } );
