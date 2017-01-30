@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Model & View for the "Predict" screen.
+ * The predict screen, including its model and view.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */

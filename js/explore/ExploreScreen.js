@@ -44,7 +44,8 @@ define( function( require ) {
     billiardsTable.step( Number.POSITIVE_INFINITY );
 
     var homeScreenIconContent = new HBox( {
-      spacing: 10,
+      scale: 1.25,
+      spacing: 70,
       children: [
         new VBox( {
           spacing: 10,
@@ -57,7 +58,8 @@ define( function( require ) {
         } ),
         new BilliardsTableNode( billiardsTable, {
           fullSizeBounds: false,
-          allowDragToResize: false
+          allowDragToResize: false,
+          scale: 1.7
         } )
       ]
     } );
