@@ -14,6 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var RevealButton = require( 'PROPORTION_PLAYGROUND/common/view/RevealButton' );
   var ABSwitch = require( 'SUN/ABSwitch' );
+  var ResetButton = require( 'SCENERY_PHET/buttons/ResetButton' );
   var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
 
   // left and right labels for the switches should all share
@@ -32,7 +33,7 @@ define( function( require ) {
       rightControl: null, // {Node}
       leftSwitchIcon: null, // {Node}, required
       rightSwitchIcon: null, // {Node}, required
-      revealLocation: 'right' // 'right' or 'bottom', direction from the pickerContainer
+      controlLocation: 'right' // 'right' or 'bottom', direction from the pickerContainer
     }, options );
 
     // @protected
@@ -41,7 +42,7 @@ define( function( require ) {
     this.rightControl = options.rightControl;
 
     // @private
-    this.revealLocation = options.revealLocation;
+    this.controlLocation = options.controlLocation;
     this.revealBothOffset = options.revealBothOffset;
 
     // @public {Scene} - The main model for this scene
@@ -57,14 +58,26 @@ define( function( require ) {
     this.leftSwitchIcon = switchAlignGroup.createBox( options.leftSwitchIcon, { xAlign: 'right' } );
     this.rightSwitchIcon = switchAlignGroup.createBox( options.rightSwitchIcon, { xAlign: 'left' } );
 
+    this.controlButton = null; // A button that will either handle revealing the scene's visual representation, or will refresh the scene.
+
     // For predict mode, add a reveal button that show the representations
     if ( scene.predictMode ) {
       // @private
-      this.revealButton = new RevealButton( scene.revealProperty, {
+      this.controlButton = new RevealButton( scene.revealProperty, {
         bottom: layoutBounds.maxY - 87 //TODO: layout customization needed here?
       } );
-      this.addChild( this.revealButton );
     }
+    // Otherwise, have a 'Refresh' button, see https://github.com/phetsims/proportion-playground/issues/55
+    else {
+      this.controlButton = new ResetButton( {
+        listener: function() {
+          scene.reset();
+        },
+        baseColor: 'rgb(242,242,242)'
+      } );
+      // this.controlButton.touchArea = this.controlButton.localBounds.dilatedXY( 5, 5 );
+    }
+    this.addChild( this.controlButton );
   }
 
   proportionPlayground.register( 'SceneNode', SceneNode );
@@ -98,7 +111,7 @@ define( function( require ) {
     },
 
     // TODO: with option
-    canCenterRevealButton: function() {
+    canCenterControlButton: function() {
       return true;
     },
 
@@ -106,28 +119,28 @@ define( function( require ) {
      * Moves the reveal button to the desired position.
      * @protected
      */
-    updateRevealButton: function() {
+    updateControlButton: function() {
       // Only does something if we have a button
-      if ( !this.revealButton ) { return; }
+      if ( !this.controlButton ) { return; }
 
-      if ( this.revealLocation === 'right' ) {
+      if ( this.controlLocation === 'right' ) {
         if ( this.scene.showBothProperty.value ) {
-          if ( this.canCenterRevealButton() ) {
-            this.revealButton.centerX = this.layoutBounds.centerX;
+          if ( this.canCenterControlButton() ) {
+            this.controlButton.centerX = this.layoutBounds.centerX;
           }
           else {
-            this.revealButton.right = this.layoutBounds.right - 10;
+            this.controlButton.centerX = this.layoutBounds.right - 42; // 10 amount of space for the larger button
           }
-          this.revealButton.centerY = this.layoutBounds.bottom - 128;
+          this.controlButton.centerY = this.layoutBounds.bottom - 128;
         }
         else {
           var pickerContainerBounds = this.leftControl.localToParentBounds( this.leftControl.pickerContainer.bounds );
-          this.revealButton.left = pickerContainerBounds.right + 30;
-          this.revealButton.centerY = this.layoutBounds.bottom - 128;
+          this.controlButton.centerX = pickerContainerBounds.right + 62; // 30 amount of space for the larger button
+          this.controlButton.centerY = this.layoutBounds.bottom - 128;
         }
       } else {
-        this.revealButton.centerX = this.layoutBounds.centerX;
-        this.revealButton.centerY = this.layoutBounds.bottom - 100;
+        this.controlButton.centerX = this.layoutBounds.centerX;
+        this.controlButton.centerY = this.layoutBounds.bottom - 100;
       }
     }
   } );

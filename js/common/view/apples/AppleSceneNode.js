@@ -78,7 +78,7 @@ define( function( require ) {
         redAppleGroupControl.centerX = layoutBounds.width / 2;
         appleGraphNode.left = redAppleGroupControl.right + layoutBounds.width * 0.05;
       }
-      self.updateRevealButton();
+      self.updateControlButton();
     } );
 
     // Price tag checkbox goes in the bottom left

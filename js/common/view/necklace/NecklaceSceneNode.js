@@ -56,7 +56,7 @@ define( function( require ) {
       else {
         leftNecklaceControl.x = layoutBounds.centerX;
       }
-      self.updateRevealButton();
+      self.updateControlButton();
     } );
 
     this.addChild( patternPanel );
@@ -72,7 +72,7 @@ define( function( require ) {
 
   return inherit( SceneNode, NecklaceSceneNode, {
     // TODO: with option  @override
-    canCenterRevealButton: function() {
+    canCenterControlButton: function() {
       return false;
     }
   } );

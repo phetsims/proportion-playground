@@ -75,7 +75,7 @@ define( function( require ) {
       else {
         leftSplotchControl.x = layoutBounds.width / 2;
       }
-      self.updateRevealButton();
+      self.updateControlButton();
     } );
 
     this.addChild( new VerticalAquaRadioButtonGroup(
