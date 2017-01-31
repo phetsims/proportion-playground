@@ -50,7 +50,7 @@ define( function( require ) {
     // Check box that shows the cost per apple in a price tag
     var showCostPerAppleCheckBox = new CheckBox( new Text( costPerAppleString, {
       maxWidth: 293, // ceiling value from ?stringTest=double for English
-      fontSize: ProportionPlaygroundConstants.CONTROL_FONT_SIZE
+      font: ProportionPlaygroundConstants.CONTROL_FONT
     } ), scene.showCostPerAppleProperty );
 
     // Super call and add children

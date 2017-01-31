@@ -13,8 +13,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -62,7 +62,7 @@ define( function( require ) {
     var rightIndicator = new TriangleNode( 'right', { left: ARROW_WIDTH / 2 } );
 
     var label = new Text( appleCostString, {
-      font: new PhetFont( 20 ),
+      font: ProportionPlaygroundConstants.CONTROL_FONT,
       centerX: arrowNode.centerX,
       bottom: arrowNode.top - 15,
       maxWidth: 300

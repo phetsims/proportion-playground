@@ -16,7 +16,6 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
@@ -85,7 +84,7 @@ define( function( require ) {
         if ( typeof label === 'string' ) {
           label = new Text( label, {
             maxWidth: options.pickerLabelMaxWidth, //TODO: check
-            font: new PhetFont( ProportionPlaygroundConstants.CONTROL_FONT_SIZE )
+            font: ProportionPlaygroundConstants.CONTROL_FONT
           } );
         }
 

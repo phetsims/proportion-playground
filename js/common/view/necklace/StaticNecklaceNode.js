@@ -170,7 +170,7 @@ define( function( require ) {
       var R = 1 / 2 * sideLength / Math.sin( Math.PI / numVertices );
 
       // make beads closer together as there are more of them
-      var rScale = Util.linear( 3, ProportionPlaygroundConstants.MAX_BEADS, 1.5, 1, numVertices );
+      var rScale = Util.linear( 3, ProportionPlaygroundConstants.BEAD_COUNT_RANGE.max, 1.5, 1, numVertices );
       if ( numVertices <= 20 ) {
         R = R * rScale;
       }

@@ -13,7 +13,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Range = require( 'DOT/Range' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
 
@@ -32,13 +31,9 @@ define( function( require ) {
     // @public {NumberProperty} - Quantity of square beads in the necklace
     this.squareBeadCountProperty = new NumberProperty( initialSquareCount );
 
-    // @public {Range} - Allowed range of bead counts
-    //TODO: do we need this outside of the SceneRatio call?
-    this.beadCountRange = new Range( 0, ProportionPlaygroundConstants.MAX_BEADS );
-
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
-                     this.roundBeadCountProperty, this.beadCountRange,
-                     this.squareBeadCountProperty, this.beadCountRange );
+                     this.roundBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE,
+                     this.squareBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE );
   }
 
   proportionPlayground.register( 'Necklace', Necklace );
