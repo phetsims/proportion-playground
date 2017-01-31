@@ -23,9 +23,11 @@ define( function( require ) {
 
     // @public {PhetFont}
     CONTROL_FONT: new PhetFont( 22 ),
+    APPLE_PRICE_FONT: new PhetFont( 25 ),
 
     // @public {Range}
     BEAD_COUNT_RANGE: new Range( 0, 20 )
+
   };
 
   proportionPlayground.register( 'ProportionPlaygroundConstants', ProportionPlaygroundConstants );

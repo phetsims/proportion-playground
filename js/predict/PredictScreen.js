@@ -23,6 +23,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // strings
   var predictString = require( 'string!PROPORTION_PLAYGROUND/predict' );
@@ -37,11 +38,11 @@ define( function( require ) {
     var orangeSplotchNode = new SplotchNode( orangeSplotch, new Property( PaintChoice.RED_YELLOW ) );
     var questionRatioText = new Text( '? : ?', {
       center: orangeSplotchNode.center.plusXY( 14, 14 ),
-      fontSize: 80,
+      font: new PhetFont( 80 )
     } );
     var questionText = new Text( '??', {
       center: orangeSplotchNode.center.plusXY( 14, 14 ),
-      fontSize: 140,
+      font: new PhetFont( 140 )
     } );
 
     var homeScreenIcon = new Node( {

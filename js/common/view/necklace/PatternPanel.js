@@ -16,8 +16,8 @@ define( function( require ) {
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
   var PatternNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/PatternNode' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
@@ -35,7 +35,7 @@ define( function( require ) {
   function PatternPanel( leftNecklace, rightNecklace, options ) {
     var labelNode = new Text( patternString, {
       maxWidth: 100,
-      font: new PhetFont( 20 )
+      font: ProportionPlaygroundConstants.CONTROL_FONT
     } );
 
     // Determine the maximum necklace dimensions

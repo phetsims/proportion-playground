@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -128,7 +129,7 @@ define( function( require ) {
         fixed = StringUtils.format( pricePatternString, fixed );
       }
       var textOptions = {
-        fontSize: 25,
+        font: ProportionPlaygroundConstants.APPLE_PRICE_FONT,
         fill: ProportionPlaygroundColorProfile.applePriceTagTextProperty
       };
       var labelBox = new AlignBox( new VBox( {

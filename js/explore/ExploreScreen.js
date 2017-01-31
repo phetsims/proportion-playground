@@ -25,6 +25,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // strings
   var exploreString = require( 'string!PROPORTION_PLAYGROUND/explore' );
@@ -51,7 +52,7 @@ define( function( require ) {
           children: [
             new StaticNecklaceNode( 6, 3, { scale: 1.5 } ),
             new Text( '6 : 3', {
-              fontSize: 60
+              font: new PhetFont( 60 )
             } )
           ]
         } ),
