@@ -15,11 +15,12 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Matrix3 = require( 'DOT/Matrix3' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Property = require( 'AXON/Property' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
@@ -27,22 +28,14 @@ define( function( require ) {
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var BilliardsTable = require( 'PROPORTION_PLAYGROUND/common/model/billiards/BilliardsTable' );
+  var BilliardsPath = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsPath' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   var Util = require( 'DOT/Util' );
   var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
 
   // constants
   var SCALE = 18; // from model units to view units   TODO: why don't we scale up after? Seems simpler
-  var MOVING_LINE_OPTIONS = {
-    stroke: ProportionPlaygroundColorProfile.billiardsPathProperty,
-    lineWidth: 2
-  };
   var BALL_DIAMETER = 10;
-  var DRAGGER_OPTIONS = {
-    cursor: 'pointer',
-    pickable: true
-  };
-
   var GRID_LINE_WIDTH = 0.5;
 
   /**
@@ -52,7 +45,15 @@ define( function( require ) {
    * @param {Object} [options] - See options below. Also passed to Node's mutate.
    */
   function BilliardsTableNode( billiardsTable, options ) {
+    var self = this;
+
+
     SceneRatioNode.call( this, billiardsTable );
+
+    // @private {BilliardsTable}
+    this.billiardsTable = billiardsTable;
+
+    var modelViewTransform = new ModelViewTransform2( this.computeModelViewMatrix() );
 
     options = _.extend( {
       // {boolean} - Whether this node should always take up the bounds for a full-size (20x20) billiards table.
@@ -63,15 +64,9 @@ define( function( require ) {
       allowDragToResize: true
     }, options );
 
-    var self = this;
-
-    var linesNode = new Node();
-    var currentLineNode = new Line( 0, 0, 0, 0, MOVING_LINE_OPTIONS );
-
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
-    // TODO: can we create later? These aren't sized
-    var borderRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundColorProfile.billiardsBorderProperty } );
-    var insideRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundColorProfile.billiardsInsideProperty } );
+    var borderRectangle = new Rectangle( { fill: ProportionPlaygroundColorProfile.billiardsBorderProperty } );
+    var insideRectangle = new Rectangle( { fill: ProportionPlaygroundColorProfile.billiardsInsideProperty } );
 
     var dragGripDots = new HBox( {
       spacing: 1.3,
@@ -88,37 +83,28 @@ define( function( require ) {
     var bottomDragHandle = new Node( { children: [ dragGripDots ] } );
 
     // invisible rectangles used to drag the sides of the table to change the dimensions
-    var leftDragger = new Rectangle( 0, 0, 0, 0, DRAGGER_OPTIONS );
-    var rightDragger = new Rectangle( 0, 0, 0, 0, DRAGGER_OPTIONS );
-    var topDragger = new Rectangle( 0, 0, 0, 0, DRAGGER_OPTIONS );
-    var bottomDragger = new Rectangle( 0, 0, 0, 0, DRAGGER_OPTIONS );
-
-    // Layer containing draggers
-    var draggersLayer = new Node( {
-      children: [
-        leftDragger,
-        rightDragger,
-        topDragger,
-        bottomDragger
-      ]
-    } );
+    var draggerOptions = {
+      cursor: 'pointer',
+      pickable: true
+    };
+    var leftDragger = new Rectangle( draggerOptions );
+    var rightDragger = new Rectangle( draggerOptions );
+    var topDragger = new Rectangle( draggerOptions );
+    var bottomDragger = new Rectangle( draggerOptions );
 
     var gridLinesNode = BilliardsTableNode.createGridLinesNode();
-
-    // Layer containing the grid lines and ball lines.  When these were children of the insideRectangle, it caused #19
-    // so they have been moved to a separate node
-    var lineLayer = new Node( {
-      children: [
-        gridLinesNode,
-        linesNode,
-        currentLineNode
-      ]
+    var pathNode = new BilliardsPath( modelViewTransform, billiardsTable.collisionPoints, billiardsTable.ballPositionProperty );
+    billiardsTable.restartEmitter.addListener( function() {
+      pathNode.reset();
     } );
 
     // The moving ball node
     var ballNode = new MutableOptionsNode( ShadedSphereNode, [ BALL_DIAMETER ], {}, {
       mainColor: ProportionPlaygroundColorProfile.billiardsBallMainProperty,
       highlightColor: ProportionPlaygroundColorProfile.billiardsBallHighlightProperty
+    } );
+    billiardsTable.ballPositionProperty.link( function( ballModelPosition ) {
+      ballNode.translation = modelViewTransform.modelToViewPosition( ballModelPosition );
     } );
 
     // Create the holes for top-left, top-right and bottom-right
@@ -128,35 +114,6 @@ define( function( require ) {
     var topLeftHoleNode = createCircle();
     var topRightHoleNode = createCircle();
     var bottomRightHoleNode = createCircle();
-
-    // When the ball restarts, clear the history of lines
-    billiardsTable.restartEmitter.addListener( function() {
-      linesNode.children = [];
-    } );
-
-    // When the ball bounces, add a new line to the static array of lines.
-    billiardsTable.collisionPoints.addItemAddedListener( function( currentPoint ) {
-      var a = billiardsTable.collisionPoints.getArray();
-      var previousPoint = a[ a.length - 2 ];
-      if ( previousPoint ) {
-        linesNode.addChild( new Line(
-          previousPoint.x * SCALE, previousPoint.y * SCALE,
-          currentPoint.x * SCALE, currentPoint.y * SCALE,
-          MOVING_LINE_OPTIONS
-        ) );
-      }
-    } );
-
-    // When the ball moves, update the live (unbounced) line streaming from the ball and update the ball's location
-    billiardsTable.ballPositionProperty.link( function( position ) {
-      var a = billiardsTable.collisionPoints.getArray();
-      var previousPoint = a[ a.length - 1 ];
-      if ( previousPoint ) {
-        currentLineNode.setLine( previousPoint.x * SCALE, previousPoint.y * SCALE, position.x * SCALE, position.y * SCALE );
-      }
-
-      ballNode.center = position.times( SCALE ).plus( insideRectangle.translation );
-    } );
 
     /**
      * Auxiliary function that adds a drag handler as an input listener for a given side of the rectangle
@@ -208,6 +165,10 @@ define( function( require ) {
       var length = billiardsTable.lengthProperty.value;
       var width = billiardsTable.widthProperty.value;
 
+      modelViewTransform.setMatrix( self.computeModelViewMatrix() );
+
+      pathNode.reset();
+
       var brownEdgeLineWidth = 11;
       var scaledWidth = width * SCALE;
       var scaledHeight = length * SCALE;
@@ -246,7 +207,7 @@ define( function( require ) {
       bottomDragHandle.center = bottomDragger.center;
 
       // Position the lines layer
-      lineLayer.translation = insideRectangle.translation;
+      gridLinesNode.translation = insideRectangle.translation;
 
       // Position the holes.
       bottomRightHoleNode.translation = insideRectangle.translation.plusXY( width * SCALE, length * SCALE );
@@ -259,15 +220,11 @@ define( function( require ) {
       this.children = [
         borderRectangle,
         insideRectangle,
-        draggersLayer,
-        lineLayer,
-        topLeftHoleNode,
-        topRightHoleNode,
-        bottomRightHoleNode,
-        leftDragHandle,
-        rightDragHandle,
-        topDragHandle,
-        bottomDragHandle,
+        leftDragger, rightDragger, topDragger, bottomDragger,
+        gridLinesNode,
+        pathNode,
+        topLeftHoleNode, topRightHoleNode, bottomRightHoleNode,
+        leftDragHandle, rightDragHandle, topDragHandle, bottomDragHandle,
         ballNode
       ];
     }
@@ -275,10 +232,9 @@ define( function( require ) {
       this.children = [
         borderRectangle,
         insideRectangle,
-        lineLayer,
-        topLeftHoleNode,
-        topRightHoleNode,
-        bottomRightHoleNode,
+        gridLinesNode,
+        pathNode,
+        topLeftHoleNode, topRightHoleNode, bottomRightHoleNode,
         ballNode
       ];
     }
@@ -289,7 +245,21 @@ define( function( require ) {
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );
 
   return inherit( SceneRatioNode, BilliardsTableNode, {
+    /**
+     * Computes what the current model-view transform should be (depends on length/width).
+     * @private
+     *
+     * @returns {Matrix3}
+     */
+    computeModelViewMatrix: function() {
+      // Long property names
+      var length = this.billiardsTable.lengthProperty.value;
+      var width = this.billiardsTable.widthProperty.value;
 
+      return new Matrix3().rowMajor( SCALE, 0, -SCALE * width / 2,
+                                     0, -SCALE, SCALE * length / 2,
+                                     0, 0, 1 );
+    }
   }, {
     /**
      * Creates a node that contains all of the potentially required grid lines.

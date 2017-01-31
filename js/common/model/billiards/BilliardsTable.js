@@ -50,7 +50,7 @@ define( function( require ) {
 
     // Keep track of collision points so the path can be shown as array of lines.
     // @public {ObservableArray.<Vector2>} (read-only) - the points where the ball has collided with the walls
-    this.collisionPoints = new ObservableArray();
+    this.collisionPoints = new ObservableArray( new Vector2() );
 
     // @public {Emitter} (read-only) - emits when the ball was restarted
     this.restartEmitter = new Emitter();
@@ -77,20 +77,15 @@ define( function( require ) {
       var a = this.lengthProperty.value;
       var b = this.widthProperty.value;
 
-      // So we can handle isomorphic cases. For bumps and distance, think of unwrapping the path, and compute the LCM (a*b after GCD).
-      // var gcd = Util.gcd( a, b );
-      // var numBumps = ( a + b ) / gcd - 1; // including the 'end' bump
-      // var distance = a * b * Math.sqrt( 2 ) / ( gcd * gcd ); // Simply across an (a/gcd)x(b/gcd) square
-      // var speed = 8 * Math.sqrt( distance ) / Math.sqrt( numBumps );
-
       // See https://github.com/phetsims/proportion-playground/issues/13
       var speed = 1.5 * Math.sqrt( Math.pow( a, 2 ) + Math.pow( b, 2 ) );
 
       // initially the ball starts in the bottom left corner and moves up and to the right.
-      this.ballPositionProperty.value = new Vector2( 0, this.lengthProperty.value );
-      this.ballVelocity.setXY( speed, -speed );
+      this.ballPositionProperty.value = new Vector2();
+      this.ballVelocity.setXY( speed, speed );
 
       this.collisionPoints.clear();
+      this.collisionPoints.push( new Vector2() );
       this.restartEmitter.emit();
     },
 
@@ -124,11 +119,6 @@ define( function( require ) {
       // Bail out if the ball has stopped
       if ( velocity.magnitude() === 0 ) {
         return;
-      }
-
-      // Create a collision point at the very start if we have no collision points
-      if ( this.collisionPoints.length === 0 ) {
-        this.collisionPoints.add( position.copy() );
       }
 
       // Keep bouncing while we still can (and have time left)
@@ -180,6 +170,7 @@ define( function( require ) {
           // Stop the ball when we hit a corner
           if ( ( position.x === 0 || position.x === width ) &&
                ( position.y === 0 || position.y === length ) ) {
+            // TODO: will step( 0 ) cause a hit at the starting position?
             this.ballVelocity.setXY( 0, 0 );
           }
         }
