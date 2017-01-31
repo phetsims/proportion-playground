@@ -60,7 +60,12 @@ define( function( require ) {
       this.hitCallback( this );
     },
 
-    //TODO: doc
+    /**
+     * Returns 0 when the balloon starts and 1 when it hits.
+     * @public
+     *
+     * @returns {number}
+     */
     getRatioToEnd: function() {
       return ( TIME_TO_HIT - this.timeToHit ) / TIME_TO_HIT;
     }

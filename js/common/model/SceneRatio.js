@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Emitter = require( 'AXON/Emitter' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
@@ -30,13 +31,13 @@ define( function( require ) {
     // @public {Property.<boolean>} - Whether our controls are visible
     this.controlsVisibleProperty = controlsVisibleProperty;
 
-    // @public {Property.<boolean>} - Left numeric value
-    this.leftProperty = leftProperty;
+    // @public {Property.<number>} - Left numeric value
+    this.leftProperty = leftProperty; // TODO: check for getProperty() usages
 
     // @public {Range} - Range for the left numeric value
-    this.leftRange = leftRange;
+    this.leftRange = leftRange; // TODO: check for getRange() usages
 
-    // @public {Property.<boolean>} - Right numeric value
+    // @public {Property.<number>} - Right numeric value
     this.rightProperty = rightProperty;
 
     // @public {Range} - Range for the right numeric value
@@ -63,6 +64,26 @@ define( function( require ) {
   proportionPlayground.register( 'SceneRatio', SceneRatio );
 
   return inherit( Object, SceneRatio, {
+    /**
+     * Returns the count property for a specific side (left or right).
+     * @public
+     *
+     * @returns {Property.<number>}
+     */
+    getProperty: function( side ) {
+      return side === Side.LEFT ? this.leftProperty : this.rightProperty;
+    },
+
+    /**
+     * Returns the range property for a specific side (left or right).
+     * @public
+     *
+     * @returns {Range}
+     */
+    getRange: function( side ) {
+      return side === Side.LEFT ? this.leftRange : this.rightRange;
+    },
+
     /**
      * Resets the ratio to the original values.
      * @public

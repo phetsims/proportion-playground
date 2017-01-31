@@ -53,7 +53,7 @@ define( function( require ) {
       rotation: -Math.PI / 2,
       stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
       lineWidth: 0.6,
-      fill: PaintChoice.getActiveColorProperty( paintChoiceProperty, paintDrip.side ) // TODO: see if we can consolidate in super
+      fill: PaintChoice.getActiveColorProperty( paintChoiceProperty, paintDrip.side )
     } );
     this.addChild( this.path );
   }

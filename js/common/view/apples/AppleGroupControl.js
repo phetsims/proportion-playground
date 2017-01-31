@@ -29,17 +29,16 @@ define( function( require ) {
    * @param {Property.<boolean>} revealProperty - true if the answer representation should be shown
    */
   function AppleGroupControl( appleGroup, showCostPerAppleProperty, revealProperty ) {
-    SceneRatioControl.call( this, appleGroup, {
+    SceneRatioControl.call( this, appleGroup, ProportionPlaygroundColorProfile.appleCostPickerProperty,
+                                              ProportionPlaygroundColorProfile.appleProperty, {
       leftPickerLabel: totalCostString,
-      leftPickerColorProperty: ProportionPlaygroundColorProfile.appleCostPickerProperty,
       leftPickerOptions: {
         // Put a $ sign in front of the spinner number
         formatText: function( text ) {
           return StringUtils.format( pricePatternString, text );
         }
       },
-      rightPickerLabel: applesString,
-      rightPickerColorProperty: ProportionPlaygroundColorProfile.appleProperty
+      rightPickerLabel: applesString
     } );
 
     // Create the place where apples and coins will be shown.

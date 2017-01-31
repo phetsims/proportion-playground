@@ -28,21 +28,17 @@ define( function( require ) {
    * @constructor
    *
    * @param {SceneRatio} sceneRatio
+   * @param {Property.<Color>} leftPickerColorProperty - The color of the left picker's arrows
+   * @param {Property.<Color>} rightPickerColorProperty - The color of the right picker's arrows
    * @param {Object} [options]
    */
-  function SceneRatioControl( sceneRatio, options ) {
+  function SceneRatioControl( sceneRatio, leftPickerColorProperty, rightPickerColorProperty, options ) {
     options = _.extend( {
-      // Usually one color is provided, but we need to handle multiple colors for the paint scene.
-      // If there is more than one color, then paintChoiceProperty will control which color is visible.
-      leftPickerColorProperty: null, // {Property.<Color>} TODO: suitable defaults in this defaults block?
-      rightPickerColorProperty: null, // {Property.<Color>}
-      // Other options provided directly to the picker
-      leftPickerOptions: {}, // {Object}
-      rightPickerOptions: {}, // {Object}
+      leftPickerOptions: {}, // {Object} - Directly provided to the picker (for additional options)
+      rightPickerOptions: {}, // {Object} - Directly provided to the picker (for additional options)
       leftPickerLabel: null, // {Node|string|null}
       rightPickerLabel: null, // {Node|string|null}
-      paintChoiceProperty: null, // {Property.<PaintChoice>|null} - Currently true when the second color should be shown.
-      pickerLabelMaxWidth: 150
+      pickerLabelMaxWidth: 150 // {number}
     }, options );
 
     Node.call( this, options );
@@ -53,19 +49,18 @@ define( function( require ) {
      * Creates a Node representing a single picker (may include multiple pickers due to needing multiple colors)
      * @private
      *
-     * @param {Property.<number>} property - The numeric value
-     * @param {Range} range - The range of possible values
-     * @param {Property.<Color>} colorProperty
-     * @param {Node|string|null} label - If available, will be placed above the picker. Strings will use Text.
      * @param {Side} side - Whether we are the left picker or right.
+     * @param {Node|string|null} label - If available, will be placed above the picker. Strings will use Text.
      * @param {Object} pickerOptions - Any options to provide directly to the NumberPicker
      * @returns {Node}
      */
-    function createPickers( property, range, colorProperty, label, side, pickerOptions ) {
+    function createPickers( side, label, pickerOptions ) {
       // Use MutableOptionsNode, see https://github.com/phetsims/scenery-phet/issues/287
       var staticOptions = _.extend( { scale: 2 }, pickerOptions );
-      var dynamicOptions = { color: colorProperty };
-      var picker = new MutableOptionsNode( NumberPicker, [ property, new Property( range ) ], staticOptions, dynamicOptions );
+      var dynamicOptions = {
+        color: side === Side.LEFT ? leftPickerColorProperty : rightPickerColorProperty
+      };
+      var picker = new MutableOptionsNode( NumberPicker, [ sceneRatio.getProperty( side ), new Property( sceneRatio.getRange( side ) ) ], staticOptions, dynamicOptions );
 
       // If there is a label, we'll add it above the picker
       if ( label ) {
@@ -91,10 +86,8 @@ define( function( require ) {
     }
 
     // @protected {Node}
-    this.leftPicker = createPickers( sceneRatio.leftProperty, sceneRatio.leftRange, options.leftPickerColorProperty,
-                                     options.leftPickerLabel, Side.LEFT, options.leftPickerOptions );
-    this.rightPicker = createPickers( sceneRatio.rightProperty, sceneRatio.rightRange, options.rightPickerColorProperty,
-                                      options.rightPickerLabel, Side.RIGHT, options.rightPickerOptions );
+    this.leftPicker = createPickers( Side.LEFT, options.leftPickerLabel, options.leftPickerOptions );
+    this.rightPicker = createPickers( Side.RIGHT, options.rightPickerLabel, options.rightPickerOptions );
 
     // @protected {Node|null} - Will be initialized when one of the add-picker functions is called.
     this.pickerContainer = null;

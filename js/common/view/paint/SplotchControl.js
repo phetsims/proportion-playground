@@ -35,11 +35,8 @@ define( function( require ) {
   function SplotchControl( splotch, paintChoiceProperty, useVisibleAmounts, initialBalloonSign ) {
     var self = this;
 
-    SceneRatioControl.call( this, splotch, {
-      leftPickerColorProperty: PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.LEFT ),
-      rightPickerColorProperty: PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.RIGHT ),
-      paintChoiceProperty: paintChoiceProperty // TODO: this should be unnecessary
-    } );
+    SceneRatioControl.call( this, splotch, PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.LEFT ),
+                                           PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.RIGHT ) );
 
     var dripLayer = new Node();
     var balloonLayer = new Node();

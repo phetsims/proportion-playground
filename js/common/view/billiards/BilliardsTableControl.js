@@ -31,17 +31,17 @@ define( function( require ) {
    * @param {Object} [options] - node layout options
    */
   function BilliardsTableControl( layoutBounds, billiardsTable, revealProperty, options ) {
-    SceneRatioControl.call( this, billiardsTable, {
-      leftPickerColorProperty: ProportionPlaygroundColorProfile.billiardsBorderProperty,
+    SceneRatioControl.call( this, billiardsTable, ProportionPlaygroundColorProfile.billiardsBorderProperty,
+                                                  ProportionPlaygroundColorProfile.billiardsBorderProperty, {
       leftPickerLabel: lengthString,
-      rightPickerColorProperty: ProportionPlaygroundColorProfile.billiardsBorderProperty,
       rightPickerLabel: widthString,
       pickerLabelMaxWidth: 70
     } );
 
-    // TODO: enum? Or have this on the model?
+    assert && assert( options.side, 'side is required' );
+
     options = _.extend( {
-      side: Side.LEFT,
+      side: null, // {Side} - Required, assertion above
       allowDragToResize: false // Whether resizing is allowed
     }, options );
 

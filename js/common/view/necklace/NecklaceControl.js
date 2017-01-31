@@ -24,10 +24,9 @@ define( function( require ) {
    * @param {Property.<boolean>} revealProperty - true if the necklace should be shown.
    */
   function NecklaceControl( necklace, revealProperty ) {
-    SceneRatioControl.call( this, necklace, {
-      leftPickerColorProperty: ProportionPlaygroundColorProfile.necklaceRoundBeadProperty,
+    SceneRatioControl.call( this, necklace, ProportionPlaygroundColorProfile.necklaceRoundBeadProperty,
+                                            ProportionPlaygroundColorProfile.necklaceSquareBeadProperty, {
       leftPickerLabel: new RoundBeadNode(),
-      rightPickerColorProperty: ProportionPlaygroundColorProfile.necklaceSquareBeadProperty,
       rightPickerLabel: new SquareBeadNode( 0 )
     } );
 
