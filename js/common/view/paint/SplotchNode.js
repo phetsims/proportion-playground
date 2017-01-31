@@ -18,6 +18,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Property = require( 'AXON/Property' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
 
   // SVG declaration for the splotch shape. Generated from AI file => cut shape => save svg => cut newlines.
   // Removed a discontinuity manually. Represented as kite shape so we can easily change color.
@@ -49,7 +50,10 @@ define( function( require ) {
     var leftColorProperty = options.useVisibleAmounts ? splotch.visibleLeftColorProperty : splotch.leftColorCountProperty;
     var rightColorProperty = options.useVisibleAmounts ? splotch.visibleRightColorProperty : splotch.rightColorCountProperty;
 
-    var splotchPath = new Path( splotchShape, { stroke: 'black', lineWidth: 0.7 } );
+    var splotchPath = new Path( splotchShape, {
+      stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
+      lineWidth: 0.7
+    } );
     this.addChild( splotchPath );
 
     this.splotch = splotch;

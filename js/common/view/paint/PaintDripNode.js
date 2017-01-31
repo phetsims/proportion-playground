@@ -14,6 +14,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
 
   var SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
@@ -48,7 +49,9 @@ define( function( require ) {
 
     this.path = new Path( dropletShape, {
       scale: Math.sqrt( SPLOTCH_AREA / SHAPE_AREA ),
-      rotation: -Math.PI / 2
+      rotation: -Math.PI / 2,
+      stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
+      lineWidth: 0.6
     } );
     this.addChild( this.path );
 

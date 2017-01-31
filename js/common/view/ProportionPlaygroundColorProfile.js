@@ -23,7 +23,8 @@ define( function( require ) {
     billiardsPath: { default: Color.WHITE },
     billiardsGripDots: { default: new Color( 102, 102, 102 ) },
     billiardsBallMain: { default: Color.WHITE },
-    billiardsBallHighlight: { default: Color.YELLOW }
+    billiardsBallHighlight: { default: Color.YELLOW },
+    paintStroke: { default: Color.BLACK }
   }, [ 'default' ] );
 
   proportionPlayground.register( 'ProportionPlaygroundColorProfile', ProportionPlaygroundColorProfile );
