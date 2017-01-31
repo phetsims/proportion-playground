@@ -13,6 +13,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Matrix3 = require( 'DOT/Matrix3' );
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
@@ -49,6 +50,8 @@ define( function( require ) {
       .addColorStop( 0.8, color.colorUtilsDarker( 0.3 ) );
   } );
 
+  var scratchMatrix3 = new Matrix3();
+
   /**
    * @constructor
    *
@@ -62,33 +65,35 @@ define( function( require ) {
       scale: 0.95
     } );
 
-    container.addChild( new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
+    this.backRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
       fill: dark7,
       rotation: rotation,
       x: -DIAMETER / 15,
       y: DIAMETER / 15
-    } ) );
+    } );
+    container.addChild( this.backRectangle );
 
-    container.addChild( new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
+    this.middleRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
       fill: dark4,
       rotation: rotation,
       scale: 20/21,
       x: -DIAMETER / 30,
       y: DIAMETER / 30
-    } ) );
+    } );
+    container.addChild( this.middleRectangle );
 
     var gradientAngle = -Math.PI / 4;
     var gradientX = GRADIENT_OFFSET * Math.cos( gradientAngle - rotation );
     var gradientY = GRADIENT_OFFSET * Math.sin( gradientAngle - rotation );
 
-    var frontRectangle = new Rectangle( -RADIUS - gradientX, -RADIUS - gradientY, DIAMETER, DIAMETER, ROUND, ROUND, {
+    this.frontRectangle = new Rectangle( -RADIUS - gradientX, -RADIUS - gradientY, DIAMETER, DIAMETER, ROUND, ROUND, {
       scale: 10 / 11,
       x: gradientX,
       y: gradientY
     } );
-    frontRectangle.rotateAround( new Vector2(), rotation );
-    gradientProperty.linkAttribute( frontRectangle, 'fill' ); // TODO: better support for gradient properties
-    container.addChild( frontRectangle );
+    this.frontRectangle.rotateAround( new Vector2(), rotation );
+    gradientProperty.linkAttribute( this.frontRectangle, 'fill' ); // TODO: better support for gradient properties
+    container.addChild( this.frontRectangle );
 
     this.mutate( _.extend( {
       children: [ container ],
@@ -98,5 +103,11 @@ define( function( require ) {
 
   proportionPlayground.register( 'SquareBeadNode', SquareBeadNode );
 
-  return inherit( Node, SquareBeadNode );
+  return inherit( Node, SquareBeadNode, {
+    setBeadRotation: function( rotation ) {
+      this.backRectangle.rotation = rotation;
+      this.middleRectangle.rotation = rotation;
+      this.frontRectangle.prependMatrix( scratchMatrix3.setToRotationZ( rotation - this.frontRectangle.getRotation() ) );
+    }
+  } );
 } );

@@ -25,15 +25,19 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var PATH_OPTIONS = { stroke: ProportionPlaygroundColorProfile.necklaceStringProperty, lineWidth: 2 };
+  var PATH_OPTIONS = {
+    stroke: ProportionPlaygroundColorProfile.necklaceStringProperty,
+    lineWidth: 2
+  };
   var ROTATE_UPRIGHT = -Math.PI / 2;
   var BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
 
   /**
+   * @constructor
+   *
    * @param {number} roundBeadCount - number of round beads
    * @param {number} squareBeadCount - number of square beads
    * @param {Object} [options] - node options
-   * @constructor
    */
   function StaticNecklaceNode( roundBeadCount, squareBeadCount, options ) {
 
