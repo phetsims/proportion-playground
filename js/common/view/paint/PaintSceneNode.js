@@ -22,6 +22,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   var GradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientNode' );
 
   // images
@@ -47,8 +48,8 @@ define( function( require ) {
     greenSplotch.hitBalloons();
 
     // Create the left/right splotches and their NumberPickers
-    var leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.paintChoiceProperty, !scene.predictMode, -1 );
-    var rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, !scene.predictMode, 1 );
+    var leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.paintChoiceProperty, !scene.predictMode, Side.LEFT );
+    var rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, !scene.predictMode, Side.RIGHT );
 
     SceneNode.call( this, scene, layoutBounds, {
       sceneIcon: new Image( paintSceneImage, { scale: 0.17 } ),

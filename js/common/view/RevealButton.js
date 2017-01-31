@@ -15,10 +15,10 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
+   * @constructor
    *
    * @param {Property.<boolean>} revealingProperty - true if the answer should be shown.
    * @param {Object} [options]
-   * @constructor
    */
   function RevealButton( revealingProperty, options ) {
     var revealedNode = new FontAwesomeNode( 'eye_open' );

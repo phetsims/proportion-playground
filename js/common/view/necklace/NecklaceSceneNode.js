@@ -39,6 +39,7 @@ define( function( require ) {
       sceneIcon: new StaticNecklaceNode( 14, 7, { scale: 0.25 } ),
       leftControl: leftNecklaceControl,
       rightControl: rightNecklaceControl,
+      canCenterControlButton: false, // due to the pattern panel
       leftSwitchIcon: new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ),
       rightSwitchIcon: new HBox( {
         children: [
@@ -71,10 +72,5 @@ define( function( require ) {
 
   proportionPlayground.register( 'NecklaceSceneNode', NecklaceSceneNode );
 
-  return inherit( SceneNode, NecklaceSceneNode, {
-    // TODO: with option  @override
-    canCenterControlButton: function() {
-      return false;
-    }
-  } );
+  return inherit( SceneNode, NecklaceSceneNode );
 } );

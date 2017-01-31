@@ -18,7 +18,7 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {number} initialCost - Intial total cost of all apples
+   * @param {number} initialCost - Initial total cost of all apples
    * @param {number} initialApples - Initial number of apples
    * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible

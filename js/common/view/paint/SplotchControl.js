@@ -30,9 +30,9 @@ define( function( require ) {
    * @param {Property.<PaintChoice>} paintChoiceProperty - Holds our current paint choice
    * @param {boolean} useVisibleAmounts - Whether our visible splotch size should be based on the "visible" counts as
    *                                      determined by the location of balloons/drips, or by the "real count"
-   * @param {number} initialBalloonSign - The sign indicating along the x axis where the initial balloon positions should be located.
+   * @param {Side} balloonThrowSide - The side where balloon throws should originate from
    */
-  function SplotchControl( splotch, paintChoiceProperty, useVisibleAmounts, initialBalloonSign ) {
+  function SplotchControl( splotch, paintChoiceProperty, useVisibleAmounts, balloonThrowSide ) {
     var self = this;
 
     SceneRatioControl.call( this, splotch, PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.LEFT ),
@@ -43,15 +43,17 @@ define( function( require ) {
 
     // @private
     this.splotchNode = new SplotchNode( splotch, paintChoiceProperty, {
-      useVisibleAmounts: useVisibleAmounts
+      useVisibleAmounts: useVisibleAmounts,
+      centerX: 0,
+      centerY: 250
     } );
     this.addChild( dripLayer );
     this.addChild( this.splotchNode ); // TODO: how is this positioned?
     this.addChild( balloonLayer );
     this.addBottomPickers();
 
-    // @private {number}
-    this.initialBalloonSign = initialBalloonSign;
+    // @private {Side}
+    this.balloonThrowSide = balloonThrowSide;
 
     // @private {Array.<PaintBalloonNode>}
     this.balloonNodes = [];
@@ -130,7 +132,8 @@ define( function( require ) {
       if ( this.balloonNodes.length || this.dripNodes.length ) {
         visibleBounds = this.parentToLocalBounds( visibleBounds );
 
-        var startLocation = startVector.setXY( visibleBounds.centerX + 0.55 * this.initialBalloonSign * visibleBounds.width,
+        var balloonSign = this.balloonThrowSide === Side.LEFT ? -1 : 1;
+        var startLocation = startVector.setXY( visibleBounds.centerX + 0.55 * balloonSign * visibleBounds.width,
                                                visibleBounds.bottom * 0.8 );
         var splotchLocation = this.splotchNode.center;
         for ( var i = 0; i < this.balloonNodes.length; i++ ) {

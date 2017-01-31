@@ -31,22 +31,24 @@ define( function( require ) {
    */
   function SceneNode( scene, layoutBounds, options ) {
     options = _.extend( {
-      sceneIcon: null, // {Node}
-      leftControl: null, // {Node}
-      rightControl: null, // {Node}
+      sceneIcon: null, // {Node}, required
+      leftControl: null, // {Node}, required
+      rightControl: null, // {Node}, required
       leftSwitchIcon: null, // {Node}, required
       rightSwitchIcon: null, // {Node}, required
-      controlLocation: 'right' // 'right' or 'bottom', direction from the pickerContainer
+      controlLocation: 'right', // 'right' or 'bottom', direction from the pickerContainer
+      canCenterControlButton: true // Whether the control button can be centered when both left/right are shown
     }, options );
 
     // @protected
-    this.layoutBounds = options.layoutBounds;
+    this.layoutBounds = layoutBounds;
     this.leftControl = options.leftControl;
     this.rightControl = options.rightControl;
 
     // @private
     this.controlLocation = options.controlLocation;
     this.revealBothOffset = options.revealBothOffset;
+    this.canCenterControlButton = options.canCenterControlButton;
 
     // @public {Scene} - The main model for this scene
     this.scene = scene;
@@ -54,8 +56,6 @@ define( function( require ) {
     // @public {Node} - Will be displayed in the scene selection radio group
     this.sceneIcon = options.sceneIcon;
 
-    // TODO: doc
-    this.layoutBounds = layoutBounds;
     Node.call( this, {
       children: [
         this.leftControl,
@@ -66,14 +66,12 @@ define( function( require ) {
     this.leftSwitchIcon = switchAlignGroup.createBox( options.leftSwitchIcon, { xAlign: 'right' } );
     this.rightSwitchIcon = switchAlignGroup.createBox( options.rightSwitchIcon, { xAlign: 'left' } );
 
-    this.controlButton = null; // A button that will either handle revealing the scene's visual representation, or will refresh the scene.
+    // @private {Node} - A button that will either handle revealing the scene's visual representation, or will refresh the scene.
+    this.controlButton = null; 
 
     // For predict mode, add a reveal button that show the representations
     if ( scene.predictMode ) {
-      // @private
-      this.controlButton = new RevealButton( scene.revealProperty, {
-        bottom: layoutBounds.maxY - 87 //TODO: layout customization needed here?
-      } );
+      this.controlButton = new RevealButton( scene.revealProperty );
     }
     // Otherwise, have a 'Refresh' button, see https://github.com/phetsims/proportion-playground/issues/55
     else {
@@ -120,11 +118,6 @@ define( function( require ) {
       } ) );
     },
 
-    // TODO: with option
-    canCenterControlButton: function() {
-      return true;
-    },
-
     /**
      * Moves the reveal button to the desired position.
      * @protected
@@ -135,7 +128,7 @@ define( function( require ) {
 
       if ( this.controlLocation === 'right' ) {
         if ( this.scene.showBothProperty.value ) {
-          if ( this.canCenterControlButton() ) {
+          if ( this.canCenterControlButton ) {
             this.controlButton.centerX = this.layoutBounds.centerX;
           }
           else {
