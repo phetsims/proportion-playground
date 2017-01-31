@@ -31,6 +31,7 @@ define( function( require ) {
    */
   function SceneNode( scene, layoutBounds, options ) {
     options = _.extend( {
+      sceneIcon: null, // {Node}
       leftControl: null, // {Node}
       rightControl: null, // {Node}
       leftSwitchIcon: null, // {Node}, required
@@ -49,6 +50,11 @@ define( function( require ) {
 
     // @public {Scene} - The main model for this scene
     this.scene = scene;
+
+    // @public {Node} - Will be displayed in the scene selection radio group
+    this.sceneIcon = options.sceneIcon;
+
+    // TODO: doc
     this.layoutBounds = layoutBounds;
     Node.call( this, {
       children: [

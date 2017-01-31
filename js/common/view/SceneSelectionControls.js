@@ -12,50 +12,31 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
-  var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
-  var BilliardTableIcon = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardTableIcon' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
 
-  // images
-  var paintSceneImage = require( 'mipmap!PROPORTION_PLAYGROUND/paint-scene.png' );
-  var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
-
   /**
-   *
-   * @param {ProportionModel} model
-   * @param {Object} [options] - node options
    * @constructor
+   *
+   * @param {Property.<Scene>} sceneProperty - Determines which scene is visible
+   * @param {Array.<SceneNode>} sceneNodes - Each sceneNode has a scene and an icon
+   * @param {Object} [options] - node options
    */
-  function SceneSelectionControls( model, options ) {
+  function SceneSelectionControls( sceneProperty, sceneNodes, options ) {
     Node.call( this );
 
-    // Create one icon per scene
-    var necklaceIcon = new StaticNecklaceNode( 14, 7, { scale: 0.2 } );
-    var paintSceneIcon = new Image( paintSceneImage );
-    var billiardTableIcon = new BilliardTableIcon( 120, 120 );
-    var redAppleIcon = new Image( redAppleImage );
+    var group = new AlignGroup();
+    var ratioItems = sceneNodes.map( function( sceneNode ) {
+      return {
+        value: sceneNode.scene,
+        node: new AlignBox( sceneNode.sceneIcon, { group: group } )
+      };
+    } );
 
-    // Make other icons same height as 1st icon
-    paintSceneIcon.mutate( { scale: necklaceIcon.height / paintSceneIcon.height } );
-    billiardTableIcon.mutate( { scale: necklaceIcon.height / billiardTableIcon.height } );
-    redAppleIcon.mutate( { scale: necklaceIcon.height / redAppleIcon.height } );
-
-    this.addChild( new MutableOptionsNode( RadioButtonGroup, [ model.sceneProperty, [ {
-      value: model.necklaceScene,
-      node: necklaceIcon
-    }, {
-      value: model.paintScene,
-      node: paintSceneIcon
-    }, {
-      value: model.billiardsScene,
-      node: billiardTableIcon
-    }, {
-      value: model.appleScene,
-      node: redAppleIcon
-    } ] ], {
+    this.addChild( new MutableOptionsNode( RadioButtonGroup, [ sceneProperty, ratioItems ], {
       orientation: 'horizontal',
       buttonContentXMargin: 20,
       buttonContentYMargin: 12,
@@ -64,6 +45,7 @@ define( function( require ) {
       selectedStroke: ProportionPlaygroundColorProfile.sceneSelectionBorderProperty,
       baseColor: ProportionPlaygroundColorProfile.sceneSelectionBackgroundProperty
     } ) );
+
     this.mutate( options );
   }
 

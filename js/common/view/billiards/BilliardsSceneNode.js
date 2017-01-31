@@ -44,6 +44,7 @@ define( function( require ) {
     } );
 
     SceneNode.call( this, scene, layoutBounds, {
+      sceneIcon: new BilliardTableIcon( 120, 120, { scale: 0.3 } ),
       leftControl: billiardsTableLeftControl,
       rightControl: billiardsTableRightControl,
       leftSwitchIcon: new BilliardTableIcon( 120, 120, ICON_SCALE_OPTIONS ),

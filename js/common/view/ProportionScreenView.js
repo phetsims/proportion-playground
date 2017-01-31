@@ -43,12 +43,6 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 10
     } ) );
 
-    // Scene selection radio buttons
-    this.addChild( new SceneSelectionControls( model, {
-      centerX: this.layoutBounds.centerX,
-      top: 5
-    } ) );
-
     // Store by index for lookup by radio button index
     this.sceneNodes = [
       new NecklaceSceneNode( model.necklaceScene, this.layoutBounds ),
@@ -56,6 +50,12 @@ define( function( require ) {
       new BilliardsSceneNode( model.billiardsScene, this.layoutBounds ),
       new AppleSceneNode( model.appleScene, this.layoutBounds )
     ];
+
+    // Scene selection radio buttons
+    this.addChild( new SceneSelectionControls( model.sceneProperty, this.sceneNodes, {
+      centerX: this.layoutBounds.centerX,
+      top: 5
+    } ) );
 
     this.sceneNodes.forEach( function( scene ) {
       scene.addShowBothSwitch();

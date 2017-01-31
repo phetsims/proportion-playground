@@ -55,6 +55,7 @@ define( function( require ) {
 
     // Super call and add children
     SceneNode.call( this, scene, layoutBounds, {
+      sceneIcon: new Image( redAppleImage, { scale: 0.25 } ),
       leftControl: redAppleGroupControl,
       rightControl: greenAppleGroupControl,
       leftSwitchIcon: new Node( { children: [ appleImageNode ] } ),

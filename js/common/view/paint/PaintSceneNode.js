@@ -16,12 +16,16 @@ define( function( require ) {
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
   var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
   var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientIndicatorNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   var GradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientNode' );
+
+  // images
+  var paintSceneImage = require( 'mipmap!PROPORTION_PLAYGROUND/paint-scene.png' );
 
   // constants
   var ICON_SCALE_OPTIONS = { scale: 0.5 };
@@ -47,6 +51,7 @@ define( function( require ) {
     var rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, !scene.predictMode, 1 );
 
     SceneNode.call( this, scene, layoutBounds, {
+      sceneIcon: new Image( paintSceneImage, { scale: 0.17 } ),
       leftControl: leftSplotchControl,
       rightControl: rightSplotchControl,
       leftSwitchIcon: new HBox( {

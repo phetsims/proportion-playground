@@ -36,6 +36,7 @@ define( function( require ) {
 
     // Super call
     SceneNode.call( this, scene, layoutBounds, {
+      sceneIcon: new StaticNecklaceNode( 14, 7, { scale: 0.25 } ),
       leftControl: leftNecklaceControl,
       rightControl: rightNecklaceControl,
       leftSwitchIcon: new StaticNecklaceNode( 14, 7, ICON_SCALE_OPTIONS ),
