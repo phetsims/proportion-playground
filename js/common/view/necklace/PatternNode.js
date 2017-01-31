@@ -14,18 +14,18 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Util = require( 'DOT/Util' );
 
   var BEAD_SIZE = 9;
   var roundBeadNode = new Circle( BEAD_SIZE / 2, {
-    fill: ProportionPlaygroundConstants.BEADS_PINK
+    fill: ProportionPlaygroundColorProfile.necklaceRoundBeadProperty
   } );
 
   var squareBeadNode = new Rectangle( 0, 0, BEAD_SIZE, BEAD_SIZE, {
-    fill: ProportionPlaygroundConstants.BEADS_BLUE
+    fill: ProportionPlaygroundColorProfile.necklaceSquareBeadProperty
   } );
 
   var invisibleBead = new Rectangle( 0, 0, BEAD_SIZE, BEAD_SIZE );

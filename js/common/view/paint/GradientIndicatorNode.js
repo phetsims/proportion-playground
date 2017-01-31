@@ -35,7 +35,7 @@ define( function( require ) {
 
     // Create the cradients
     var gradientNodes = PaintChoice.CHOICES.map( function( paintChoice ) {
-      var gradientNode = new GradientNode( GRADIENT_WIDTH, GRADIENT_HEIGHT, paintChoice.getColor.bind( paintChoice ) );
+      var gradientNode = new GradientNode( GRADIENT_WIDTH, GRADIENT_HEIGHT, paintChoice );
       gradientNode.paintChoice = paintChoice;
       return gradientNode;
     } );

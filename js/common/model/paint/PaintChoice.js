@@ -13,8 +13,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Color = require( 'SCENERY/util/Color' );
-  var Util = require( 'DOT/Util' );
 
   /**
    * Models mixing of watercolor paints with the weighted geometric mean, then with an applied gamma correction.
@@ -73,13 +73,13 @@ define( function( require ) {
    * @constructor
    * @private
    *
-   * @param {Color} leftColor
-   * @param {Color} rightColor
+   * @param {Property.<Color>} leftColorProperty
+   * @param {Property.<Color>} rightColorProperty
    */
-  function PaintChoice( leftColor, rightColor ) {
+  function PaintChoice( leftColorProperty, rightColorProperty ) {
     // @public
-    this.leftColor = leftColor;
-    this.rightColor = rightColor;
+    this.leftColorProperty = leftColorProperty;
+    this.rightColorProperty = rightColorProperty;
   }
 
   proportionPlayground.register( 'PaintChoice', PaintChoice );
@@ -94,55 +94,28 @@ define( function( require ) {
     getColor: function( blendAmount ) {
       assert && assert( blendAmount >= 0 && blendAmount <= 1, 'Blend amount was out of bounds.' );
 
-      return blendSubtractiveRGBGamma( this.leftColor, this.rightColor, stretchRatio( blendAmount, 2.0 ) );
-    },
-
-    /**
-     * @public
-     * TODO: Remove if still unused
-     *
-     * @param {number} blendAmount - value between 0 (left color) and 1 (right color)
-     * @returns {Color}
-     */
-    oldGetColor: function( blendAmount ) {
-      assert && assert( blendAmount >= 0 && blendAmount <= 1, 'Blend amount was out of bounds.' );
-
-      // Cyan and Yellow combine to green in RGB
-      var color = Color.interpolateRGBA( Color.BLUE, Color.YELLOW, blendAmount );
-
-      // after blending, move cyans toward blues
-      var greenCorrection = Util.linear( 0, 0.5, 1, 0, blendAmount ) * 255;
-      if ( blendAmount > 0.5 ) {
-        greenCorrection = 0;
-      }
-
-      // in the middle band, pull down the red and blue amount
-      var halfWidthOfGreenBand = 0.2;
-      var redBlueCorrection = 0;
-      var minBand = 0.5 - halfWidthOfGreenBand;
-      var maxBand = 0.5 + halfWidthOfGreenBand;
-      var colorReduction = 128; // Drop red and blue but not so much that the green channel is saturated and there is no dynamic range
-      if ( blendAmount > minBand && blendAmount <= 0.5 ) {
-        redBlueCorrection = Util.linear( minBand, 0.5, 0, colorReduction, blendAmount );
-      }
-      else if ( blendAmount > 0.5 && blendAmount < maxBand ) {
-        redBlueCorrection = Util.linear( 0.5, maxBand, colorReduction, 0, blendAmount );
-      }
-
-      return new Color( Math.max( color.red - redBlueCorrection, 0 ), Math.max( color.green - greenCorrection, 0 ), Math.max( color.blue - redBlueCorrection, 0 ) );
+      return blendSubtractiveRGBGamma( this.leftColorProperty.value,
+                                       this.rightColorProperty.value,
+                                       stretchRatio( blendAmount, 2.0 ) );
     }
   } );
 
-  PaintChoice.BLUE = new Color( 0x05, 0x70, 0xFF );
-  PaintChoice.YELLOW = new Color( 0xFF, 0xE0, 0x05 );
-  PaintChoice.RED = new Color( 0xFF, 0x25, 0x05 );
-  PaintChoice.BLACK = new Color( 0x25, 0x25, 0x25 );
-  PaintChoice.WHITE = new Color( 0xFF, 0xFF, 0xFF );
+  PaintChoice.BLUE = ProportionPlaygroundColorProfile.paintBlueProperty;
+  PaintChoice.YELLOW = ProportionPlaygroundColorProfile.paintYellowProperty;
+  PaintChoice.RED = ProportionPlaygroundColorProfile.paintRedProperty;
+  PaintChoice.BLACK = ProportionPlaygroundColorProfile.paintBlackProperty;
+  PaintChoice.WHITE = ProportionPlaygroundColorProfile.paintWhiteProperty;
 
-  // Colors are unique instances for convenience later
-  PaintChoice.BLUE_YELLOW = new PaintChoice( PaintChoice.BLUE.copy(), PaintChoice.YELLOW.copy() );
-  PaintChoice.RED_YELLOW = new PaintChoice( PaintChoice.RED.copy(), PaintChoice.YELLOW.copy() );
-  PaintChoice.BLACK_WHITE = new PaintChoice( PaintChoice.BLACK.copy(), PaintChoice.WHITE.copy() );
+  // Assign unique IDs to the individual paints, so that they can be differentiated for balloon handling.
+  PaintChoice.BLUE.paintId = 1;
+  PaintChoice.YELLOW.paintId = 2;
+  PaintChoice.RED.paintId = 3;
+  PaintChoice.BLACK.paintId = 4;
+  PaintChoice.WHITE.paintId = 5;
+
+  PaintChoice.BLUE_YELLOW = new PaintChoice( PaintChoice.BLUE, PaintChoice.YELLOW );
+  PaintChoice.RED_YELLOW = new PaintChoice( PaintChoice.RED, PaintChoice.YELLOW );
+  PaintChoice.BLACK_WHITE = new PaintChoice( PaintChoice.BLACK, PaintChoice.WHITE );
 
   PaintChoice.CHOICES = [
     PaintChoice.BLUE_YELLOW,

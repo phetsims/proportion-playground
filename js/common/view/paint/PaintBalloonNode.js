@@ -42,16 +42,16 @@ define( function( require ) {
   var BALLOON_RADIUS = Math.sqrt( SPLOTCH_AREA / Math.PI );
   var BALLON_IMAGE_SCALE = 2 * BALLOON_RADIUS / 130; // Assuming the balloons in the images have a diameter of 130px
 
-  // After construction, will map color.toCSS() => scenery.Image, which will be scaled and centered around the origin.
+  // After construction, will map color.paintId => scenery.Image, which will be scaled and centered around the origin.
   var balloonImageMap = {};
-  balloonImageMap[ PaintChoice.BLACK.toCSS() ] = [ blackBalloon1Image, blackBalloon2Image, blackBalloon3Image ];
-  balloonImageMap[ PaintChoice.BLUE.toCSS() ] = [ blueBalloon1Image, blueBalloon2Image, blueBalloon3Image ];
-  balloonImageMap[ PaintChoice.RED.toCSS() ] = [ redBalloon1Image, redBalloon2Image, redBalloon3Image ];
-  balloonImageMap[ PaintChoice.WHITE.toCSS() ] = [ whiteBalloon1Image, whiteBalloon2Image, whiteBalloon3Image ];
-  balloonImageMap[ PaintChoice.YELLOW.toCSS() ] = [ yellowBalloon1Image, yellowBalloon2Image, yellowBalloon3Image ];
-  var cssColors = [ PaintChoice.BLACK.toCSS(), PaintChoice.BLUE.toCSS(), PaintChoice.RED.toCSS(), PaintChoice.WHITE.toCSS(), PaintChoice.YELLOW.toCSS() ];
-  _.each( cssColors, function( cssColor ) {
-    balloonImageMap[ cssColor ] = balloonImageMap[ cssColor ].map( function( imageElement ) {
+  balloonImageMap[ PaintChoice.BLACK.paintId ] = [ blackBalloon1Image, blackBalloon2Image, blackBalloon3Image ];
+  balloonImageMap[ PaintChoice.BLUE.paintId ] = [ blueBalloon1Image, blueBalloon2Image, blueBalloon3Image ];
+  balloonImageMap[ PaintChoice.RED.paintId ] = [ redBalloon1Image, redBalloon2Image, redBalloon3Image ];
+  balloonImageMap[ PaintChoice.WHITE.paintId ] = [ whiteBalloon1Image, whiteBalloon2Image, whiteBalloon3Image ];
+  balloonImageMap[ PaintChoice.YELLOW.paintId ] = [ yellowBalloon1Image, yellowBalloon2Image, yellowBalloon3Image ];
+  var paintIDs = [ PaintChoice.BLACK.paintId, PaintChoice.BLUE.paintId, PaintChoice.RED.paintId, PaintChoice.WHITE.paintId, PaintChoice.YELLOW.paintId ];
+  _.each( paintIDs, function( paintId ) {
+    balloonImageMap[ paintId ] = balloonImageMap[ paintId ].map( function( imageElement ) {
       return new Image( imageElement, {
         centerX: 0,
         centerY: 0,
@@ -124,8 +124,9 @@ define( function( require ) {
      * @param {PaintChoice} paintChoice
      */
     updateBalloonColor: function( paintChoice ) {
-      var color = this.paintBalloon.isLeft ? paintChoice.leftColor : paintChoice.rightColor;
-      this.children = [ balloonImageMap[ color.toCSS() ][ this.paintBalloon.balloonType ] ];
+      // TODO: a Side enum may be nice?
+      var color = this.paintBalloon.isLeft ? paintChoice.leftColorProperty : paintChoice.rightColorProperty;
+      this.children = [ balloonImageMap[ color.paintId ][ this.paintBalloon.balloonType ] ];
     },
 
     /**

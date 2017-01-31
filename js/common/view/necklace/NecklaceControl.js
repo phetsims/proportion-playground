@@ -15,11 +15,7 @@ define( function( require ) {
   var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/RoundBeadNode' );
   var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/SquareBeadNode' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
-
-  // constants
-  var PINK = ProportionPlaygroundConstants.BEADS_PINK;
-  var BLUE = ProportionPlaygroundConstants.BEADS_BLUE;
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
 
   /**
    * @constructor
@@ -29,9 +25,9 @@ define( function( require ) {
    */
   function NecklaceControl( necklace, revealProperty ) {
     SceneRatioControl.call( this, necklace, {
-      leftPickerColors: [ PINK ],
+      leftPickerColors: [ ProportionPlaygroundColorProfile.necklaceRoundBeadProperty ],
       leftPickerLabel: new RoundBeadNode(),
-      rightPickerColors: [ BLUE ],
+      rightPickerColors: [ ProportionPlaygroundColorProfile.necklaceSquareBeadProperty ],
       rightPickerLabel: new SquareBeadNode( 0 )
     } );
 

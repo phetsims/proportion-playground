@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -20,6 +21,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
 
   var PICKER_BOTTOM = 540;
 
@@ -33,8 +35,8 @@ define( function( require ) {
     options = _.extend( {
       // Usually one color is provided, but we need to handle multiple colors for the paint scene.
       // If there is more than one color, then paintChoiceProperty will control which color is visible.
-      leftPickerColors: [ 'black' ], // {Array.<Color|string>}
-      rightPickerColors: [ 'black' ], // {Array.<Color|string>}
+      leftPickerColors: [], // {Array.<Property.<Color>>}
+      rightPickerColors: [], // {Array.<Property.<Color>>}
       // Other options provided directly to the picker
       leftPickerOptions: {}, // {Object}
       rightPickerOptions: {}, // {Object}
@@ -49,25 +51,33 @@ define( function( require ) {
     sceneRatio.controlsVisibleProperty.linkAttribute( this, 'visible' );
 
     /**
-     * Creates a single picker, with an optional label and options.
+     * Creates a Node representing a single picker (may include multiple pickers due to needing multiple colors)
      * @private
      *
      * @param {Property.<number>} property - The numeric value
      * @param {Range} range - The range of possible values
-     * @param {Color|string} color
+     * @param {Property.<Color|string>} color
      * @param {Node|string|null} label - If available, will be placed above the picker. Strings will use Text.
+     * @param {boolean} isLeft - Whether we are the left picker or right.
      * @param {Object} pickerOptions - Any options to provide directly to the NumberPicker
      * @returns {Node}
      */
-    function createPicker( property, range, color, label, pickerOptions ) {
-      var picker = new NumberPicker(
-        property,
-        new Property( range ),
-        _.extend( {
-          color: color,
-          scale: 2
-        }, pickerOptions )
-      );
+    function createPickers( property, range, colors, label, isLeft, pickerOptions ) {
+      var colorProperty;
+      if ( colors.length === 1 ) {
+        colorProperty = colors[ 0 ];
+      }
+      else {
+        // TODO: improve refactoring
+        colorProperty = new DerivedProperty( colors.concat( [ options.paintChoiceProperty ] ), function() {
+          return options.paintChoiceProperty.value[ isLeft ? 'leftColorProperty' : 'rightColorProperty' ].value;
+        } );
+      }
+
+      // Use MutableOptionsNode, see https://github.com/phetsims/scenery-phet/issues/287
+      var staticOptions = _.extend( { scale: 2 }, pickerOptions );
+      var dynamicOptions = { color: colorProperty };
+      var picker = new MutableOptionsNode( NumberPicker, [ property, new Property( range ) ], staticOptions, dynamicOptions );
 
       // If there is a label, we'll add it above the picker
       if ( label ) {
@@ -92,50 +102,11 @@ define( function( require ) {
       }
     }
 
-    /**
-     * Creates a Node representing a single picker (may include multiple pickers due to needing multiple colors)
-     * @private
-     *
-     * @param {Property.<number>} property - The numeric value
-     * @param {Range} range - The range of possible values
-     * @param {Color|string} color
-     * @param {Node|string|null} label - If available, will be placed above the picker. Strings will use Text.
-     * @param {Object} pickerOptions - Any options to provide directly to the NumberPicker
-     * @returns {Node}
-     */
-    function createPickers( property, range, colors, label, pickerOptions ) {
-      // With multiple colors, we need to overlay multiple pickers.
-      // See https://github.com/phetsims/scenery-phet/issues/287
-      if ( colors.length > 1 ) {
-        // {Array.<Node>}
-        var pickers = colors.map( function( singleColor ) {
-          var picker = createPicker( property, range, singleColor, label, pickerOptions );
-          picker.sceneColor = singleColor; // tag, so we can compare later
-          return picker;
-        } );
-
-        // Only show the picker that should be visible
-        options.paintChoiceProperty.link( function( colorChoice ) {
-          pickers.forEach( function( picker ) {
-            picker.visible = picker.sceneColor === colorChoice.leftColor || picker.sceneColor === colorChoice.rightColor;
-          } );
-        } );
-
-        return new Node( {
-          children: pickers
-        } );
-      }
-      // Return a single picker directly
-      else {
-        return createPicker( property, range, colors[ 0 ], label, pickerOptions );
-      }
-    }
-
     // @protected {Node}
     this.leftPicker = createPickers( sceneRatio.leftProperty, sceneRatio.leftRange, options.leftPickerColors,
-                                     options.leftPickerLabel, options.leftPickerOptions );
+                                     options.leftPickerLabel, true, options.leftPickerOptions );
     this.rightPicker = createPickers( sceneRatio.rightProperty, sceneRatio.rightRange, options.rightPickerColors,
-                                      options.rightPickerLabel, options.rightPickerOptions );
+                                      options.rightPickerLabel, false, options.rightPickerOptions );
 
     // @protected {Node|null} - Will be initialized when one of the add-picker functions is called.
     this.pickerContainer = null;

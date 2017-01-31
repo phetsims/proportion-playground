@@ -11,17 +11,43 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Color = require( 'SCENERY/util/Color' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
 
   // constants
   var DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
   var RADIUS = DIAMETER / 2;
-  var BLUE = new Color( ProportionPlaygroundConstants.BEADS_BLUE );
+  var GRADIENT_OFFSET = RADIUS * 0.6;
   var ROUND = RADIUS / 5;
+  var colorProperty = ProportionPlaygroundColorProfile.necklaceSquareBeadProperty;
+  // TODO: add a function like this to Color
+  function adjustedColor( amount ) {
+    return new DerivedProperty( [ colorProperty ], function( color ) {
+      if ( amount > 0 ) {
+        return color.colorUtilsBrighter( amount );
+      }
+      else if ( amount < 0 ) {
+        return color.colorUtilsDarker( -amount );
+      }
+      else {
+        return color;
+      }
+    } );
+  }
+  var dark7 = adjustedColor( -0.7 );
+  var dark4 = adjustedColor( -0.4 );
+  var gradientProperty = new DerivedProperty( [ colorProperty ], function( color ) {
+    return new RadialGradient( 0, 0, 0, 0, 0, DIAMETER + GRADIENT_OFFSET )
+      .addColorStop( 0, color.colorUtilsBrighter( 0.2 ) )
+      .addColorStop( 0.3, color )
+      .addColorStop( 0.5, color.colorUtilsDarker( 0.1 ) )
+      .addColorStop( 0.8, color.colorUtilsDarker( 0.3 ) );
+  } );
 
   /**
    * @constructor
@@ -37,34 +63,32 @@ define( function( require ) {
     } );
 
     container.addChild( new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
-      fill: BLUE.colorUtilsDarker( 0.7 ),
+      fill: dark7,
       rotation: rotation,
       x: -DIAMETER / 15,
       y: DIAMETER / 15
     } ) );
 
     container.addChild( new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
-      fill: BLUE.colorUtilsDarker( 0.4 ),
+      fill: dark4,
       rotation: rotation,
       scale: 20/21,
       x: -DIAMETER / 30,
       y: DIAMETER / 30
     } ) );
 
-    var gradientOffset = RADIUS * 0.6;
     var gradientAngle = -Math.PI / 4;
-    var gradientX = gradientOffset * Math.cos( gradientAngle - rotation );
-    var gradientY = gradientOffset * Math.sin( gradientAngle - rotation );
+    var gradientX = GRADIENT_OFFSET * Math.cos( gradientAngle - rotation );
+    var gradientY = GRADIENT_OFFSET * Math.sin( gradientAngle - rotation );
 
-    container.addChild( new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
-      fill: new RadialGradient( gradientX, gradientY, 0, gradientX, gradientY, DIAMETER + gradientOffset )
-              .addColorStop( 0, BLUE.colorUtilsBrighter( 0.2 ) )
-              .addColorStop( 0.3, BLUE )
-              .addColorStop( 0.5, BLUE.colorUtilsDarker( 0.1 ) )
-              .addColorStop( 0.8, BLUE.colorUtilsDarker( 0.3 ) ),
+    var frontRectangle = new Rectangle( -RADIUS - gradientX, -RADIUS - gradientY, DIAMETER, DIAMETER, ROUND, ROUND, {
       scale: 10 / 11,
-      rotation: rotation
-    } ) );
+      x: gradientX,
+      y: gradientY
+    } );
+    frontRectangle.rotateAround( new Vector2(), rotation );
+    gradientProperty.linkAttribute( frontRectangle, 'fill' ); // TODO: better support for gradient properties
+    container.addChild( frontRectangle );
 
     this.mutate( _.extend( {
       children: [ container ],

@@ -35,8 +35,9 @@ define( function( require ) {
     var self = this;
 
     SceneRatioControl.call( this, splotch, {
-      leftPickerColors: PaintChoice.CHOICES.map( function( choice ) { return choice.leftColor; } ),
-      rightPickerColors: PaintChoice.CHOICES.map( function( choice ) { return choice.rightColor; } ),
+      // TODO: Just pass derived properties here?
+      leftPickerColors: PaintChoice.CHOICES.map( function( choice ) { return choice.leftColorProperty; } ),
+      rightPickerColors: PaintChoice.CHOICES.map( function( choice ) { return choice.rightColorProperty; } ),
       paintChoiceProperty: paintChoiceProperty
     } );
 

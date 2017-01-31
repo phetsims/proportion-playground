@@ -13,15 +13,13 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var AppleGroupNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGroupNode' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
   var totalCostString = require( 'string!PROPORTION_PLAYGROUND/totalCost' );
   var applesString = require( 'string!PROPORTION_PLAYGROUND/apples' );
   var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
-
-  // constants
-  var APPLE_RED = 'rgb(237,28,36)'; // color sampled from apple-red.png
 
   /**
    * @constructor
@@ -33,7 +31,7 @@ define( function( require ) {
   function AppleGroupControl( appleGroup, showCostPerAppleProperty, revealProperty ) {
     SceneRatioControl.call( this, appleGroup, {
       leftPickerLabel: totalCostString,
-      leftPickerColors: [ 'black' ],
+      leftPickerColors: [ ProportionPlaygroundColorProfile.appleCostPickerProperty ],
       leftPickerOptions: {
         // Put a $ sign in front of the spinner number
         formatText: function( text ) {
@@ -41,7 +39,7 @@ define( function( require ) {
         }
       },
       rightPickerLabel: applesString,
-      rightPickerColors: [ APPLE_RED ]
+      rightPickerColors: [ ProportionPlaygroundColorProfile.appleProperty ]
     } );
 
     // Create the place where apples and coins will be shown.

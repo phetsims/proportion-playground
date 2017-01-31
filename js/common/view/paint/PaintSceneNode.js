@@ -80,7 +80,7 @@ define( function( require ) {
 
     this.addChild( new VerticalAquaRadioButtonGroup(
       PaintChoice.CHOICES.map( function( paintChoice ) {
-        var gradientNode = new GradientNode( 25, 220, paintChoice.getColor.bind( paintChoice ), {
+        var gradientNode = new GradientNode( 25, 220, paintChoice, {
           rotation: -Math.PI / 2, scale: 0.5
         } );
         return {

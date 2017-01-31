@@ -92,7 +92,9 @@ define( function( require ) {
      * @param {PaintChoice} paintChoice
      */
     updateBalloonColor: function( paintChoice ) {
-      this.path.fill = this.paintDrip.isLeft ? paintChoice.leftColor : paintChoice.rightColor;
+      // TODO: side enum
+      // TODO: create a derived property? (then pass that derived property to that one constructor)
+      this.path.fill = this.paintDrip.isLeft ? paintChoice.leftColorProperty : paintChoice.rightColorProperty;
     },
 
     /**
