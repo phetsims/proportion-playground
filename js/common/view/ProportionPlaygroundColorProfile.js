@@ -26,11 +26,14 @@ define( function( require ) {
     billiardsInside: { default: new Color( 0x0A, 0x67, 0x39 ) },
     billiardsPath: { default: Color.WHITE },
     billiardsGripDots: { default: new Color( 102, 102, 102 ) },
+    billiardsGridLine: { default: new Color( 102, 102, 102 ) },
+    billiardsPocket: { default: new Color( 102, 102, 102 ) },
     billiardsBallMain: { default: Color.WHITE },
     billiardsBallHighlight: { default: Color.YELLOW },
     paintStroke: { default: Color.BLACK },
 
     // Paint colors (fill)
+    // TODO: Isolate into six colors that don't have names?
     paintBlue: { default: new Color( 0x05, 0x70, 0xFF ) },
     paintYellow: { default: new Color( 0xFF, 0xE0, 0x05 ) },
     paintRed: { default: new Color( 0xFF, 0x25, 0x05 ) },

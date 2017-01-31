@@ -29,6 +29,7 @@ define( function( require ) {
   var BilliardsTable = require( 'PROPORTION_PLAYGROUND/common/model/billiards/BilliardsTable' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   var Util = require( 'DOT/Util' );
+  var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
 
   // constants
   var SCALE = 18; // from model units to view units   TODO: why don't we scale up after? Seems simpler
@@ -115,14 +116,14 @@ define( function( require ) {
     } );
 
     // The moving ball node
-    var ballNode = new ShadedSphereNode( BALL_DIAMETER, {
-      mainColor: 'white', // TODO billiardsBallMain
-      highlightColor: 'yellow' // TODO: billiardsBallHighlight
+    var ballNode = new MutableOptionsNode( ShadedSphereNode, [ BALL_DIAMETER ], {}, {
+      mainColor: ProportionPlaygroundColorProfile.billiardsBallMainProperty,
+      highlightColor: ProportionPlaygroundColorProfile.billiardsBallHighlightProperty
     } );
 
     // Create the holes for top-left, top-right and bottom-right
     var createCircle = function() {
-      return new Circle( BALL_DIAMETER / 2, { fill: 'rgb(102,102,102)' } );
+      return new Circle( BALL_DIAMETER / 2, { fill: ProportionPlaygroundColorProfile.billiardsPocketProperty } );
     };
     var topLeftHoleNode = createCircle();
     var topRightHoleNode = createCircle();
@@ -310,7 +311,7 @@ define( function( require ) {
       } );
 
       return new Path( shape, {
-        stroke: 'rgb(168,168,168)', // TODO: common color profile
+        stroke: ProportionPlaygroundColorProfile.billiardsGridLineProperty,
         lineWidth: GRID_LINE_WIDTH
       } );
     }
