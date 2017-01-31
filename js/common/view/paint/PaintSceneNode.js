@@ -99,9 +99,9 @@ define( function( require ) {
       bottom: layoutBounds.bottom - 15
     } ) );
 
-    // The vertical gradient indicator
-    var gradientIndicatorNode = new GradientIndicatorNode( layoutBounds, scene, scene.revealProperty );
-    this.addChild( gradientIndicatorNode );
+    this.addChild( new GradientIndicatorNode( layoutBounds, scene, scene.revealProperty, {
+      centerY: 250 // TODO: refactor out 250?
+    } ) );
   }
 
   proportionPlayground.register( 'PaintSceneNode', PaintSceneNode );

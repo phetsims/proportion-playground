@@ -59,8 +59,6 @@ define( function( require ) {
       ] )
     } );
 
-    this.mutate( options );
-
     /**
      * Auxiliary function that updates the left or right triangle indicator node.
      *
@@ -117,8 +115,7 @@ define( function( require ) {
       self.centerX = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.7;
     } );
 
-    // Vertical position
-    this.centerY = 250;
+    this.mutate( options );
   }
 
   proportionPlayground.register( 'GradientIndicatorNode', GradientIndicatorNode );
