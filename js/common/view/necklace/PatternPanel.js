@@ -20,6 +20,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
   var PatternNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/PatternNode' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Property = require( 'AXON/Property' );
 
   var patternString = require( 'string!PROPORTION_PLAYGROUND/pattern' );
@@ -78,7 +79,7 @@ define( function( require ) {
 
     Panel.call( this, content, _.extend( {
       cornerRadius: 3,
-      stroke: '#B3B3B3',
+      stroke: ProportionPlaygroundColorProfile.necklacePatternBorderProperty,
       xMargin: 10
     }, options ) );
   }

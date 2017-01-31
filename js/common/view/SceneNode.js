@@ -13,9 +13,11 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RevealButton = require( 'PROPORTION_PLAYGROUND/common/view/RevealButton' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var ResetButton = require( 'SCENERY_PHET/buttons/ResetButton' );
   var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+  var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
 
   // left and right labels for the switches should all share
   var switchAlignGroup = new AlignGroup();
@@ -69,15 +71,15 @@ define( function( require ) {
     }
     // Otherwise, have a 'Refresh' button, see https://github.com/phetsims/proportion-playground/issues/55
     else {
-      this.controlButton = new ResetButton( {
+      this.controlButton = new MutableOptionsNode( ResetButton, [], {
         listener: function() {
           scene.ratios.forEach( function( sceneRatio ) {
             sceneRatio.reset();
           } );
         },
-        baseColor: 'rgb(242,242,242)'
+      }, {
+        baseColor: ProportionPlaygroundColorProfile.refreshBackgroundProperty
       } );
-      // this.controlButton.touchArea = this.controlButton.localBounds.dilatedXY( 5, 5 );
     }
     this.addChild( this.controlButton );
   }

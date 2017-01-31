@@ -14,7 +14,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var SceneSelectionRadioButtonGroup = require( 'PROPORTION_PLAYGROUND/common/view/SceneSelectionRadioButtonGroup' );
+  var SceneSelectionControls = require( 'PROPORTION_PLAYGROUND/common/view/SceneSelectionControls' );
   var NecklaceSceneNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceSceneNode' );
   var PaintSceneNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintSceneNode' );
   var BilliardsSceneNode = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsSceneNode' );
@@ -44,7 +44,7 @@ define( function( require ) {
     } ) );
 
     // Scene selection radio buttons
-    this.addChild( new SceneSelectionRadioButtonGroup( model, {
+    this.addChild( new SceneSelectionControls( model, {
       centerX: this.layoutBounds.centerX,
       top: 5
     } ) );

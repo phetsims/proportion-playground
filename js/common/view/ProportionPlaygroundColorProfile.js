@@ -18,15 +18,21 @@ define( function( require ) {
   // NOTE: This is NOT provided to clients directly, but is passed to the PropertySet constructor.
   var ProportionPlaygroundColorProfile = new ColorProfile( {
     background: { default: new Color( '#fcf3eb' ) },
+    refreshBackground: { default: new Color( 242, 242, 242 ) },
+    sceneSelectionBorder: { default: Color.BLACK },
+    sceneSelectionBackground: { default: Color.WHITE },
 
     apple: { default: new Color( 237, 28, 36 ) },
     appleCostPicker: { default: Color.BLACK },
+    applePriceTagBackground: { default: Color.WHITE },
+    applePriceTagBorder: { default: Color.BLACK },
+    applePriceTagText: { default: Color.BLACK },
 
     billiardsBorder: { default: new Color( 0x11, 0x11, 0x11 ) },
     billiardsInside: { default: new Color( 0x0A, 0x67, 0x39 ) },
     billiardsPath: { default: Color.WHITE },
     billiardsGripDots: { default: new Color( 102, 102, 102 ) },
-    billiardsGridLine: { default: new Color( 102, 102, 102 ) },
+    billiardsGridLine: { default: new Color( 168, 168, 168 ) },
     billiardsPocket: { default: new Color( 102, 102, 102 ) },
     billiardsBallMain: { default: Color.WHITE },
     billiardsBallHighlight: { default: Color.YELLOW },
@@ -42,7 +48,10 @@ define( function( require ) {
 
     // Bead colors
     necklaceRoundBead: { default: new Color( 'hsl(355,75%,53%)' ) },
-    necklaceSquareBead: { default: new Color( 'hsl(206,65%,48%)' ) }
+    necklaceSquareBead: { default: new Color( 'hsl(206,65%,48%)' ) },
+
+    necklaceString: { default: Color.BLACK },
+    necklacePatternBorder: { default: new Color( '#B3B3B3' ) }
   }, [ 'default' ] );
 
   proportionPlayground.register( 'ProportionPlaygroundColorProfile', ProportionPlaygroundColorProfile );

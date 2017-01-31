@@ -14,7 +14,10 @@ define( function( require ) {
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
   var BilliardTableIcon = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardTableIcon' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
 
   // images
   var paintSceneImage = require( 'mipmap!PROPORTION_PLAYGROUND/paint-scene.png' );
@@ -26,7 +29,8 @@ define( function( require ) {
    * @param {Object} [options] - node options
    * @constructor
    */
-  function SceneSelectionRadioButtonGroup( model, options ) {
+  function SceneSelectionControls( model, options ) {
+    Node.call( this );
 
     // Create one icon per scene
     var necklaceIcon = new StaticNecklaceNode( 14, 7, { scale: 0.2 } );
@@ -39,7 +43,7 @@ define( function( require ) {
     billiardTableIcon.mutate( { scale: necklaceIcon.height / billiardTableIcon.height } );
     redAppleIcon.mutate( { scale: necklaceIcon.height / redAppleIcon.height } );
 
-    RadioButtonGroup.call( this, model.sceneProperty, [ {
+    this.addChild( new MutableOptionsNode( RadioButtonGroup, [ model.sceneProperty, [ {
       value: model.necklaceScene,
       node: necklaceIcon
     }, {
@@ -51,18 +55,19 @@ define( function( require ) {
     }, {
       value: model.appleScene,
       node: redAppleIcon
-    } ], {
+    } ] ], {
       orientation: 'horizontal',
       buttonContentXMargin: 20,
       buttonContentYMargin: 12,
-      selectedStroke: 'black',
-      selectedLineWidth: 2,
-      baseColor: 'white'
-    } );
+      selectedLineWidth: 2
+    }, {
+      selectedStroke: ProportionPlaygroundColorProfile.sceneSelectionBorderProperty,
+      baseColor: ProportionPlaygroundColorProfile.sceneSelectionBackgroundProperty
+    } ) );
     this.mutate( options );
   }
 
-  proportionPlayground.register( 'SceneSelectionRadioButtonGroup', SceneSelectionRadioButtonGroup );
+  proportionPlayground.register( 'SceneSelectionControls', SceneSelectionControls );
 
-  return inherit( RadioButtonGroup, SceneSelectionRadioButtonGroup );
+  return inherit( Node, SceneSelectionControls );
 } );

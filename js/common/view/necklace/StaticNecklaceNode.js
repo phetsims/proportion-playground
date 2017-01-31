@@ -16,6 +16,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Random = require( 'DOT/Random' );
   var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/RoundBeadNode' );
   var Shape = require( 'KITE/Shape' );
@@ -24,7 +25,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var PATH_OPTIONS = { stroke: 'black', lineWidth: 2 };
+  var PATH_OPTIONS = { stroke: ProportionPlaygroundColorProfile.necklaceStringProperty, lineWidth: 2 };
   var ROTATE_UPRIGHT = -Math.PI / 2;
   var BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
 

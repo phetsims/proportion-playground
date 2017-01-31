@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Shape = require( 'KITE/Shape' );
@@ -126,13 +127,16 @@ define( function( require ) {
       else {
         fixed = StringUtils.format( pricePatternString, fixed );
       }
-      var fontSizeOptions = { fontSize: 25 };
+      var textOptions = {
+        fontSize: 25,
+        fill: ProportionPlaygroundColorProfile.applePriceTagTextProperty
+      };
       var labelBox = new AlignBox( new VBox( {
         spacing: 4,
         children: [
-          new Text( fixed, fontSizeOptions ),
-          new Line( 0, 0, 100, 0, { lineWidth: 2, stroke: 'black' } ),
-          new Text( 'Apple', fontSizeOptions )
+          new Text( fixed, textOptions ),
+          new Line( 0, 0, 100, 0, { lineWidth: 2, stroke: ProportionPlaygroundColorProfile.applePriceTagTextProperty } ),
+          new Text( 'Apple', textOptions ) // TODO: translate, and check for translation!!!
         ]
       } ), {
         xMargin: 12,
@@ -147,8 +151,8 @@ define( function( require ) {
                                   .close();
       priceTagLayer.children = [
         new Path( labelShape, {
-          fill: 'white',
-          stroke: 'black',
+          fill: ProportionPlaygroundColorProfile.applePriceTagBackgroundProperty,
+          stroke: ProportionPlaygroundColorProfile.applePriceTagBorderProperty,
           lineWidth: 1.5
         } ),
         labelBox
