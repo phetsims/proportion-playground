@@ -23,7 +23,7 @@ define( function( require ) {
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
-  var GradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientNode' );
+  var PaintChoiceGradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintChoiceGradientNode' );
 
   // images
   var paintSceneImage = require( 'mipmap!PROPORTION_PLAYGROUND/paint-scene.png' );
@@ -84,7 +84,7 @@ define( function( require ) {
 
     this.addChild( new VerticalAquaRadioButtonGroup(
       PaintChoice.CHOICES.map( function( paintChoice ) {
-        var gradientNode = new GradientNode( 25, 220, paintChoice, {
+        var gradientNode = new PaintChoiceGradientNode( 25, 220, paintChoice, {
           rotation: -Math.PI / 2, scale: 0.5
         } );
         return {

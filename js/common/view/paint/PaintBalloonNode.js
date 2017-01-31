@@ -33,13 +33,14 @@ define( function( require ) {
   var yellowBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/yellow-balloon-2.png' );
   var yellowBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/yellow-balloon-3.png' );
 
+  // Persistent {Vector2} instances, so that we don't churn GC as much
   var scratchStartVector = new Vector2();
   var scratchEndVector = new Vector2();
   var scratchPosition = new Vector2();
 
+  // {number}
   var SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
-  // A = pi * r^2, r = sqrt( A / pi )
-  var BALLOON_RADIUS = Math.sqrt( SPLOTCH_AREA / Math.PI );
+  var BALLOON_RADIUS = Math.sqrt( SPLOTCH_AREA / Math.PI ); // A = pi * r^2, r = sqrt( A / pi )
   var BALLON_IMAGE_SCALE = 2 * BALLOON_RADIUS / 130; // Assuming the balloons in the images have a diameter of 130px
 
   // After construction, will map color.paintId => scenery.Image, which will be scaled and centered around the origin.
@@ -49,9 +50,8 @@ define( function( require ) {
   balloonImageMap[ PaintChoice.RED.paintId ] = [ redBalloon1Image, redBalloon2Image, redBalloon3Image ];
   balloonImageMap[ PaintChoice.WHITE.paintId ] = [ whiteBalloon1Image, whiteBalloon2Image, whiteBalloon3Image ];
   balloonImageMap[ PaintChoice.YELLOW.paintId ] = [ yellowBalloon1Image, yellowBalloon2Image, yellowBalloon3Image ];
-  var paintIDs = [ PaintChoice.BLACK.paintId, PaintChoice.BLUE.paintId, PaintChoice.RED.paintId, PaintChoice.WHITE.paintId, PaintChoice.YELLOW.paintId ];
-  _.each( paintIDs, function( paintId ) {
-    balloonImageMap[ paintId ] = balloonImageMap[ paintId ].map( function( imageElement ) {
+  _.each( PaintChoice.COLORS, function( paintColor ) {
+    balloonImageMap[ paintColor.paintId ] = balloonImageMap[ paintColor.paintId ].map( function( imageElement ) {
       return new Image( imageElement, {
         centerX: 0,
         centerY: 0,
@@ -60,7 +60,7 @@ define( function( require ) {
     } );
   } );
 
-  // Controls how the balloons rotate
+  // {number} Controls how the balloons rotate (from +halfRotation to -halfRotation or the opposite)
   var HALF_ROTATION = Math.PI / 8;
 
   /**
@@ -74,8 +74,10 @@ define( function( require ) {
   function PaintBalloonNode( paintBalloon, paintChoiceProperty, startOffset, endOffset ) {
     Node.call( this );
 
-    // TODO: hopefully these are private?
+    // @public {PaintBalloon}
     this.paintBalloon = paintBalloon;
+
+    // @private
     this.paintChoiceProperty = paintChoiceProperty;
     this.startOffset = startOffset;
     this.endOffset = endOffset;
@@ -92,8 +94,11 @@ define( function( require ) {
 
   return inherit( Node, PaintBalloonNode, {
     /**
-     * TODO: doc
+     * Positions the balloon given its start (off the screen) and end (center of splotch), with a gravity-like arc
      * @public
+     *
+     * @param {Vector2} startPosition
+     * @param {Vector2} endPosition
      */
     position: function( startPosition, endPosition ) {
       var ratio = this.paintBalloon.getRatioToEnd();
@@ -101,18 +106,19 @@ define( function( require ) {
       // rotate from -half to half, possibly reversed
       this.rotation = this.rotationDirection * ( -HALF_ROTATION + ratio * 2 * HALF_ROTATION );
 
+      // random offsets to the start/end for realism
       startPosition = scratchStartVector.set( startPosition ).add( this.startOffset );
       endPosition = scratchEndVector.set( endPosition ).add( this.endOffset );
 
-      //TODO: doc
+      // pseudo gravity-like acceleration
       var baseX = startPosition.x + Math.pow( ratio, 0.8 ) * ( endPosition.x - startPosition.x );
       var baseY = startPosition.y + ratio * ( endPosition.y - startPosition.y );
       var elevationY = ratio - ratio * ratio;
-      scratchPosition.setXY( baseX,
-                             baseY + -600 * elevationY );
+      scratchPosition.setXY( baseX, baseY + -600 * elevationY );
 
       this.center = scratchPosition;
 
+      // fake "make the balloon look farther away", from 1/4 distance to full distance
       var distanceRatio = 0.25 + 0.75 * ratio;
       this.setScaleMagnitude( 1 / distanceRatio );
     },

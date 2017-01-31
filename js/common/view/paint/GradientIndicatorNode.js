@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var GradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientNode' );
+  var PaintChoiceGradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintChoiceGradientNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
@@ -36,7 +36,7 @@ define( function( require ) {
 
     // Create the cradients
     var gradientNodes = PaintChoice.CHOICES.map( function( paintChoice ) {
-      var gradientNode = new GradientNode( GRADIENT_WIDTH, GRADIENT_HEIGHT, paintChoice );
+      var gradientNode = new PaintChoiceGradientNode( GRADIENT_WIDTH, GRADIENT_HEIGHT, paintChoice );
       gradientNode.paintChoice = paintChoice;
       return gradientNode;
     } );

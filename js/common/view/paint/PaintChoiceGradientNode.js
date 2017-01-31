@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Static display of a single gradient, copy-pasted from SpectrumNode
+ * Displays a gradient of colors from the two extremes (from a single paintChoice)
  *
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -19,27 +19,26 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
-   * Rectange that shows a given spectrum
+   * Rectangle that shows a given spectrum
+   * @constructor
    *
    * @param {number} width
    * @param {number} height
    * @param {PaintChoice} paintChoice
    * @param {Object} [options]
-   * @constructor
    */
-  function GradientNode( width, height, paintChoice, options ) {
+  function PaintChoiceGradientNode( width, height, paintChoice, options ) {
 
     Node.call( this );
 
     var canvasProperty = new DerivedProperty( [ paintChoice.leftColorProperty, paintChoice.rightColorProperty ], function( leftColor, rightColor ) {
-      // Draw the spectrum directly to a canvas, to improve performance.
       var canvas = document.createElement( 'canvas' );
       var context = canvas.getContext( '2d' );
       canvas.width = width;
       canvas.height = height;
 
       for ( var i = 0; i < height; i++ ) {
-        var parameter = Util.clamp( Util.linear( 0, height, 0, 1, i ), 0, 1 );  // position -> wavelength
+        var parameter = Util.clamp( Util.linear( 0, height, 0, 1, i ), 0, 1 );
         context.fillStyle = paintChoice.getBlendedColor( parameter ).toCSS();
         context.fillRect( 0, i, width, 1 );
       }
@@ -47,21 +46,21 @@ define( function( require ) {
       return canvas;
     } );
 
+    // Gradient (swap image when the colors change)
     var image = new Image( canvasProperty.value, {
       initialWidth: width,
       initialHeight: height
     } );
     canvasProperty.linkAttribute( image, 'image' );
-
     this.addChild( image );
 
-    // outline.
+    // Outline
     this.addChild( new Rectangle( 0, 0, width, height, { stroke: 'black', lineWidth: 2 } ) );
 
     this.mutate( options );
   }
 
-  proportionPlayground.register( 'GradientNode', GradientNode );
+  proportionPlayground.register( 'PaintChoiceGradientNode', PaintChoiceGradientNode );
 
-  return inherit( Node, GradientNode );
+  return inherit( Node, PaintChoiceGradientNode );
 } );
