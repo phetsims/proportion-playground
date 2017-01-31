@@ -26,8 +26,11 @@ define( function( require ) {
     APPLE_PRICE_FONT: new PhetFont( 25 ),
 
     // @public {Range}
-    BEAD_COUNT_RANGE: new Range( 0, 20 )
-
+    BEAD_COUNT_RANGE: new Range( 0, 20 ),
+    BILLIARDS_COUNT_RANGE: new Range( 1, 20 ),
+    APPLE_TOTAL_COST_RANGE: new Range( 0, 20 ),
+    APPLE_COUNT_RANGE: new Range( 1, 20 ),
+    PAINT_COUNT_RANGE: new Range( 0, 20 )
   };
 
   proportionPlayground.register( 'ProportionPlaygroundConstants', ProportionPlaygroundConstants );

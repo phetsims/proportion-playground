@@ -12,8 +12,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
-  var Range = require( 'DOT/Range' );
 
   /**
    * @constructor
@@ -31,17 +31,9 @@ define( function( require ) {
     // @public {NumberProperty} - How many apples are in this group
     this.numberOfApplesProperty = new NumberProperty( initialApples );
 
-    // @public {Range}
-    //TODO: do we need this outside of the SceneRatio call?
-    this.totalCostRange = new Range( 0, 20 );
-
-    // @public {Range}
-    //TODO: do we need this outside of the SceneRatio call?
-    this.numberOfApplesRange = new Range( 1, 20 );
-
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
-                     this.totalCostProperty, this.totalCostRange,
-                     this.numberOfApplesProperty, this.numberOfApplesRange );
+                     this.totalCostProperty, ProportionPlaygroundConstants.APPLE_TOTAL_COST_RANGE,
+                     this.numberOfApplesProperty, ProportionPlaygroundConstants.APPLE_COUNT_RANGE );
   }
 
   proportionPlayground.register( 'AppleGroup', AppleGroup );

@@ -60,7 +60,7 @@ define( function( require ) {
     var coinImageNode = new Image( coinImage, { scale: COIN_IMAGE_SCALE } );
 
     // {Array.<Array.<Node>>} - Array of rows, each of which is an array of apple nodes
-    var appleRows = _.range( 0, appleGroup.numberOfApplesRange.max / APPLES_PER_ROW ).map( function( row ) {
+    var appleRows = _.range( 0, ProportionPlaygroundConstants.APPLE_COUNT_RANGE.max / APPLES_PER_ROW ).map( function( row ) {
       return _.range( 0, APPLES_PER_ROW ).map( function( column ) {
         return new Node( {
           children: [ appleImageNode ],
@@ -92,7 +92,7 @@ define( function( require ) {
       ] )
     } );
 
-    var coinNodes = _.range( 0, appleGroup.totalCostRange.max ).map( function( coinNumber ) {
+    var coinNodes = _.range( 0, ProportionPlaygroundConstants.APPLE_TOTAL_COST_RANGE.max ).map( function( coinNumber ) {
       return new Node( {
         children: [ coinImageNode ],
         y: -coinNumber * coinImageNode.height / 10
@@ -107,7 +107,7 @@ define( function( require ) {
     // Show the grid of apples
     appleGroup.numberOfApplesProperty.link( function( numberOfApples ) {
       appleNodes.forEach( function( appleNode, index ) {
-        appleNode.visible = appleGroup.numberOfApplesRange.max - index <= numberOfApples;
+        appleNode.visible = ProportionPlaygroundConstants.APPLE_COUNT_RANGE.max - index <= numberOfApples;
       } );
     } );
 

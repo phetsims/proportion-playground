@@ -23,11 +23,11 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Property = require( 'AXON/Property' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var BilliardsTable = require( 'PROPORTION_PLAYGROUND/common/model/billiards/BilliardsTable' );
   var BilliardsPath = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsPath' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   var Util = require( 'DOT/Util' );
@@ -141,11 +141,7 @@ define( function( require ) {
           var change = Util.roundSymmetric( changeSign * ( mousePoint[ xOrY ] - startPoint[ xOrY ] ) * 2 / SCALE );
 
           // change width so its within the acceptable range
-          property.value = Util.clamp(
-            startProperty + change,
-            billiardsTable.range.min,
-            billiardsTable.range.max
-          );
+          property.value = ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.constrainValue( startProperty + change );
         }
 
       } ) );
@@ -178,8 +174,8 @@ define( function( require ) {
       //TODO: cleanup?
       if ( options.fullSizeBounds ) {
         self.localBounds = Bounds2.point( 0, 0 ).dilatedXY(
-          billiardsTable.range.max * SCALE / 2 + brownEdgeLineWidth,
-          billiardsTable.range.max * SCALE / 2 + brownEdgeLineWidth );
+          ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * SCALE / 2 + brownEdgeLineWidth,
+          ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * SCALE / 2 + brownEdgeLineWidth );
       }
       insideRectangle.setRect( 0, 0, scaledWidth, scaledHeight );
 
@@ -269,7 +265,7 @@ define( function( require ) {
      */
     createGridLinesNode: function() {
       var min = -1;
-      var max = BilliardsTable.BILLIARDS_RANGE.max + 1;
+      var max = ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max + 1;
       var shape = new Shape();
 
       // TODO: ditch scale in a bit

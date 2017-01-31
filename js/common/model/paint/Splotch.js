@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Range = require( 'DOT/Range' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
   var PaintBalloon = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintBalloon' );
   var PaintDrip = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintDrip' );
@@ -72,13 +72,9 @@ define( function( require ) {
     // @public {ObservableArray.<PaintDrip>}
     this.drips = new ObservableArray();
 
-    // @public (read-only) the range for colors
-    //TODO: do we need this outside of the SceneRatio call?
-    this.colorCountRange = new Range( 0, 20 );
-
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
-                     this.leftColorCountProperty, this.colorCountRange,
-                     this.rightColorCountProperty, this.colorCountRange );
+                     this.leftColorCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE,
+                     this.rightColorCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE );
   }
 
   proportionPlayground.register( 'Splotch', Splotch );

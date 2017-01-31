@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Range = require( 'DOT/Range' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var ObservableArray = require( 'AXON/ObservableArray' );
@@ -21,8 +21,6 @@ define( function( require ) {
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
 
   var scratchVector = new Vector2();
-
-  var BILLIARDS_RANGE = new Range( 1, 20 );
 
   /**
    * @constructor
@@ -37,10 +35,6 @@ define( function( require ) {
 
     // @public {NumberProperty} - Number of grid units horizontally
     this.widthProperty = new NumberProperty( 5 );
-
-    // @public (read-only) - the allowed values for length and width
-    //TODO: do we need this outside of the SceneRatio call?
-    this.range = BILLIARDS_RANGE;
 
     // @public {Property.<Vector2>} - The position of the ball in pixels
     this.ballPositionProperty = new Property( new Vector2() );
@@ -58,8 +52,8 @@ define( function( require ) {
     this.restartBall(); // Helps initialize in one place
 
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
-                     this.lengthProperty, this.range,
-                     this.widthProperty, this.range );
+                     this.lengthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
+                     this.widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE );
 
     // Restart the ball when the length or width changes
     this.visibleChangeEmitter.addListener( this.restartBall.bind( this ) );
@@ -179,8 +173,5 @@ define( function( require ) {
       // Since we used a mutable vector for position, copy it over to the Property
       this.ballPositionProperty.value = position.copy();
     }
-  }, {
-    // @public {Range} - Range of possible values for the width and/or the length
-    BILLIARDS_RANGE: BILLIARDS_RANGE
   } );
 } );
