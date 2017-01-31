@@ -25,16 +25,18 @@ define( function( require ) {
   /**
    * @constructor
    *
+   * @param {number} initialLength - Initial length of the billiards table.
+   * @param {number} initialWidth - Initial width of the billiards table.
    * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
-  function BilliardsTable( visibleProperty, controlsVisibleProperty ) {
+  function BilliardsTable( initialLength, initialWidth, visibleProperty, controlsVisibleProperty ) {
 
     // @public {NumberProperty} - Number of grid units vertically
-    this.lengthProperty = new NumberProperty( 5 );
+    this.lengthProperty = new NumberProperty( initialLength );
 
     // @public {NumberProperty} - Number of grid units horizontally
-    this.widthProperty = new NumberProperty( 5 );
+    this.widthProperty = new NumberProperty( initialWidth );
 
     // @public {Property.<Vector2>} - The position of the ball in pixels
     this.ballPositionProperty = new Property( new Vector2() );

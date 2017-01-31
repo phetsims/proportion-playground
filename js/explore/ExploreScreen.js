@@ -9,23 +9,23 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ProportionModel = require( 'PROPORTION_PLAYGROUND/common/model/ProportionModel' );
-  var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var BilliardsTable = require( 'PROPORTION_PLAYGROUND/common/model/billiards/BilliardsTable' );
   var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableNode' );
-  var ProportionScreenView = require( 'PROPORTION_PLAYGROUND/common/view/ProportionScreenView' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Screen = require( 'JOIST/Screen' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Property = require( 'AXON/Property' );
+  var ProportionModel = require( 'PROPORTION_PLAYGROUND/common/model/ProportionModel' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  var Property = require( 'AXON/Property' );
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  var ProportionScreenView = require( 'PROPORTION_PLAYGROUND/common/view/ProportionScreenView' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Screen = require( 'JOIST/Screen' );
+  var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var exploreString = require( 'string!PROPORTION_PLAYGROUND/explore' );
@@ -37,11 +37,8 @@ define( function( require ) {
 
     var homeScreenIconBounds = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds( 0, 0 );
 
-    // TODO: possibly immediate initializer?
-    var billiardsTable = new BilliardsTable( new Property( true ), new Property( true ), true );
-    billiardsTable.lengthProperty.value = 6;
-    billiardsTable.widthProperty.value = 3;
-    billiardsTable.step( Number.POSITIVE_INFINITY );
+    var billiardsTable = new BilliardsTable( 6, 3, new Property( true ), new Property( true ), true );
+    billiardsTable.step( Number.POSITIVE_INFINITY ); // Steps all the way through the animation
 
     var homeScreenIconContent = new HBox( {
       scale: 1.25,
@@ -57,31 +54,9 @@ define( function( require ) {
           ]
         } ),
         new BilliardsTableNode( billiardsTable, {
-          fullSizeBounds: false,
-          allowDragToResize: false,
+          fullSizeBounds: false, // don't take up 20x20 bounds
+          allowDragToResize: false, // don't let the user drag it (or act like it's draggable)
           scale: 1.7
-        } )
-      ]
-    } );
-
-    var homeScreenIcon = new Node( {
-      children: [
-        Rectangle.bounds( homeScreenIconBounds, {
-          fill: ProportionPlaygroundColorProfile.backgroundProperty
-        } ),
-        new AlignBox( homeScreenIconContent, {
-          alignBounds: homeScreenIconBounds
-        } )
-      ]
-    } );
-
-    var navigationBarIcon = new Node( {
-      children: [
-        Rectangle.bounds( homeScreenIconBounds, {
-          fill: ProportionPlaygroundColorProfile.backgroundProperty
-        } ),
-        new AlignBox( new StaticNecklaceNode( 6, 3, { scale: 3.5 } ), {
-          alignBounds: homeScreenIconBounds
         } )
       ]
     } );
@@ -89,8 +64,26 @@ define( function( require ) {
     var options = {
       name: exploreString,
       backgroundColorProperty: ProportionPlaygroundColorProfile.backgroundProperty,
-      homeScreenIcon: homeScreenIcon,
-      navigationBarIcon: navigationBarIcon
+      homeScreenIcon: new Node( {
+        children: [
+          Rectangle.bounds( homeScreenIconBounds, {
+            fill: ProportionPlaygroundColorProfile.backgroundProperty
+          } ),
+          new AlignBox( homeScreenIconContent, {
+            alignBounds: homeScreenIconBounds
+          } )
+        ]
+      } ),
+      navigationBarIcon: new Node( {
+        children: [
+          Rectangle.bounds( homeScreenIconBounds, {
+            fill: ProportionPlaygroundColorProfile.backgroundProperty
+          } ),
+          new AlignBox( new StaticNecklaceNode( 6, 3, { scale: 3.5 } ), {
+            alignBounds: homeScreenIconBounds
+          } )
+        ]
+      } )
     };
 
     Screen.call( this,

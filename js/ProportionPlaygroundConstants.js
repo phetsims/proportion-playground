@@ -9,10 +9,11 @@
  */
 define( function( require ) {
   'use strict';
+  
   var Bounds2 = require( 'DOT/Bounds2' );
-  var Range = require( 'DOT/Range' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var Range = require( 'DOT/Range' );
 
   var ProportionPlaygroundConstants = {
     // @public {Bounds2} - Bounds in which our sim is positioned.
