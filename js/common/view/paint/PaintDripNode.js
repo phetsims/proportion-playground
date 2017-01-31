@@ -18,16 +18,18 @@ define( function( require ) {
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
 
+  // {number} - Area of a single splotch (view coordinates)
   var SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
 
-  // approximate area 1486.21309056
+  // {number} - Area of our raw dropletShape (via Shape.getApproximateArea()) with the below parameters.
   var SHAPE_AREA = 1486.21309056;
-  var xRadius = 20 * 1.1;
-  var yRadius = 18;
-  var yTail = 3;
-  var cp1x = xRadius * 1.4 * 0.6;
-  var cp2x = xRadius * 1.4 * 0.8;
-  var endX = xRadius * 1.4 * 1.5;
+
+  var xRadius = 22; // the radius of the "bottom" part of the droplet
+  var yRadius = 18; // the half-width of the droplet
+  var yTail = 3; // slight control-point width near the pointed tip (so it isn't as pointy)
+  var cp1x = xRadius * 0.84;
+  var cp2x = xRadius * 1.12;
+  var endX = xRadius * 2.1;
   var dropletShape = new Shape().ellipticalArc( 0, 0, xRadius, yRadius, 0, Math.PI / 2, 3 * Math.PI / 2, false )
                                 .cubicCurveTo( cp1x, -yRadius, cp2x, -yTail, endX, 0 )
                                 .cubicCurveTo( cp2x, yTail, cp1x, yRadius, 0, yRadius )
@@ -45,9 +47,10 @@ define( function( require ) {
     // @public {PaintDrip}
     this.paintDrip = paintDrip;
 
-    // @private
+    // @private {Property.<PaintChoice>}
     this.paintChoiceProperty = paintChoiceProperty;
 
+    // @private {Path}
     this.path = new Path( dropletShape, {
       scale: Math.sqrt( SPLOTCH_AREA / SHAPE_AREA ),
       rotation: -Math.PI / 2,
@@ -62,27 +65,31 @@ define( function( require ) {
 
   return inherit( Node, PaintDripNode, {
     /**
-     * TODO: doc
+     * Positions the paint drip, given the splotchCenter and the bottom of the screen
+     * (so that if the drip goes off the bottom, we can remove it and stop tracking it).
      * @public
+     *
+     * @param {Vector2} splotchCenter
+     * @param {number} bottomCutoffY - Y value of the bottom of the layout area, so if we are below it wouldn't be visible
      */
-    position: function( startPosition, layoutBottom ) {
+    position: function( splotchCenter, bottomCutoffY ) {
+      // horizontally, just center under the splotch
+      this.centerX = splotchCenter.x;
+
       var time = this.paintDrip.timeElapsed;
+      var bottomDistance = time * time * 1600; // acceleration at 1600 view units / s^2
 
-      var bottomAccel = 1600;
-      var bottomDistance = time * time * bottomAccel;
-
-      this.centerX = startPosition.x;
       // constants control the bottom position of the droplet, so that it looks like it comes from the bottom of the splotch
-      this.y = startPosition.y + 8 + bottomDistance - 22 + 12 * Math.sqrt( this.paintDrip.initialSplotchArea );
+      this.y = splotchCenter.y + 8 + bottomDistance - 22 + 12 * Math.sqrt( this.paintDrip.initialSplotchArea );
 
+      // Don't zero out the drip's transform with setScaleMagnitude( 0 ). Instead we control visibility then.
       var hasPaint = this.paintDrip.drippedAmount > 0;
       this.visible = hasPaint;
       if ( hasPaint ) {
         this.setScaleMagnitude( this.paintDrip.drippedAmount );
       }
 
-      // TODO: set scale on self with setScaleMagnitude?
-      if ( this.top > layoutBottom ) {
+      if ( this.top > bottomCutoffY ) {
         this.paintDrip.remove();
       }
     }

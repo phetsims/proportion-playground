@@ -101,13 +101,6 @@ define( function( require ) {
       }
     },
 
-    //TODO: doc
-    hitBalloons: function() {
-      for ( var i = this.balloons.length - 1; i >= 0; i-- ) {
-        this.balloons.get( i ).hit();
-      }
-    },
-
     /**
      * Resets the model
      * @override

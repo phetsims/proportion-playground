@@ -29,7 +29,10 @@ define( function( require ) {
   var paintSceneImage = require( 'mipmap!PROPORTION_PLAYGROUND/paint-scene.png' );
 
   // constants
-  var ICON_SCALE_OPTIONS = { scale: 0.5 };
+  var SPLOTCH_ICON_OPTIONS = {
+    scale: 0.5,
+    useVisibleAmounts: false
+  };
 
   /**
    * @constructor
@@ -43,10 +46,6 @@ define( function( require ) {
     var blueSplotch = new Splotch( 2, 0, new BooleanProperty( true ), new BooleanProperty( true ) );
     var greenSplotch = new Splotch( 1, 1, new BooleanProperty( true ), new BooleanProperty( true ) );
 
-    //TODO: rename
-    blueSplotch.hitBalloons();
-    greenSplotch.hitBalloons();
-
     // Create the left/right splotches and their NumberPickers
     var leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.paintChoiceProperty, !scene.predictMode, Side.LEFT );
     var rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, !scene.predictMode, Side.RIGHT );
@@ -58,21 +57,20 @@ define( function( require ) {
       leftSwitchIcon: new HBox( {
         spacing: 10,
         children: [
-          new SplotchNode( blueSplotch, scene.paintChoiceProperty, ICON_SCALE_OPTIONS )
+          new SplotchNode( blueSplotch, scene.paintChoiceProperty, SPLOTCH_ICON_OPTIONS )
         ]
       } ),
       rightSwitchIcon: new HBox( {
         spacing: 10,
         children: [
-          new SplotchNode( blueSplotch, scene.paintChoiceProperty, ICON_SCALE_OPTIONS ),
-          new SplotchNode( greenSplotch, scene.paintChoiceProperty, ICON_SCALE_OPTIONS )
+          new SplotchNode( blueSplotch, scene.paintChoiceProperty, SPLOTCH_ICON_OPTIONS ),
+          new SplotchNode( greenSplotch, scene.paintChoiceProperty, SPLOTCH_ICON_OPTIONS )
         ]
       } )
     } );
 
     // When the ABSwitch is toggled, show one/both of the splotches.
     scene.showBothProperty.link( function( showBoth ) {
-      // Controllable necklace nodes have x=0 at their center
       if ( showBoth ) {
         var ratio = 4 / 13;
         leftSplotchControl.x = layoutBounds.width * ratio;
