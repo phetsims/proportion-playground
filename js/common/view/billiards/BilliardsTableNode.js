@@ -22,7 +22,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Property = require( 'AXON/Property' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
@@ -32,7 +32,10 @@ define( function( require ) {
 
   // constants
   var SCALE = 18; // from model units to view units   TODO: why don't we scale up after? Seems simpler
-  var MOVING_LINE_OPTIONS = { stroke: 'white', lineWidth: 2 };
+  var MOVING_LINE_OPTIONS = {
+    stroke: ProportionPlaygroundColorProfile.billiardsPathProperty,
+    lineWidth: 2
+  };
   var BALL_DIAMETER = 10;
   var DRAGGER_OPTIONS = {
     cursor: 'pointer',
@@ -65,24 +68,23 @@ define( function( require ) {
     var currentLineNode = new Line( 0, 0, 0, 0, MOVING_LINE_OPTIONS );
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
-    var blackRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundConstants.BILLIARDS_BROWN } );
-    var greenRectangle = new Rectangle( 0, 0, 0, 0, {
-      fill: ProportionPlaygroundConstants.BILLIARDS_GREEN
-    } );
+    // TODO: can we create later? These aren't sized
+    var borderRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundColorProfile.billiardsBorderProperty } );
+    var insideRectangle = new Rectangle( 0, 0, 0, 0, { fill: ProportionPlaygroundColorProfile.billiardsInsideProperty } );
 
-    var dragHandle = new HBox( {
+    var dragGripDots = new HBox( {
       spacing: 1.3,
       children: [ 0, 1, 2 ].map( function() {
         return new Circle( 1.2, {
-          fill: 'rgb(102,102,102)'
+          fill: ProportionPlaygroundColorProfile.billiardsGripDotsProperty
         } );
       } )
     } );
 
-    var leftDragHandle = new Node( { children: [ dragHandle ], rotation: Math.PI / 2 } );
-    var rightDragHandle = new Node( { children: [ dragHandle ], rotation: Math.PI / 2 } );
-    var topDragHandle = new Node( { children: [ dragHandle ] } );
-    var bottomDragHandle = new Node( { children: [ dragHandle ] } );
+    var leftDragHandle = new Node( { children: [ dragGripDots ], rotation: Math.PI / 2 } );
+    var rightDragHandle = new Node( { children: [ dragGripDots ], rotation: Math.PI / 2 } );
+    var topDragHandle = new Node( { children: [ dragGripDots ] } );
+    var bottomDragHandle = new Node( { children: [ dragGripDots ] } );
 
     // invisible rectangles used to drag the sides of the table to change the dimensions
     var leftDragger = new Rectangle( 0, 0, 0, 0, DRAGGER_OPTIONS );
@@ -102,7 +104,7 @@ define( function( require ) {
 
     var gridLinesNode = BilliardsTableNode.createGridLinesNode();
 
-    // Layer containing the grid lines and ball lines.  When these were children of the greenRectangle, it caused #19
+    // Layer containing the grid lines and ball lines.  When these were children of the insideRectangle, it caused #19
     // so they have been moved to a separate node
     var lineLayer = new Node( {
       children: [
@@ -113,7 +115,10 @@ define( function( require ) {
     } );
 
     // The moving ball node
-    var ballNode = new ShadedSphereNode( BALL_DIAMETER, { mainColor: 'white', highlightColor: 'yellow' } );
+    var ballNode = new ShadedSphereNode( BALL_DIAMETER, {
+      mainColor: 'white', // TODO billiardsBallMain
+      highlightColor: 'yellow' // TODO: billiardsBallHighlight
+    } );
 
     // Create the holes for top-left, top-right and bottom-right
     var createCircle = function() {
@@ -149,7 +154,7 @@ define( function( require ) {
         currentLineNode.setLine( previousPoint.x * SCALE, previousPoint.y * SCALE, position.x * SCALE, position.y * SCALE );
       }
 
-      ballNode.center = position.times( SCALE ).plus( greenRectangle.translation );
+      ballNode.center = position.times( SCALE ).plus( insideRectangle.translation );
     } );
 
     /**
@@ -207,14 +212,14 @@ define( function( require ) {
       var scaledHeight = length * SCALE;
       var lineWidthAmount = brownEdgeLineWidth * 2;
 
-      blackRectangle.setRect( 0, 0, scaledWidth + lineWidthAmount, scaledHeight + lineWidthAmount );
+      borderRectangle.setRect( 0, 0, scaledWidth + lineWidthAmount, scaledHeight + lineWidthAmount );
       //TODO: cleanup?
       if ( options.fullSizeBounds ) {
         self.localBounds = Bounds2.point( 0, 0 ).dilatedXY(
           billiardsTable.range.max * SCALE / 2 + brownEdgeLineWidth,
           billiardsTable.range.max * SCALE / 2 + brownEdgeLineWidth );
       }
-      greenRectangle.setRect( 0, 0, scaledWidth, scaledHeight );
+      insideRectangle.setRect( 0, 0, scaledWidth, scaledHeight );
 
       leftDragger.setRect( 0, 0, lineWidthAmount / 2, scaledHeight );
       rightDragger.setRect( 0, 0, lineWidthAmount / 2, scaledHeight );
@@ -225,14 +230,14 @@ define( function( require ) {
       gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, scaledWidth, scaledHeight ).dilated( GRID_LINE_WIDTH / 2 ) );
 
       // center the rectangles
-      greenRectangle.center = new Vector2( 0, 0 );
-      blackRectangle.center = greenRectangle.center;
+      insideRectangle.center = new Vector2( 0, 0 );
+      borderRectangle.center = insideRectangle.center;
 
       // center the draggers
-      leftDragger.center = greenRectangle.center.plusXY( -( scaledWidth / 2 + lineWidthAmount / 4 ), 0 );
-      rightDragger.center = greenRectangle.center.plusXY( scaledWidth / 2 + lineWidthAmount / 4, 0 );
-      topDragger.center = greenRectangle.center.plusXY( 0, -( scaledHeight / 2 + lineWidthAmount / 4 ) );
-      bottomDragger.center = greenRectangle.center.plusXY( 0, scaledHeight / 2 + lineWidthAmount / 4 );
+      leftDragger.center = insideRectangle.center.plusXY( -( scaledWidth / 2 + lineWidthAmount / 4 ), 0 );
+      rightDragger.center = insideRectangle.center.plusXY( scaledWidth / 2 + lineWidthAmount / 4, 0 );
+      topDragger.center = insideRectangle.center.plusXY( 0, -( scaledHeight / 2 + lineWidthAmount / 4 ) );
+      bottomDragger.center = insideRectangle.center.plusXY( 0, scaledHeight / 2 + lineWidthAmount / 4 );
 
       leftDragHandle.center = leftDragger.center;
       rightDragHandle.center = rightDragger.center;
@@ -240,19 +245,19 @@ define( function( require ) {
       bottomDragHandle.center = bottomDragger.center;
 
       // Position the lines layer
-      lineLayer.translation = greenRectangle.translation;
+      lineLayer.translation = insideRectangle.translation;
 
       // Position the holes.
-      bottomRightHoleNode.translation = greenRectangle.translation.plusXY( width * SCALE, length * SCALE );
-      topLeftHoleNode.translation = greenRectangle.translation.plusXY( 0, 0 );
-      topRightHoleNode.translation = greenRectangle.translation.plusXY( width * SCALE, 0 );
+      bottomRightHoleNode.translation = insideRectangle.translation.plusXY( width * SCALE, length * SCALE );
+      topLeftHoleNode.translation = insideRectangle.translation.plusXY( 0, 0 );
+      topRightHoleNode.translation = insideRectangle.translation.plusXY( width * SCALE, 0 );
     } );
 
     //TODO: cleanup
     if ( options.allowDragToResize ) {
       this.children = [
-        blackRectangle,
-        greenRectangle,
+        borderRectangle,
+        insideRectangle,
         draggersLayer,
         lineLayer,
         topLeftHoleNode,
@@ -267,8 +272,8 @@ define( function( require ) {
     }
     else {
       this.children = [
-        blackRectangle,
-        greenRectangle,
+        borderRectangle,
+        insideRectangle,
         lineLayer,
         topLeftHoleNode,
         topRightHoleNode,

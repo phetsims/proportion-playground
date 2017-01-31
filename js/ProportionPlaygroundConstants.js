@@ -19,8 +19,6 @@ define( function( require ) {
     BEADS_PINK: 'hsl(355,75%,53%)', // #d0275c original hsl(341,68%,48%)
     BEADS_BLUE: 'hsl(206,65%,48%)', // #2f358f original hsl(236,51%,37%)
     CONTROL_FONT_SIZE: 22,
-    BILLIARDS_BROWN: '#111', // TODO: not brown
-    BILLIARDS_GREEN: '#0a6739',
     MAX_BEADS: 20
   };
 

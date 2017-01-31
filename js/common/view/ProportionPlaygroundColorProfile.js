@@ -17,7 +17,13 @@ define( function( require ) {
   // 'default' value provided.
   // NOTE: This is NOT provided to clients directly, but is passed to the PropertySet constructor.
   var ProportionPlaygroundColorProfile = new ColorProfile( {
-    background: { default: new Color( '#fcf3eb' ) }
+    background: { default: new Color( '#fcf3eb' ) },
+    billiardsBorder: { default: new Color( '#111' ) },
+    billiardsInside: { default: new Color( '#0a6739' ) },
+    billiardsPath: { default: Color.WHITE },
+    billiardsGripDots: { default: new Color( 102, 102, 102 ) },
+    billiardsBallMain: { default: Color.WHITE },
+    billiardsBallHighlight: { default: Color.YELLOW }
   }, [ 'default' ] );
 
   proportionPlayground.register( 'ProportionPlaygroundColorProfile', ProportionPlaygroundColorProfile );

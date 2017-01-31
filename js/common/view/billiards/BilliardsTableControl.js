@@ -15,7 +15,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableNode' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
 
   // strings
   var lengthString = require( 'string!PROPORTION_PLAYGROUND/length' );
@@ -31,9 +31,9 @@ define( function( require ) {
    */
   function BilliardsTableControl( layoutBounds, billiardsTable, revealProperty, options ) {
     SceneRatioControl.call( this, billiardsTable, {
-      leftPickerColors: [ ProportionPlaygroundConstants.BILLIARDS_BROWN ],
+      leftPickerColors: [ ProportionPlaygroundColorProfile.billiardsBorderProperty.value ], // TODO: Let NumberPicker handle more general colors
       leftPickerLabel: lengthString,
-      rightPickerColors: [ ProportionPlaygroundConstants.BILLIARDS_BROWN ],
+      rightPickerColors: [ ProportionPlaygroundColorProfile.billiardsBorderProperty.value ],
       rightPickerLabel: widthString,
       pickerLabelMaxWidth: 70
     } );

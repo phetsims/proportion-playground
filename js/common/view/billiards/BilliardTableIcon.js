@@ -13,7 +13,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
 
   /**
    *
@@ -26,8 +26,12 @@ define( function( require ) {
     var inset = width * 0.15;
     Node.call( this, {
       children: [
-        new Rectangle( -inset, -inset, width, height, { fill: ProportionPlaygroundConstants.BILLIARDS_BROWN } ),// brown
-        new Rectangle( 0, 0, width - inset * 2, height - inset * 2, { fill: ProportionPlaygroundConstants.BILLIARDS_GREEN } ) // green
+        new Rectangle( -inset, -inset, width, height, {
+          fill: ProportionPlaygroundColorProfile.billiardsBorderProperty
+        } ),
+        new Rectangle( 0, 0, width - inset * 2, height - inset * 2, {
+          fill: ProportionPlaygroundColorProfile.billiardsInsideProperty
+        } )
       ]
     } );
     this.mutate( options );
