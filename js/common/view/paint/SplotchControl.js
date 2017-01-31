@@ -62,7 +62,7 @@ define( function( require ) {
     this.dripNodes = [];
 
     // @private {Array.<Function>}
-    // TODO: create issue about Timer.step() being after model/view step
+    // TODO: create issue about Timer.step() being after model/view step. See https://github.com/phetsims/joist/issues/401
     this.viewUpdateCallbacks = [];
 
     // Never add balloons/drips if we don't use the visible amounts
