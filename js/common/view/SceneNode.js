@@ -71,7 +71,9 @@ define( function( require ) {
     else {
       this.controlButton = new ResetButton( {
         listener: function() {
-          scene.reset();
+          scene.ratios.forEach( function( sceneRatio ) {
+            sceneRatio.reset();
+          } );
         },
         baseColor: 'rgb(242,242,242)'
       } );
