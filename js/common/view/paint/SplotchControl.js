@@ -18,6 +18,7 @@ define( function( require ) {
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   var PaintBalloonNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintBalloonNode' );
   var PaintDripNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintDripNode' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
   // Used as scratch vectors below
   var startVector = new Vector2();
@@ -35,10 +36,9 @@ define( function( require ) {
     var self = this;
 
     SceneRatioControl.call( this, splotch, {
-      // TODO: Just pass derived properties here?
-      leftPickerColors: PaintChoice.CHOICES.map( function( choice ) { return choice.leftColorProperty; } ),
-      rightPickerColors: PaintChoice.CHOICES.map( function( choice ) { return choice.rightColorProperty; } ),
-      paintChoiceProperty: paintChoiceProperty
+      leftPickerColorProperty: PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.LEFT ),
+      rightPickerColorProperty: PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.RIGHT ),
+      paintChoiceProperty: paintChoiceProperty // TODO: this should be unnecessary
     } );
 
     var dripLayer = new Node();
@@ -106,7 +106,6 @@ define( function( require ) {
             if ( dripNode.paintDrip === drip ) {
               self.dripNodes.splice( i, 1 );
               dripLayer.removeChild( dripNode );
-              dripNode.dispose();
             }
           }
         } );

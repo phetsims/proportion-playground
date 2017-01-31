@@ -40,7 +40,7 @@ define( function( require ) {
 
       for ( var i = 0; i < height; i++ ) {
         var parameter = Util.clamp( Util.linear( 0, height, 0, 1, i ), 0, 1 );  // position -> wavelength
-        context.fillStyle = paintChoice.getColor( parameter ).toCSS();
+        context.fillStyle = paintChoice.getBlendedColor( parameter ).toCSS();
         context.fillRect( 0, i, width, 1 );
       }
 

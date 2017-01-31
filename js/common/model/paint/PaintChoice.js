@@ -13,8 +13,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Color = require( 'SCENERY/util/Color' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   /**
    * Models mixing of watercolor paints with the weighted geometric mean, then with an applied gamma correction.
@@ -91,12 +93,25 @@ define( function( require ) {
      * @param {number} blendAmount - value between 0 (left color) and 1 (right color)
      * @returns {Color}
      */
-    getColor: function( blendAmount ) {
+    getBlendedColor: function( blendAmount ) {
       assert && assert( blendAmount >= 0 && blendAmount <= 1, 'Blend amount was out of bounds.' );
 
       return blendSubtractiveRGBGamma( this.leftColorProperty.value,
                                        this.rightColorProperty.value,
                                        stretchRatio( blendAmount, 2.0 ) );
+    },
+
+    /**
+     * Returns either the left or right color property, depending on what side is requested.
+     * @public
+     *
+     * @param {Side} side
+     * @returns {Property.<Color>}
+     */
+    getColorProperty: function( side ) {
+      assert && assert( Side.isSide( side ) );
+
+      return side === Side.LEFT ? this.leftColorProperty : this.rightColorProperty;
     }
   } );
 
@@ -122,6 +137,24 @@ define( function( require ) {
     PaintChoice.RED_YELLOW,
     PaintChoice.BLACK_WHITE
   ];
+
+  PaintChoice.COLORS = [
+    PaintChoice.BLUE,
+    PaintChoice.YELLOW,
+    PaintChoice.RED,
+    PaintChoice.BLACK,
+    PaintChoice.WHITE
+  ];
+
+  PaintChoice.getActiveColorProperty = function( paintChoiceProperty, side ) {
+    var dependencies = [ paintChoiceProperty ].concat( PaintChoice.CHOICES.map( function( paintChoice ) {
+      return paintChoice.getColorProperty( side );
+    } ) );
+
+    return new DerivedProperty( dependencies, function() {
+      return paintChoiceProperty.value.getColorProperty( side ).value;
+    } );
+  };
 
   return PaintChoice;
 } );

@@ -16,7 +16,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
 
   var SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
 
@@ -52,13 +52,10 @@ define( function( require ) {
       scale: Math.sqrt( SPLOTCH_AREA / SHAPE_AREA ),
       rotation: -Math.PI / 2,
       stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
-      lineWidth: 0.6
+      lineWidth: 0.6,
+      fill: PaintChoice.getActiveColorProperty( paintChoiceProperty, paintDrip.side ) // TODO: see if we can consolidate in super
     } );
     this.addChild( this.path );
-
-    // @private - Stored for disposal
-    this.colorChoiceListener = this.updateBalloonColor.bind( this );
-    this.paintChoiceProperty.link( this.colorChoiceListener );
   }
 
   proportionPlayground.register( 'PaintDripNode', PaintDripNode );
@@ -88,25 +85,6 @@ define( function( require ) {
       if ( this.top > layoutBottom ) {
         this.paintDrip.remove();
       }
-    },
-
-    /**
-     * Updates the drip's color based on the paintChoice
-     * @private
-     *
-     * @param {PaintChoice} paintChoice
-     */
-    updateBalloonColor: function( paintChoice ) {
-      // TODO: create a derived property? (then pass that derived property to that one constructor)
-      this.path.fill = this.paintDrip.side === Side.LEFT ? paintChoice.leftColorProperty : paintChoice.rightColorProperty;
-    },
-
-    /**
-     * Releases references.
-     * @public
-     */
-    dispose: function() {
-      this.paintChoiceProperty.unlink( this.colorChoiceListener );
     }
   } );
 } );

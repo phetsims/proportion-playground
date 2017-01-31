@@ -13,7 +13,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -35,8 +34,8 @@ define( function( require ) {
     options = _.extend( {
       // Usually one color is provided, but we need to handle multiple colors for the paint scene.
       // If there is more than one color, then paintChoiceProperty will control which color is visible.
-      leftPickerColors: [], // {Array.<Property.<Color>>}
-      rightPickerColors: [], // {Array.<Property.<Color>>}
+      leftPickerColorProperty: null, // {Property.<Color>} TODO: suitable defaults in this defaults block?
+      rightPickerColorProperty: null, // {Property.<Color>}
       // Other options provided directly to the picker
       leftPickerOptions: {}, // {Object}
       rightPickerOptions: {}, // {Object}
@@ -56,25 +55,13 @@ define( function( require ) {
      *
      * @param {Property.<number>} property - The numeric value
      * @param {Range} range - The range of possible values
-     * @param {Property.<Color|string>} color
+     * @param {Property.<Color>} colorProperty
      * @param {Node|string|null} label - If available, will be placed above the picker. Strings will use Text.
      * @param {Side} side - Whether we are the left picker or right.
      * @param {Object} pickerOptions - Any options to provide directly to the NumberPicker
      * @returns {Node}
      */
-    function createPickers( property, range, colors, label, side, pickerOptions ) {
-      var colorProperty;
-      if ( colors.length === 1 ) {
-        colorProperty = colors[ 0 ];
-      }
-      else {
-        // TODO: improve refactoring
-        colorProperty = new DerivedProperty( colors.concat( [ options.paintChoiceProperty ] ), function() {
-          // TODO: Can we have a getCountProperty( side )?
-          return options.paintChoiceProperty.value[ side === Side.LEFT ? 'leftColorProperty' : 'rightColorProperty' ].value;
-        } );
-      }
-
+    function createPickers( property, range, colorProperty, label, side, pickerOptions ) {
       // Use MutableOptionsNode, see https://github.com/phetsims/scenery-phet/issues/287
       var staticOptions = _.extend( { scale: 2 }, pickerOptions );
       var dynamicOptions = { color: colorProperty };
@@ -104,9 +91,9 @@ define( function( require ) {
     }
 
     // @protected {Node}
-    this.leftPicker = createPickers( sceneRatio.leftProperty, sceneRatio.leftRange, options.leftPickerColors,
+    this.leftPicker = createPickers( sceneRatio.leftProperty, sceneRatio.leftRange, options.leftPickerColorProperty,
                                      options.leftPickerLabel, Side.LEFT, options.leftPickerOptions );
-    this.rightPicker = createPickers( sceneRatio.rightProperty, sceneRatio.rightRange, options.rightPickerColors,
+    this.rightPicker = createPickers( sceneRatio.rightProperty, sceneRatio.rightRange, options.rightPickerColorProperty,
                                       options.rightPickerLabel, Side.RIGHT, options.rightPickerOptions );
 
     // @protected {Node|null} - Will be initialized when one of the add-picker functions is called.

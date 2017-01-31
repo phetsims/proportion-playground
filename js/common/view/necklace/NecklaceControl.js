@@ -25,9 +25,9 @@ define( function( require ) {
    */
   function NecklaceControl( necklace, revealProperty ) {
     SceneRatioControl.call( this, necklace, {
-      leftPickerColors: [ ProportionPlaygroundColorProfile.necklaceRoundBeadProperty ],
+      leftPickerColorProperty: ProportionPlaygroundColorProfile.necklaceRoundBeadProperty,
       leftPickerLabel: new RoundBeadNode(),
-      rightPickerColors: [ ProportionPlaygroundColorProfile.necklaceSquareBeadProperty ],
+      rightPickerColorProperty: ProportionPlaygroundColorProfile.necklaceSquareBeadProperty,
       rightPickerLabel: new SquareBeadNode( 0 )
     } );
 
