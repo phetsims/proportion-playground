@@ -21,6 +21,7 @@ define( function( require ) {
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
   var PICKER_BOTTOM = 540;
 
@@ -57,11 +58,11 @@ define( function( require ) {
      * @param {Range} range - The range of possible values
      * @param {Property.<Color|string>} color
      * @param {Node|string|null} label - If available, will be placed above the picker. Strings will use Text.
-     * @param {boolean} isLeft - Whether we are the left picker or right.
+     * @param {Side} side - Whether we are the left picker or right.
      * @param {Object} pickerOptions - Any options to provide directly to the NumberPicker
      * @returns {Node}
      */
-    function createPickers( property, range, colors, label, isLeft, pickerOptions ) {
+    function createPickers( property, range, colors, label, side, pickerOptions ) {
       var colorProperty;
       if ( colors.length === 1 ) {
         colorProperty = colors[ 0 ];
@@ -69,7 +70,8 @@ define( function( require ) {
       else {
         // TODO: improve refactoring
         colorProperty = new DerivedProperty( colors.concat( [ options.paintChoiceProperty ] ), function() {
-          return options.paintChoiceProperty.value[ isLeft ? 'leftColorProperty' : 'rightColorProperty' ].value;
+          // TODO: Can we have a getCountProperty( side )?
+          return options.paintChoiceProperty.value[ side === Side.LEFT ? 'leftColorProperty' : 'rightColorProperty' ].value;
         } );
       }
 
@@ -103,9 +105,9 @@ define( function( require ) {
 
     // @protected {Node}
     this.leftPicker = createPickers( sceneRatio.leftProperty, sceneRatio.leftRange, options.leftPickerColors,
-                                     options.leftPickerLabel, true, options.leftPickerOptions );
+                                     options.leftPickerLabel, Side.LEFT, options.leftPickerOptions );
     this.rightPicker = createPickers( sceneRatio.rightProperty, sceneRatio.rightRange, options.rightPickerColors,
-                                      options.rightPickerLabel, false, options.rightPickerOptions );
+                                      options.rightPickerLabel, Side.RIGHT, options.rightPickerOptions );
 
     // @protected {Node|null} - Will be initialized when one of the add-picker functions is called.
     this.pickerContainer = null;

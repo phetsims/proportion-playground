@@ -16,6 +16,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
   var blackBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/black-balloon-1.png' );
   var blackBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/black-balloon-2.png' );
@@ -124,8 +125,8 @@ define( function( require ) {
      * @param {PaintChoice} paintChoice
      */
     updateBalloonColor: function( paintChoice ) {
-      // TODO: a Side enum may be nice?
-      var color = this.paintBalloon.isLeft ? paintChoice.leftColorProperty : paintChoice.rightColorProperty;
+      // TODO: getColorProperty( side )?
+      var color = this.paintBalloon.side === Side.LEFT ? paintChoice.leftColorProperty : paintChoice.rightColorProperty;
       this.children = [ balloonImageMap[ color.paintId ][ this.paintBalloon.balloonType ] ];
     },
 

@@ -19,6 +19,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   var PatternNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/PatternNode' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Property = require( 'AXON/Property' );
@@ -45,7 +46,7 @@ define( function( require ) {
 
     var patternContent = new Node();
 
-    function handlePattern( necklace, isLeft ) {
+    function handlePattern( necklace, side ) {
       var patternNode = null;
       necklace.visibleChangeEmitter.addListener( function() {
         if ( patternNode ) {
@@ -54,15 +55,15 @@ define( function( require ) {
         }
         if ( necklace.visibleProperty.value ) {
           patternNode = new PatternNode( necklace );
-          if ( !isLeft ) {
+          if ( side === Side.RIGHT ) {
             patternNode.x = 30;
           }
           patternContent.addChild( patternNode );
         }
       } );
     }
-    handlePattern( leftNecklace, true );
-    handlePattern( rightNecklace, false );
+    handlePattern( leftNecklace, Side.LEFT );
+    handlePattern( rightNecklace, Side.RIGHT );
 
     var alignBox = new AlignBox( patternContent, {
       yAlign: 'top',

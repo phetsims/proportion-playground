@@ -17,6 +17,7 @@ define( function( require ) {
   var PaintBalloon = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintBalloon' );
   var PaintDrip = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintDrip' );
   var PaintQuantity = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintQuantity' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
   /**
    * @constructor
@@ -29,24 +30,24 @@ define( function( require ) {
   function Splotch( initialLeftCount, initialRightCount, visibleProperty, controlsVisibleProperty ) {
     var self = this;
 
-    //TODO: refactor, doc
+    //TODO: refactor, doc -- we can isolate almost everything, with side and getVisibleColor?
     this.leftQuantity = new PaintQuantity( initialLeftCount, function createBalloon( hitCallback ) {
-      self.balloons.push( new PaintBalloon( true, function( balloon ) {
+      self.balloons.push( new PaintBalloon( Side.LEFT, function( balloon ) {
         self.balloons.remove( balloon );
         hitCallback();
       } ) );
     }, function createDrip( amountToDrip, removeCallback ) {
-      self.drips.push( new PaintDrip( true, function( drip ) {
+      self.drips.push( new PaintDrip( Side.LEFT, function( drip ) {
         self.drips.remove( drip );
       }, amountToDrip, removeCallback, self.visibleLeftColorProperty.value ) );
     } );
     this.rightQuantity = new PaintQuantity( initialRightCount, function createBalloon( hitCallback ) {
-      self.balloons.push( new PaintBalloon( false, function( balloon ) {
+      self.balloons.push( new PaintBalloon( Side.RIGHT, function( balloon ) {
         self.balloons.remove( balloon );
         hitCallback();
       } ) );
     }, function createDrip( amountToDrip, removeCallback ) {
-      self.drips.push( new PaintDrip( false, function( drip ) {
+      self.drips.push( new PaintDrip( Side.RIGHT, function( drip ) {
         self.drips.remove( drip );
       }, amountToDrip, removeCallback, self.visibleRightColorProperty.value ) );
     } );

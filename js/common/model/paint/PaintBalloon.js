@@ -19,15 +19,15 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {boolean} isLeft - Whether this balloon contains the left-most color
+   * @param {Side} side - Whether this balloon contains the left or right color
    * @param {function} hitCallback - Called with this as a single arg when the balloon hits
    */
-  function PaintBalloon( isLeft, hitCallback ) {
+  function PaintBalloon( side, hitCallback ) {
     // @public {number}
     this.timeToHit = TIME_TO_HIT;
 
     // @public {boolean}
-    this.isLeft = isLeft;
+    this.side = side;
 
     // @public {function}
     this.hitCallback = hitCallback;

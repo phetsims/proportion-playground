@@ -16,6 +16,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
   var SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
 
@@ -96,9 +97,8 @@ define( function( require ) {
      * @param {PaintChoice} paintChoice
      */
     updateBalloonColor: function( paintChoice ) {
-      // TODO: side enum
       // TODO: create a derived property? (then pass that derived property to that one constructor)
-      this.path.fill = this.paintDrip.isLeft ? paintChoice.leftColorProperty : paintChoice.rightColorProperty;
+      this.path.fill = this.paintDrip.side === Side.LEFT ? paintChoice.leftColorProperty : paintChoice.rightColorProperty;
     },
 
     /**
