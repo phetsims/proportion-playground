@@ -14,6 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
@@ -58,8 +59,8 @@ define( function( require ) {
     } ) );
 
     // Create the triangle indicators
-    var leftIndicator = new TriangleNode( 'left', { right: -ARROW_WIDTH / 2 } );
-    var rightIndicator = new TriangleNode( 'right', { left: ARROW_WIDTH / 2 } );
+    var leftIndicator = new TriangleNode( Side.LEFT, { right: -ARROW_WIDTH / 2 } );
+    var rightIndicator = new TriangleNode( Side.RIGHT, { left: ARROW_WIDTH / 2 } );
 
     var label = new Text( appleCostString, {
       font: ProportionPlaygroundConstants.CONTROL_FONT,
@@ -88,6 +89,8 @@ define( function( require ) {
         indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
       }
     }
+
+    // TODO: rename apple groups, since one is not green anymore!
     var updateLeftIndicator = updateIndicator.bind( undefined, leftIndicator, scene.redAppleGroup );
     var updateRightIndicator = updateIndicator.bind( undefined, rightIndicator, scene.greenAppleGroup );
 

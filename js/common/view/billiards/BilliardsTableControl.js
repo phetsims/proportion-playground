@@ -15,6 +15,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableNode' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
 
   // strings
@@ -40,7 +41,7 @@ define( function( require ) {
 
     // TODO: enum? Or have this on the model?
     options = _.extend( {
-      side: 'left',
+      side: Side.LEFT,
       allowDragToResize: false // Whether resizing is allowed
     }, options );
 
@@ -58,8 +59,8 @@ define( function( require ) {
     } );
     this.addChild( new HBox( {
       spacing: 30,
-      children: options.side === 'left' ? [ this.pickerContainer, this.billiardsTableNode ] :
-                                          [ this.billiardsTableNode, this.pickerContainer ]
+      children: options.side === Side.LEFT ? [ this.pickerContainer, this.billiardsTableNode ] :
+                                             [ this.billiardsTableNode, this.pickerContainer ]
     } ) );
 
     this.mutate( options );

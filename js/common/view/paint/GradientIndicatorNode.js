@@ -16,6 +16,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   var TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   var Property = require( 'AXON/Property' );
 
   // constants
@@ -41,8 +42,8 @@ define( function( require ) {
     } );
 
     // Triangle indicators on the left/right
-    var leftIndicator = new TriangleNode( 'left', { right: 0 } );
-    var rightIndicator = new TriangleNode( 'right', { left: GRADIENT_WIDTH } );
+    var leftIndicator = new TriangleNode( Side.LEFT, { right: 0 } );
+    var rightIndicator = new TriangleNode( Side.RIGHT, { left: GRADIENT_WIDTH } );
 
     // Show colored/gray based on the user selection
     scene.paintChoiceProperty.link( function( paintChoice ) {

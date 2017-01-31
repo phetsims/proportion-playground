@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var BilliardsTableControl = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableControl' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   var BilliardTableIcon = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardTableIcon' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
@@ -33,12 +34,13 @@ define( function( require ) {
     // Create the left/right tables
     var billiardsTableLeftControl = new BilliardsTableControl( layoutBounds, scene.leftTable, scene.revealProperty, {
       centerY: billiardsCenterY,
-      allowDragToResize: !scene.predictMode
+      allowDragToResize: !scene.predictMode,
+      side: Side.LEFT
     } );
     var billiardsTableRightControl = new BilliardsTableControl( layoutBounds, scene.rightTable, scene.revealProperty, {
       centerY: billiardsCenterY,
       allowDragToResize: !scene.predictMode,
-      side: 'right'
+      side: Side.RIGHT
     } );
 
     SceneNode.call( this, scene, layoutBounds, {
