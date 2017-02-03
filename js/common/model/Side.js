@@ -20,7 +20,7 @@ define( function( require ) {
 
   Side.SIDES = [ Side.LEFT, Side.RIGHT ];
   Side.isSide = function( side ) {
-    return _.contains( Side.SIDES, side );
+    return _.includes( Side.SIDES, side );
   };
   Side.opposite = function( side ) {
     assert && assert( Side.isSide( side ) );
