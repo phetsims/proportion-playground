@@ -140,6 +140,7 @@ define( function( require ) {
      */
     dispose: function() {
       this.paintChoiceProperty.unlink( this.colorChoiceListener );
+      Node.prototype.dispose.call( this );
     }
   } );
 } );
