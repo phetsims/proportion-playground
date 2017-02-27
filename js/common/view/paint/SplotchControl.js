@@ -61,53 +61,41 @@ define( function( require ) {
     // @private {Array.<PaintDripNode>}
     this.dripNodes = [];
 
-    // @private {Array.<Function>}
-    // TODO: create issue about Timer.step() being after model/view step. See https://github.com/phetsims/joist/issues/401
-    this.viewUpdateCallbacks = [];
-
     // Never add balloons/drips if we don't use the visible amounts
     if ( useVisibleAmounts ) {
       splotch.balloons.addItemAddedListener( function( balloon ) {
-        self.viewUpdateCallbacks.push( function() {
-          var randomStart = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 150 );
-          var randomEnd = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 30 );
-          var balloonNode = new PaintBalloonNode( balloon, paintChoiceProperty, randomStart, randomEnd );
-          balloonLayer.addChild( balloonNode );
-          self.balloonNodes.push( balloonNode );
-        } );
+        var randomStart = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 150 );
+        var randomEnd = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 30 );
+        var balloonNode = new PaintBalloonNode( balloon, paintChoiceProperty, randomStart, randomEnd );
+        balloonLayer.addChild( balloonNode );
+        self.balloonNodes.push( balloonNode );
       } );
 
       splotch.balloons.addItemRemovedListener( function( balloon ) {
-        self.viewUpdateCallbacks.push( function() {
-          for ( var i = self.balloonNodes.length - 1; i >= 0; i-- ) {
-            var balloonNode = self.balloonNodes[ i ];
-            if ( balloonNode.paintBalloon === balloon ) {
-              self.balloonNodes.splice( i, 1 );
-              balloonLayer.removeChild( balloonNode );
-              balloonNode.dispose();
-            }
+        for ( var i = self.balloonNodes.length - 1; i >= 0; i-- ) {
+          var balloonNode = self.balloonNodes[ i ];
+          if ( balloonNode.paintBalloon === balloon ) {
+            self.balloonNodes.splice( i, 1 );
+            balloonLayer.removeChild( balloonNode );
+            balloonNode.dispose();
           }
-        } );
+        }
       } );
 
       splotch.drips.addItemAddedListener( function( drip ) {
-        self.viewUpdateCallbacks.push( function() {
-          var dripNode = new PaintDripNode( drip, paintChoiceProperty );
-          dripLayer.addChild( dripNode );
-          self.dripNodes.push( dripNode );
-        } );
+        var dripNode = new PaintDripNode( drip, paintChoiceProperty );
+        dripLayer.addChild( dripNode );
+        self.dripNodes.push( dripNode );
       } );
 
       splotch.drips.addItemRemovedListener( function( drip ) {
-        self.viewUpdateCallbacks.push( function() {
-          for ( var i = self.dripNodes.length - 1; i >= 0; i-- ) {
-            var dripNode = self.dripNodes[ i ];
-            if ( dripNode.paintDrip === drip ) {
-              self.dripNodes.splice( i, 1 );
-              dripLayer.removeChild( dripNode );
-            }
+        for ( var i = self.dripNodes.length - 1; i >= 0; i-- ) {
+          var dripNode = self.dripNodes[ i ];
+          if ( dripNode.paintDrip === drip ) {
+            self.dripNodes.splice( i, 1 );
+            dripLayer.removeChild( dripNode );
           }
-        } );
+        }
       } );
     }
   }
@@ -123,12 +111,6 @@ define( function( require ) {
      * @param {Bounds2} visibleBounds
      */
     step: function( dt, visibleBounds ) {
-      // TODO: don't require this crazy workaround
-      while ( this.viewUpdateCallbacks.length ) {
-        var callback = this.viewUpdateCallbacks.shift();
-        callback();
-      }
-
       if ( this.balloonNodes.length || this.dripNodes.length ) {
         visibleBounds = this.parentToLocalBounds( visibleBounds );
 
