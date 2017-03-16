@@ -63,11 +63,11 @@ define( function( require ) {
 
     var options = {
       name: exploreString,
-      backgroundColorProperty: ProportionPlaygroundColorProfile.backgroundProperty,
+      backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
       homeScreenIcon: new Node( {
         children: [
           Rectangle.bounds( homeScreenIconBounds, {
-            fill: ProportionPlaygroundColorProfile.backgroundProperty
+            fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
           } ),
           new AlignBox( homeScreenIconContent, {
             alignBounds: homeScreenIconBounds
@@ -77,7 +77,7 @@ define( function( require ) {
       navigationBarIcon: new Node( {
         children: [
           Rectangle.bounds( homeScreenIconBounds, {
-            fill: ProportionPlaygroundColorProfile.backgroundProperty
+            fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
           } ),
           new AlignBox( new StaticNecklaceNode( 6, 3, { scale: 3.5 } ), {
             alignBounds: homeScreenIconBounds

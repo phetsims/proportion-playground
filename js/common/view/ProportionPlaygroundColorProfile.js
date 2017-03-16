@@ -17,7 +17,8 @@ define( function( require ) {
   // 'default' value provided.
   // NOTE: This is NOT provided to clients directly, but is passed to the PropertySet constructor.
   var ProportionPlaygroundColorProfile = new ColorProfile( {
-    background: { default: new Color( '#fcf3eb' ) },
+    exploreBackground: { default: new Color( '#fcf3eb' ) },
+    predictBackground: { default: new Color( '#eaeefd' ) },
     refreshBackground: { default: new Color( 242, 242, 242 ) },
     sceneSelectionBorder: { default: Color.BLACK },
     sceneSelectionBackground: { default: Color.WHITE },

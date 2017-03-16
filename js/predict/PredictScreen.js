@@ -54,11 +54,11 @@ define( function( require ) {
 
     var options = {
       name: predictString,
-      backgroundColorProperty: ProportionPlaygroundColorProfile.backgroundProperty,
+      backgroundColorProperty: ProportionPlaygroundColorProfile.predictBackgroundProperty,
       homeScreenIcon: new Node( {
         children: [
           Rectangle.bounds( homeScreenIconBounds, {
-            fill: ProportionPlaygroundColorProfile.backgroundProperty
+            fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
           } ),
           new AlignBox( new Node( { children: [ orangeSplotchNode, homeScreenQuestionText ] } ), {
             alignBounds: homeScreenIconBounds
@@ -68,7 +68,7 @@ define( function( require ) {
       navigationBarIcon: new Node( {
         children: [
           Rectangle.bounds( homeScreenIconBounds, {
-            fill: ProportionPlaygroundColorProfile.backgroundProperty
+            fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
           } ),
           new AlignBox( new Node( { children: [ orangeSplotchNode, navigationBarQuestionText ] } ), {
             alignBounds: homeScreenIconBounds

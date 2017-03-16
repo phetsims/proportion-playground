@@ -102,7 +102,8 @@ define( function( require ) {
     // Update the indicator fills when salient properties change
     Property.multilink( scene.quantityProperties.concat( [ scene.showBothProperty ] ), function() {
       // TODO: get the 'black'. Does it need to be the screen background color?
-      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : ProportionPlaygroundColorProfile.backgroundProperty;
+      var colorProperty = scene.predictMode ? ProportionPlaygroundColorProfile.predictBackgroundProperty : ProportionPlaygroundColorProfile.exploreBackgroundProperty;
+      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : colorProperty;
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );
