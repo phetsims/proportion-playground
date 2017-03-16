@@ -39,7 +39,7 @@ define( function( require ) {
       listener: function() {
         model.reset();
       },
-      right: this.layoutBounds.maxX - 10,
+      centerX: this.layoutBounds.right - ProportionPlaygroundConstants.BUTTON_RIGHT_CENTER_OFFSET,
       bottom: this.layoutBounds.maxY - 10
     } ) );
 

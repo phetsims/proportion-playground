@@ -9,7 +9,7 @@
  */
 define( function( require ) {
   'use strict';
-  
+
   var Bounds2 = require( 'DOT/Bounds2' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
@@ -21,6 +21,7 @@ define( function( require ) {
 
     // @public {number} - Diameter/width of the beads in the necklace scene
     BEAD_DIAMETER: 18,
+    BUTTON_RIGHT_CENTER_OFFSET: 42,
 
     // @public {PhetFont}
     CONTROL_FONT: new PhetFont( 22 ),

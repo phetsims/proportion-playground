@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RevealButton = require( 'PROPORTION_PLAYGROUND/common/view/RevealButton' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
@@ -132,7 +133,8 @@ define( function( require ) {
             this.controlButton.centerX = this.layoutBounds.centerX;
           }
           else {
-            this.controlButton.right = this.layoutBounds.right - 10;
+             // 10 amount of space for the larger button
+            this.controlButton.centerX = this.layoutBounds.right - ProportionPlaygroundConstants.BUTTON_RIGHT_CENTER_OFFSET;
           }
           this.controlButton.centerY = this.layoutBounds.bottom - 128;
         }
