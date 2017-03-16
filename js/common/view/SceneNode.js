@@ -67,7 +67,7 @@ define( function( require ) {
     this.rightSwitchIcon = switchAlignGroup.createBox( options.rightSwitchIcon, { xAlign: 'left' } );
 
     // @private {Node} - A button that will either handle revealing the scene's visual representation, or will refresh the scene.
-    this.controlButton = null; 
+    this.controlButton = null;
 
     // For predict mode, add a reveal button that show the representations
     if ( scene.predictMode ) {
@@ -132,7 +132,7 @@ define( function( require ) {
             this.controlButton.centerX = this.layoutBounds.centerX;
           }
           else {
-            this.controlButton.centerX = this.layoutBounds.right - 42; // 10 amount of space for the larger button
+            this.controlButton.right = this.layoutBounds.right - 10;
           }
           this.controlButton.centerY = this.layoutBounds.bottom - 128;
         }
