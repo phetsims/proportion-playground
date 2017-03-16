@@ -105,7 +105,7 @@ define( function( require ) {
       scene.rightSplotch.visibleRightColorProperty,
       scene.showBothProperty
     ], function() {
-      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : null;
+      var fill = ( scene.areVisualRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : null;
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );

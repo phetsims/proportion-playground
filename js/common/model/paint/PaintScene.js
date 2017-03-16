@@ -15,6 +15,7 @@ define( function( require ) {
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
   var Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
+  var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
 
   /**
    * @constructor
@@ -39,6 +40,19 @@ define( function( require ) {
   proportionPlayground.register( 'PaintScene', PaintScene );
 
   return inherit( Scene, PaintScene, {
+    /**
+     * Returns whether our two (visible) ratios are equivalent (handling division by 0 properly).
+     * @public
+     *
+     * @returns {boolean}
+     */
+    areVisualRatiosEquivalent: function() {
+      return SceneRatio.areRatiosEquivalent( this.leftSplotch.visibleLeftColorProperty.value,
+                                             this.leftSplotch.visibleRightColorProperty.value,
+                                             this.rightSplotch.visibleLeftColorProperty.value,
+                                             this.rightSplotch.visibleRightColorProperty.value );
+    },
+
     /**
      * Steps forward in time
      * @public

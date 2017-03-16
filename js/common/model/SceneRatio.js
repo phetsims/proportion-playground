@@ -99,13 +99,29 @@ define( function( require ) {
      * @public
      *
      * @param {SceneRatio} ratio
+     * @returns {boolean}
      */
     isEquivalentTo: function( ratio ) {
+      return SceneRatio.areRatiosEquivalent( this.quantityProperties[ 0 ].value,
+                                             this.quantityProperties[ 1 ].value,
+                                             ratio.quantityProperties[ 0 ].value,
+                                             ratio.quantityProperties[ 1 ].value );
+    }
+  }, {
+    /**
+     * Whether two ratios are equivalent.
+     * @public
+     *
+     * @param {number} a1 - First number for the first ratio
+     * @param {number} a2 - Second number for the first ratio
+     * @param {number} b1 - First number for the second ratio
+     * @param {number} b2 - Second number for the second ratio
+     * @returns {boolean}
+     */
+    areRatiosEquivalent: function( a1, a2, b1, b2 ) {
       // Division by zero in both places will have Infinity === Infinity, which is OK.
-      return ( this.quantityProperties[ 0 ].value / this.quantityProperties[ 1 ].value ===
-               ratio.quantityProperties[ 0 ].value / ratio.quantityProperties[ 1 ].value ) &&
-             ( this.quantityProperties[ 1 ].value / this.quantityProperties[ 0 ].value ===
-               ratio.quantityProperties[ 1 ].value / ratio.quantityProperties[ 0 ].value );
+      return ( a1 / a2 === b1 / b2 || Math.abs( a1 / a2 - b1 / b2 ) < 1e-6 ) &&
+             ( a2 / a1 === b2 / b1 || Math.abs( a2 / a1 - b2 / b1 ) < 1e-6 );
     }
   } );
 } );
