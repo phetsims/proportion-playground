@@ -44,7 +44,7 @@ define( function( require ) {
     // @public {Vector2} - The velocity of the ball in pixels per second
     this.ballVelocity = new Vector2();
 
-    // Keep track of collision points so the path can be shown as array of lines.
+    // Keep track of collision points so the path can be shown as an array of lines.
     // @public {ObservableArray.<Vector2>} (read-only) - the points where the ball has collided with the walls
     this.collisionPoints = new ObservableArray( new Vector2() );
 
