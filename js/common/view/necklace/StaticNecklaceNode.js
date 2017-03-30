@@ -32,6 +32,45 @@ define( function( require ) {
   var ROTATE_UPRIGHT = -Math.PI / 2;
   var BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
 
+  // var beadRange = ProportionPlaygroundConstants.BEAD_COUNT_RANGE;
+
+  // var random = new Random( { seed: 4 } ); // https://xkcd.com/221/
+
+  // var repulsionPointMap = {};
+  // function getRepulsionPoints( roundBeadCount, squareBeadCount ) {
+  //   if ( roundBeadCount === 0 || squareBeadCount === 0 ) {
+  //     return [];
+  //   }
+  //   var key = '' + ( roundBeadCount / squareBeadCount );
+  //   var repulsionPoints = repulsionPointMap[ key ];
+
+  //   if ( !repulsionPoints ) {
+  //     repulsionPoints = [];
+  //     repulsionPointMap[ key ] = repulsionPoints;
+
+  //     var numRepulsionPoints = random.nextIntBetween( 1, 4 );
+  //     // create repulsion points
+  //     for ( var g = 0; g < numRepulsionPoints; g++ ) {
+  //       // separate repulsion points by quadrant to prevent too much concentrated repulsion
+  //       var angle = Math.PI / 2 * ( random.nextDouble() / numRepulsionPoints + g );
+  //       var radius = ( random.nextDouble() * 0.3 + 0.2 ); // 0.2 - 0.5, ratio of apothem
+
+  //       repulsionPoints.push( Vector2.createPolar( radius, angle ) );
+  //     }
+  //   }
+  //   return repulsionPoints;
+  // }
+
+  // for ( var roundBeadCount = beadRange.min; roundBeadCount < beadRange.max; roundBeadCount++ ) {
+  //   for ( var squareBeadCount = beadRange.min; squareBeadCount < beadRange.max; squareBeadCount++ ) {
+  //     var numBeads = roundBeadCount + squareBeadCount;
+
+  //     var beads = [];
+  //     var splinePoints = [];
+
+  //   }
+  // }
+
   /**
    * @constructor
    *
@@ -43,19 +82,9 @@ define( function( require ) {
 
     var numBeads = roundBeadCount + squareBeadCount;
 
-    // 1.28 chosen empirically for good looking spacing on the necklace
-    var sideLength = 1.28 * BEAD_DIAMETER;
-
     // seed for the random number generator determined by proportion
     var seed = squareBeadCount === 0 ? 30 : roundBeadCount / squareBeadCount;
     var random = new Random( { seed: seed } );
-
-    // special sidelength for necklaces with three beads
-    if ( numBeads === 3 ) {
-
-      // 1.94 chosen empirically for good looking spacing on necklace
-      sideLength = 1.94 * BEAD_DIAMETER;
-    }
 
     // layer for necklace line and beads
     var children = [];
@@ -169,6 +198,9 @@ define( function( require ) {
       // Number of vertices is one more than number of beads to account for a gap.
       var numVertices = numBeads + 1;
       var angelBetweenVertices = Math.PI * 2 / numVertices;
+
+      // empirical, larger spacing with only 3 beads
+      var sideLength = ( numBeads === 3 ? 1.94 : 1.28 ) * BEAD_DIAMETER;
 
       // circumradius of the polygon, used to find polar coordinates for the vertices
       var R = 1 / 2 * sideLength / Math.sin( Math.PI / numVertices );
