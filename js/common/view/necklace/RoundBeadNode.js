@@ -13,6 +13,7 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Vector2 = require( 'DOT/Vector2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
@@ -51,6 +52,10 @@ define( function( require ) {
     x: DIAMETER / 30,
     y: DIAMETER / 30
   } );
+  var containerNode = new Node( {
+    children: [ backgroundNode, shadedNode ],
+    center: Vector2.ZERO
+  } );
 
   /**
    * @constructor
@@ -58,7 +63,7 @@ define( function( require ) {
    * @param {Object} [options] - node options
    */
   function RoundBeadNode( options ) {
-    Node.call( this, _.extend( { children: [ backgroundNode, shadedNode ] }, options ) );
+    Node.call( this, _.extend( { children: [ containerNode ] }, options ) );
   }
 
   proportionPlayground.register( 'RoundBeadNode', RoundBeadNode );

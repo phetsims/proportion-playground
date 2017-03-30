@@ -44,7 +44,7 @@ define( function( require ) {
   var dark4 = adjustedColor( -0.4 );
   var gradientProperty = new DerivedProperty( [ colorProperty ], function( color ) {
     return new RadialGradient( 0, 0, 0, 0, 0, DIAMETER + GRADIENT_OFFSET )
-      .addColorStop( 0, color.colorUtilsBrighter( 0.2 ) )
+      .addColorStop( 0, color.colorUtilsBrighter( 0.3 ) )
       .addColorStop( 0.3, color )
       .addColorStop( 0.5, color.colorUtilsDarker( 0.1 ) )
       .addColorStop( 0.8, color.colorUtilsDarker( 0.3 ) );
@@ -61,42 +61,36 @@ define( function( require ) {
   function SquareBeadNode( rotation, options ) {
     Node.call( this );
 
-    var container = new Node( {
+    // @private {Node} - Contains all of our content, so we can properly center ourselves when needed
+    this.container = new Node( {
       scale: 0.95
     } );
 
     this.backRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
       fill: dark7,
-      rotation: rotation,
       x: -DIAMETER / 15,
       y: DIAMETER / 15
     } );
-    container.addChild( this.backRectangle );
+    this.container.addChild( this.backRectangle );
 
     this.middleRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
       fill: dark4,
-      rotation: rotation,
       scale: 20/21,
       x: -DIAMETER / 30,
       y: DIAMETER / 30
     } );
-    container.addChild( this.middleRectangle );
+    this.container.addChild( this.middleRectangle );
 
-    var gradientAngle = -Math.PI / 4;
-    var gradientX = GRADIENT_OFFSET * Math.cos( gradientAngle - rotation );
-    var gradientY = GRADIENT_OFFSET * Math.sin( gradientAngle - rotation );
-
-    this.frontRectangle = new Rectangle( -RADIUS - gradientX, -RADIUS - gradientY, DIAMETER, DIAMETER, ROUND, ROUND, {
-      scale: 10 / 11,
-      x: gradientX,
-      y: gradientY
+    this.frontRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
+      scale: 10 / 11
     } );
-    this.frontRectangle.rotateAround( new Vector2(), rotation );
     gradientProperty.linkAttribute( this.frontRectangle, 'fill' ); // TODO: better support for gradient properties
-    container.addChild( this.frontRectangle );
+    this.container.addChild( this.frontRectangle );
+
+    this.setBeadRotation( rotation );
 
     this.mutate( _.extend( {
-      children: [ container ],
+      children: [ this.container ],
       rotation: -Math.PI / 2
     }, options ) );
   }
@@ -105,9 +99,20 @@ define( function( require ) {
 
   return inherit( Node, SquareBeadNode, {
     setBeadRotation: function( rotation ) {
+
+      var gradientAngle = -Math.PI / 4;
+      var gradientX = GRADIENT_OFFSET * Math.cos( gradientAngle - rotation );
+      var gradientY = GRADIENT_OFFSET * Math.sin( gradientAngle - rotation );
+
       this.backRectangle.rotation = rotation;
       this.middleRectangle.rotation = rotation;
-      this.frontRectangle.prependMatrix( scratchMatrix3.setToRotationZ( rotation - this.frontRectangle.getRotation() ) );
+      this.frontRectangle.setRect( -RADIUS - gradientX, -RADIUS - gradientY, DIAMETER, DIAMETER, ROUND, ROUND );
+
+      this.frontRectangle.setMatrix( scratchMatrix3.setToRotationZ( rotation ) );
+      this.frontRectangle.translate( gradientX, gradientY, false );
+      this.frontRectangle.scale( 10 / 11 );
+
+      this.container.center = Vector2.ZERO;
     }
   } );
 } );
