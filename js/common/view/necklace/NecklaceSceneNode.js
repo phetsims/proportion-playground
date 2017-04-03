@@ -14,6 +14,7 @@ define( function( require ) {
   var NecklaceControl = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceControl' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
+  var NecklaceGraphicNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceGraphicNode' );
   var PatternPanel = require( 'PROPORTION_PLAYGROUND/common/view/necklace/PatternPanel' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
 
@@ -68,6 +69,21 @@ define( function( require ) {
       patternPanel.top = 85;
       patternPanel.centerX = showBoth ? layoutBounds.centerX : layoutBounds.right * 0.73;
     } );
+
+    this.addChild( new StaticNecklaceNode( 1, 0, { x: layoutBounds.left + 100, y: 100 } ) );
+    this.addChild( new NecklaceGraphicNode( 1, 0, { x: layoutBounds.right - 100, y: 100 } ) );
+
+    this.addChild( new StaticNecklaceNode( 2, 0, { x: layoutBounds.left + 100, y: 200 } ) );
+    this.addChild( new NecklaceGraphicNode( 2, 0, { x: layoutBounds.right - 100, y: 200 } ) );
+
+    this.addChild( new StaticNecklaceNode( 1, 1, { x: layoutBounds.left + 100, y: 300 } ) );
+    this.addChild( new NecklaceGraphicNode( 1, 1, { x: layoutBounds.right - 100, y: 300 } ) );
+
+    this.addChild( new StaticNecklaceNode( 0, 1, { x: layoutBounds.left + 100, y: 400 } ) );
+    this.addChild( new NecklaceGraphicNode( 0, 1, { x: layoutBounds.right - 100, y: 400 } ) );
+
+    this.addChild( new StaticNecklaceNode( 0, 2, { x: layoutBounds.left + 100, y: 500 } ) );
+    this.addChild( new NecklaceGraphicNode( 0, 2, { x: layoutBounds.right - 100, y: 500 } ) );
   }
 
   proportionPlayground.register( 'NecklaceSceneNode', NecklaceSceneNode );

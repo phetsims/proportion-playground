@@ -97,21 +97,11 @@ define( function( require ) {
     // one bead
     if ( numBeads === 1 ) {
 
-      // show the one bead at the bottom of a circle
-      for ( k = 0; k < roundBeadCount; k++ ) {
-        children.push( new RoundBeadNode() );
-      }
-      for ( k = 0; k < squareBeadCount; k++ ) {
-        children.push( new SquareBeadNode( 0 ) );
-      }
-
-      // shape for the necklace line
-      var oneBeadShape = new Shape();
-
       // multiplying bead diameter by empirically determined numbers to draw necklace line in a specific shape
 
       // if one round bead, draw the same shape as twenty round beads
       if ( roundBeadCount === 1 ) {
+        children.push( new RoundBeadNode() );
         splinePoints = [
           new Vector2( 0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
           new Vector2( -0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
@@ -122,6 +112,7 @@ define( function( require ) {
 
       // if one square bead, draw the same shape as twenty square beads
       else {
+        children.push( new SquareBeadNode( 0 ) );
         splinePoints = [
           new Vector2( 0.55 * BEAD_DIAMETER, 0 ),
           new Vector2( -0.61 * BEAD_DIAMETER, 0 ),
@@ -130,9 +121,10 @@ define( function( require ) {
         ];
       }
 
-      oneBeadShape.cardinalSpline( splinePoints, { tension: -0.75, isClosedLineSegments: true } );
-      children.unshift( new Path( oneBeadShape, PATH_OPTIONS ) );
 
+      children.unshift( new Path( new Shape().cardinalSpline( splinePoints, {
+        tension: -0.75, isClosedLineSegments: true
+      } ), PATH_OPTIONS ) );
     }
 
     // two beads
