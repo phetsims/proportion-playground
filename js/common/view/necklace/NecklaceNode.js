@@ -23,7 +23,12 @@ define( function( require ) {
   function NecklaceNode( necklace ) {
     SceneRatioNode.call( this, necklace );
 
-    var necklaceGraphicNode = new NecklaceGraphicNode( necklace.roundBeadCountProperty.value, necklace.squareBeadCountProperty.value );
+    var necklaceGraphicNode = new NecklaceGraphicNode( necklace.roundBeadCountProperty.value, necklace.squareBeadCountProperty.value, {
+      x: 0,
+      y: 256,
+      // Override bounds so that expensive recomputation isn't needed
+      localBounds: new NecklaceGraphicNode( 20, 20 ).localBounds.dilated( 15 )
+    } );
     this.addChild( necklaceGraphicNode );
 
     // When the bead counts change, update the view
@@ -32,10 +37,6 @@ define( function( require ) {
       necklace.squareBeadCountProperty
     ], function( roundBeadCount, squareBeadCount ) {
       necklaceGraphicNode.setBeadCounts( roundBeadCount, squareBeadCount );
-      if ( roundBeadCount + squareBeadCount > 0 ) {
-        necklaceGraphicNode.centerX = 0;
-        necklaceGraphicNode.centerY = 245;
-      }
     } );
   }
 

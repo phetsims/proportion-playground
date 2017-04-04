@@ -145,12 +145,14 @@ define( function( require ) {
       var perfectVertex = Vector2.createPolar( R, angle );
       var newRadius = R;
 
-      // loop through repulsion points and change the vertex
-      for ( var g = 0; g < repulsionPoints.length; g++ ) {
-        var difference = repulsionPoints[ g ].distance( perfectVertex );
-        var amount = Math.pow( ( apothem - difference ), 2 );
-        var change = amount / R;
-        newRadius += change;
+      if ( roundBeadCount > 0 && squareBeadCount > 0 ) {
+        // loop through repulsion points and change the vertex
+        for ( var g = 0; g < repulsionPoints.length; g++ ) {
+          var difference = repulsionPoints[ g ].distance( perfectVertex );
+          var amount = Math.pow( ( apothem - difference ), 2 );
+          var change = amount / R;
+          newRadius += change;
+        }
       }
 
       var vertex = Vector2.createPolar( newRadius, angle );
@@ -306,31 +308,43 @@ define( function( require ) {
 
       var i;
       for ( i = 0; i < this.roundBeads.length; i++ ) {
+        var roundVisible = i < roundBeadCount;
         this.roundBeads[ i ].visible = i < roundBeadCount;
+        if ( !roundVisible ) {
+          this.roundBeads[ i ].translation = Vector2.ZERO;
+        }
       }
       for ( i = 0; i < this.squareBeads.length; i++ ) {
-        this.squareBeads[ i ].visible = i < squareBeadCount;
+        var squareVisible = i < squareBeadCount;
+        this.squareBeads[ i ].visible = squareVisible;
+        if ( !squareVisible ) {
+          this.squareBeads[ i ].translation = Vector2.ZERO;
+        }
       }
 
       if ( roundBeadCount === 1 && squareBeadCount === 0 ) {
         this.chain.shape = ONE_ROUND_BEAD_SPAPE;
         this.roundBeads[ 0 ].translation = Vector2.ZERO;
+        this.container.translation = new Vector2( 1.3514828985498655, 12.636803053853306 );
       }
       else if ( roundBeadCount === 2 && squareBeadCount === 0 ) {
         this.chain.shape = TWO_ROUND_BEADS_SHAPE;
         this.roundBeads[ 0 ].translation = Vector2.ZERO;
         this.roundBeads[ 1 ].translation = new Vector2( TWO_BEAD_OFFSET * 2, 0 );
+        this.container.translation = new Vector2( -11, 12.991498868074157 );
       }
       else if ( roundBeadCount === 1 && squareBeadCount === 1 ) {
         this.chain.shape = TWO_MIXED_BEADS_SHAPE;
         this.roundBeads[ 0 ].translation = Vector2.ZERO;
         this.squareBeads[ 0 ].translation = new Vector2( TWO_BEAD_OFFSET * 2, 0 );
         this.squareBeads[ 0 ].setBeadRotation( 0 );
+        this.container.translation = new Vector2( -11, 15.785 );
       }
       else if ( roundBeadCount === 0 && squareBeadCount === 1 ) {
         this.chain.shape = ONE_SQUARE_BEAD_SPAPE;
         this.squareBeads[ 0 ].translation = Vector2.ZERO;
         this.squareBeads[ 0 ].setBeadRotation( 0 );
+        this.container.translation = new Vector2( 0.2394730404209664, 10.390542501611892 );
       }
       else if ( roundBeadCount === 0 && squareBeadCount === 2 ) {
         this.chain.shape = TWO_SQUARE_BEADS_SHAPE;
@@ -338,8 +352,10 @@ define( function( require ) {
         this.squareBeads[ 0 ].setBeadRotation( 0 );
         this.squareBeads[ 1 ].translation = new Vector2( TWO_BEAD_OFFSET * 2, 0 );
         this.squareBeads[ 1 ].setBeadRotation( 0 );
+        this.container.translation = new Vector2( -10.753124040624703, 10.534079717389499 );
       }
       else if ( roundBeadCount > 0 || squareBeadCount > 0 ) {
+        this.container.translation = ( roundBeadCount + squareBeadCount === 3 ) ? new Vector2( 0, -5 ) : Vector2.ZERO;
         // general case with 3+ beads
         var layout = getMultiBeadLayout( roundBeadCount, squareBeadCount );
         this.chain.shape = layout.shape;
@@ -352,9 +368,11 @@ define( function( require ) {
         }
       }
 
-      if ( roundBeadCount + squareBeadCount > 0 ) {
-        this.container.translation = this.container.visibleLocalBounds.center.negated();
-      }
+      // 0x3 Vector2(3.552713678800501e-15, -4.640104555964172)
+
+
+      // console.log( this.container.localBounds.center.negated().toString() );
+      // ( roundBeadCount || squareBeadCount ) && ( this.container.center = Vector2.ZERO );
     }
   } );
 } );
