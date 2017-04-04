@@ -27,7 +27,9 @@ define( function( require ) {
       x: 0,
       y: 256,
       // Override bounds so that expensive recomputation isn't needed
-      localBounds: new NecklaceGraphicNode( 20, 20 ).localBounds.dilated( 15 )
+      localBounds: new NecklaceGraphicNode( 20, 20 ).localBounds.dilated( 15 ),
+      preventFit: true,
+      pickable: false
     } );
     this.addChild( necklaceGraphicNode );
 
