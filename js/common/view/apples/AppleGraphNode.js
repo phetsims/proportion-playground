@@ -29,7 +29,7 @@ define( function( require ) {
   // constants
   var ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick
   var ARROW_WIDTH = 3;
-  var ARROW_HEIGHT = 300;
+  var ARROW_HEIGHT = 290;
   var ARROW_LINE_WIDTH = 2;
 
   var TICK_X = 10;
@@ -65,7 +65,7 @@ define( function( require ) {
     var label = new Text( appleCostString, {
       font: ProportionPlaygroundConstants.CONTROL_FONT,
       centerX: arrowNode.centerX,
-      bottom: arrowNode.top - 15,
+      bottom: arrowNode.top - 10,
       maxWidth: 300
     } );
 
