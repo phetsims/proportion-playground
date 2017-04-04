@@ -1,31 +1,31 @@
 {
-  "comment": "# proportion-playground 1.0.0-dev.19 Fri Mar 03 2017 12:50:57 GMT-0700 (MST)",
+  "comment": "# proportion-playground 1.0.0-dev.20 Tue Apr 04 2017 13:24:45 GMT-0600 (MDT)",
   "assert": {
     "sha": "a707328cc11048787a807714496af23e0bd25be1",
     "branch": "master"
   },
   "axon": {
-    "sha": "e0b1c3912558fc5d6c8931d7fa8fadd6a2a19d04",
+    "sha": "f7beced267541b89836e0b6c2ca12707c9e8fa17",
     "branch": "master"
   },
   "brand": {
-    "sha": "0be722ee4e70a5689a86a246e86651f1b844574d",
+    "sha": "b6bdbc2b7d618f8fbd2851a95476c0eb1205acf5",
     "branch": "master"
   },
   "chipper": {
-    "sha": "43ca9ac4238e4e54c25d63380ae98e905eb594a0",
+    "sha": "7c6e001f8e543ca7fd270ebfc1ce4089a20e4a5b",
     "branch": "master"
   },
   "dot": {
-    "sha": "16c2f26bdc6001620bd7d2d96c24afd4ce54ae74",
+    "sha": "569939e1f45973234a3819255a88cd2b80006f76",
     "branch": "master"
   },
   "joist": {
-    "sha": "695d3638a602f93027b09c63895ce4c1e332d2be",
+    "sha": "68042df54f96e64a74bb5a30c417fc44e3dcef85",
     "branch": "master"
   },
   "kite": {
-    "sha": "f4c67cff6e24693f66b58fcea16069be3dbd8e88",
+    "sha": "81166ce9735f0bcb11b9e68b74eeed46b6f24da6",
     "branch": "master"
   },
   "phet-core": {
@@ -33,11 +33,11 @@
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "49b5cb0d6befc50e516598e52f4c90cb1f8be963",
+    "sha": "85801e7b43730588c1e2770fb64d633c58d71759",
     "branch": "master"
   },
   "proportion-playground": {
-    "sha": "06f03e67305b06185701e49348144ced9cbe7fe7",
+    "sha": "d9659a03d4bcf47417fa4fe904881c784dbdecbd",
     "branch": "master"
   },
   "query-string-machine": {
@@ -45,23 +45,23 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "04879a991d4094a9fdae9ee104de0d40ef78a464",
+    "sha": "bab52c2f6f6b80ae8451c4c50fdd20d6a7a0b37c",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "45adfa82f0ea1a533babb7d6c2be551f616949d7",
+    "sha": "04408b0dbe2826a32fd7b074ead694789c242ff0",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "985665662c9862d5b38583a715896029b46feb44",
+    "sha": "3255de0f1edda165ff360076051a56cd31cd3ea5",
     "branch": "master"
   },
   "sun": {
-    "sha": "dc8dcfbfe530169facc331a46a165de4e50cbbfa",
+    "sha": "cf75fc6d513ff403ece6703bfbf55c78a05c8e3d",
     "branch": "master"
   },
   "tandem": {
-    "sha": "45e9ee17db68deb34c8c59f6ee117c8ee4890fbe",
+    "sha": "cc7876d05113316f8474372dba1bf7f339184c58",
     "branch": "master"
   }
 }
