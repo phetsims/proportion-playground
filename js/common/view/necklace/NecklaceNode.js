@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
+  var NecklaceGraphicNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceGraphicNode' );
   var Property = require( 'AXON/Property' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
 
@@ -23,17 +23,18 @@ define( function( require ) {
   function NecklaceNode( necklace ) {
     SceneRatioNode.call( this, necklace );
 
-    var self = this;
+    var necklaceGraphicNode = new NecklaceGraphicNode( necklace.roundBeadCountProperty.value, necklace.squareBeadCountProperty.value );
+    this.addChild( necklaceGraphicNode );
 
     // When the bead counts change, update the view
     Property.multilink( [
       necklace.roundBeadCountProperty,
       necklace.squareBeadCountProperty
     ], function( roundBeadCount, squareBeadCount ) {
-      self.children = [ new StaticNecklaceNode( roundBeadCount, squareBeadCount ) ];
+      necklaceGraphicNode.setBeadCounts( roundBeadCount, squareBeadCount );
       if ( roundBeadCount + squareBeadCount > 0 ) {
-        self.centerX = 0;
-        self.centerY = 245;
+        necklaceGraphicNode.centerX = 0;
+        necklaceGraphicNode.centerY = 245;
       }
     } );
   }

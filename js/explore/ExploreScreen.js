@@ -23,7 +23,7 @@ define( function( require ) {
   var ProportionScreenView = require( 'PROPORTION_PLAYGROUND/common/view/ProportionScreenView' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
-  var StaticNecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/StaticNecklaceNode' );
+  var NecklaceGraphicNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceGraphicNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -47,7 +47,7 @@ define( function( require ) {
         new VBox( {
           spacing: 10,
           children: [
-            new StaticNecklaceNode( 6, 3, { scale: 1.5 } ),
+            new NecklaceGraphicNode( 6, 3, { scale: 1.5 } ),
             new Text( '6 : 3', {
               font: new PhetFont( 60 )
             } )
@@ -79,7 +79,7 @@ define( function( require ) {
           Rectangle.bounds( homeScreenIconBounds, {
             fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
           } ),
-          new AlignBox( new StaticNecklaceNode( 6, 3, { scale: 3.5 } ), {
+          new AlignBox( new NecklaceGraphicNode( 6, 3, { scale: 3.5 } ), {
             alignBounds: homeScreenIconBounds
           } )
         ]

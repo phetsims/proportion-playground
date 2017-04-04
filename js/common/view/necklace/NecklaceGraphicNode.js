@@ -267,14 +267,17 @@ define( function( require ) {
   function NecklaceGraphicNode( roundBeadCount, squareBeadCount, options ) {
     Node.call( this );
 
+    this.container = new Node();
+    this.addChild( this.container );
+
     this.chain = new Path( null, {
       stroke: ProportionPlaygroundColorProfile.necklaceStringProperty,
       lineWidth: 2
     } );
-    this.addChild( this.chain );
+    this.container.addChild( this.chain );
 
     this.beadContainer = new Node();
-    this.addChild( this.beadContainer );
+    this.container.addChild( this.beadContainer );
 
     this.roundBeads = [];
     this.squareBeads = [];
@@ -340,13 +343,17 @@ define( function( require ) {
         // general case with 3+ beads
         var layout = getMultiBeadLayout( roundBeadCount, squareBeadCount );
         this.chain.shape = layout.shape;
-        for ( var i = 0; i < layout.roundBeads.length; i++ ) {
+        for ( i = 0; i < layout.roundBeads.length; i++ ) {
           this.roundBeads[ i ].translation = layout.roundBeads[ i ].center;
         }
-        for ( var i = 0; i < layout.squareBeads.length; i++ ) {
+        for ( i = 0; i < layout.squareBeads.length; i++ ) {
           this.squareBeads[ i ].translation = layout.squareBeads[ i ].center;
           this.squareBeads[ i ].setBeadRotation( layout.squareBeads[ i ].angle );
         }
+      }
+
+      if ( roundBeadCount + squareBeadCount > 0 ) {
+        this.container.translation = this.container.visibleLocalBounds.center.negated();
       }
     }
   } );
