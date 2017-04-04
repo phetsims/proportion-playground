@@ -32,45 +32,6 @@ define( function( require ) {
   var ROTATE_UPRIGHT = -Math.PI / 2;
   var BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
 
-  // var beadRange = ProportionPlaygroundConstants.BEAD_COUNT_RANGE;
-
-  // var random = new Random( { seed: 4 } ); // https://xkcd.com/221/
-
-  // var repulsionPointMap = {};
-  // function getRepulsionPoints( roundBeadCount, squareBeadCount ) {
-  //   if ( roundBeadCount === 0 || squareBeadCount === 0 ) {
-  //     return [];
-  //   }
-  //   var key = '' + ( roundBeadCount / squareBeadCount );
-  //   var repulsionPoints = repulsionPointMap[ key ];
-
-  //   if ( !repulsionPoints ) {
-  //     repulsionPoints = [];
-  //     repulsionPointMap[ key ] = repulsionPoints;
-
-  //     var numRepulsionPoints = random.nextIntBetween( 1, 4 );
-  //     // create repulsion points
-  //     for ( var g = 0; g < numRepulsionPoints; g++ ) {
-  //       // separate repulsion points by quadrant to prevent too much concentrated repulsion
-  //       var angle = Math.PI / 2 * ( random.nextDouble() / numRepulsionPoints + g );
-  //       var radius = ( random.nextDouble() * 0.3 + 0.2 ); // 0.2 - 0.5, ratio of apothem
-
-  //       repulsionPoints.push( Vector2.createPolar( radius, angle ) );
-  //     }
-  //   }
-  //   return repulsionPoints;
-  // }
-
-  // for ( var roundBeadCount = beadRange.min; roundBeadCount < beadRange.max; roundBeadCount++ ) {
-  //   for ( var squareBeadCount = beadRange.min; squareBeadCount < beadRange.max; squareBeadCount++ ) {
-  //     var numBeads = roundBeadCount + squareBeadCount;
-
-  //     var beads = [];
-  //     var splinePoints = [];
-
-  //   }
-  // }
-
   /**
    * @constructor
    *
