@@ -71,8 +71,8 @@ define( function( require ) {
     // When the "show both" ABSwitch is toggled, change which apple groups are displayed and update their layouts
     scene.showBothProperty.link( function( showBoth ) {
       if ( showBoth ) {
-        redAppleGroupControl.right = layoutBounds.width * 0.45;
-        greenAppleGroupControl.left = layoutBounds.width * 0.55;
+        redAppleGroupControl.right = layoutBounds.width * 0.465;
+        greenAppleGroupControl.left = layoutBounds.width * 0.535;
         appleGraphNode.x = layoutBounds.centerX;
       }
       else {

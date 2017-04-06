@@ -38,7 +38,8 @@ define( function( require ) {
           return StringUtils.format( pricePatternString, text );
         }
       },
-      rightPickerLabel: applesString
+      rightPickerLabel: applesString,
+      pickerLabelMaxWidth: 90
     } );
 
     // Create the place where apples and coins will be shown.

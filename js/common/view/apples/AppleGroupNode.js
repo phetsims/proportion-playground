@@ -160,7 +160,7 @@ define( function( require ) {
       ];
     } );
 
-    this.appleCrate.left = this.coinStack.right + 40;
+    this.appleCrate.left = this.coinStack.right + 35;
     priceTagLayer.centerX = this.appleCrate.centerX - 20;
     this.appleCrate.bottom = this.coinStack.bottom;
     priceTagLayer.centerY = this.appleCrate.bottom - 46.5;
