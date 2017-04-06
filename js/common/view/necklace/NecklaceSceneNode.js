@@ -18,7 +18,10 @@ define( function( require ) {
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
 
   // constants
-  var ICON_SCALE_OPTIONS = { scale: 0.2 };
+  var ICON_OPTIONS = {
+    scale: 0.2,
+    pickable: false
+  };
 
   /**
    * @constructor
@@ -36,14 +39,14 @@ define( function( require ) {
 
     // Super call
     SceneNode.call( this, scene, layoutBounds, {
-      sceneIcon: new NecklaceGraphicNode( 14, 7, { scale: 0.25 } ),
+      sceneIcon: new NecklaceGraphicNode( 14, 7, { scale: 0.25, pickable: false } ),
       leftControl: leftNecklaceControl,
       rightControl: rightNecklaceControl,
       canCenterControlButton: false, // due to the pattern panel
-      leftSwitchIcon: new NecklaceGraphicNode( 14, 7, ICON_SCALE_OPTIONS ),
+      leftSwitchIcon: new NecklaceGraphicNode( 14, 7, ICON_OPTIONS ),
       rightSwitchIcon: new HBox( {
         children: [
-          new NecklaceGraphicNode( 10, 5, ICON_SCALE_OPTIONS ), new NecklaceGraphicNode( 14, 7, ICON_SCALE_OPTIONS ) ]
+          new NecklaceGraphicNode( 10, 5, ICON_OPTIONS ), new NecklaceGraphicNode( 14, 7, ICON_OPTIONS ) ]
       } )
     } );
 

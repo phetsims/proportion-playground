@@ -47,7 +47,7 @@ define( function( require ) {
         new VBox( {
           spacing: 10,
           children: [
-            new NecklaceGraphicNode( 6, 3, { scale: 1.5 } ),
+            new NecklaceGraphicNode( 6, 3, { scale: 1.5, pickable: false } ),
             new Text( '6 : 3', {
               font: new PhetFont( 60 )
             } )
@@ -79,7 +79,7 @@ define( function( require ) {
           Rectangle.bounds( homeScreenIconBounds, {
             fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
           } ),
-          new AlignBox( new NecklaceGraphicNode( 6, 3, { scale: 3.5 } ), {
+          new AlignBox( new NecklaceGraphicNode( 6, 3, { scale: 3.5, pickable: false } ), {
             alignBounds: homeScreenIconBounds
           } )
         ]
