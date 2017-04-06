@@ -43,22 +43,23 @@ define( function( require ) {
     var maxNecklace = new Necklace( 20, 19, new Property( true ), new Property( true ) );
     var maxPatternBounds = new PatternNode( maxNecklace ).bounds;
     maxPatternBounds.maxX += 2 * maxPatternBounds.width;
+    maxPatternBounds.maxY += 5; // Some extra padding
 
     var patternContent = new Node();
 
     function handlePattern( necklace, side ) {
-      var patternNode = null;
-      necklace.visibleChangeEmitter.addListener( function() {
-        if ( patternNode ) {
+      var patternNode = new PatternNode( necklace, {
+        x: side === Side.RIGHT ? 30 : 0
+      } );
+      var added = false;
+      necklace.visibleProperty.link( function( visible ) { // No problem to leak, this is done twice
+        if ( added && !visible ) {
           patternContent.removeChild( patternNode );
-          patternNode = null;
+          added = false;
         }
-        if ( necklace.visibleProperty.value ) {
-          patternNode = new PatternNode( necklace );
-          if ( side === Side.RIGHT ) {
-            patternNode.x = 30;
-          }
+        else if ( !added && visible ) {
           patternContent.addChild( patternNode );
+          added = true;
         }
       } );
     }
