@@ -56,7 +56,10 @@ define( function( require ) {
      */
     function createPickers( side, label, pickerOptions ) {
       // Use MutableOptionsNode, see https://github.com/phetsims/scenery-phet/issues/287
-      var staticOptions = _.extend( { scale: 2 }, pickerOptions );
+      var staticOptions = _.extend( {
+        scale: 2,
+        valueMaxWidth: 40
+      }, pickerOptions );
       var dynamicOptions = {
         color: side === Side.LEFT ? leftPickerColorProperty : rightPickerColorProperty
       };

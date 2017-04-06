@@ -66,7 +66,7 @@ define( function( require ) {
       font: ProportionPlaygroundConstants.CONTROL_FONT,
       centerX: arrowNode.centerX,
       bottom: arrowNode.top - 10,
-      maxWidth: 300
+      maxWidth: 170
     } );
 
     Node.call( this, {
