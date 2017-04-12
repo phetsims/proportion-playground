@@ -12,7 +12,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NecklaceNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceNode' );
-  var NecklaceWebGLBeadsNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceWebGLBeadsNode' );
   var RoundBeadNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/RoundBeadNode' );
   var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/SquareBeadNode' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
@@ -33,7 +32,6 @@ define( function( require ) {
 
     // The necklace itself
     this.addChild( new NecklaceNode( necklace ) ); // TODO: how is this positioned?
-    this.addChild( new NecklaceWebGLBeadsNode() );
     this.addBottomPickers();
   }
 
