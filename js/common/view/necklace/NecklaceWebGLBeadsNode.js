@@ -224,6 +224,9 @@ define( function( require ) {
       '  }',
       '  return off * uPixelScale * ' + fuzzNumber + ';',
       '}',
+      'mat2 inverseRot( float angle ) {',
+      '  return mat2( cos( angle ), -sin( angle ), sin( angle ), cos( angle ) );',
+      '}',
       blendSource,
       '',
       'void main( void ) {',
@@ -240,7 +243,7 @@ define( function( require ) {
       beadRange.map( function( n ) {
         return [
           '  if ( uNumBeads >= ' + ( n + 1 ) + '.0 ) {',
-          '    rotation = mat2( cos( uBead' + n + '.z ), -sin( uBead' + n + '.z ), sin( uBead' + n + '.z ), cos( uBead' + n + '.z ) );',
+          '    rotation = inverseRot( uBead' + n + '.z );',
           '    offset = ( vView - uBead' + n + '.xy ) / 0.95;', // compensate for 0.95 scale
           '    offset += 1.0;', // compensate for centering
 
