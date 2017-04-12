@@ -111,7 +111,7 @@ define( function( require ) {
 
     var maxBeads = 20;
     var beadRange = _.range( 0, maxBeads );
-    var fuzzNumber = '0.8';
+    var fuzzNumber = '0.55';
 
     // Porter-Duff "over" blend function (non-premultiplied)
     var blendSource = [
@@ -194,6 +194,8 @@ define( function( require ) {
       '}'
     ].join( '\n' );
 
+    // sqrt(2)/2 from circle+angle combination, 0.6*radius from SquareBeadNode
+    var gradOffset = Math.sqrt( 2 ) * 0.5 * 0.6 * ProportionPlaygroundConstants.BEAD_DIAMETER / 2;
     var squareFragmentShaderSource = [
       'precision mediump float;',
       'uniform float uNumBeads;',
@@ -219,13 +221,16 @@ define( function( require ) {
       '    gl_FragColor = vec4( 0.0, 0.0, 0.0, 0.0 );',
       '    vec2 offset;',
       '    vec2 curOffset;',
+      '    float gradOffset;',
       '    float rDist;',
+      '    vec3 color;',
       '    mat2 rotation;',
       beadRange.map( function( n ) {
         return [
           '  if ( uNumBeads >= ' + ( n + 1 ) + '.0 ) {',
           '    rotation = mat2( cos( uBead' + n + '.z ), -sin( uBead' + n + '.z ), sin( uBead' + n + '.z ), cos( uBead' + n + '.z ) );',
           '    offset = ( vView - uBead' + n + '.xy ) / 0.95;', // compensate for 0.95 scale
+          '    offset += 1.0;', // compensate for centering
 
           // Back
           '    curOffset = offset - uRadius / 7.5;',
@@ -241,13 +246,22 @@ define( function( require ) {
           '      gl_FragColor = blend( gl_FragColor, vec4( uDark4, clamp( 0.5 - rDist, 0.0, 1.0 ) ) );',
           '    }',
 
-          // TODO: handle many things here, temp rotation check
-          // NOTE: inverse of rotation matrix
-          // '    offset = rotation * offset;',
-          // '    rDist = distR( offset );',
-          // '    if ( rDist <= 0.5 ) {',
-          // '      gl_FragColor = vec4( 0.0, 0.0, 1.0, clamp( 0.5 - rDist, 0.0, 1.0 ) );',
-          // '    }',
+          // Front
+          '    curOffset = offset * 11.0 / 10.0;',
+          '    rDist = distR( rotation * curOffset );',
+          '    if ( rDist <= 0.5 ) {',
+          '      gradOffset = clamp( length( curOffset + ' + gradOffset + ' ) / ( uRadius * 2.6 ), 0.0, 1.0 );', // dia + offset 2.6
+          '      if ( gradOffset < 0.3 ) {',
+          '        color = mix( uBright3, uMain, gradOffset / 0.3 );',
+          '      } else if ( gradOffset < 0.5 ) {',
+          '        color = mix( uMain, uDark1, ( gradOffset - 0.3 ) / 0.2 );',
+          '      } else if ( gradOffset < 0.8 ) {',
+          '        color = mix( uDark1, uDark3, ( gradOffset - 0.5 ) / 0.3 );',
+          '      } else {',
+          '        color = uDark3;',
+          '      }',
+          '      gl_FragColor = blend( gl_FragColor, vec4( color, clamp( 0.5 - rDist, 0.0, 1.0 ) ) );',
+          '    }',
           '  }' ].join( '\n' );
       } ).join( '\n' ),
       '}'
