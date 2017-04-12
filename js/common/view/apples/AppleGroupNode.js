@@ -126,7 +126,9 @@ define( function( require ) {
         fixed = '?';
       }
       else {
-        fixed = StringUtils.format( pricePatternString, fixed );
+        fixed = StringUtils.fillIn( pricePatternString, {
+          price: fixed
+        } );
       }
       var textOptions = {
         font: ProportionPlaygroundConstants.APPLE_PRICE_FONT,

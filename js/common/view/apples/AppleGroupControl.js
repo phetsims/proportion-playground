@@ -35,7 +35,9 @@ define( function( require ) {
       leftPickerOptions: {
         // Put a $ sign in front of the spinner number
         formatText: function( text ) {
-          return StringUtils.format( pricePatternString, text );
+          return StringUtils.fillIn( pricePatternString, {
+            price: text
+          } );
         }
       },
       rightPickerLabel: applesString,

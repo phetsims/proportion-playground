@@ -24,7 +24,7 @@
     "value": "Length"
   },
   "pricePattern": {
-    "value": "${0}"
+    "value": "${{price}}"
   },
   "pattern": {
     "value": "Pattern"
