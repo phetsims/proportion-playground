@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Util = require( 'SCENERY/util/Util' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NecklaceGraphicNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceGraphicNode' );
   var Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
@@ -35,22 +36,27 @@ define( function( require ) {
 
     var localBounds = NecklaceGraphicNode.createStaticNecklace( 20, 20 ).localBounds.dilated( 15 );
 
-    var necklaceGraphicNode = new NecklaceGraphicNode( layoutProperty, {
-      y: 256,
-      // Override bounds so that expensive recomputation isn't needed
-      localBounds: localBounds,
-      preventFit: true,
-      pickable: false
-    } );
-    // this.addChild( necklaceGraphicNode );
-
-    this.addChild( new NecklaceWebGLBeadsNode( layoutProperty, {
-      y: 256,
-      canvasBounds: localBounds,
-      // TODO: refactor out common bits
-      preventFit: true,
-      pickable: false
-    } ) );
+    if ( Util.checkWebGLSupport() && phet.chipper.queryParameters.webgl ) {
+      console.log( 'WebGL Enabled' );
+      this.addChild( new NecklaceWebGLBeadsNode( layoutProperty, {
+        y: 256,
+        canvasBounds: localBounds,
+        // TODO: refactor out common bits
+        preventFit: true,
+        pickable: false
+      } ) );
+    }
+    else {
+      // TODO: remove note
+      console.log( 'NO WebGL' );
+      this.addChild( new NecklaceGraphicNode( layoutProperty, {
+        y: 256,
+        // Override bounds so that expensive recomputation isn't needed
+        localBounds: localBounds,
+        preventFit: true,
+        pickable: false
+      } ) );
+    }
   }
 
   proportionPlayground.register( 'NecklaceNode', NecklaceNode );
