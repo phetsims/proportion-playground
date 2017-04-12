@@ -98,6 +98,7 @@ define( function( require ) {
       'uniform float uRadius;',
       'uniform float uPixelScale;',
       'uniform vec2 uBead0;',
+      'uniform vec2 uBead1;',
       'uniform vec3 uHighlight;',
       'uniform vec3 uMain;',
       'uniform vec3 uShadow;',
@@ -110,24 +111,57 @@ define( function( require ) {
       'float distR( vec2 bead ) {',
       '  return ( length( vView - bead ) - uRadius ) * uPixelScale * ' + fuzzNumber + ';',
       '}',
+      'float shadeOff( vec2 bead ) {',
+      '  return clamp( 0.5 * length( ( vView - bead ) / uRadius + 0.3 ), 0.0, 1.0 );',
+      '}',
       '',
       'void main( void ) {',
       '  gl_FragColor = vec4( 0.0, 0.0, 0.0, 0.0 );',
-      '  float inS = 0.0;',
-      '  float dS = 0.0;',
 
-      '  float dOff = 0.0;',
-      '  float d0 = distR( uBead0 );',
-      '  float s0 = distS( uBead0 );',
-      // "Shadow" background
-      '  if ( uNumBeads >= 1.0 && s0 <= 0.5 ) {',
-      '    gl_FragColor = vec4( uBackground, clamp( 0.5 - s0, 0.0, 1.0 ) );',
+      // Shadow background
+      '  float sDist;',
+
+      '  if ( uNumBeads >= 1.0 ) {',
+      '    sDist = distS( uBead0 );',
+      '    if ( sDist <= 0.5 ) {',
+      '      gl_FragColor = vec4( uBackground, clamp( 0.5 - sDist, 0.0, 1.0 ) );',
+      '    }',
       '  }',
-      '  if ( uNumBeads >= 1.0 && d0 <= 0.5 ) {',
-      // TODO: fix alpha blending in both locations, so potentially do the shadow first
-      '    float colorAlpha = clamp( 0.5 - d0, 0.0, 1.0 );',
+
+      '  if ( uNumBeads >= 2.0 ) {',
+      '    sDist = distS( uBead1 );',
+      '    if ( sDist <= 0.5 ) {',
+      '      gl_FragColor = vec4( uBackground, clamp( 0.5 - sDist, 0.0, 1.0 ) );',
+      '    }',
+      '  }',
+
+      // Main distance
+      '  float rDist;',
+      '  float finalRDist;',
+      '  float dOff;',
+      '  float isHit = 0.0;',
+
+      '  if ( uNumBeads >= 1.0 ) {',
+      '    rDist = distR( uBead0 );',
+      '    if ( rDist <= 0.5 ) {',
+      '      finalRDist = rDist;',
+      '      isHit = 1.0;',
+      '      dOff = shadeOff( uBead0 );',
+      '    }',
+      '  }',
+
+      '  if ( uNumBeads >= 2.0 ) {',
+      '    rDist = distR( uBead1 );',
+      '    if ( rDist <= 0.5 ) {',
+      '      finalRDist = rDist;',
+      '      isHit = 1.0;',
+      '      dOff = shadeOff( uBead1 );',
+      '    }',
+      '  }',
+
+      '  if ( isHit != 0.0 ) {',
+      '    float colorAlpha = clamp( 0.5 - finalRDist, 0.0, 1.0 );',
       '    float resultAlpha = colorAlpha + ( 1.0 - colorAlpha ) * gl_FragColor.a;',
-      '    dOff = clamp( 0.5 * length( ( vView - uBead0 ) / uRadius + 0.3 ), 0.0, 1.0 );',
       '    vec3 color;',
       '    if ( dOff > 0.5 ) {',
       '      color = mix( uMain, uShadow, dOff * 2.0 - 1.0 );',
@@ -137,12 +171,13 @@ define( function( require ) {
       '    gl_FragColor.rgb = mix( gl_FragColor.rgb, color, colorAlpha );',
       '    gl_FragColor.a = resultAlpha;',
       '  }',
+
       '}'
     ].join( '\n' );
 
     this.shaderProgram = new ShaderProgram( gl, vertexShaderSource, roundFragmentShaderSource, {
       attributes: [ 'aPosition' ],
-      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uPixelScale', 'uHighlight', 'uMain', 'uShadow', 'uBackground', 'uNumBeads', 'uBead0' ]
+      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uPixelScale', 'uHighlight', 'uMain', 'uShadow', 'uBackground', 'uNumBeads', 'uBead0', 'uBead1' ]
     } );
 
     this.vertexBuffer = gl.createBuffer();
@@ -199,9 +234,13 @@ define( function( require ) {
                                                                      this.node.roundBackgroundColorProperty.value.green / 255,
                                                                      this.node.roundBackgroundColorProperty.value.blue / 255 );
       gl.uniform1f( this.shaderProgram.uniformLocations.uNumBeads, layout.roundBeads.length );
-      if ( layout.roundBeads.length ) {
+      if ( layout.roundBeads.length >= 1 ) {
         gl.uniform2f( this.shaderProgram.uniformLocations.uBead0, layout.roundBeads[ 0 ].center.x + translation.x,
                                                                   layout.roundBeads[ 0 ].center.y + translation.y );
+      }
+      if ( layout.roundBeads.length >= 2 ) {
+        gl.uniform2f( this.shaderProgram.uniformLocations.uBead1, layout.roundBeads[ 1 ].center.x + translation.x,
+                                                                  layout.roundBeads[ 1 ].center.y + translation.y );
       }
 
       gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
