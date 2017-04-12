@@ -61,16 +61,16 @@ define( function( require ) {
       scene.addShowBothSwitch();
     } );
 
-    var sceneContainer = new Node();
+    var sceneContainer = new Node( {
+      children: this.sceneNodes
+    } );
     this.addChild( sceneContainer );
 
     // When the scene radio button is selected, show the selected scene
     model.sceneProperty.link( function( scene ) {
-      // Find our matching SceneNode
-      var sceneNode = _.find( self.sceneNodes, function( sceneNode ) {
-        return sceneNode.scene === scene;
-      } );
-      sceneContainer.children = [ sceneNode ];
+      for ( var i = 0; i < self.sceneNodes.length; i++ ) {
+        self.sceneNodes[ i ].visible = self.sceneNodes[ i ].scene === scene;
+      }
     } );
   }
 
