@@ -157,10 +157,10 @@ define( function( require ) {
       '    float colorAlpha = clamp( 0.5 - finalRDist, 0.0, 1.0 );',
       '    float resultAlpha = colorAlpha + ( 1.0 - colorAlpha ) * gl_FragColor.a;',
       '    vec3 color;',
-      '    if ( dOff > 0.5 ) {',
-      '      color = mix( uMain, uShadow, dOff * 2.0 - 1.0 );',
+      '    if ( dOff > 0.3 ) {',
+      '      color = mix( uMain, uShadow, ( dOff - 0.3 ) / 0.7 );',
       '    } else {',
-      '      color = mix( uHighlight, uMain, dOff * 2.0 );',
+      '      color = mix( uHighlight, uMain, dOff / 0.3 );',
       '    }',
       '    gl_FragColor.rgb = mix( gl_FragColor.rgb, color, colorAlpha );',
       '    gl_FragColor.a = resultAlpha;',
@@ -213,22 +213,26 @@ define( function( require ) {
 
       this.shaderProgram.use();
 
+      function mapToUnit( n ) {
+        return n / 255;
+      }
+
       gl.uniformMatrix3fv( this.shaderProgram.uniformLocations.uModelViewMatrix, false, modelViewMatrix.entries );
       gl.uniformMatrix3fv( this.shaderProgram.uniformLocations.uProjectionMatrix, false, projectionMatrix.entries );
       gl.uniform1f( this.shaderProgram.uniformLocations.uRadius, ProportionPlaygroundConstants.BEAD_DIAMETER / 2 );
       gl.uniform1f( this.shaderProgram.uniformLocations.uPixelScale, modelViewMatrix.getScaleVector().x * projectionMatrix.getScaleVector().x * gl.canvas.width * Util.backingScale( gl ) );
-      gl.uniform3f( this.shaderProgram.uniformLocations.uHighlight, this.node.roundHighlightColorProperty.value.red / 255,
-                                                                    this.node.roundHighlightColorProperty.value.green / 255,
-                                                                    this.node.roundHighlightColorProperty.value.blue / 255 );
-      gl.uniform3f( this.shaderProgram.uniformLocations.uMain, this.node.roundMainColorProperty.value.red / 255,
-                                                               this.node.roundMainColorProperty.value.green / 255,
-                                                               this.node.roundMainColorProperty.value.blue / 255 );
-      gl.uniform3f( this.shaderProgram.uniformLocations.uShadow, this.node.roundShadowColorProperty.value.red / 255,
-                                                                 this.node.roundShadowColorProperty.value.green / 255,
-                                                                 this.node.roundShadowColorProperty.value.blue / 255 );
-      gl.uniform3f( this.shaderProgram.uniformLocations.uBackground, this.node.roundBackgroundColorProperty.value.red / 255,
-                                                                     this.node.roundBackgroundColorProperty.value.green / 255,
-                                                                     this.node.roundBackgroundColorProperty.value.blue / 255 );
+      gl.uniform3f( this.shaderProgram.uniformLocations.uHighlight, mapToUnit( this.node.roundHighlightColorProperty.value.red ),
+                                                                    mapToUnit( this.node.roundHighlightColorProperty.value.green ),
+                                                                    mapToUnit( this.node.roundHighlightColorProperty.value.blue ) );
+      gl.uniform3f( this.shaderProgram.uniformLocations.uMain, mapToUnit( this.node.roundMainColorProperty.value.red ),
+                                                               mapToUnit( this.node.roundMainColorProperty.value.green ),
+                                                               mapToUnit( this.node.roundMainColorProperty.value.blue ) );
+      gl.uniform3f( this.shaderProgram.uniformLocations.uShadow, mapToUnit( this.node.roundShadowColorProperty.value.red ),
+                                                                 mapToUnit( this.node.roundShadowColorProperty.value.green ),
+                                                                 mapToUnit( this.node.roundShadowColorProperty.value.blue ) );
+      gl.uniform3f( this.shaderProgram.uniformLocations.uBackground, mapToUnit( this.node.roundBackgroundColorProperty.value.red ),
+                                                                     mapToUnit( this.node.roundBackgroundColorProperty.value.green ),
+                                                                     mapToUnit( this.node.roundBackgroundColorProperty.value.blue ) );
       gl.uniform1f( this.shaderProgram.uniformLocations.uNumBeads, layout.roundBeads.length );
       for ( var i = 0; i < layout.roundBeads.length; i++ ) {
         gl.uniform2f( this.shaderProgram.uniformLocations[ 'uBead' + i ],

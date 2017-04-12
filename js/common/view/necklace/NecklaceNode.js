@@ -11,12 +11,15 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Util = require( 'SCENERY/util/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NecklaceGraphicNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceGraphicNode' );
   var Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   var NecklaceWebGLBeadsNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceWebGLBeadsNode' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
 
   /**
    *
@@ -38,6 +41,20 @@ define( function( require ) {
 
     if ( Util.checkWebGLSupport() && phet.chipper.queryParameters.webgl ) {
       console.log( 'WebGL Enabled' );
+
+      var chain = new Path( null, {
+        stroke: ProportionPlaygroundColorProfile.necklaceStringProperty,
+        lineWidth: 2
+      } );
+      this.addChild( chain );
+
+      layoutProperty.link( function( layout ) {
+        // TODO: refactor out this constant
+        chain.translation = layout.containerTranslation.plus( new Vector2( 0, 256 ) );
+        chain.shape = layout.shape;
+        chain.visible = layout.roundBeadCount > 0 || layout.squareBeadCount > 0;
+      } );
+
       this.addChild( new NecklaceWebGLBeadsNode( layoutProperty, {
         y: 256,
         canvasBounds: localBounds,
