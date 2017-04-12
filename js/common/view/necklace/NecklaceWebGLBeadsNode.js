@@ -10,12 +10,14 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ShaderProgram = require( 'SCENERY/util/ShaderProgram' );
   var Util = require( 'SCENERY/util/Util' );
   var WebGLNode = require( 'SCENERY/nodes/WebGLNode' );
   var ContextLossFailureDialog = require( 'SCENERY_PHET/ContextLossFailureDialog' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
 
   /**
    * @constructor
@@ -31,6 +33,21 @@ define( function( require ) {
 
     var invalidateListener = this.invalidatePaint.bind( this );
     layoutProperty.link( invalidateListener ); // TODO: disposal of this?
+
+    var colorProperty = ProportionPlaygroundColorProfile.necklaceRoundBeadProperty;
+
+    this.roundMainColorProperty = new DerivedProperty( [ colorProperty ], function( color ) {
+      return color.colorUtilsDarker( 0.1 );
+    } );
+    this.roundShadowColorProperty = new DerivedProperty( [ colorProperty ], function( color ) {
+      return color.colorUtilsDarker( 0.5 );
+    } );
+    this.roundHighlightColorProperty = new DerivedProperty( [ colorProperty ], function( color ) {
+      return color.colorUtilsBrighter( 0.5 );
+    } );
+    this.roundBackgroundColorProperty = new DerivedProperty( [ colorProperty ], function( color ) {
+      return color.colorUtilsDarker( 0.6 );
+    } );
 
     // TODO: invalidatePaint on color changes
 
@@ -80,23 +97,35 @@ define( function( require ) {
       'uniform float uRadius;',
       'uniform float uPixelScale;',
       'uniform vec2 uBead0;',
+      'uniform vec3 uHighlight;',
+      'uniform vec3 uMain;',
+      'uniform vec3 uShadow;',
+      'uniform vec3 uBackground;',
       'varying vec2 vView;',
       '',
       'void main( void ) {',
       '  gl_FragColor = vec4( 0.9, 0.9, 0.9, 1.0 );',
+      '  float dOff = 0.0;',
       '  float d0 = ( length( vView - uBead0 ) - uRadius ) * uPixelScale;',
       '  float s0 = ( length( vView - uBead0 - uRadius / 15.0 ) - uRadius * 1.02 ) * uPixelScale;',
       '  if ( uNumBeads >= 1.0 && d0 <= 0.5 ) {',
+      // TODO: fix alpha blending in both locations, so potentially do the shadow first
       '    gl_FragColor = vec4( 1.0, 1.0, 1.0, clamp( 0.5 - d0, 0.0, 1.0 ) );',
+      '    dOff = clamp( 0.5 * length( ( vView - uBead0 ) / uRadius + 0.3 ), 0.0, 1.0 );',
+      '    if ( dOff > 0.5 ) {',
+      '      gl_FragColor.rgb = mix( uMain, uShadow, dOff * 2.0 - 1.0 );',
+      '    } else {',
+      '      gl_FragColor.rgb = mix( uHighlight, uMain, dOff * 2.0 );',
+      '    }',
       '  } else if ( uNumBeads >= 1.0 && s0 <= 0.5 ) {',
-      '    gl_FragColor = vec4( 0.0, 0.0, 0.0, clamp( 0.5 - s0, 0.0, 1.0 ) );',
+      '    gl_FragColor = vec4( uBackground, clamp( 0.5 - s0, 0.0, 1.0 ) );',
       '  }',
       '}'
     ].join( '\n' );
 
     this.shaderProgram = new ShaderProgram( gl, roundVertexShaderSource, roundFragmentShaderSource, {
       attributes: [ 'aPosition' ],
-      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uPixelScale', 'uNumBeads', 'uBead0' ]
+      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uPixelScale', 'uHighlight', 'uMain', 'uShadow', 'uBackground', 'uNumBeads', 'uBead0' ]
     } );
 
     this.vertexBuffer = gl.createBuffer();
@@ -140,6 +169,18 @@ define( function( require ) {
       gl.uniformMatrix3fv( this.shaderProgram.uniformLocations.uProjectionMatrix, false, projectionMatrix.entries );
       gl.uniform1f( this.shaderProgram.uniformLocations.uRadius, ProportionPlaygroundConstants.BEAD_DIAMETER / 2 );
       gl.uniform1f( this.shaderProgram.uniformLocations.uPixelScale, modelViewMatrix.getScaleVector().x * projectionMatrix.getScaleVector().x * gl.canvas.width * Util.backingScale( gl ) );
+      gl.uniform3f( this.shaderProgram.uniformLocations.uHighlight, this.node.roundHighlightColorProperty.value.red / 255,
+                                                                    this.node.roundHighlightColorProperty.value.green / 255,
+                                                                    this.node.roundHighlightColorProperty.value.blue / 255 );
+      gl.uniform3f( this.shaderProgram.uniformLocations.uMain, this.node.roundMainColorProperty.value.red / 255,
+                                                               this.node.roundMainColorProperty.value.green / 255,
+                                                               this.node.roundMainColorProperty.value.blue / 255 );
+      gl.uniform3f( this.shaderProgram.uniformLocations.uShadow, this.node.roundShadowColorProperty.value.red / 255,
+                                                                 this.node.roundShadowColorProperty.value.green / 255,
+                                                                 this.node.roundShadowColorProperty.value.blue / 255 );
+      gl.uniform3f( this.shaderProgram.uniformLocations.uBackground, this.node.roundBackgroundColorProperty.value.red / 255,
+                                                                     this.node.roundBackgroundColorProperty.value.green / 255,
+                                                                     this.node.roundBackgroundColorProperty.value.blue / 255 );
       gl.uniform1f( this.shaderProgram.uniformLocations.uNumBeads, layout.roundBeads.length );
       if ( layout.roundBeads.length ) {
         gl.uniform2f( this.shaderProgram.uniformLocations.uBead0, layout.roundBeads[ 0 ].center.x + translation.x,
