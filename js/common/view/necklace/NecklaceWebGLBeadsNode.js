@@ -19,10 +19,20 @@ define( function( require ) {
    * @constructor
    * TODO: doc
    */
-  function NecklaceWebGLBeadsNode() {
+  function NecklaceWebGLBeadsNode( layoutProperty, options ) {
     WebGLNode.call( this, NecklaceBeadsPainter, {
       layerSplit: true // ensure we're on our own layer
     } );
+
+    // @private {Property.<NecklaceLayout>} TODO check doc after refactor
+    this.layoutProperty = layoutProperty;
+
+    var invalidateListener = this.invalidatePaint.bind( this );
+    layoutProperty.link( invalidateListener ); // TODO: disposal of this?
+
+    // TODO: invalidatePaint on color changes
+
+    this.mutate( options );
   }
 
   proportionPlayground.register( 'NecklaceWebGLBeadsNode', NecklaceWebGLBeadsNode );
@@ -79,7 +89,7 @@ define( function( require ) {
       100, 0, 0.2,
       100, 100, 0.2,
       0, 100, 0.2
-    ] ), gl.STATIC_DRAW );
+    ] ), gl.DYNAMIC_DRAW );
 
     this.contextLossListener = function( event ) {
       event.preventDefault();
@@ -99,6 +109,21 @@ define( function( require ) {
   inherit( Object, NecklaceBeadsPainter, {
     paint: function( modelViewMatrix, projectionMatrix ) {
       var gl = this.gl;
+
+      // TODO: can we do this at any other time?
+      // TODO: maybe just cache round/square count and only change if those changed
+      var layout = this.node.layoutProperty.value;
+      var translation = layout.containerTranslation;
+      if ( layout.roundBeads.length ) {
+        gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
+        gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( [
+          layout.roundBeads[ 0 ].center.x + translation.x, layout.roundBeads[ 0 ].center.y + translation.y, 0.2,
+          layout.roundBeads[ 0 ].center.x + translation.x + 10, layout.roundBeads[ 0 ].center.y + translation.y, 0.2,
+          layout.roundBeads[ 0 ].center.x + translation.x, layout.roundBeads[ 0 ].center.y + translation.y + 10, 0.2
+        ] ), gl.DYNAMIC_DRAW );
+      }
+
+
 
       this.shaderProgram.use();
 

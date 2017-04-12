@@ -56,6 +56,8 @@ define( function( require ) {
   }
 
   var layoutMap = {};
+  // TODO: Refactor to its own NecklaceLayout type, or put this directly on the necklace.
+  // TODO: OOOOH, this makes sense directly on the necklace?
   // approximate necklace as polygon with beads between each vertex, see http://mathworld.wolfram.com/RegularPolygon.html
   function getMultiBeadLayout( roundBeadCount, squareBeadCount ) {
 
