@@ -73,7 +73,7 @@ define( function( require ) {
     this.node = node;
 
     // TODO: add varyings
-    var roundVertexShaderSource = [
+    var vertexShaderSource = [
       'attribute vec2 aPosition;',
       'uniform mat3 uModelViewMatrix;',
       'uniform mat3 uProjectionMatrix;',
@@ -104,26 +104,32 @@ define( function( require ) {
       'varying vec2 vView;',
       '',
       'void main( void ) {',
-      '  gl_FragColor = vec4( 0.9, 0.9, 0.9, 1.0 );',
+      '  gl_FragColor = vec4( 0.0, 0.0, 0.0, 0.0 );',
       '  float dOff = 0.0;',
       '  float d0 = ( length( vView - uBead0 ) - uRadius ) * uPixelScale;',
       '  float s0 = ( length( vView - uBead0 - uRadius / 15.0 ) - uRadius * 1.02 ) * uPixelScale;',
+      // "Shadow" background
+      '  if ( uNumBeads >= 1.0 && s0 <= 0.5 ) {',
+      '    gl_FragColor = vec4( uBackground, clamp( 0.5 - s0, 0.0, 1.0 ) );',
+      '  }',
       '  if ( uNumBeads >= 1.0 && d0 <= 0.5 ) {',
       // TODO: fix alpha blending in both locations, so potentially do the shadow first
-      '    gl_FragColor = vec4( 1.0, 1.0, 1.0, clamp( 0.5 - d0, 0.0, 1.0 ) );',
+      '    float colorAlpha = clamp( 0.5 - d0, 0.0, 1.0 );',
+      '    float resultAlpha = colorAlpha + ( 1.0 - colorAlpha ) * gl_FragColor.a;',
       '    dOff = clamp( 0.5 * length( ( vView - uBead0 ) / uRadius + 0.3 ), 0.0, 1.0 );',
+      '    vec3 color;',
       '    if ( dOff > 0.5 ) {',
-      '      gl_FragColor.rgb = mix( uMain, uShadow, dOff * 2.0 - 1.0 );',
+      '      color = mix( uMain, uShadow, dOff * 2.0 - 1.0 );',
       '    } else {',
-      '      gl_FragColor.rgb = mix( uHighlight, uMain, dOff * 2.0 );',
+      '      color = mix( uHighlight, uMain, dOff * 2.0 );',
       '    }',
-      '  } else if ( uNumBeads >= 1.0 && s0 <= 0.5 ) {',
-      '    gl_FragColor = vec4( uBackground, clamp( 0.5 - s0, 0.0, 1.0 ) );',
+      '    gl_FragColor.rgb = mix( gl_FragColor.rgb, color, colorAlpha );',
+      '    gl_FragColor.a = resultAlpha;',
       '  }',
       '}'
     ].join( '\n' );
 
-    this.shaderProgram = new ShaderProgram( gl, roundVertexShaderSource, roundFragmentShaderSource, {
+    this.shaderProgram = new ShaderProgram( gl, vertexShaderSource, roundFragmentShaderSource, {
       attributes: [ 'aPosition' ],
       uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uPixelScale', 'uHighlight', 'uMain', 'uShadow', 'uBackground', 'uNumBeads', 'uBead0' ]
     } );
