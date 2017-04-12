@@ -204,6 +204,9 @@ define( function( require ) {
           '  if ( uNumBeads >= ' + ( n + 1 ) + '.0 ) {',
           '    offset = ( vView - uBead' + n + '.xy ) / 0.95;', // compensate for 0.95 scale
           '    offset = mat2( 0.0, 1.0, -1.0, 0.0 ) * offset;', // compensate for -Math.PI/2 rotation
+          // TODO: handle many things here, temp rotation check
+          // NOTE: inverse of rotation matrix
+          '    offset = mat2( cos( uBead' + n + '.z ), -sin( uBead' + n + '.z ), sin( uBead' + n + '.z ), cos( uBead' + n + '.z ) ) * offset;',
           '    if ( abs( offset.x ) < uRadius && abs( offset.y ) < uRadius ) {',
           '      gl_FragColor = vec4( 0.0, 0.0, 1.0, 1.0 );',
           '    }',
