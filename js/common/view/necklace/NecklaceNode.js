@@ -42,7 +42,7 @@ define( function( require ) {
       preventFit: true,
       pickable: false
     } );
-    this.addChild( necklaceGraphicNode );
+    // this.addChild( necklaceGraphicNode );
 
     this.addChild( new NecklaceWebGLBeadsNode( layoutProperty, {
       y: 256,

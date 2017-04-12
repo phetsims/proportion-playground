@@ -91,6 +91,7 @@ define( function( require ) {
       '}'
     ].join( '\n' );
 
+    var fuzzNumber = '0.8';
     var roundFragmentShaderSource = [
       'precision mediump float;',
       'uniform float uNumBeads;',
@@ -103,11 +104,21 @@ define( function( require ) {
       'uniform vec3 uBackground;',
       'varying vec2 vView;',
       '',
+      'float distS( vec2 bead ) {',
+      '  return ( length( vView - bead - uRadius / 15.0 ) - uRadius * 1.02 ) * uPixelScale * ' + fuzzNumber + ';',
+      '}',
+      'float distR( vec2 bead ) {',
+      '  return ( length( vView - bead ) - uRadius ) * uPixelScale * ' + fuzzNumber + ';',
+      '}',
+      '',
       'void main( void ) {',
       '  gl_FragColor = vec4( 0.0, 0.0, 0.0, 0.0 );',
+      '  float inS = 0.0;',
+      '  float dS = 0.0;',
+
       '  float dOff = 0.0;',
-      '  float d0 = ( length( vView - uBead0 ) - uRadius ) * uPixelScale;',
-      '  float s0 = ( length( vView - uBead0 - uRadius / 15.0 ) - uRadius * 1.02 ) * uPixelScale;',
+      '  float d0 = distR( uBead0 );',
+      '  float s0 = distS( uBead0 );',
       // "Shadow" background
       '  if ( uNumBeads >= 1.0 && s0 <= 0.5 ) {',
       '    gl_FragColor = vec4( uBackground, clamp( 0.5 - s0, 0.0, 1.0 ) );',
