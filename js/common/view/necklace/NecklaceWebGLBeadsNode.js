@@ -244,19 +244,16 @@ define( function( require ) {
         return [
           '  if ( uNumBeads >= ' + ( n + 1 ) + '.0 ) {',
           '    rotation = inverseRot( uBead' + n + '.z );',
-          '    offset = ( vView - uBead' + n + '.xy ) / 0.95;', // compensate for 0.95 scale
-          '    offset += 1.0;', // compensate for centering
+          '    offset = ( vView - uBead' + n + '.xy ) / 0.95 + 1.0;', // compensate for 0.95 scale and centering
 
           // Back
-          '    curOffset = offset - uRadius / 7.5;',
-          '    backDist = min( backDist, distR( rotation * curOffset ) );',
+          '    backDist = min( backDist, distR( rotation * ( offset - uRadius / 7.5 ) ) );',
 
           // Middle
-          '    curOffset = ( offset - uRadius / 15.0 ) * 21.0 / 20.0;',
-          '    middleDist = min( middleDist, distR( rotation * curOffset ) );',
+          '    middleDist = min( middleDist, distR( rotation * ( ( offset - uRadius / 15.0 ) * ' + ( 21 / 20 ) + ' ) ) );',
 
           // Front
-          '    curOffset = offset * 11.0 / 10.0;',
+          '    curOffset = offset * 1.1;',
           '    rDist = distR( rotation * curOffset );',
           '    if ( rDist < frontDist ) {',
           '      frontDist = min( frontDist, rDist );',
