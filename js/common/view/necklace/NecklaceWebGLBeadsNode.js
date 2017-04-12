@@ -227,11 +227,14 @@ define( function( require ) {
       blendSource,
       '',
       'void main( void ) {',
-      '    gl_FragColor = vec4( 0.0, 0.0, 0.0, 0.0 );',
       '    vec2 offset;',
       '    vec2 curOffset;',
       '    float gradOffset;',
+      '    vec2 bestCurOffset;',
       '    float rDist;',
+      '    float backDist = 1000.0;',
+      '    float middleDist = 1000.0;',
+      '    float frontDist = 1000.0;',
       '    vec3 color;',
       '    mat2 rotation;',
       beadRange.map( function( n ) {
@@ -243,36 +246,49 @@ define( function( require ) {
 
           // Back
           '    curOffset = offset - uRadius / 7.5;',
-          '    rDist = distR( rotation * curOffset );',
-          '    if ( rDist <= 0.5 ) {',
-          '      gl_FragColor = blend( gl_FragColor, vec4( uDark7, clamp( 0.5 - rDist, 0.0, 1.0 ) ) );',
-          '    }',
+          '    backDist = min( backDist, distR( rotation * curOffset ) );',
 
           // Middle
           '    curOffset = ( offset - uRadius / 15.0 ) * 21.0 / 20.0;',
-          '    rDist = distR( rotation * curOffset );',
-          '    if ( rDist <= 0.5 ) {',
-          '      gl_FragColor = blend( gl_FragColor, vec4( uDark4, clamp( 0.5 - rDist, 0.0, 1.0 ) ) );',
-          '    }',
+          '    middleDist = min( middleDist, distR( rotation * curOffset ) );',
 
           // Front
           '    curOffset = offset * 11.0 / 10.0;',
           '    rDist = distR( rotation * curOffset );',
-          '    if ( rDist <= 0.5 ) {',
-          '      gradOffset = clamp( length( curOffset + ' + gradOffset + ' ) / ( uRadius * 2.6 ), 0.0, 1.0 );', // dia + offset 2.6
-          '      if ( gradOffset < 0.3 ) {',
-          '        color = mix( uBright3, uMain, gradOffset / 0.3 );',
-          '      } else if ( gradOffset < 0.5 ) {',
-          '        color = mix( uMain, uDark1, ( gradOffset - 0.3 ) / 0.2 );',
-          '      } else if ( gradOffset < 0.8 ) {',
-          '        color = mix( uDark1, uDark3, ( gradOffset - 0.5 ) / 0.3 );',
-          '      } else {',
-          '        color = uDark3;',
-          '      }',
-          '      gl_FragColor = blend( gl_FragColor, vec4( color, clamp( 0.5 - rDist, 0.0, 1.0 ) ) );',
+          '    if ( rDist < frontDist ) {',
+          '      frontDist = min( frontDist, rDist );',
+          '      bestCurOffset = curOffset;',
           '    }',
           '  }' ].join( '\n' );
       } ).join( '\n' ),
+
+      // Default (transparent)
+      '    gl_FragColor = vec4( 0.0, 0.0, 0.0, 0.0 );',
+
+      // Back
+      '  if ( backDist <= 0.5 ) {',
+      '    gl_FragColor = blend( gl_FragColor, vec4( uDark7, clamp( 0.5 - backDist, 0.0, 1.0 ) ) );',
+      '  }',
+
+      // Middle
+      '  if ( middleDist <= 0.5 ) {',
+      '    gl_FragColor = blend( gl_FragColor, vec4( uDark4, clamp( 0.5 - middleDist, 0.0, 1.0 ) ) );',
+      '  }',
+
+      // Front
+      '  if ( frontDist <= 0.5 ) {',
+      '    gradOffset = clamp( length( bestCurOffset + ' + gradOffset + ' ) / ( uRadius * 2.6 ), 0.0, 1.0 );', // dia + offset 2.6
+      '    if ( gradOffset < 0.3 ) {',
+      '      color = mix( uBright3, uMain, gradOffset / 0.3 );',
+      '    } else if ( gradOffset < 0.5 ) {',
+      '      color = mix( uMain, uDark1, ( gradOffset - 0.3 ) / 0.2 );',
+      '    } else if ( gradOffset < 0.8 ) {',
+      '      color = mix( uDark1, uDark3, ( gradOffset - 0.5 ) / 0.3 );',
+      '    } else {',
+      '      color = uDark3;',
+      '    }',
+      '    gl_FragColor = blend( gl_FragColor, vec4( color, clamp( 0.5 - frontDist, 0.0, 1.0 ) ) );',
+      '  }',
       '}'
     ].join( '\n' );
 
