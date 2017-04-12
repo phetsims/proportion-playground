@@ -24,7 +24,7 @@ define( function( require ) {
   var DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
   var colorProperty = ProportionPlaygroundColorProfile.necklaceRoundBeadProperty;
   // TODO: add a function like this to Color
-  function adjustedColor( amount ) {
+  function adjustedColorUtilsBrightness( amount ) {
     return new DerivedProperty( [ colorProperty ], function( color ) {
       if ( amount > 0 ) {
         return color.colorUtilsBrighter( amount );
@@ -43,12 +43,12 @@ define( function( require ) {
     highlightXOffset: -0.3,
     highlightYOffset: -0.3
   }, {
-    mainColor: adjustedColor( -0.1 ),
-    shadowColor: adjustedColor( -0.5 ),
-    highlightColor: adjustedColor( 0.5 ),
+    mainColor: adjustedColorUtilsBrightness( -0.1 ),
+    shadowColor: adjustedColorUtilsBrightness( -0.5 ),
+    highlightColor: adjustedColorUtilsBrightness( 0.5 ),
   } );
   var backgroundNode = new Circle( DIAMETER * 0.51, {
-    fill: adjustedColor( -0.6 ),
+    fill: adjustedColorUtilsBrightness( -0.6 ),
     x: DIAMETER / 30,
     y: DIAMETER / 30
   } );

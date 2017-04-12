@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ShaderProgram = require( 'SCENERY/util/ShaderProgram' );
+  var Util = require( 'SCENERY/util/Util' );
   var WebGLNode = require( 'SCENERY/nodes/WebGLNode' );
   var ContextLossFailureDialog = require( 'SCENERY_PHET/ContextLossFailureDialog' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
@@ -77,20 +78,25 @@ define( function( require ) {
       'precision mediump float;',
       'uniform float uNumBeads;',
       'uniform float uRadius;',
+      'uniform float uPixelScale;',
       'uniform vec2 uBead0;',
       'varying vec2 vView;',
       '',
       'void main( void ) {',
-      '  gl_FragColor = vec4( vView.x > 0.0 ? 1.0 : 0.0, vView.y > 0.0 ? 1.0 : 0.0, 0.0, 0.8 );',
-      '  if ( uNumBeads >= 1.0 && length( vView - uBead0 ) < uRadius ) {',
-      '    gl_FragColor = vec4( 1.0, 1.0, 1.0, 1.0 );',
+      '  gl_FragColor = vec4( 0.9, 0.9, 0.9, 1.0 );',
+      '  float d0 = ( length( vView - uBead0 ) - uRadius ) * uPixelScale;',
+      '  float s0 = ( length( vView - uBead0 - uRadius / 15.0 ) - uRadius * 1.02 ) * uPixelScale;',
+      '  if ( uNumBeads >= 1.0 && d0 <= 0.5 ) {',
+      '    gl_FragColor = vec4( 1.0, 1.0, 1.0, clamp( 0.5 - d0, 0.0, 1.0 ) );',
+      '  } else if ( uNumBeads >= 1.0 && s0 <= 0.5 ) {',
+      '    gl_FragColor = vec4( 0.0, 0.0, 0.0, clamp( 0.5 - s0, 0.0, 1.0 ) );',
       '  }',
       '}'
     ].join( '\n' );
 
     this.shaderProgram = new ShaderProgram( gl, roundVertexShaderSource, roundFragmentShaderSource, {
       attributes: [ 'aPosition' ],
-      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uNumBeads', 'uBead0' ]
+      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uPixelScale', 'uNumBeads', 'uBead0' ]
     } );
 
     this.vertexBuffer = gl.createBuffer();
@@ -133,6 +139,7 @@ define( function( require ) {
       gl.uniformMatrix3fv( this.shaderProgram.uniformLocations.uModelViewMatrix, false, modelViewMatrix.entries );
       gl.uniformMatrix3fv( this.shaderProgram.uniformLocations.uProjectionMatrix, false, projectionMatrix.entries );
       gl.uniform1f( this.shaderProgram.uniformLocations.uRadius, ProportionPlaygroundConstants.BEAD_DIAMETER / 2 );
+      gl.uniform1f( this.shaderProgram.uniformLocations.uPixelScale, modelViewMatrix.getScaleVector().x * projectionMatrix.getScaleVector().x * gl.canvas.width * Util.backingScale( gl ) );
       gl.uniform1f( this.shaderProgram.uniformLocations.uNumBeads, layout.roundBeads.length );
       if ( layout.roundBeads.length ) {
         gl.uniform2f( this.shaderProgram.uniformLocations.uBead0, layout.roundBeads[ 0 ].center.x + translation.x,
