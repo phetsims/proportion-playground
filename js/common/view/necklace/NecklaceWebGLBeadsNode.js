@@ -73,7 +73,7 @@ define( function( require ) {
       'precision mediump float;',
       '',
       'void main( void ) {',
-      '  gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );',
+      '  gl_FragColor = vec4( 1.0, 0.0, 0.0, 0.8 );',
       '}'
     ].join( '\n' );
 
@@ -110,20 +110,22 @@ define( function( require ) {
     paint: function( modelViewMatrix, projectionMatrix ) {
       var gl = this.gl;
 
+      var canvasBounds = this.node.getCanvasBounds();
+
       // TODO: can we do this at any other time?
       // TODO: maybe just cache round/square count and only change if those changed
-      var layout = this.node.layoutProperty.value;
-      var translation = layout.containerTranslation;
-      if ( layout.roundBeads.length ) {
-        gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
-        gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( [
-          layout.roundBeads[ 0 ].center.x + translation.x, layout.roundBeads[ 0 ].center.y + translation.y, 0.2,
-          layout.roundBeads[ 0 ].center.x + translation.x + 10, layout.roundBeads[ 0 ].center.y + translation.y, 0.2,
-          layout.roundBeads[ 0 ].center.x + translation.x, layout.roundBeads[ 0 ].center.y + translation.y + 10, 0.2
-        ] ), gl.DYNAMIC_DRAW );
-      }
-
-
+      // var layout = this.node.layoutProperty.value;
+      // var translation = layout.containerTranslation;
+      gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
+      gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( [
+        // layout.roundBeads[ 0 ].center.x + translation.x, layout.roundBeads[ 0 ].center.y + translation.y, 0.2,
+        // layout.roundBeads[ 0 ].center.x + translation.x + 10, layout.roundBeads[ 0 ].center.y + translation.y, 0.2,
+        // layout.roundBeads[ 0 ].center.x + translation.x, layout.roundBeads[ 0 ].center.y + translation.y + 10, 0.2
+        canvasBounds.minX, canvasBounds.minY, 0.2,
+        canvasBounds.maxX, canvasBounds.minY, 0.2,
+        canvasBounds.minX, canvasBounds.maxY, 0.2,
+        canvasBounds.maxX, canvasBounds.maxY, 0.2
+      ] ), gl.DYNAMIC_DRAW );
 
       this.shaderProgram.use();
 
@@ -133,7 +135,7 @@ define( function( require ) {
       gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
       gl.vertexAttribPointer( this.shaderProgram.attributeLocations.aPosition, 3, gl.FLOAT, false, 0, 0 );
 
-      gl.drawArrays( gl.TRIANGLES, 0, 3 );
+      gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4 );
 
       this.shaderProgram.unuse();
 
