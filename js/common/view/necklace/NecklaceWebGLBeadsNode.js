@@ -34,19 +34,37 @@ define( function( require ) {
     var invalidateListener = this.invalidatePaint.bind( this );
     layoutProperty.link( invalidateListener ); // TODO: disposal of this?
 
-    var colorProperty = ProportionPlaygroundColorProfile.necklaceRoundBeadProperty;
+    var roundColorProperty = ProportionPlaygroundColorProfile.necklaceRoundBeadProperty;
+    var squareColorProperty = ProportionPlaygroundColorProfile.necklaceSquareBeadProperty;
 
-    this.roundMainColorProperty = new DerivedProperty( [ colorProperty ], function( color ) {
+    this.roundMainColorProperty = new DerivedProperty( [ roundColorProperty ], function( color ) {
       return color.colorUtilsDarker( 0.1 );
     } );
-    this.roundShadowColorProperty = new DerivedProperty( [ colorProperty ], function( color ) {
+    this.roundShadowColorProperty = new DerivedProperty( [ roundColorProperty ], function( color ) {
       return color.colorUtilsDarker( 0.5 );
     } );
-    this.roundHighlightColorProperty = new DerivedProperty( [ colorProperty ], function( color ) {
+    this.roundHighlightColorProperty = new DerivedProperty( [ roundColorProperty ], function( color ) {
       return color.colorUtilsBrighter( 0.5 );
     } );
-    this.roundBackgroundColorProperty = new DerivedProperty( [ colorProperty ], function( color ) {
+    this.roundBackgroundColorProperty = new DerivedProperty( [ roundColorProperty ], function( color ) {
       return color.colorUtilsDarker( 0.6 );
+    } );
+
+    this.squareDark7ColorProperty = new DerivedProperty( [ squareColorProperty ], function( color ) {
+      return color.colorUtilsDarker( 0.7 );
+    } );
+    this.squareDark4ColorProperty = new DerivedProperty( [ squareColorProperty ], function( color ) {
+      return color.colorUtilsDarker( 0.4 );
+    } );
+    this.squareDark3ColorProperty = new DerivedProperty( [ squareColorProperty ], function( color ) {
+      return color.colorUtilsDarker( 0.3 );
+    } );
+    this.squareDark1ColorProperty = new DerivedProperty( [ squareColorProperty ], function( color ) {
+      return color.colorUtilsDarker( 0.1 );
+    } );
+    this.squareColorProperty = squareColorProperty;
+    this.squareBright3ColorProperty = new DerivedProperty( [ squareColorProperty ], function( color ) {
+      return color.colorUtilsBrighter( 0.3 );
     } );
 
     // TODO: invalidatePaint on color changes
@@ -165,13 +183,42 @@ define( function( require ) {
       '    gl_FragColor.rgb = mix( gl_FragColor.rgb, color, colorAlpha );',
       '    gl_FragColor.a = resultAlpha;',
       '  }',
-
       '}'
     ].join( '\n' );
 
-    this.shaderProgram = new ShaderProgram( gl, vertexShaderSource, roundFragmentShaderSource, {
+    var squareFragmentShaderSource = [
+      'precision mediump float;',
+      'uniform float uNumBeads;',
+      beadRange.map( function( n ) {
+        return 'uniform vec2 uBead' + n + ';';
+      } ).join( '\n' ),
+      'uniform float uPixelScale;',
+      'varying vec2 vView;',
+      '',
+      'void main( void ) {',
+      '    gl_FragColor = vec4( 0.0, 0.0, 0.0, 0.0 );',
+      beadRange.map( function( n ) {
+        return [
+          '  if ( uNumBeads >= ' + ( n + 1 ) + '.0 ) {',
+          '    float dd = length( vView - uBead' + n + ' );',
+          '    if ( dd < 10.0 ) {',
+          '      gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );',
+          '    }',
+          '  }' ].join( '\n' );
+      } ).join( '\n' ),
+      '}'
+    ].join( '\n' );
+
+    this.roundShaderProgram = new ShaderProgram( gl, vertexShaderSource, roundFragmentShaderSource, {
       attributes: [ 'aPosition' ],
       uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uPixelScale', 'uHighlight', 'uMain', 'uShadow', 'uBackground', 'uNumBeads' ].concat( beadRange.map( function( n ) {
+        return 'uBead' + n;
+      } ) )
+    } );
+
+    this.squareShaderProgram = new ShaderProgram( gl, vertexShaderSource, squareFragmentShaderSource, {
+      attributes: [ 'aPosition' ],
+      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uPixelScale', 'uNumBeads' ].concat( beadRange.map( function( n ) {
         return 'uBead' + n;
       } ) )
     } );
@@ -180,12 +227,12 @@ define( function( require ) {
 
     var canvasBounds = this.node.getCanvasBounds();
     gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
-      gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( [
-        canvasBounds.minX, canvasBounds.minY, 0.2,
-        canvasBounds.maxX, canvasBounds.minY, 0.2,
-        canvasBounds.minX, canvasBounds.maxY, 0.2,
-        canvasBounds.maxX, canvasBounds.maxY, 0.2
-      ] ), gl.STATIC_DRAW );
+    gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( [
+      canvasBounds.minX, canvasBounds.minY, 0.2,
+      canvasBounds.maxX, canvasBounds.minY, 0.2,
+      canvasBounds.minX, canvasBounds.maxY, 0.2,
+      canvasBounds.maxX, canvasBounds.maxY, 0.2
+    ] ), gl.STATIC_DRAW );
 
     this.contextLossListener = function( event ) {
       event.preventDefault();
@@ -205,56 +252,76 @@ define( function( require ) {
   inherit( Object, NecklaceBeadsPainter, {
     paint: function( modelViewMatrix, projectionMatrix ) {
       var gl = this.gl;
+      var i;
 
       // TODO: can we do this at any other time?
       // TODO: maybe just cache round/square count and only change if those changed
       var layout = this.node.layoutProperty.value;
       var translation = layout.containerTranslation;
 
-      this.shaderProgram.use();
-
       function mapToUnit( n ) {
         return n / 255;
       }
 
-      gl.uniformMatrix3fv( this.shaderProgram.uniformLocations.uModelViewMatrix, false, modelViewMatrix.entries );
-      gl.uniformMatrix3fv( this.shaderProgram.uniformLocations.uProjectionMatrix, false, projectionMatrix.entries );
-      gl.uniform1f( this.shaderProgram.uniformLocations.uRadius, ProportionPlaygroundConstants.BEAD_DIAMETER / 2 );
-      gl.uniform1f( this.shaderProgram.uniformLocations.uPixelScale, modelViewMatrix.getScaleVector().x * projectionMatrix.getScaleVector().x * gl.canvas.width * Util.backingScale( gl ) );
-      gl.uniform3f( this.shaderProgram.uniformLocations.uHighlight, mapToUnit( this.node.roundHighlightColorProperty.value.red ),
+      this.roundShaderProgram.use();
+
+      gl.uniformMatrix3fv( this.roundShaderProgram.uniformLocations.uModelViewMatrix, false, modelViewMatrix.entries );
+      gl.uniformMatrix3fv( this.roundShaderProgram.uniformLocations.uProjectionMatrix, false, projectionMatrix.entries );
+      gl.uniform1f( this.roundShaderProgram.uniformLocations.uRadius, ProportionPlaygroundConstants.BEAD_DIAMETER / 2 );
+      gl.uniform1f( this.roundShaderProgram.uniformLocations.uPixelScale, modelViewMatrix.getScaleVector().x * projectionMatrix.getScaleVector().x * gl.canvas.width * Util.backingScale( gl ) );
+      gl.uniform3f( this.roundShaderProgram.uniformLocations.uHighlight, mapToUnit( this.node.roundHighlightColorProperty.value.red ),
                                                                     mapToUnit( this.node.roundHighlightColorProperty.value.green ),
                                                                     mapToUnit( this.node.roundHighlightColorProperty.value.blue ) );
-      gl.uniform3f( this.shaderProgram.uniformLocations.uMain, mapToUnit( this.node.roundMainColorProperty.value.red ),
+      gl.uniform3f( this.roundShaderProgram.uniformLocations.uMain, mapToUnit( this.node.roundMainColorProperty.value.red ),
                                                                mapToUnit( this.node.roundMainColorProperty.value.green ),
                                                                mapToUnit( this.node.roundMainColorProperty.value.blue ) );
-      gl.uniform3f( this.shaderProgram.uniformLocations.uShadow, mapToUnit( this.node.roundShadowColorProperty.value.red ),
+      gl.uniform3f( this.roundShaderProgram.uniformLocations.uShadow, mapToUnit( this.node.roundShadowColorProperty.value.red ),
                                                                  mapToUnit( this.node.roundShadowColorProperty.value.green ),
                                                                  mapToUnit( this.node.roundShadowColorProperty.value.blue ) );
-      gl.uniform3f( this.shaderProgram.uniformLocations.uBackground, mapToUnit( this.node.roundBackgroundColorProperty.value.red ),
+      gl.uniform3f( this.roundShaderProgram.uniformLocations.uBackground, mapToUnit( this.node.roundBackgroundColorProperty.value.red ),
                                                                      mapToUnit( this.node.roundBackgroundColorProperty.value.green ),
                                                                      mapToUnit( this.node.roundBackgroundColorProperty.value.blue ) );
-      gl.uniform1f( this.shaderProgram.uniformLocations.uNumBeads, layout.roundBeads.length );
-      for ( var i = 0; i < layout.roundBeads.length; i++ ) {
-        gl.uniform2f( this.shaderProgram.uniformLocations[ 'uBead' + i ],
+      gl.uniform1f( this.roundShaderProgram.uniformLocations.uNumBeads, layout.roundBeads.length );
+      for ( i = 0; i < layout.roundBeads.length; i++ ) {
+        gl.uniform2f( this.roundShaderProgram.uniformLocations[ 'uBead' + i ],
                       layout.roundBeads[ i ].center.x + translation.x,
                       layout.roundBeads[ i ].center.y + translation.y );
       }
 
       gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
-      gl.vertexAttribPointer( this.shaderProgram.attributeLocations.aPosition, 3, gl.FLOAT, false, 0, 0 );
+      gl.vertexAttribPointer( this.roundShaderProgram.attributeLocations.aPosition, 3, gl.FLOAT, false, 0, 0 );
 
       gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4 );
 
-      this.shaderProgram.unuse();
+      this.roundShaderProgram.unuse();
+
+      this.squareShaderProgram.use();
+
+      gl.uniformMatrix3fv( this.squareShaderProgram.uniformLocations.uModelViewMatrix, false, modelViewMatrix.entries );
+      gl.uniformMatrix3fv( this.squareShaderProgram.uniformLocations.uProjectionMatrix, false, projectionMatrix.entries );
+      gl.uniform1f( this.squareShaderProgram.uniformLocations.uPixelScale, modelViewMatrix.getScaleVector().x * projectionMatrix.getScaleVector().x * gl.canvas.width * Util.backingScale( gl ) );
+      gl.uniform1f( this.squareShaderProgram.uniformLocations.uNumBeads, layout.squareBeads.length );
+      for ( i = 0; i < layout.squareBeads.length; i++ ) {
+        gl.uniform2f( this.squareShaderProgram.uniformLocations[ 'uBead' + i ],
+                      layout.squareBeads[ i ].center.x + translation.x,
+                      layout.squareBeads[ i ].center.y + translation.y );
+      }
+
+      gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
+      gl.vertexAttribPointer( this.squareShaderProgram.attributeLocations.aPosition, 3, gl.FLOAT, false, 0, 0 );
+
+      gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4 );
+
+      this.squareShaderProgram.unuse();
 
       return WebGLNode.PAINTED_SOMETHING;
     },
 
     dispose: function() {
-      this.shaderProgram.dispose();
+      this.roundShaderProgram.dispose();
       this.gl.deleteBuffer( this.vertexBuffer );
 
-      this.shaderProgram = null;
+      this.roundShaderProgram = null;
 
       // After we are disposed, we don't care about context loss
       this.gl.canvas.removeEventListener( 'webglcontextlost', this.contextLossListener );
