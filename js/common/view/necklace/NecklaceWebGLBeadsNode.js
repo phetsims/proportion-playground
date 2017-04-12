@@ -111,8 +111,17 @@ define( function( require ) {
 
     var maxBeads = 20;
     var beadRange = _.range( 0, maxBeads );
-
     var fuzzNumber = '0.8';
+
+    // Porter-Duff "over" blend function (non-premultiplied)
+    var blendSource = [
+      'vec4 blend( vec4 source, vec4 target ) {',
+      '  float alpha = target.a + ( 1.0 - target.a ) * source.a;',
+      '  vec3 color = ( target.rgb * target.a + source.rgb * source.a * ( 1.0 - target.a ) ) / alpha;',
+      '  return vec4( color, alpha );',
+      '}'
+    ].join( '\n' );
+
     var roundFragmentShaderSource = [
       'precision mediump float;',
       'uniform float uNumBeads;',
@@ -136,6 +145,7 @@ define( function( require ) {
       'float shadeOff( vec2 bead ) {',
       '  return clamp( 0.5 * length( ( vView - bead ) / uRadius + 0.3 ), 0.0, 1.0 );',
       '}',
+      blendSource,
       '',
       'void main( void ) {',
       '  gl_FragColor = vec4( 0.0, 0.0, 0.0, 0.0 );',
@@ -172,16 +182,14 @@ define( function( require ) {
       } ).join( '\n' ),
 
       '  if ( isHit != 0.0 ) {',
-      '    float colorAlpha = clamp( 0.5 - finalRDist, 0.0, 1.0 );',
-      '    float resultAlpha = colorAlpha + ( 1.0 - colorAlpha ) * gl_FragColor.a;',
+      '    float alpha = clamp( 0.5 - finalRDist, 0.0, 1.0 );',
       '    vec3 color;',
       '    if ( dOff > 0.3 ) {',
       '      color = mix( uMain, uShadow, ( dOff - 0.3 ) / 0.7 );',
       '    } else {',
       '      color = mix( uHighlight, uMain, dOff / 0.3 );',
       '    }',
-      '    gl_FragColor.rgb = mix( gl_FragColor.rgb, color, colorAlpha );',
-      '    gl_FragColor.a = resultAlpha;',
+      '    gl_FragColor = blend( gl_FragColor, vec4( color, alpha ) );',
       '  }',
       '}'
     ].join( '\n' );
@@ -194,22 +202,52 @@ define( function( require ) {
       } ).join( '\n' ),
       'uniform float uRadius;',
       'uniform float uPixelScale;',
+      'uniform vec3 uDark7;',
+      'uniform vec3 uDark4;',
+      'uniform vec3 uDark3;',
+      'uniform vec3 uDark1;',
+      'uniform vec3 uMain;',
+      'uniform vec3 uBright3;',
       'varying vec2 vView;',
+      '',
+      'float distR( vec2 offset ) {',
+      '  return ( max( abs( offset.x ), abs( offset.y ) ) - uRadius ) * uPixelScale * ' + fuzzNumber + ';',
+      '}',
+      blendSource,
       '',
       'void main( void ) {',
       '    gl_FragColor = vec4( 0.0, 0.0, 0.0, 0.0 );',
       '    vec2 offset;',
+      '    vec2 curOffset;',
+      '    float rDist;',
+      '    mat2 rotation;',
       beadRange.map( function( n ) {
         return [
           '  if ( uNumBeads >= ' + ( n + 1 ) + '.0 ) {',
+          '    rotation = mat2( cos( uBead' + n + '.z ), -sin( uBead' + n + '.z ), sin( uBead' + n + '.z ), cos( uBead' + n + '.z ) );',
           '    offset = ( vView - uBead' + n + '.xy ) / 0.95;', // compensate for 0.95 scale
-          '    offset = mat2( 0.0, 1.0, -1.0, 0.0 ) * offset;', // compensate for -Math.PI/2 rotation
+
+          // Back
+          '    curOffset = offset - uRadius / 7.5;',
+          '    rDist = distR( rotation * curOffset );',
+          '    if ( rDist <= 0.5 ) {',
+          '      gl_FragColor = blend( gl_FragColor, vec4( uDark7, clamp( 0.5 - rDist, 0.0, 1.0 ) ) );',
+          '    }',
+
+          // Middle
+          '    curOffset = ( offset - uRadius / 15.0 ) * 21.0 / 20.0;',
+          '    rDist = distR( rotation * curOffset );',
+          '    if ( rDist <= 0.5 ) {',
+          '      gl_FragColor = blend( gl_FragColor, vec4( uDark4, clamp( 0.5 - rDist, 0.0, 1.0 ) ) );',
+          '    }',
+
           // TODO: handle many things here, temp rotation check
           // NOTE: inverse of rotation matrix
-          '    offset = mat2( cos( uBead' + n + '.z ), -sin( uBead' + n + '.z ), sin( uBead' + n + '.z ), cos( uBead' + n + '.z ) ) * offset;',
-          '    if ( abs( offset.x ) < uRadius && abs( offset.y ) < uRadius ) {',
-          '      gl_FragColor = vec4( 0.0, 0.0, 1.0, 1.0 );',
-          '    }',
+          // '    offset = rotation * offset;',
+          // '    rDist = distR( offset );',
+          // '    if ( rDist <= 0.5 ) {',
+          // '      gl_FragColor = vec4( 0.0, 0.0, 1.0, clamp( 0.5 - rDist, 0.0, 1.0 ) );',
+          // '    }',
           '  }' ].join( '\n' );
       } ).join( '\n' ),
       '}'
@@ -224,7 +262,7 @@ define( function( require ) {
 
     this.squareShaderProgram = new ShaderProgram( gl, vertexShaderSource, squareFragmentShaderSource, {
       attributes: [ 'aPosition' ],
-      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uPixelScale', 'uNumBeads' ].concat( beadRange.map( function( n ) {
+      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uPixelScale', 'uDark7', 'uDark4', 'uDark3', 'uDark1', 'uMain', 'uBright3', 'uNumBeads' ].concat( beadRange.map( function( n ) {
         return 'uBead' + n;
       } ) )
     } );
@@ -308,6 +346,24 @@ define( function( require ) {
       gl.uniform1f( this.squareShaderProgram.uniformLocations.uRadius, ProportionPlaygroundConstants.BEAD_DIAMETER / 2 );
       gl.uniform1f( this.squareShaderProgram.uniformLocations.uPixelScale, modelViewMatrix.getScaleVector().x * projectionMatrix.getScaleVector().x * gl.canvas.width * Util.backingScale( gl ) );
       gl.uniform1f( this.squareShaderProgram.uniformLocations.uNumBeads, layout.squareBeads.length );
+      gl.uniform3f( this.squareShaderProgram.uniformLocations.uDark7, mapToUnit( this.node.squareDark7ColorProperty.value.red ),
+                                                                    mapToUnit( this.node.squareDark7ColorProperty.value.green ),
+                                                                    mapToUnit( this.node.squareDark7ColorProperty.value.blue ) );
+      gl.uniform3f( this.squareShaderProgram.uniformLocations.uDark4, mapToUnit( this.node.squareDark4ColorProperty.value.red ),
+                                                                    mapToUnit( this.node.squareDark4ColorProperty.value.green ),
+                                                                    mapToUnit( this.node.squareDark4ColorProperty.value.blue ) );
+      gl.uniform3f( this.squareShaderProgram.uniformLocations.uDark3, mapToUnit( this.node.squareDark3ColorProperty.value.red ),
+                                                                    mapToUnit( this.node.squareDark3ColorProperty.value.green ),
+                                                                    mapToUnit( this.node.squareDark3ColorProperty.value.blue ) );
+      gl.uniform3f( this.squareShaderProgram.uniformLocations.uDark1, mapToUnit( this.node.squareDark1ColorProperty.value.red ),
+                                                                    mapToUnit( this.node.squareDark1ColorProperty.value.green ),
+                                                                    mapToUnit( this.node.squareDark1ColorProperty.value.blue ) );
+      gl.uniform3f( this.squareShaderProgram.uniformLocations.uMain, mapToUnit( this.node.squareColorProperty.value.red ),
+                                                                    mapToUnit( this.node.squareColorProperty.value.green ),
+                                                                    mapToUnit( this.node.squareColorProperty.value.blue ) );
+      gl.uniform3f( this.squareShaderProgram.uniformLocations.uBright3, mapToUnit( this.node.squareBright3ColorProperty.value.red ),
+                                                                    mapToUnit( this.node.squareBright3ColorProperty.value.green ),
+                                                                    mapToUnit( this.node.squareBright3ColorProperty.value.blue ) );
       for ( i = 0; i < layout.squareBeads.length; i++ ) {
         gl.uniform3f( this.squareShaderProgram.uniformLocations[ 'uBead' + i ],
                       layout.squareBeads[ i ].center.x + translation.x,
