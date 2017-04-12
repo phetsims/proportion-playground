@@ -190,19 +190,22 @@ define( function( require ) {
       'precision mediump float;',
       'uniform float uNumBeads;',
       beadRange.map( function( n ) {
-        return 'uniform vec2 uBead' + n + ';';
+        return 'uniform vec3 uBead' + n + ';';
       } ).join( '\n' ),
+      'uniform float uRadius;',
       'uniform float uPixelScale;',
       'varying vec2 vView;',
       '',
       'void main( void ) {',
       '    gl_FragColor = vec4( 0.0, 0.0, 0.0, 0.0 );',
+      '    vec2 offset;',
       beadRange.map( function( n ) {
         return [
           '  if ( uNumBeads >= ' + ( n + 1 ) + '.0 ) {',
-          '    float dd = length( vView - uBead' + n + ' );',
-          '    if ( dd < 10.0 ) {',
-          '      gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );',
+          '    offset = ( vView - uBead' + n + '.xy ) / 0.95;', // compensate for 0.95 scale
+          '    offset = mat2( 0.0, 1.0, -1.0, 0.0 ) * offset;', // compensate for -Math.PI/2 rotation
+          '    if ( abs( offset.x ) < uRadius && abs( offset.y ) < uRadius ) {',
+          '      gl_FragColor = vec4( 0.0, 0.0, 1.0, 1.0 );',
           '    }',
           '  }' ].join( '\n' );
       } ).join( '\n' ),
@@ -218,7 +221,7 @@ define( function( require ) {
 
     this.squareShaderProgram = new ShaderProgram( gl, vertexShaderSource, squareFragmentShaderSource, {
       attributes: [ 'aPosition' ],
-      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uPixelScale', 'uNumBeads' ].concat( beadRange.map( function( n ) {
+      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uPixelScale', 'uNumBeads' ].concat( beadRange.map( function( n ) {
         return 'uBead' + n;
       } ) )
     } );
@@ -299,12 +302,14 @@ define( function( require ) {
 
       gl.uniformMatrix3fv( this.squareShaderProgram.uniformLocations.uModelViewMatrix, false, modelViewMatrix.entries );
       gl.uniformMatrix3fv( this.squareShaderProgram.uniformLocations.uProjectionMatrix, false, projectionMatrix.entries );
+      gl.uniform1f( this.squareShaderProgram.uniformLocations.uRadius, ProportionPlaygroundConstants.BEAD_DIAMETER / 2 );
       gl.uniform1f( this.squareShaderProgram.uniformLocations.uPixelScale, modelViewMatrix.getScaleVector().x * projectionMatrix.getScaleVector().x * gl.canvas.width * Util.backingScale( gl ) );
       gl.uniform1f( this.squareShaderProgram.uniformLocations.uNumBeads, layout.squareBeads.length );
       for ( i = 0; i < layout.squareBeads.length; i++ ) {
-        gl.uniform2f( this.squareShaderProgram.uniformLocations[ 'uBead' + i ],
+        gl.uniform3f( this.squareShaderProgram.uniformLocations[ 'uBead' + i ],
                       layout.squareBeads[ i ].center.x + translation.x,
-                      layout.squareBeads[ i ].center.y + translation.y );
+                      layout.squareBeads[ i ].center.y + translation.y,
+                      layout.squareBeads[ i ].angle );
       }
 
       gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
