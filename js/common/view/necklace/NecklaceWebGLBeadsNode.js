@@ -14,6 +14,7 @@ define( function( require ) {
   var WebGLNode = require( 'SCENERY/nodes/WebGLNode' );
   var ContextLossFailureDialog = require( 'SCENERY_PHET/ContextLossFailureDialog' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
 
   /**
    * @constructor
@@ -58,12 +59,15 @@ define( function( require ) {
       'attribute vec2 aPosition;',
       'uniform mat3 uModelViewMatrix;',
       'uniform mat3 uProjectionMatrix;',
+      'varying vec2 vView;',
       '',
       'void main( void ) {',
       // homogeneous model-view transformation
       '  vec3 view = uModelViewMatrix * vec3( aPosition.xy, 1 );',
       // homogeneous map to to normalized device coordinates
       '  vec3 ndc = uProjectionMatrix * vec3( view.xy, 1 );',
+      // Set the varying correctly
+      '  vView = aPosition.xy;',
       // ?
       '  gl_Position = vec4( ndc.xy, 1.0, 1.0 );',
       '}'
@@ -71,25 +75,34 @@ define( function( require ) {
 
     var roundFragmentShaderSource = [
       'precision mediump float;',
+      'uniform float uNumBeads;',
+      'uniform float uRadius;',
+      'uniform vec2 uBead0;',
+      'varying vec2 vView;',
       '',
       'void main( void ) {',
-      '  gl_FragColor = vec4( 1.0, 0.0, 0.0, 0.8 );',
+      '  gl_FragColor = vec4( vView.x > 0.0 ? 1.0 : 0.0, vView.y > 0.0 ? 1.0 : 0.0, 0.0, 0.8 );',
+      '  if ( uNumBeads >= 1.0 && length( vView - uBead0 ) < uRadius ) {',
+      '    gl_FragColor = vec4( 1.0, 1.0, 1.0, 1.0 );',
+      '  }',
       '}'
     ].join( '\n' );
 
     this.shaderProgram = new ShaderProgram( gl, roundVertexShaderSource, roundFragmentShaderSource, {
       attributes: [ 'aPosition' ],
-      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix' ]
+      uniforms: [ 'uModelViewMatrix', 'uProjectionMatrix', 'uRadius', 'uNumBeads', 'uBead0' ]
     } );
 
     this.vertexBuffer = gl.createBuffer();
 
+    var canvasBounds = this.node.getCanvasBounds();
     gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( [
-      100, 0, 0.2,
-      100, 100, 0.2,
-      0, 100, 0.2
-    ] ), gl.DYNAMIC_DRAW );
+      gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( [
+        canvasBounds.minX, canvasBounds.minY, 0.2,
+        canvasBounds.maxX, canvasBounds.minY, 0.2,
+        canvasBounds.minX, canvasBounds.maxY, 0.2,
+        canvasBounds.maxX, canvasBounds.maxY, 0.2
+      ] ), gl.STATIC_DRAW );
 
     this.contextLossListener = function( event ) {
       event.preventDefault();
@@ -110,27 +123,21 @@ define( function( require ) {
     paint: function( modelViewMatrix, projectionMatrix ) {
       var gl = this.gl;
 
-      var canvasBounds = this.node.getCanvasBounds();
-
       // TODO: can we do this at any other time?
       // TODO: maybe just cache round/square count and only change if those changed
-      // var layout = this.node.layoutProperty.value;
-      // var translation = layout.containerTranslation;
-      gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
-      gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( [
-        // layout.roundBeads[ 0 ].center.x + translation.x, layout.roundBeads[ 0 ].center.y + translation.y, 0.2,
-        // layout.roundBeads[ 0 ].center.x + translation.x + 10, layout.roundBeads[ 0 ].center.y + translation.y, 0.2,
-        // layout.roundBeads[ 0 ].center.x + translation.x, layout.roundBeads[ 0 ].center.y + translation.y + 10, 0.2
-        canvasBounds.minX, canvasBounds.minY, 0.2,
-        canvasBounds.maxX, canvasBounds.minY, 0.2,
-        canvasBounds.minX, canvasBounds.maxY, 0.2,
-        canvasBounds.maxX, canvasBounds.maxY, 0.2
-      ] ), gl.DYNAMIC_DRAW );
+      var layout = this.node.layoutProperty.value;
+      var translation = layout.containerTranslation;
 
       this.shaderProgram.use();
 
       gl.uniformMatrix3fv( this.shaderProgram.uniformLocations.uModelViewMatrix, false, modelViewMatrix.entries );
       gl.uniformMatrix3fv( this.shaderProgram.uniformLocations.uProjectionMatrix, false, projectionMatrix.entries );
+      gl.uniform1f( this.shaderProgram.uniformLocations.uRadius, ProportionPlaygroundConstants.BEAD_DIAMETER / 2 );
+      gl.uniform1f( this.shaderProgram.uniformLocations.uNumBeads, layout.roundBeads.length );
+      if ( layout.roundBeads.length ) {
+        gl.uniform2f( this.shaderProgram.uniformLocations.uBead0, layout.roundBeads[ 0 ].center.x + translation.x,
+                                                                  layout.roundBeads[ 0 ].center.y + translation.y );
+      }
 
       gl.bindBuffer( gl.ARRAY_BUFFER, this.vertexBuffer );
       gl.vertexAttribPointer( this.shaderProgram.attributeLocations.aPosition, 3, gl.FLOAT, false, 0, 0 );
