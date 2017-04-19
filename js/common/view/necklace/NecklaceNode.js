@@ -21,6 +21,8 @@ define( function( require ) {
   var NecklaceWebGLBeadsNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceWebGLBeadsNode' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
 
+  var allowWebGL = false;
+
   /**
    *
    * @param {Necklace} necklace - the model
@@ -39,7 +41,7 @@ define( function( require ) {
 
     var localBounds = NecklaceGraphicNode.createStaticNecklace( 20, 20 ).localBounds.dilated( 15 );
 
-    if ( Util.checkWebGLSupport() && phet.chipper.queryParameters.webgl ) {
+    if ( Util.checkWebGLSupport() && phet.chipper.queryParameters.webgl && allowWebGL ) {
       console.log( 'WebGL Enabled' );
 
       var chain = new Path( null, {
