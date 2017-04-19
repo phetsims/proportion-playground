@@ -34,6 +34,7 @@ define( function( require ) {
    */
   function PredictScreen() {
     var homeScreenIconBounds = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
+
     var orangeSplotch = new Splotch( 30, 30, new Property( true ), new Property( true ) );
     var orangeSplotchNode = new SplotchNode( orangeSplotch, new Property( PaintChoice.RED_YELLOW ) );
 
@@ -52,7 +53,9 @@ define( function( require ) {
       font: new PhetFont( 140 )
     } );
 
-    var options = {
+    Screen.call( this,
+      function() { return new ProportionModel( true ); },
+      function( model ) { return new ProportionScreenView( model ); }, {
       name: predictString,
       backgroundColorProperty: ProportionPlaygroundColorProfile.predictBackgroundProperty,
       homeScreenIcon: new Node( {
@@ -60,6 +63,7 @@ define( function( require ) {
           Rectangle.bounds( homeScreenIconBounds, {
             fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
           } ),
+          // Centered splotch with home-screen text
           new AlignBox( new Node( { children: [ orangeSplotchNode, homeScreenQuestionText ] } ), {
             alignBounds: homeScreenIconBounds
           } )
@@ -70,17 +74,13 @@ define( function( require ) {
           Rectangle.bounds( homeScreenIconBounds, {
             fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
           } ),
+          // Centered splotch with nav-bar text
           new AlignBox( new Node( { children: [ orangeSplotchNode, navigationBarQuestionText ] } ), {
             alignBounds: homeScreenIconBounds
           } )
         ]
       } )
-    };
-
-    Screen.call( this,
-      function() { return new ProportionModel( true ); },
-      function( model ) { return new ProportionScreenView( model ); },
-      options );
+    } );
   }
 
   proportionPlayground.register( 'PredictScreen', PredictScreen );
