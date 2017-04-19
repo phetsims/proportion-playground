@@ -10,8 +10,8 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var NumberProperty = require( 'AXON/NumberProperty' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
    * @constructor

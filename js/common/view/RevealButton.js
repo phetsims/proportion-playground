@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var BooleanRoundToggleButton = require( 'SUN/buttons/BooleanRoundToggleButton' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**

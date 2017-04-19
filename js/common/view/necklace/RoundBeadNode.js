@@ -9,16 +9,16 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;

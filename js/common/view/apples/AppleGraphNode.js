@@ -10,19 +10,19 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
-  var Util = require( 'DOT/Util' );
-  var TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
   var Property = require( 'AXON/Property' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var Shape = require( 'KITE/Shape' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
+  var Util = require( 'DOT/Util' );
 
   var appleCostString = require( 'string!PROPORTION_PLAYGROUND/appleCost' );
 

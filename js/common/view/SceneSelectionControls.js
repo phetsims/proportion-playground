@@ -9,14 +9,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   /**
    * @constructor

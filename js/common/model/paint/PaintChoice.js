@@ -11,12 +11,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Color = require( 'SCENERY/util/Color' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
   /**
    * Models mixing of watercolor paints with the weighted geometric mean, then with an applied gamma correction.

@@ -11,12 +11,12 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
-  var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
   var PaintBalloon = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintBalloon' );
   var PaintDrip = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintDrip' );
   var PaintQuantity = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintQuantity' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
   var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
   /**

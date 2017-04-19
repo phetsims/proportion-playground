@@ -9,16 +9,16 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
+  var Property = require( 'AXON/Property' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
-  var Emitter = require( 'AXON/Emitter' );
-  var Property = require( 'AXON/Property' );
-  var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
 
   var scratchVector = new Vector2();
 

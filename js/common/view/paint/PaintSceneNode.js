@@ -9,21 +9,21 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var SplotchControl = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchControl' );
-  var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
-  var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientIndicatorNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   var PaintChoiceGradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintChoiceGradientNode' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
+  var SplotchControl = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchControl' );
+  var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
+  var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // images
   var paintSceneImage = require( 'mipmap!PROPORTION_PLAYGROUND/paint-scene.png' );

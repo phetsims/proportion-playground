@@ -10,13 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Util = require( 'DOT/Util' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Util = require( 'DOT/Util' );
 
   /**
    * Rectangle that shows a given spectrum

@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ColorProfile = require( 'SCENERY_PHET/ColorProfile' );
   var Color = require( 'SCENERY/util/Color' );
+  var ColorProfile = require( 'SCENERY_PHET/ColorProfile' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   // Initial colors for each profile, by string key. If a basics/projector color is not defined, it will take the
   // 'default' value provided.

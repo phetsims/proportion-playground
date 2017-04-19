@@ -10,12 +10,12 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   var Property = require( 'AXON/Property' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
-  var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
   var Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
+  var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
 
   /**
    * @constructor

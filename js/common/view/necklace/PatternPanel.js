@@ -10,19 +10,19 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var Panel = require( 'SUN/Panel' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Panel = require( 'SUN/Panel' );
   var PatternNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/PatternNode' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var Property = require( 'AXON/Property' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   var patternString = require( 'string!PROPORTION_PLAYGROUND/pattern' );
 

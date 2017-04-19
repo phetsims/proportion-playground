@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var Emitter = require( 'AXON/Emitter' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
   /**
    * @constructor

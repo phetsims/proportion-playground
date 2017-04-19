@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var NecklaceGraphicNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceGraphicNode' );
-  var Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
+  var NecklaceGraphicNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceGraphicNode' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
 
   /**

@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
+  // TODO: doc
   var TIME_TO_HIT = 0.5; // in Seconds
 
   var balloonCounter = 0;

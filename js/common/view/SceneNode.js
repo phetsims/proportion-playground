@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Base class for Explore Scene nodes, which includes the reval button (for Predict screens).
+ * Base class for Scene nodes, which includes the reval button for Predict screens.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -9,16 +9,16 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var RevealButton = require( 'PROPORTION_PLAYGROUND/common/view/RevealButton' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   var ABSwitch = require( 'SUN/ABSwitch' );
-  var ResetButton = require( 'SCENERY_PHET/buttons/ResetButton' );
   var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ResetButton = require( 'SCENERY_PHET/buttons/ResetButton' );
+  var RevealButton = require( 'PROPORTION_PLAYGROUND/common/view/RevealButton' );
 
   // left and right labels for the switches should all share
   var switchAlignGroup = new AlignGroup();

@@ -11,13 +11,13 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PaintChoiceGradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintChoiceGradientNode' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
-  var TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  var PaintChoiceGradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintChoiceGradientNode' );
   var Property = require( 'AXON/Property' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  var TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
 
   // constants
   var GRADIENT_WIDTH = 20;

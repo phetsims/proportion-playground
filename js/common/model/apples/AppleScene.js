@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var AppleGroup = require( 'PROPORTION_PLAYGROUND/common/model/apples/AppleGroup' );
-  var Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
 
   /**
    * @constructor
