@@ -33,7 +33,7 @@ define( function( require ) {
    * @constructor
    */
   function PredictScreen() {
-    var homeScreenIconBounds = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds( 0, 0 );
+    var homeScreenIconBounds = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
     var orangeSplotch = new Splotch( 30, 30, new Property( true ), new Property( true ) );
     var orangeSplotchNode = new SplotchNode( orangeSplotch, new Property( PaintChoice.RED_YELLOW ) );
 

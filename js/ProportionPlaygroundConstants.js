@@ -10,15 +10,11 @@
 define( function( require ) {
   'use strict';
 
-  var Bounds2 = require( 'DOT/Bounds2' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Range = require( 'DOT/Range' );
 
   var ProportionPlaygroundConstants = {
-    // @public {Bounds2} - Bounds in which our sim is positioned.
-    LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
-
     // @public {number} - Diameter/width of the beads in the necklace scene
     BEAD_DIAMETER: 18,
     BUTTON_RIGHT_CENTER_OFFSET: 42,

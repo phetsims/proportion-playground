@@ -22,7 +22,7 @@ define( function( require ) {
       leadDesign: 'Amanda McGarry',
       softwareDevelopment: 'Andrea Lin, Sam Reid, Jonathan Olson',
       team: 'Karina Hensberry, Ariel Paul, Kathy Perkins, Beth Stade, Ian Whitacre',
-      qualityAssurance: '',
+      qualityAssurance: '', // TODO
       graphicArts: 'Mariah Hermsmeyer',
       thanks: 'This sim builds (in part) on prior work by our colleagues at SRI and the SunBay team (http://sunbay.sri.com/).'
     }
