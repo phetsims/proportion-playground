@@ -39,9 +39,7 @@ define( function( require ) {
                                            PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.RIGHT ) );
 
     var dripLayer = new Node();
-    var balloonLayer = new Node( {
-      renderer: 'webgl'
-    } );
+    var balloonLayer = new Node();
 
     // Performance note: These are added so that WebGL will pre-allocate these images in the SpriteSheet, so it doesn't
     // happen upon loading. It also ensures there's a WebGLBlock.
