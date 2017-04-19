@@ -25,6 +25,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {ScreenView}
    *
    * @param {ProportionModel} model - the model
    */

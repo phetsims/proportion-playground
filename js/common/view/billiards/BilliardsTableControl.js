@@ -24,6 +24,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneRatioControl}
    *
    * @param {Bounds2} layoutBounds - coordinates within which all user interface components must be visible
    * @param {BilliardsTable} billiardsTable - the model

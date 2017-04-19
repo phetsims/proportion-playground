@@ -36,6 +36,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneNode}
    *
    * @param {PaintScene} scene
    * @param {Bounds2} layoutBounds - bounds withing which the scene will be shown

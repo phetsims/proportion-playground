@@ -19,6 +19,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Scene}
    *
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */

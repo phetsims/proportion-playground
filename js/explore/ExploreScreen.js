@@ -32,6 +32,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Screen}
    */
   function ExploreScreen() {
 

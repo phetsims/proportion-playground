@@ -17,6 +17,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneRatio}
    *
    * @param {number} initialCost - Initial total cost of all apples
    * @param {number} initialApples - Initial number of apples

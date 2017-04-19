@@ -16,6 +16,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {BooleanRoundToggleButton}
    *
    * @param {Property.<boolean>} revealingProperty - true if the answer should be shown.
    * @param {Object} [options]

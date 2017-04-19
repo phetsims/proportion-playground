@@ -25,6 +25,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneRatioControl}
    *
    * @param {Splotch} splotch - the model
    * @param {Property.<PaintChoice>} paintChoiceProperty - Holds our current paint choice
@@ -48,14 +49,15 @@ define( function( require ) {
       children: PaintBalloonNode.BALLOON_IMAGES
     } ) );
 
-    // @private
+    // @private {SplotchNode}
     this.splotchNode = new SplotchNode( splotch, paintChoiceProperty, {
       useVisibleAmounts: useVisibleAmounts,
       centerX: 0,
       centerY: 250
     } );
+
     this.addChild( dripLayer );
-    this.addChild( this.splotchNode ); // TODO: how is this positioned?
+    this.addChild( this.splotchNode );
     this.addChild( balloonLayer );
     this.addBottomPickers();
 
@@ -70,7 +72,9 @@ define( function( require ) {
 
     // Never add balloons/drips if we don't use the visible amounts
     if ( useVisibleAmounts ) {
+      // Add balloon views when the model is added
       splotch.balloons.addItemAddedListener( function( balloon ) {
+        // Balloons have a random slight offset for the start/end (in the view only)
         var randomStart = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 150 );
         var randomEnd = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 30 );
         var balloonNode = new PaintBalloonNode( balloon, paintChoiceProperty, randomStart, randomEnd );
@@ -78,6 +82,7 @@ define( function( require ) {
         self.balloonNodes.push( balloonNode );
       } );
 
+      // Remove balloon views when the model is removed
       splotch.balloons.addItemRemovedListener( function( balloon ) {
         for ( var i = self.balloonNodes.length - 1; i >= 0; i-- ) {
           var balloonNode = self.balloonNodes[ i ];
@@ -89,12 +94,14 @@ define( function( require ) {
         }
       } );
 
+      // Add drip views when the model is added
       splotch.drips.addItemAddedListener( function( drip ) {
         var dripNode = new PaintDripNode( drip, paintChoiceProperty );
         dripLayer.addChild( dripNode );
         self.dripNodes.push( dripNode );
       } );
 
+      // Remove drip views when the model is removed
       splotch.drips.addItemRemovedListener( function( drip ) {
         for ( var i = self.dripNodes.length - 1; i >= 0; i-- ) {
           var dripNode = self.dripNodes[ i ];
@@ -125,10 +132,13 @@ define( function( require ) {
         var startLocation = startVector.setXY( visibleBounds.centerX + 0.55 * balloonSign * visibleBounds.width,
                                                visibleBounds.bottom * 0.8 );
         var splotchLocation = this.splotchNode.center;
+
+        // Update balloon positions
         for ( var i = 0; i < this.balloonNodes.length; i++ ) {
           this.balloonNodes[ i ].position( startLocation, splotchLocation );
         }
 
+        // Update drip positions
         for ( i = this.dripNodes.length - 1; i >= 0; i-- ) {
           this.dripNodes[ i ].position( splotchLocation, visibleBounds.bottom );
         }

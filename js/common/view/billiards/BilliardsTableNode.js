@@ -40,6 +40,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneRatioNode}
    *
    * @param {BilliardsTable} billiardsTable - the model
    * @param {Object} [options] - See options below. Also passed to Node's mutate.

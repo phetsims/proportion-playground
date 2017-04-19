@@ -25,6 +25,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {ModelViewTransform2} modelViewTransform
    * @param {ObservableArray.<Vector2>} collisionPoints - In model coordinates

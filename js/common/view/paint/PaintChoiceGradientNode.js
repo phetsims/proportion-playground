@@ -21,6 +21,7 @@ define( function( require ) {
   /**
    * Rectangle that shows a given spectrum
    * @constructor
+   * @extends {Node}
    *
    * @param {number} width
    * @param {number} height

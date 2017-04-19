@@ -22,10 +22,12 @@ define( function( require ) {
   var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
   var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
+  // Bottom y value in layoutBounds for the pickers
   var PICKER_BOTTOM = 540;
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {SceneRatio} sceneRatio
    * @param {Property.<Color>} leftPickerColorProperty - The color of the left picker's arrows

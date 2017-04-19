@@ -17,9 +17,10 @@ define( function( require ) {
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
 
   /**
+   * @constructor
+   * @extends {SceneRatioNode}
    *
    * @param {Necklace} necklace - the model
-   * @constructor
    */
   function NecklaceNode( necklace ) {
     SceneRatioNode.call( this, necklace );

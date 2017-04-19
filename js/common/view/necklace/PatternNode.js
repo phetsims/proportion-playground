@@ -38,6 +38,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {Necklace} necklace
    * @param {Object} [options]

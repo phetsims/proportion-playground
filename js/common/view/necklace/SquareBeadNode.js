@@ -54,6 +54,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {number} rotation - How the generated node should be rotated
    * @param {Object} [options] - node options
@@ -98,6 +99,7 @@ define( function( require ) {
   proportionPlayground.register( 'SquareBeadNode', SquareBeadNode );
 
   return inherit( Node, SquareBeadNode, {
+    // TODO: docs
     setBeadRotation: function( rotation ) {
 
       var gradientAngle = -Math.PI / 4;

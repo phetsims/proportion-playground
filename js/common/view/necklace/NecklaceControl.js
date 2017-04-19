@@ -19,6 +19,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneRatioControl}
    *
    * @param {Necklace} necklace - the model
    * @param {Property.<boolean>} revealProperty - true if the necklace should be shown.

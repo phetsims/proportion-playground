@@ -31,6 +31,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Screen}
    */
   function PredictScreen() {
     var homeScreenIconBounds = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();

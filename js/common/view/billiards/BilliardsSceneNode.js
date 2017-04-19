@@ -22,6 +22,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneNode}
    *
    * @param {BilliardsScene} scene - the model
    * @param {Bounds2} layoutBounds - the region within which all visual components should be layed out

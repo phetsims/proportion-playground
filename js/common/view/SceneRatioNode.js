@@ -15,6 +15,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {SceneRatio} sceneRatio
    */

@@ -25,6 +25,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {Scene} scene - Our scene to display
    * @param {Bounds2} layoutBounds - visible bounds within which the UI must fit

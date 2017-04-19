@@ -16,11 +16,12 @@ define( function( require ) {
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
 
   /**
+   * @constructor
+   * @extends {Node}
    *
    * @param {number} width - the width of the icon
    * @param {number} height - the height of the icon (called length in the model)
    * @param {Object} [options] - node options
-   * @constructor
    */
   function BilliardTableIcon( width, height, options ) {
     var inset = width * 0.15;

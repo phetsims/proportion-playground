@@ -276,6 +276,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneRatio}
    *
    * @param {number} initialRoundCount - Initial number of round beads
    * @param {number} initialSquareCount - Initial number of square beads

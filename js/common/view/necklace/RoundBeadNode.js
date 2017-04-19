@@ -59,6 +59,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {Object} [options] - node options
    */

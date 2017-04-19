@@ -24,6 +24,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneRatio}
    *
    * @param {number} initialLength - Initial length of the billiards table.
    * @param {number} initialWidth - Initial width of the billiards table.

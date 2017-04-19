@@ -36,6 +36,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {AppleScene} scene - the model
    * @param {Object} [options] - Node options

@@ -29,6 +29,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneNode}
    *
    * @param {AppleScene} scene - the model
    * @param {Bounds2} layoutBounds - the box within which to lay out all components

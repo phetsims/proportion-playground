@@ -20,6 +20,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {Property.<Scene>} sceneProperty - Determines which scene is visible
    * @param {Array.<SceneNode>} sceneNodes - Each sceneNode has a scene and an icon
@@ -36,6 +37,7 @@ define( function( require ) {
       };
     } );
 
+    // We need to be able to change the colors of this node, so it's wrapped in a MutableOptionsNode.
     this.addChild( new MutableOptionsNode( RadioButtonGroup, [ sceneProperty, ratioItems ], {
       orientation: 'horizontal',
       buttonContentXMargin: 20,

@@ -43,6 +43,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneRatioNode}
    *
    * @param {AppleGroup} appleGroup - the model for the apple group
    * @param {Property.<boolean>} showCostPerAppleProperty - indicates whether the price tag should be shown

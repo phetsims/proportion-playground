@@ -37,6 +37,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {PaintDrip} paintDrip - Our paint drip
    * @param {Property.<PaintChoice>} paintChoiceProperty - The current paint choice

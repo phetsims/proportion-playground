@@ -23,6 +23,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneRatioControl}
    *
    * @param {AppleGroup} appleGroup - the model
    * @param {Property.<boolean>} showCostPerAppleProperty - true if the price tag should be shown

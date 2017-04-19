@@ -25,6 +25,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {Bounds2} layoutBounds - the visible region for the screen
    * @param {PaintScene} scene - the model

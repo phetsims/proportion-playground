@@ -14,6 +14,12 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
 
+  /**
+   * @constructor
+   * @extends {Scene}
+   *
+   * @param {boolean} predictMode - Whether there should be a 'reveal' button to help the user predict.
+   */
   function NecklaceScene( predictMode ) {
     Scene.call( this, predictMode );
 

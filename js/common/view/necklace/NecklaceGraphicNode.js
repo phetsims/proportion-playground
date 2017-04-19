@@ -24,6 +24,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {Property.<NecklaceLayout>} - TODO: Make NecklaceLayout type!
    * @param {Object} [options] - node options
@@ -54,6 +55,7 @@ define( function( require ) {
   proportionPlayground.register( 'NecklaceGraphicNode', NecklaceGraphicNode );
 
   return inherit( Node, NecklaceGraphicNode, {
+    // TODO: docs
     setLayout: function( layout ) {
       var roundBeadCount = layout.roundBeadCount;
       var squareBeadCount = layout.squareBeadCount;

@@ -65,6 +65,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Node}
    *
    * @param {PaintBalloon} paintBalloon - Our paint balloon
    * @param {Property.<PaintChoice>} paintChoiceProperty - The current paint choice

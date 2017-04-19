@@ -28,6 +28,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {Panel}
    *
    * @param {Necklace} leftNecklace
    * @param {Necklace} rightNecklace

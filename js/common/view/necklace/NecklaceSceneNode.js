@@ -25,6 +25,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneNode}
    *
    * @param {NecklaceScene} scene - the model
    * @param {Bounds2} layoutBounds - the visible bounds of the sim

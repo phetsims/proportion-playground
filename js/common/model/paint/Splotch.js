@@ -21,6 +21,7 @@ define( function( require ) {
 
   /**
    * @constructor
+   * @extends {SceneRatio}
    *
    * @param {number} initialLeftCount - Initial quantity of the left paint
    * @param {number} initialRightCount - Initial quantity of the right paint
