@@ -24,7 +24,15 @@ define( function( require ) {
 
   // constants
   var BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
+  var TWO_BEAD_OFFSET = BEAD_DIAMETER - 7;
 
+  /**
+   * Creates an immutable spline with specific parameters from a list of points.
+   * @public
+   *
+   * @param {Array.<Vector2>} splinePoints
+   * @returns {Shape}
+   */
   function shapeFromSplintPoints( splinePoints ) {
     return new Shape().cardinalSpline( splinePoints, {
       tension: -0.75,
@@ -32,10 +40,23 @@ define( function( require ) {
     } ).makeImmutable();
   }
 
-  var TWO_BEAD_OFFSET = BEAD_DIAMETER - 7;
-
+  // {Object} - maps a seed {number} => {Array.<Vector2>}, see getRepulsionPoints(). Lazily computed
   var repulsionPointMap = {};
+
+  /**
+   * Returns points used for adjusting the necklace into a random-looking shape.
+   * @public
+   *
+   * This repulsion should be the same for necklaces with the same proportion (and is not used if there is 0 of one
+   * bead type), so a seed is generated from the ratio of the bead counts, and repulsion points are shared for every
+   * layout that has the same seed.
+   *
+   * @param {number} roundBeadCount - Number of round beads in the necklace
+   * @param {number} squareBeadCount - Number of square beads in the necklace
+   * @returns {Array.<Vector2>} - An array of up to 4 repulsion points to be used in necklace layout.
+   */
   function getRepulsionPoints( roundBeadCount, squareBeadCount ) {
+    // Keeping prior behavior based on this formula.
     var seed = squareBeadCount === 0 ? 30 : roundBeadCount / squareBeadCount;
     var repulsionPoints = repulsionPointMap[ seed ];
 
@@ -57,7 +78,8 @@ define( function( require ) {
     return repulsionPoints;
   }
 
-  // TODO: doc
+  // {Object} - Map from "{{roundBeadCount}},{{squareBeadCount}}" {string} => {NecklaceLayout}, lazily computed in
+  // NecklaceLayout.getLayout().
   var layoutMap = {};
 
   /**
@@ -89,50 +111,30 @@ define( function( require ) {
 
     if ( roundBeadCount === 1 && squareBeadCount === 0 ) {
       this.shape = NecklaceLayout.ONE_ROUND_BEAD_SPAPE;
-      this.roundBeads.push( {
-        center: Vector2.ZERO
-      } );
+      this.roundBeads.push( new RoundBead( Vector2.ZERO ) );
       this.containerTranslation = new Vector2( 1.3514828985498655, 12.636803053853306 );
     }
     else if ( roundBeadCount === 2 && squareBeadCount === 0 ) {
       this.shape = NecklaceLayout.TWO_ROUND_BEADS_SHAPE;
-      this.roundBeads.push( {
-        center: Vector2.ZERO
-      } );
-      this.roundBeads.push( {
-        center: new Vector2( NecklaceLayout.TWO_BEAD_OFFSET * 2, 0 )
-      } );
+      this.roundBeads.push( new RoundBead( Vector2.ZERO ) );
+      this.roundBeads.push( new RoundBead( new Vector2( TWO_BEAD_OFFSET * 2, 0 ) ) );
       this.containerTranslation = new Vector2( -11, 12.991498868074157 );
     }
     else if ( roundBeadCount === 1 && squareBeadCount === 1 ) {
       this.shape = NecklaceLayout.TWO_MIXED_BEADS_SHAPE;
-      this.roundBeads.push( {
-        center: Vector2.ZERO
-      } );
-      this.squareBeads.push( {
-        center: new Vector2( NecklaceLayout.TWO_BEAD_OFFSET * 2, 0 ),
-        angle: 0
-      } );
+      this.roundBeads.push( new RoundBead( Vector2.ZERO ) );
+      this.squareBeads.push( new SquareBead( new Vector2( TWO_BEAD_OFFSET * 2, 0 ), 0 ) );
       this.containerTranslation = new Vector2( -11, 15.785 );
     }
     else if ( roundBeadCount === 0 && squareBeadCount === 1 ) {
       this.shape = NecklaceLayout.ONE_SQUARE_BEAD_SPAPE;
-      this.squareBeads.push( {
-        center: Vector2.ZERO,
-        angle: 0
-      } );
+      this.squareBeads.push( new SquareBead( Vector2.ZERO, 0 ) );
       this.containerTranslation = new Vector2( 0.2394730404209664, 10.390542501611892 );
     }
     else if ( roundBeadCount === 0 && squareBeadCount === 2 ) {
       this.shape = NecklaceLayout.TWO_SQUARE_BEADS_SHAPE;
-      this.squareBeads.push( {
-        center: Vector2.ZERO,
-        angle: 0
-      } );
-      this.squareBeads.push( {
-        center: new Vector2( NecklaceLayout.TWO_BEAD_OFFSET * 2, 0 ),
-        angle: 0
-      } );
+      this.squareBeads.push( new SquareBead( Vector2.ZERO, 0 ) );
+      this.squareBeads.push( new SquareBead( new Vector2( TWO_BEAD_OFFSET * 2, 0 ), 0 ) );
       this.containerTranslation = new Vector2( -10.753124040624703, 10.534079717389499 );
     }
     else {
@@ -281,10 +283,10 @@ define( function( require ) {
   proportionPlayground.register( 'NecklaceLayout', NecklaceLayout );
 
   return inherit( Object, NecklaceLayout, {}, {
-    // TODO: doc
-    TWO_BEAD_OFFSET: TWO_BEAD_OFFSET,
 
-    // TODO: doc
+    /**
+     * {Shape} - Immutable shared string shape for when there is only one round bead.
+     */
     ONE_ROUND_BEAD_SPAPE: shapeFromSplintPoints( [
       new Vector2( 0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
       new Vector2( -0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
@@ -292,6 +294,9 @@ define( function( require ) {
       new Vector2( 0.5 * BEAD_DIAMETER, -1.55 * BEAD_DIAMETER )
     ] ),
 
+    /**
+     * {Shape} - Immutable shared string shape for when there is only one square bead.
+     */
     ONE_SQUARE_BEAD_SPAPE: shapeFromSplintPoints( [
       new Vector2( 0.55 * BEAD_DIAMETER, 0 ),
       new Vector2( -0.61 * BEAD_DIAMETER, 0 ),
@@ -299,7 +304,10 @@ define( function( require ) {
       new Vector2( 0.66 * BEAD_DIAMETER, -1.33 * BEAD_DIAMETER )
     ] ),
 
-    // if all round beads, draw the same shape as twenty round beads
+    /**
+     * {Shape} - Immutable shared string shape for when there are only two round beads.
+     * Previous doc: "if all round beads, draw the same shape as twenty round beads", may not be accurate.
+     */
     TWO_ROUND_BEADS_SHAPE: shapeFromSplintPoints( [
       new Vector2( 0.55 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0.05 * BEAD_DIAMETER ),
       new Vector2( -0.55 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0.05 * BEAD_DIAMETER ),
@@ -307,7 +315,10 @@ define( function( require ) {
       new Vector2( 0.55 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -1.61 * BEAD_DIAMETER )
     ] ),
 
-    // if all square beads, draw the same shape as twenty square beads
+    /**
+     * {Shape} - Immutable shared string shape for when there are only two square beads.
+     * Previous doc: "if all square beads, draw the same shape as twenty square beads", may not be accurate.
+     */
     TWO_SQUARE_BEADS_SHAPE: shapeFromSplintPoints( [
       new Vector2( 0.61 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0 ),
       new Vector2( -0.66 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0 ),
@@ -315,7 +326,11 @@ define( function( require ) {
       new Vector2( 0.71 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -1.29 * BEAD_DIAMETER )
     ] ),
 
-    // if one bead of each kind, draw same shape as twenty round and twenty square beads
+    /**
+     * {Shape} - Immutable shared string shape for when there is only one bead of each type.
+     * Previous doc: "if one bead of each kind, draw same shape as twenty round and twenty square beads", may not be
+     * accurate.
+     */
     TWO_MIXED_BEADS_SHAPE: shapeFromSplintPoints( [
       new Vector2( TWO_BEAD_OFFSET, 5 ),
       new Vector2( -1.11 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -0.94 * BEAD_DIAMETER ),
@@ -323,7 +338,14 @@ define( function( require ) {
       new Vector2( 1.11 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -0.94 * BEAD_DIAMETER )
     ] ),
 
-    // TODO: doc
+    /**
+     * Returns a {NecklaceLayout} corresponding to the number of round/square beads (lazily computed and cached).
+     * @public
+     *
+     * @param {number} roundBeadCount - Number of round beads in the necklace
+     * @param {number} squareBeadCount - Number of square beads in the necklace
+     * @returns {NecklaceLayout}
+     */
     getLayout: function( roundBeadCount, squareBeadCount ) {
 
       var key = roundBeadCount + ',' + squareBeadCount;
