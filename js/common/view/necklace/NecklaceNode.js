@@ -23,12 +23,10 @@ define( function( require ) {
   function NecklaceNode( necklace ) {
     SceneRatioNode.call( this, necklace );
 
-    var localBounds = NecklaceGraphicNode.createStaticNecklace( 20, 20 ).localBounds.dilated( 15 );
-
     this.addChild( new NecklaceGraphicNode( necklace.layoutProperty, {
       y: 256,
       // Override bounds so that expensive recomputation isn't needed
-      localBounds: localBounds,
+      localBounds: NecklaceGraphicNode.createStaticNecklace( 20, 20 ).localBounds.dilated( 15 ),
       preventFit: true,
       pickable: false
     } ) );
