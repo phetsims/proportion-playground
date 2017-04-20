@@ -43,7 +43,10 @@ define( function( require ) {
   proportionPlayground.register( 'PaintQuantity', PaintQuantity );
 
   return inherit( Object, PaintQuantity, {
-    //TODO: doc
+    /**
+     * Resets the amount of paint.
+     * @public
+     */
     reset: function() {
       this.realCountProperty.reset();
       this.currentCountProperty.reset();
@@ -51,7 +54,14 @@ define( function( require ) {
       this.pendingDripsProperty.reset();
     },
 
-    // @private TODO
+    /**
+     * Called when the real amount of paint changes. This either kicks off a balloon being thrown (increase), or queues
+     * a drip (decrease).
+     * @private
+     *
+     * @param {number} newCount
+     * @param {number} oldCount
+     */
     realCountChange: function( newCount, oldCount ) {
       var delta = Math.abs( newCount - oldCount );
       if ( newCount > oldCount ) {
@@ -62,11 +72,22 @@ define( function( require ) {
       }
     },
 
-    // TODO: doc
+    /**
+     * Removes a certain amount of paint area.
+     * @private
+     *
+     * @param {number} amount - Amount to remove
+     */
     removeArea: function( amount ) {
       this.paintAreaProperty.value -= amount;
     },
 
+    /**
+     * Callback for when a balloon hits that adds a certain count to the current count.
+     * @private
+     *
+     * @param {number} count
+     */
     addCurrent: function( count ) {
       var amountToDrip = Math.min( count, this.pendingDripsProperty.value );
       var amountToAdd = count - amountToDrip;
@@ -78,6 +99,12 @@ define( function( require ) {
       }
     },
 
+    /**
+     * Called when an amount of paint is removed (immediately), so we can potentially create drips.
+     * @private
+     *
+     * @param {number} count
+     */
     removeCurrent: function( count ) {
       var amountToDrip = Math.min( count, this.currentCountProperty.value );
       var amountToQueue = count - amountToDrip;

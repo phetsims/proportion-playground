@@ -103,6 +103,11 @@ define( function( require ) {
      * @param {number} dt - Time to move forward in seconds
      */
     step: function( dt ) {
+      // Skip 0 dt, so we can simplify our intersection detection
+      if ( dt === 0 ) {
+        return;
+      }
+
       var width = this.widthProperty.value;
       var length = this.lengthProperty.value;
 
@@ -164,7 +169,6 @@ define( function( require ) {
           // Stop the ball when we hit a corner
           if ( ( position.x === 0 || position.x === width ) &&
                ( position.y === 0 || position.y === length ) ) {
-            // TODO: will step( 0 ) cause a hit at the starting position?
             this.ballVelocity.setXY( 0, 0 );
           }
         }
