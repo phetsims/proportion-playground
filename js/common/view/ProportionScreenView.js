@@ -18,7 +18,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PaintSceneNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintSceneNode' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SceneSelectionControls = require( 'PROPORTION_PLAYGROUND/common/view/SceneSelectionControls' );
   var ScreenView = require( 'JOIST/ScreenView' );

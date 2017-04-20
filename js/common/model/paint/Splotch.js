@@ -15,7 +15,7 @@ define( function( require ) {
   var PaintDrip = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintDrip' );
   var PaintQuantity = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintQuantity' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
   var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 

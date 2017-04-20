@@ -3,8 +3,6 @@
 /**
  * Constants for the Proportions Playground sim.
  *
- * TODO: should this move to common/ ?
- *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
