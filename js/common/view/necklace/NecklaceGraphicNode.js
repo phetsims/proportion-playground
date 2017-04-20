@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * TODO: doc
+ * Scenery-Node-based Necklace display based on a Layout property.
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  * @author Sam Reid (PhET Interactive Simulations)
@@ -26,25 +26,32 @@ define( function( require ) {
    * @constructor
    * @extends {Node}
    *
-   * @param {Property.<NecklaceLayout>} - TODO: Make NecklaceLayout type!
+   * @param {Property.<NecklaceLayout>}
    * @param {Object} [options] - node options
    */
   function NecklaceGraphicNode( layoutProperty, options ) {
     Node.call( this );
 
+    // @private {Node} - Holds all of the content, so that a translation can be applied to everything (that isn't part
+    // of our top-level Node's transform).
     this.container = new Node();
     this.addChild( this.container );
 
+    // @private {Path} - The chain/string behind the beads
     this.chain = new Path( null, {
       stroke: ProportionPlaygroundColorProfile.necklaceStringProperty,
       lineWidth: 2
     } );
     this.container.addChild( this.chain );
 
+    // @private {Node} - Holds all of the beads
     this.beadContainer = new Node();
     this.container.addChild( this.beadContainer );
 
+    // @private {Array.<RoundBeadNode>} - Always grows to lazily create, and sets unused ones invisible.
     this.roundBeads = [];
+
+    // @private {Array.<SquareBeadNode>} - Always grows to lazily create, and sets unused ones invisible.
     this.squareBeads = [];
 
     layoutProperty.link( this.setLayout.bind( this ) );
@@ -55,13 +62,20 @@ define( function( require ) {
   proportionPlayground.register( 'NecklaceGraphicNode', NecklaceGraphicNode );
 
   return inherit( Node, NecklaceGraphicNode, {
-    // TODO: docs
+    /**
+     * Rebuilds the necklace display to show the given layout.
+     * @public
+     *
+     * @param {NecklaceLayout} layout
+     */
     setLayout: function( layout ) {
       var roundBeadCount = layout.roundBeadCount;
       var squareBeadCount = layout.squareBeadCount;
 
+      // Only show the background chain if we have beads.
       this.chain.visible = roundBeadCount > 0 || squareBeadCount > 0;
 
+      // Adds beads up to the amount that we need (don't need to remove extras, they will be set to invisible).
       while ( this.roundBeads.length < roundBeadCount ) {
         var roundBead = new RoundBeadNode();
         this.beadContainer.addChild( roundBead );
@@ -73,6 +87,7 @@ define( function( require ) {
         this.squareBeads.push( squareBead );
       }
 
+      // Toggle visibilities, repositioning hidden beads so it won't affect our bounds.
       var i;
       for ( i = 0; i < this.roundBeads.length; i++ ) {
         var roundVisible = i < roundBeadCount;
@@ -89,9 +104,13 @@ define( function( require ) {
         }
       }
 
+      // Adjust the chain's shape
       this.chain.shape = layout.shape;
+
+      // Adjust the translation of everything
       this.container.translation = layout.containerTranslation;
 
+      // Update the beads
       for ( i = 0; i < layout.roundBeads.length; i++ ) {
         this.roundBeads[ i ].translation = layout.roundBeads[ i ].center;
       }
@@ -101,7 +120,14 @@ define( function( require ) {
       }
     }
   }, {
-    // TODO: doc
+    /**
+     * Creates a static Necklace graphic.
+     * @public
+     *
+     * @param {number} roundBeadCount
+     * @param {number} squareBeadCount
+     * @param {Object} [options] - node options
+     */
     createStaticNecklace: function( roundBeadCount, squareBeadCount, options ) {
       return new NecklaceGraphicNode( new Property( NecklaceLayout.getLayout( roundBeadCount, squareBeadCount ) ), options );
     }
