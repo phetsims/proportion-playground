@@ -89,9 +89,6 @@ define( function( require ) {
      * @param {number} dt - Time to move forward in seconds
      */
     step: function( dt ) {
-      //TODO: move cap to main model entry point
-      dt = Math.min( dt, 0.25 );
-
       // Step balloons in reverse order, since they can remove themselves
       for ( var i = this.balloons.length - 1; i >= 0; i-- ) {
         this.balloons.get( i ).step( dt );

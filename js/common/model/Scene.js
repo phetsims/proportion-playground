@@ -62,7 +62,6 @@ define( function( require ) {
       // @public {Array.<NumberProperty>}
       this.quantityProperties = leftRatio.quantityProperties.concat( rightRatio.quantityProperties );
 
-      //TODO: Close to being able to avoid passing in predictMode at all
       if ( this.predictMode ) {
         // In the predict screen, hide representations when one of the spinners is changed
         Property.multilink( this.quantityProperties, this.revealProperty.set.bind( this.revealProperty, false ) );

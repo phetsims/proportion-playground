@@ -72,7 +72,7 @@ define( function( require ) {
     this.frontRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
       scale: 10 / 11
     } );
-    gradientProperty.linkAttribute( this.frontRectangle, 'fill' ); // TODO: better support for gradient properties
+    gradientProperty.linkAttribute( this.frontRectangle, 'fill' );
     this.container.addChild( this.frontRectangle );
 
     this.setBeadRotation( rotation );

@@ -32,7 +32,7 @@ define( function( require ) {
     } );
 
     // The necklace itself
-    this.addChild( new NecklaceNode( necklace ) ); // TODO: how is this positioned?
+    this.addChild( new NecklaceNode( necklace ) );
     this.addBottomPickers();
   }
 

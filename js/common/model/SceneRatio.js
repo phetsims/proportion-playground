@@ -32,10 +32,10 @@ define( function( require ) {
     this.controlsVisibleProperty = controlsVisibleProperty;
 
     // @public {Property.<number>} - Left numeric value
-    this.leftProperty = leftProperty; // TODO: check for getProperty() usages
+    this.leftProperty = leftProperty;
 
     // @public {Range} - Range for the left numeric value
-    this.leftRange = leftRange; // TODO: check for getRange() usages
+    this.leftRange = leftRange;
 
     // @public {Property.<number>} - Right numeric value
     this.rightProperty = rightProperty;
