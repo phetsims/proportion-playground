@@ -13,5 +13,5 @@ The SceneRatio types are AppleGroup, BilliardsTable, Necklace and Splotch.
 The view is composed at a high level as:
 ProportionScreenView
   SceneNodes (one for each scene)
-    SceneRatioControl (left and right, contains controls like pickers)
+    SceneRatioControls (left and right, contains controls like pickers)
       SceneRatioNode (view for the ratio)

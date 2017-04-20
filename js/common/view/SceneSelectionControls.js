@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * This radio button group allows the user to select between the different scenes.
+ * Shows a group of 4 radio buttons that allows switching between different scenes.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */

@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Base type for visual representation nodes for the ratio-based items (necklaces, billiard tables, splotches, etc.)
+ * Base view type for displaying SceneRatios (necklaces, billiards tables, splotches, etc.)
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */

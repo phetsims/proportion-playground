@@ -45,7 +45,7 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 10
     } ) );
 
-    // Store by index for lookup by radio button index
+    // @private {Array.<SceneNode>} - Store by index for lookup by radio button index
     this.sceneNodes = [
       new NecklaceSceneNode( model.necklaceScene, this.layoutBounds ),
       new PaintSceneNode( model.paintScene, this.layoutBounds ),

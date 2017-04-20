@@ -32,7 +32,7 @@ define( function( require ) {
    * @param {SceneRatio} sceneRatio
    * @param {Property.<Color>} leftPickerColorProperty - The color of the left picker's arrows
    * @param {Property.<Color>} rightPickerColorProperty - The color of the right picker's arrows
-   * @param {Object} [options]
+   * @param {Object} [options] - node options
    */
   function SceneRatioControl( sceneRatio, leftPickerColorProperty, rightPickerColorProperty, options ) {
     options = _.extend( {

@@ -33,11 +33,11 @@ define( function( require ) {
    */
   function SceneNode( scene, layoutBounds, options ) {
     options = _.extend( {
-      sceneIcon: null, // {Node}, required
-      leftControl: null, // {Node}, required
-      rightControl: null, // {Node}, required
-      leftSwitchIcon: null, // {Node}, required
-      rightSwitchIcon: null, // {Node}, required
+      sceneIcon: null, // {Node}, required - shown in the SceneSelectionControls
+      leftControl: null, // {SceneRatioControl}, required
+      rightControl: null, // {SceneRatioControl}, required
+      leftSwitchIcon: null, // {Node}, required - Left side of the showBoth ABSwitch
+      rightSwitchIcon: null, // {Node}, required - Right side of the showBoth ABSwitch
       controlLocation: 'right', // 'right' or 'bottom', direction from the pickerContainer
       canCenterControlButton: true // Whether the control button can be centered when both left/right are shown
     }, options );
