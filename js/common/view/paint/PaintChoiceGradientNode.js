@@ -32,12 +32,14 @@ define( function( require ) {
 
     Node.call( this );
 
+    // {Property.<HTMLCanvasElement>} - Canvas for the current gradient colors.
     var canvasProperty = new DerivedProperty( [ paintChoice.leftColorProperty, paintChoice.rightColorProperty ], function( leftColor, rightColor ) {
       var canvas = document.createElement( 'canvas' );
       var context = canvas.getContext( '2d' );
       canvas.width = width;
       canvas.height = height;
 
+      // Fill it in one pixel at a time
       for ( var i = 0; i < height; i++ ) {
         var parameter = Util.clamp( Util.linear( 0, height, 0, 1, i ), 0, 1 );
         context.fillStyle = paintChoice.getBlendedColor( parameter ).toCSS();

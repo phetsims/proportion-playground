@@ -12,7 +12,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
+  var NecklaceLayout = require( 'PROPORTION_PLAYGROUND/common/model/necklace/NecklaceLayout' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Property = require( 'AXON/Property' );
@@ -103,7 +103,7 @@ define( function( require ) {
   }, {
     // TODO: doc
     createStaticNecklace: function( roundBeadCount, squareBeadCount, options ) {
-      return new NecklaceGraphicNode( new Property( Necklace.getMultiBeadLayout( roundBeadCount, squareBeadCount ) ), options );
+      return new NecklaceGraphicNode( new Property( NecklaceLayout.getLayout( roundBeadCount, squareBeadCount ) ), options );
     }
   } );
 } );

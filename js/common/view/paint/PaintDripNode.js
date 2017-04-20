@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * A drip of paint.
+ * A drip of paint, falls from the splotch and disappears once off-screen.
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
@@ -24,12 +24,15 @@ define( function( require ) {
   // {number} - Area of our raw dropletShape (via Shape.getApproximateArea()) with the below parameters.
   var SHAPE_AREA = 1486.21309056;
 
+  // Constants for creating the droplet shape.
   var xRadius = 22; // the radius of the "bottom" part of the droplet
   var yRadius = 18; // the half-width of the droplet
   var yTail = 3; // slight control-point width near the pointed tip (so it isn't as pointy)
   var cp1x = xRadius * 0.84;
   var cp2x = xRadius * 1.12;
   var endX = xRadius * 2.1;
+
+  // {Shape} - Droplet shape
   var dropletShape = new Shape().ellipticalArc( 0, 0, xRadius, yRadius, 0, Math.PI / 2, 3 * Math.PI / 2, false )
                                 .cubicCurveTo( cp1x, -yRadius, cp2x, -yTail, endX, 0 )
                                 .cubicCurveTo( cp2x, yTail, cp1x, yRadius, 0, yRadius )

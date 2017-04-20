@@ -44,6 +44,7 @@ define( function( require ) {
   function PaintSceneNode( scene, layoutBounds ) {
     var self = this;
 
+    // Left/right splotches for the showBoth ABSwitch
     var blueSplotch = new Splotch( 2, 0, new BooleanProperty( true ), new BooleanProperty( true ) );
     var greenSplotch = new Splotch( 1, 1, new BooleanProperty( true ), new BooleanProperty( true ) );
 

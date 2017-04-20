@@ -17,6 +17,7 @@ define( function( require ) {
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // Balloon images (color and orientation)
   var blackBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/black-balloon-1.png' );
   var blackBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/black-balloon-2.png' );
   var blackBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/black-balloon-3.png' );

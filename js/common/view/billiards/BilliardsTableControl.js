@@ -51,6 +51,8 @@ define( function( require ) {
       allowDragToResize: options.allowDragToResize
     } );
 
+    // @protected @override - We need more customization for positioning for the billiards scene, so we create our own
+    // pickerContainer instead of calling a function to create it.
     this.pickerContainer = new VBox( {
       spacing: 30,
       children: [
