@@ -17,7 +17,6 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
-  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   var scratchVector = new Vector2();
@@ -144,9 +143,7 @@ define( function( require ) {
           position.add( velocity.times( minTimeLeft ) );
 
           // Round (so our collision and end points are nice)
-          //TODO: add Vector2 function for this
-          position.x = Util.roundSymmetric( position.x );
-          position.y = Util.roundSymmetric( position.y );
+          position.roundSymmetric();
 
           // Record the bounce
           this.collisionPoints.push( position.copy() );
