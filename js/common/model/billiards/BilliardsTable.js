@@ -51,6 +51,9 @@ define( function( require ) {
     // @public {Emitter} (read-only) - emits when the ball was restarted
     this.restartEmitter = new Emitter();
 
+    // @public {boolean} - Whether the table has started animating (so we can continue to animate it in the background)
+    this.hasStartedAnimating = false;
+
     this.restartBall(); // Helps initialize in one place
 
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
@@ -58,7 +61,8 @@ define( function( require ) {
                      this.widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE );
 
     // Restart the ball when the length or width changes
-    this.visibleChangeEmitter.addListener( this.restartBall.bind( this ) );
+    this.lengthProperty.link( this.restartBall.bind( this ) );
+    this.widthProperty.link( this.restartBall.bind( this ) );
   }
 
   proportionPlayground.register( 'BilliardsTable', BilliardsTable );
@@ -83,6 +87,8 @@ define( function( require ) {
       this.collisionPoints.clear();
       this.collisionPoints.push( new Vector2() );
       this.restartEmitter.emit();
+
+      this.hasStartedAnimating = false;
     },
 
     /**
@@ -106,6 +112,10 @@ define( function( require ) {
       // Skip 0 dt, so we can simplify our intersection detection
       if ( dt === 0 ) {
         return;
+      }
+
+      if ( !this.hasStartedAnimating ) {
+        this.hasStartedAnimating = true;
       }
 
       var width = this.widthProperty.value;

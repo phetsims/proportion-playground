@@ -46,7 +46,7 @@ define( function( require ) {
       //TODO: can we handle visibility for each in a more general way?
       if ( this.revealProperty.value ) {
         this.leftTable.step( dt );
-        if ( this.showBothProperty.value ) {
+        if ( this.showBothProperty.value || this.rightTable.hasStartedAnimating ) {
           this.rightTable.step( dt );
         }
       }
