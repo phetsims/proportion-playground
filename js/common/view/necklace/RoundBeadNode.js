@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -22,36 +21,27 @@ define( function( require ) {
 
   // constants
   var DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
-  var colorProperty = ProportionPlaygroundColorProfile.necklaceRoundBeadProperty;
-  // TODO: add a function like this to Color
-  function adjustedColorUtilsBrightness( amount ) {
-    return new DerivedProperty( [ colorProperty ], function( color ) {
-      if ( amount > 0 ) {
-        return color.colorUtilsBrighter( amount );
-      }
-      else if ( amount < 0 ) {
-        return color.colorUtilsDarker( -amount );
-      }
-      else {
-        return color;
-      }
-    } );
-  }
 
+  // {Node} - Our colors need to be updated on the shaded sphere, so it's wrapped in a MutableOptionsNode.
   var shadedNode = new MutableOptionsNode( ShadedSphereNode, [ DIAMETER ], {
     highlightDiameter: DIAMETER * 0.3,
     highlightXOffset: -0.3,
     highlightYOffset: -0.3
   }, {
-    mainColor: adjustedColorUtilsBrightness( -0.1 ),
-    shadowColor: adjustedColorUtilsBrightness( -0.5 ),
-    highlightColor: adjustedColorUtilsBrightness( 0.5 ),
+    mainColor: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.1 ),
+    shadowColor: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.5 ),
+    highlightColor: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( 0.5 ),
   } );
+
+  // {Node} - Background
   var backgroundNode = new Circle( DIAMETER * 0.51, {
-    fill: adjustedColorUtilsBrightness( -0.6 ),
+    fill: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.6 ),
     x: DIAMETER / 30,
     y: DIAMETER / 30
   } );
+
+  // {Node} - Shared child node that will have a parent for every display of this node.
+  // Presumably should not memory-leak, as we save and re-use references.
   var containerNode = new Node( {
     children: [ backgroundNode, shadedNode ],
     center: Vector2.ZERO

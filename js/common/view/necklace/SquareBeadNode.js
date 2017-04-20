@@ -26,22 +26,9 @@ define( function( require ) {
   var GRADIENT_OFFSET = RADIUS * 0.6;
   var ROUND = RADIUS / 5;
   var colorProperty = ProportionPlaygroundColorProfile.necklaceSquareBeadProperty;
-  // TODO: add a function like this to Color
-  function adjustedColor( amount ) {
-    return new DerivedProperty( [ colorProperty ], function( color ) {
-      if ( amount > 0 ) {
-        return color.colorUtilsBrighter( amount );
-      }
-      else if ( amount < 0 ) {
-        return color.colorUtilsDarker( -amount );
-      }
-      else {
-        return color;
-      }
-    } );
-  }
-  var dark7 = adjustedColor( -0.7 );
-  var dark4 = adjustedColor( -0.4 );
+
+  var dark7 = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.7 );
+  var dark4 = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.4 );
   var gradientProperty = new DerivedProperty( [ colorProperty ], function( color ) {
     return new RadialGradient( 0, 0, 0, 0, 0, DIAMETER + GRADIENT_OFFSET )
       .addColorStop( 0, color.colorUtilsBrighter( 0.3 ) )

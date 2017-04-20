@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var Color = require( 'SCENERY/util/Color' );
   var ColorProfile = require( 'SCENERY_PHET/ColorProfile' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   // Initial colors for each profile, by string key. If a basics/projector color is not defined, it will take the
@@ -57,6 +58,40 @@ define( function( require ) {
   }, [ 'default' ] );
 
   proportionPlayground.register( 'ProportionPlaygroundColorProfile', ProportionPlaygroundColorProfile );
+
+  /**
+   * Creates a color property that is always an adjusted amount brighter/darker than the defined colorProperty.
+   * @public
+   *
+   * @param {Property.<Color>} colorProperty
+   * @param {number} amount
+   * @returns {Property.<Color>}
+   */
+  function adjustedColorUtilsBrightness( colorProperty, amount ) {
+    return new DerivedProperty( [ colorProperty ], function( color ) {
+      if ( amount > 0 ) {
+        return color.colorUtilsBrighter( amount );
+      }
+      else if ( amount < 0 ) {
+        return color.colorUtilsDarker( -amount );
+      }
+      else {
+        return color;
+      }
+    } );
+  }
+
+  /**
+   * Returns round/square color properties adjusted by a certain amount of brightness (negative to darken).
+   * @public
+   *
+   * @param {number} amount
+   * @returns {Property.<Color>}
+   */
+  ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty =
+    adjustedColorUtilsBrightness.bind( null, ProportionPlaygroundColorProfile.necklaceRoundBeadProperty );
+  ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty =
+    adjustedColorUtilsBrightness.bind( null, ProportionPlaygroundColorProfile.necklaceSquareBeadProperty );
 
   return ProportionPlaygroundColorProfile;
 } );
