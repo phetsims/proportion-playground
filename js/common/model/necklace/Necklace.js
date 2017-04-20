@@ -10,7 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NecklaceLayout = require( 'PROPORTION_PLAYGROUND/common/model/necklace/NecklaceLayout' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundConstants' );
@@ -31,6 +33,14 @@ define( function( require ) {
 
     // @public {NumberProperty} - Quantity of square beads in the necklace
     this.squareBeadCountProperty = new NumberProperty( initialSquareCount );
+
+    // @public {Property.<NecklaceLayout>}
+    this.layoutProperty = new DerivedProperty( [
+      this.roundBeadCountProperty,
+      this.squareBeadCountProperty ],
+    function( roundBeadCount, squareBeadCount ) {
+      return NecklaceLayout.getLayout( roundBeadCount, squareBeadCount );
+    } );
 
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
                      this.roundBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE,

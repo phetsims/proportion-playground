@@ -9,9 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NecklaceLayout = require( 'PROPORTION_PLAYGROUND/common/model/necklace/NecklaceLayout' );
   var NecklaceGraphicNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceGraphicNode' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
@@ -25,17 +23,9 @@ define( function( require ) {
   function NecklaceNode( necklace ) {
     SceneRatioNode.call( this, necklace );
 
-    var layoutProperty = new DerivedProperty( [
-      necklace.roundBeadCountProperty,
-      necklace.squareBeadCountProperty ],
-    function( roundBeadCount, squareBeadCount ) {
-      // TODO: return to NecklaceLayout property
-      return NecklaceLayout.getLayout( roundBeadCount, squareBeadCount );
-    } );
-
     var localBounds = NecklaceGraphicNode.createStaticNecklace( 20, 20 ).localBounds.dilated( 15 );
 
-    this.addChild( new NecklaceGraphicNode( layoutProperty, {
+    this.addChild( new NecklaceGraphicNode( necklace.layoutProperty, {
       y: 256,
       // Override bounds so that expensive recomputation isn't needed
       localBounds: localBounds,
