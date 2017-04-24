@@ -12,6 +12,7 @@ define( function( require ) {
   var BooleanRoundToggleButton = require( 'SUN/buttons/BooleanRoundToggleButton' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
@@ -26,7 +27,8 @@ define( function( require ) {
     var hiddenNode = new FontAwesomeNode( 'eye_close' );
     BooleanRoundToggleButton.call( this, revealedNode, hiddenNode, revealingProperty, {
       minXMargin: 10,
-      minYMargin: 10
+      minYMargin: 10,
+      baseColor: PhetColorScheme.PHET_LOGO_YELLOW
     } );
     this.mutate( options );
   }
