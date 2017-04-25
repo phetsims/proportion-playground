@@ -211,28 +211,21 @@ define( function( require ) {
       topRightHoleNode.translation = insideRectangle.translation.plusXY( width * SCALE, 0 );
     } );
 
-    //TODO: cleanup
+
+    var rectangles = [ borderRectangle, insideRectangle ];
+    var draggers = [ leftDragger, rightDragger, topDragger, bottomDragger ];
+    var paths = [ gridLinesNode, pathNode, topLeftHoleNode, topRightHoleNode, bottomRightHoleNode ];
+    var handles = [ leftDragHandle, rightDragHandle, topDragHandle, bottomDragHandle ];
+
     if ( options.allowDragToResize ) {
-      this.children = [
-        borderRectangle,
-        insideRectangle,
-        leftDragger, rightDragger, topDragger, bottomDragger,
-        gridLinesNode,
-        pathNode,
-        topLeftHoleNode, topRightHoleNode, bottomRightHoleNode,
-        leftDragHandle, rightDragHandle, topDragHandle, bottomDragHandle,
-        ballNode
-      ];
+      this.children = rectangles.concat( draggers )
+                                .concat( paths )
+                                .concat( handles )
+                                .concat( [ ballNode ] );
     }
     else {
-      this.children = [
-        borderRectangle,
-        insideRectangle,
-        gridLinesNode,
-        pathNode,
-        topLeftHoleNode, topRightHoleNode, bottomRightHoleNode,
-        ballNode
-      ];
+      this.children = rectangles.concat( paths )
+                                .concat( [ ballNode ] );
     }
 
     this.mutate( options );
