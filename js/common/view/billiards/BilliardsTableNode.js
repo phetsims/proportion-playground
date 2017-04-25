@@ -192,9 +192,9 @@ define( function( require ) {
       borderRectangle.center = Vector2.ZERO;
 
       // center the draggers
-      leftDragger.center = new Vector2( -( scaledWidth / 2 + lineWidthAmount / 4 ), 0 );
+      leftDragger.center = new Vector2( -scaledWidth / 2 - lineWidthAmount / 4, 0 );
       rightDragger.center = new Vector2( scaledWidth / 2 + lineWidthAmount / 4, 0 );
-      topDragger.center = new Vector2( 0, -( scaledLength / 2 + lineWidthAmount / 4 ) );
+      topDragger.center = new Vector2( 0, -scaledLength / 2 - lineWidthAmount / 4 );
       bottomDragger.center = new Vector2( 0, scaledLength / 2 + lineWidthAmount / 4 );
 
       leftDragHandle.center = leftDragger.center;
@@ -203,12 +203,12 @@ define( function( require ) {
       bottomDragHandle.center = bottomDragger.center;
 
       // Position the lines layer
-      gridLinesNode.translation = insideRectangle.translation;
+      gridLinesNode.translation = new Vector2( -scaledWidth / 2, -scaledLength / 2 );
 
       // Position the holes.
-      bottomRightHoleNode.translation = insideRectangle.translation.plusXY( scaledWidth, scaledLength );
-      topLeftHoleNode.translation = insideRectangle.translation.plusXY( 0, 0 );
-      topRightHoleNode.translation = insideRectangle.translation.plusXY( scaledWidth, 0 );
+      bottomRightHoleNode.translation = new Vector2( scaledWidth / 2, scaledLength / 2 );
+      topLeftHoleNode.translation = new Vector2( -scaledWidth / 2, -scaledLength / 2 );
+      topRightHoleNode.translation = new Vector2( scaledWidth / 2, -scaledLength / 2 );
     } );
 
 
