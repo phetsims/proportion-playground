@@ -12,8 +12,9 @@ define( function( require ) {
   var BooleanRoundToggleButton = require( 'SUN/buttons/BooleanRoundToggleButton' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
 
   /**
    * @constructor
@@ -25,15 +26,16 @@ define( function( require ) {
   function RevealButton( revealingProperty, options ) {
     var revealedNode = new FontAwesomeNode( 'eye_open' );
     var hiddenNode = new FontAwesomeNode( 'eye_close' );
-    BooleanRoundToggleButton.call( this, revealedNode, hiddenNode, revealingProperty, {
+    MutableOptionsNode.call( this, BooleanRoundToggleButton, [ revealedNode, hiddenNode, revealingProperty ], {
       minXMargin: 10,
-      minYMargin: 10,
-      baseColor: PhetColorScheme.PHET_LOGO_YELLOW
+      minYMargin: 10
+    }, {
+      baseColor: ProportionPlaygroundColorProfile.revealButtonProperty
     } );
     this.mutate( options );
   }
 
   proportionPlayground.register( 'RevealButton', RevealButton );
 
-  return inherit( BooleanRoundToggleButton, RevealButton );
+  return inherit( MutableOptionsNode, RevealButton );
 } );
