@@ -167,35 +167,35 @@ define( function( require ) {
 
       var brownEdgeLineWidth = 11;
       var scaledWidth = width * SCALE;
-      var scaledHeight = length * SCALE;
+      var scaledLength = length * SCALE;
       var lineWidthAmount = brownEdgeLineWidth * 2;
 
-      borderRectangle.setRect( 0, 0, scaledWidth + lineWidthAmount, scaledHeight + lineWidthAmount );
+      borderRectangle.setRect( 0, 0, scaledWidth + lineWidthAmount, scaledLength + lineWidthAmount );
       //TODO: cleanup?
       if ( options.fullSizeBounds ) {
         self.localBounds = Bounds2.point( 0, 0 ).dilatedXY(
           ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * SCALE / 2 + brownEdgeLineWidth,
           ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * SCALE / 2 + brownEdgeLineWidth );
       }
-      insideRectangle.setRect( 0, 0, scaledWidth, scaledHeight );
+      insideRectangle.setRect( 0, 0, scaledWidth, scaledLength );
 
-      leftDragger.setRect( 0, 0, lineWidthAmount / 2, scaledHeight );
-      rightDragger.setRect( 0, 0, lineWidthAmount / 2, scaledHeight );
+      leftDragger.setRect( 0, 0, lineWidthAmount / 2, scaledLength );
+      rightDragger.setRect( 0, 0, lineWidthAmount / 2, scaledLength );
       topDragger.setRect( 0, 0, scaledWidth, lineWidthAmount / 2 );
       bottomDragger.setRect( 0, 0, scaledWidth, lineWidthAmount / 2 );
 
       // Change the area of the grid lines that is shown
-      gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, scaledWidth, scaledHeight ).dilated( GRID_LINE_WIDTH / 2 ) );
+      gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, scaledWidth, scaledLength ).dilated( GRID_LINE_WIDTH / 2 ) );
 
       // center the rectangles
       insideRectangle.center = Vector2.ZERO;
       borderRectangle.center = Vector2.ZERO;
 
       // center the draggers
-      leftDragger.center = insideRectangle.center.plusXY( -( scaledWidth / 2 + lineWidthAmount / 4 ), 0 );
-      rightDragger.center = insideRectangle.center.plusXY( scaledWidth / 2 + lineWidthAmount / 4, 0 );
-      topDragger.center = insideRectangle.center.plusXY( 0, -( scaledHeight / 2 + lineWidthAmount / 4 ) );
-      bottomDragger.center = insideRectangle.center.plusXY( 0, scaledHeight / 2 + lineWidthAmount / 4 );
+      leftDragger.center = new Vector2( -( scaledWidth / 2 + lineWidthAmount / 4 ), 0 );
+      rightDragger.center = new Vector2( scaledWidth / 2 + lineWidthAmount / 4, 0 );
+      topDragger.center = new Vector2( 0, -( scaledLength / 2 + lineWidthAmount / 4 ) );
+      bottomDragger.center = new Vector2( 0, scaledLength / 2 + lineWidthAmount / 4 );
 
       leftDragHandle.center = leftDragger.center;
       rightDragHandle.center = rightDragger.center;
@@ -206,9 +206,9 @@ define( function( require ) {
       gridLinesNode.translation = insideRectangle.translation;
 
       // Position the holes.
-      bottomRightHoleNode.translation = insideRectangle.translation.plusXY( width * SCALE, length * SCALE );
+      bottomRightHoleNode.translation = insideRectangle.translation.plusXY( scaledWidth, scaledLength );
       topLeftHoleNode.translation = insideRectangle.translation.plusXY( 0, 0 );
-      topRightHoleNode.translation = insideRectangle.translation.plusXY( width * SCALE, 0 );
+      topRightHoleNode.translation = insideRectangle.translation.plusXY( scaledWidth, 0 );
     } );
 
 
