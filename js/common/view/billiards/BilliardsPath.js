@@ -61,6 +61,9 @@ define( function( require ) {
     this.collisionListener = this.addCollision.bind( this );
     collisionPoints.addItemAddedListener( this.collisionListener );
     collisionPoints.forEach( this.collisionListener );
+
+    // Update our view on a model-view transform change.
+    modelViewTransform.on( 'change', this.reset.bind( this ) );
   }
 
   proportionPlayground.register( 'BilliardsPath', BilliardsPath );

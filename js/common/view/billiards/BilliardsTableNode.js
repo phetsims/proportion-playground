@@ -163,8 +163,6 @@ define( function( require ) {
 
       modelViewTransform.setMatrix( self.computeModelViewMatrix() );
 
-      pathNode.reset();
-
       var brownEdgeLineWidth = 11;
       var scaledWidth = width * SCALE;
       var scaledLength = length * SCALE;
