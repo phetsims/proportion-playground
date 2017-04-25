@@ -99,7 +99,9 @@ define( function( require ) {
     } );
 
     // The moving ball node
-    var ballNode = new MutableOptionsNode( ShadedSphereNode, [ BALL_DIAMETER ], {}, {
+    var ballNode = new MutableOptionsNode( ShadedSphereNode, [ BALL_DIAMETER ], {
+      pickable: false
+    }, {
       mainColor: ProportionPlaygroundColorProfile.billiardsBallMainProperty,
       highlightColor: ProportionPlaygroundColorProfile.billiardsBallHighlightProperty
     } );
@@ -163,19 +165,23 @@ define( function( require ) {
 
       modelViewTransform.setMatrix( self.computeModelViewMatrix() );
 
-      var brownEdgeLineWidth = 11;
+      var viewEdgeWidth = 11;
+      // var modelEdgeWidth = viewEdgeWidth / SCALE;
       var scaledWidth = width * SCALE;
       var scaledLength = length * SCALE;
-      var lineWidthAmount = brownEdgeLineWidth * 2;
+      var lineWidthAmount = viewEdgeWidth * 2;
 
-      borderRectangle.setRect( 0, 0, scaledWidth + lineWidthAmount, scaledLength + lineWidthAmount );
-      //TODO: cleanup?
       if ( options.fullSizeBounds ) {
-        self.localBounds = Bounds2.point( 0, 0 ).dilatedXY(
-          ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * SCALE / 2 + brownEdgeLineWidth,
-          ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * SCALE / 2 + brownEdgeLineWidth );
+        self.localBounds =  Bounds2.point( 0, 0 ).dilatedXY(
+          ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * SCALE / 2 + viewEdgeWidth,
+          ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * SCALE / 2 + viewEdgeWidth );
       }
-      insideRectangle.setRect( 0, 0, scaledWidth, scaledLength );
+      var viewBounds = new Bounds2( modelViewTransform.modelToViewX( 0 ),
+                                    modelViewTransform.modelToViewY( length ), // since this gets mapped to the min
+                                    modelViewTransform.modelToViewX( width ),
+                                    modelViewTransform.modelToViewY( 0 ) );
+      insideRectangle.setRectBounds( viewBounds );
+      borderRectangle.setRectBounds( viewBounds.dilated( viewEdgeWidth ) );
 
       leftDragger.setRect( 0, 0, lineWidthAmount / 2, scaledLength );
       rightDragger.setRect( 0, 0, lineWidthAmount / 2, scaledLength );
@@ -184,10 +190,6 @@ define( function( require ) {
 
       // Change the area of the grid lines that is shown
       gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, scaledWidth, scaledLength ).dilated( GRID_LINE_WIDTH / 2 ) );
-
-      // center the rectangles
-      insideRectangle.center = Vector2.ZERO;
-      borderRectangle.center = Vector2.ZERO;
 
       // center the draggers
       leftDragger.center = new Vector2( -scaledWidth / 2 - lineWidthAmount / 4, 0 );
@@ -204,9 +206,9 @@ define( function( require ) {
       gridLinesNode.translation = new Vector2( -scaledWidth / 2, -scaledLength / 2 );
 
       // Position the holes.
-      bottomRightHoleNode.translation = new Vector2( scaledWidth / 2, scaledLength / 2 );
-      topLeftHoleNode.translation = new Vector2( -scaledWidth / 2, -scaledLength / 2 );
-      topRightHoleNode.translation = new Vector2( scaledWidth / 2, -scaledLength / 2 );
+      bottomRightHoleNode.translation = modelViewTransform.modelToViewPosition( new Vector2( width, 0 ) );
+      topLeftHoleNode.translation = modelViewTransform.modelToViewPosition( new Vector2( 0, length ) );
+      topRightHoleNode.translation = modelViewTransform.modelToViewPosition( new Vector2( width, length ) );
     } );
 
 
