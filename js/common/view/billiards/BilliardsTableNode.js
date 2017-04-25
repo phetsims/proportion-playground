@@ -48,7 +48,6 @@ define( function( require ) {
   function BilliardsTableNode( billiardsTable, options ) {
     var self = this;
 
-
     SceneRatioNode.call( this, billiardsTable );
 
     // @private {BilliardsTable}
@@ -189,8 +188,8 @@ define( function( require ) {
       gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, scaledWidth, scaledHeight ).dilated( GRID_LINE_WIDTH / 2 ) );
 
       // center the rectangles
-      insideRectangle.center = new Vector2( 0, 0 );
-      borderRectangle.center = insideRectangle.center;
+      insideRectangle.center = Vector2.ZERO;
+      borderRectangle.center = Vector2.ZERO;
 
       // center the draggers
       leftDragger.center = insideRectangle.center.plusXY( -( scaledWidth / 2 + lineWidthAmount / 4 ), 0 );
