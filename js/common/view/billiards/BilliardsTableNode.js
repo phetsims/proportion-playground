@@ -114,15 +114,13 @@ define( function( require ) {
      * Auxiliary function that adds a drag handler as an input listener for a given side of the rectangle
      * @param {Rectangle} dragHandle - the dragHandle node on the side of a table
      * @param {Property.<number>} property - the width or length property of the table
-     * @param {string} xOrY - the axis, x or y, to use. Corresponds with width or length, respectively.
+     * @param {string} coordinate - the axis, 'x' or 'y', to use. Corresponds with width or length, respectively.
      * @param {number} changeSign - -1 or 1, designates whether its the left or right, top or bottom dragHandle
-     * @returns NumberPicker
      */
-    var createDragListener = function( dragHandle, property, xOrY, changeSign ) {
+    var createDragListener = function( dragHandle, property, coordinate, changeSign ) {
 
       var startPoint; // track where the mouse drag starts
       var startProperty; // track the beginning width
-      var mousePoint; // where the mouse is currently
 
       dragHandle.addInputListener( new SimpleDragHandler( {
         // Help touch a bit more
@@ -134,10 +132,8 @@ define( function( require ) {
         },
 
         drag: function( event ) {
-          // Convert to parent coordinates for dragging billiard table node, so the mouse stays at the right relative position, see #26
-          // TODO: leftDragHandle reference is unclean
-          mousePoint = leftDragHandle.globalToParentPoint( event.pointer.point );
-          var change = Util.roundSymmetric( changeSign * ( mousePoint[ xOrY ] - startPoint[ xOrY ] ) * 2 / SCALE );
+          var mousePoint = self.globalToLocalPoint( event.pointer.point );
+          var change = Util.roundSymmetric( changeSign * ( mousePoint[ coordinate ] - startPoint[ coordinate ] ) * 2 / SCALE );
 
           // change width so its within the acceptable range
           property.value = ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.constrainValue( startProperty + change );
