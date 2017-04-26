@@ -34,9 +34,9 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var SCALE = 18; // from model units to view units   TODO: why don't we scale up after? Seems simpler
+  var MODEL_VIEW_SCALE = 18;
   var BALL_DIAMETER = 10;
-  var GRID_LINE_WIDTH = 0.5;
+  var GRID_LINE_WIDTH = 0.028;
 
   /**
    * @constructor
@@ -50,10 +50,9 @@ define( function( require ) {
 
     SceneRatioNode.call( this, billiardsTable );
 
-    // @private {BilliardsTable}
-    this.billiardsTable = billiardsTable;
-
-    var modelViewTransform = new ModelViewTransform2( this.computeModelViewMatrix() );
+    // {ModelViewTransform2} - Will be updated when the width/length changes.
+    var modelViewTransform = new ModelViewTransform2( BilliardsTableNode.computeModelViewMatrix( billiardsTable.lengthProperty.value,
+                                                                                                 billiardsTable.widthProperty.value ) );
 
     options = _.extend( {
       // {boolean} - Whether this node should always take up the bounds for a full-size (20x20) billiards table.
@@ -68,6 +67,7 @@ define( function( require ) {
     var borderRectangle = new Rectangle( { fill: ProportionPlaygroundColorProfile.billiardsBorderProperty } );
     var insideRectangle = new Rectangle( { fill: ProportionPlaygroundColorProfile.billiardsInsideProperty } );
 
+    // Create drag-handle parts to be used as children.
     var dragGripDots = new HBox( {
       pickable: false, // use the mouse/touch areas directly, don't test these
       spacing: 1.3,
@@ -80,12 +80,16 @@ define( function( require ) {
     } );
     var rotatedGripDots = new Node( { children: [ dragGripDots ], rotation: Math.PI / 2 } );
 
+    // Drag handles (with grippy dots). These will live on the 4 borders, and can be dragged to resize the table.
     var leftDragHandle = new Node( { cursor: 'pointer', children: [ rotatedGripDots ] } );
     var rightDragHandle = new Node( { cursor: 'pointer', children: [ rotatedGripDots ] } );
     var topDragHandle = new Node( { cursor: 'pointer', children: [ dragGripDots ] } );
     var bottomDragHandle = new Node( { cursor: 'pointer', children: [ dragGripDots ] } );
 
+    // Grid lines for in the inner rectangle. Clipping will be used instead of redrawing when width/length changes.
     var gridLinesNode = BilliardsTableNode.createGridLinesNode();
+
+    // The path shows the trail of where the ball has been
     var pathNode = new BilliardsPath( modelViewTransform, billiardsTable.collisionPoints, billiardsTable.ballPositionProperty );
     billiardsTable.restartEmitter.addListener( function() {
       pathNode.reset();
@@ -111,9 +115,10 @@ define( function( require ) {
     var bottomRightHoleNode = createCircle();
 
     /**
-     * Auxiliary function that adds a drag handler as an input listener for a given side of the rectangle
-     * @param {Rectangle} dragHandle - the dragHandle node on the side of a table
-     * @param {Property.<number>} property - the width or length property of the table
+     * Hook up the drag listener for each drag handle.
+     *
+     * @param {Node} dragHandle
+     * @param {Property.<number>} property - The width or length property of the table
      * @param {string} coordinate - the axis, 'x' or 'y', to use. Corresponds with width or length, respectively.
      * @param {number} changeSign - -1 or 1, designates whether its the left or right, top or bottom dragHandle
      */
@@ -123,7 +128,6 @@ define( function( require ) {
       var startProperty; // track the beginning width
 
       dragHandle.addInputListener( new SimpleDragHandler( {
-        // Help touch a bit more
         allowTouchSnag: true,
 
         start: function( event ) {
@@ -133,7 +137,7 @@ define( function( require ) {
 
         drag: function( event ) {
           var mousePoint = self.globalToLocalPoint( event.pointer.point );
-          var change = Util.roundSymmetric( changeSign * ( mousePoint[ coordinate ] - startPoint[ coordinate ] ) * 2 / SCALE );
+          var change = Util.roundSymmetric( changeSign * ( mousePoint[ coordinate ] - startPoint[ coordinate ] ) * 2 / MODEL_VIEW_SCALE );
 
           // change width so its within the acceptable range
           property.value = ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.constrainValue( startProperty + change );
@@ -141,7 +145,6 @@ define( function( require ) {
 
       } ) );
     };
-
     // When a side of the table is dragged, the appropriate width or length changes.
     createDragListener( leftDragHandle, billiardsTable.widthProperty, 'x', -1 );
     createDragListener( rightDragHandle, billiardsTable.widthProperty, 'x', 1 );
@@ -156,16 +159,21 @@ define( function( require ) {
       var length = billiardsTable.lengthProperty.value;
       var width = billiardsTable.widthProperty.value;
 
-      modelViewTransform.setMatrix( self.computeModelViewMatrix() );
+      // Recompute the model-view transform.
+      modelViewTransform.setMatrix( BilliardsTableNode.computeModelViewMatrix( billiardsTable.lengthProperty.value,
+                                                                               billiardsTable.widthProperty.value ) );
 
       var viewEdgeWidth = 11;
-      var modelEdgeWidth = viewEdgeWidth / SCALE;
+      var modelEdgeWidth = modelViewTransform.viewToModelDeltaX( viewEdgeWidth );
 
+      // Compute the full bounds (and set as local bounds) if the option is provided.
       if ( options.fullSizeBounds ) {
-        self.localBounds =  Bounds2.point( 0, 0 ).dilatedXY(
-          ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * SCALE / 2 + viewEdgeWidth,
-          ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * SCALE / 2 + viewEdgeWidth );
+        self.localBounds = Bounds2.point( 0, 0 ).dilatedXY(
+          ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * MODEL_VIEW_SCALE / 2 + viewEdgeWidth,
+          ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max * MODEL_VIEW_SCALE / 2 + viewEdgeWidth );
       }
+
+      // Determine the view bounds of the area where the ball can be.
       var viewBounds = new Bounds2( modelViewTransform.modelToViewX( 0 ),
                                     modelViewTransform.modelToViewY( length ), // since this gets mapped to the min
                                     modelViewTransform.modelToViewX( width ),
@@ -179,6 +187,7 @@ define( function( require ) {
       bottomDragHandle.center = modelViewTransform.modelToViewPosition( new Vector2( width / 2, -modelEdgeWidth / 2 ) );
 
       function setMouseTouchAreas( dragHandle, width, length, rotation ) {
+        // Quadrilateral that covers the border in the specified quadrant
         dragHandle.mouseArea = new Shape().polygon( [
           new Vector2( -width / 2, -length / 2 ),
           new Vector2( -width / 2, length / 2 ),
@@ -186,6 +195,7 @@ define( function( require ) {
           new Vector2( width / 2, -length / 2 - width )
         ] ).transformed( Matrix3.rotation2( rotation ) );
 
+        // Apply an additional offset for touch
         var touchOffset = 0.6 * width;
         dragHandle.touchArea = new Shape().polygon( [
           new Vector2( -width / 2 - touchOffset, -length / 2 + touchOffset ),
@@ -200,8 +210,8 @@ define( function( require ) {
       setMouseTouchAreas( bottomDragHandle, viewEdgeWidth, modelViewTransform.modelToViewDeltaX( width ), Math.PI / 2 );
 
       // Position and clip the grid lines (positioning is relevant, can't use view bounds above)
-      gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, width, length ).dilated( GRID_LINE_WIDTH / SCALE / 2 ) );
-      gridLinesNode.translation = new Vector2( -width * SCALE / 2, -length * SCALE / 2 );
+      gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, width, length ).dilated( GRID_LINE_WIDTH / 2 ) );
+      gridLinesNode.translation = new Vector2( -width * MODEL_VIEW_SCALE / 2, -length * MODEL_VIEW_SCALE / 2 );
 
       // Position the holes.
       bottomRightHoleNode.translation = modelViewTransform.modelToViewPosition( new Vector2( width, 0 ) );
@@ -226,23 +236,19 @@ define( function( require ) {
 
   proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );
 
-  return inherit( SceneRatioNode, BilliardsTableNode, {
+  return inherit( SceneRatioNode, BilliardsTableNode, {}, {
     /**
      * Computes what the current model-view transform should be (depends on length/width).
      * @private
      *
      * @returns {Matrix3}
      */
-    computeModelViewMatrix: function() {
-      // Long property names
-      var length = this.billiardsTable.lengthProperty.value;
-      var width = this.billiardsTable.widthProperty.value;
-
-      return new Matrix3().rowMajor( SCALE, 0, -SCALE * width / 2,
-                                     0, -SCALE, SCALE * length / 2,
+    computeModelViewMatrix: function( length, width ) {
+      return new Matrix3().rowMajor( MODEL_VIEW_SCALE, 0, -MODEL_VIEW_SCALE * width / 2,
+                                     0, -MODEL_VIEW_SCALE, MODEL_VIEW_SCALE * length / 2,
                                      0, 0, 1 );
-    }
-  }, {
+    },
+
     /**
      * Creates a node that contains all of the potentially required grid lines.
      * @private
@@ -262,9 +268,9 @@ define( function( require ) {
       } );
 
       return new Path( shape, {
-        scale: SCALE,
+        scale: MODEL_VIEW_SCALE,
         stroke: ProportionPlaygroundColorProfile.billiardsGridLineProperty,
-        lineWidth: GRID_LINE_WIDTH / SCALE
+        lineWidth: GRID_LINE_WIDTH
       } );
     }
   } );
