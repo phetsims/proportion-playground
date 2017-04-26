@@ -209,20 +209,17 @@ define( function( require ) {
       topRightHoleNode.translation = modelViewTransform.modelToViewPosition( new Vector2( width, length ) );
     } );
 
-
-    var rectangles = [ borderRectangle, insideRectangle ];
-    var paths = [ gridLinesNode, pathNode, topLeftHoleNode, topRightHoleNode, bottomRightHoleNode ];
-    var handles = [ leftDragHandle, rightDragHandle, topDragHandle, bottomDragHandle ];
-
-    if ( options.allowDragToResize ) {
-      this.children = rectangles.concat( paths )
-                                .concat( handles )
-                                .concat( [ ballNode ] );
-    }
-    else {
-      this.children = rectangles.concat( paths )
-                                .concat( [ ballNode ] );
-    }
+    // Set up child order, with the drag handles (if added) under the ball, but over everything else.
+    var baseNodes = [
+      borderRectangle, insideRectangle,
+      gridLinesNode,
+      pathNode,
+      topLeftHoleNode, topRightHoleNode, bottomRightHoleNode
+    ];
+    var dragHandles = [
+      leftDragHandle, rightDragHandle, topDragHandle, bottomDragHandle
+    ];
+    this.children = baseNodes.concat( options.allowDragToResize ? dragHandles : [], [ ballNode ] );
 
     this.mutate( options );
   }
