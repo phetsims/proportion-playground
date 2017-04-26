@@ -69,28 +69,21 @@ define( function( require ) {
     var insideRectangle = new Rectangle( { fill: ProportionPlaygroundColorProfile.billiardsInsideProperty } );
 
     var dragGripDots = new HBox( {
+      pickable: false, // use the mouse/touch areas directly, don't test these
       spacing: 1.3,
       children: [ 0, 1, 2 ].map( function() {
         return new Circle( 1.2, {
           fill: ProportionPlaygroundColorProfile.billiardsGripDotsProperty
         } );
-      } )
+      } ),
+      center: Vector2.ZERO
     } );
+    var rotatedGripDots = new Node( { children: [ dragGripDots ], rotation: Math.PI / 2 } );
 
-    var leftDragHandle = new Node( { children: [ dragGripDots ], rotation: Math.PI / 2 } );
-    var rightDragHandle = new Node( { children: [ dragGripDots ], rotation: Math.PI / 2 } );
-    var topDragHandle = new Node( { children: [ dragGripDots ] } );
-    var bottomDragHandle = new Node( { children: [ dragGripDots ] } );
-
-    // invisible rectangles used to drag the sides of the table to change the dimensions
-    var draggerOptions = {
-      cursor: 'pointer',
-      pickable: true
-    };
-    var leftDragger = new Rectangle( draggerOptions );
-    var rightDragger = new Rectangle( draggerOptions );
-    var topDragger = new Rectangle( draggerOptions );
-    var bottomDragger = new Rectangle( draggerOptions );
+    var leftDragHandle = new Node( { cursor: 'pointer', children: [ rotatedGripDots ] } );
+    var rightDragHandle = new Node( { cursor: 'pointer', children: [ rotatedGripDots ] } );
+    var topDragHandle = new Node( { cursor: 'pointer', children: [ dragGripDots ] } );
+    var bottomDragHandle = new Node( { cursor: 'pointer', children: [ dragGripDots ] } );
 
     var gridLinesNode = BilliardsTableNode.createGridLinesNode();
     var pathNode = new BilliardsPath( modelViewTransform, billiardsTable.collisionPoints, billiardsTable.ballPositionProperty );
@@ -119,27 +112,31 @@ define( function( require ) {
 
     /**
      * Auxiliary function that adds a drag handler as an input listener for a given side of the rectangle
-     * @param {Rectangle} dragger - the dragger node on the side of a table
+     * @param {Rectangle} dragHandle - the dragHandle node on the side of a table
      * @param {Property.<number>} property - the width or length property of the table
      * @param {string} xOrY - the axis, x or y, to use. Corresponds with width or length, respectively.
-     * @param {number} changeSign - -1 or 1, designates whether its the left or right, top or bottom dragger
+     * @param {number} changeSign - -1 or 1, designates whether its the left or right, top or bottom dragHandle
      * @returns NumberPicker
      */
-    var createDragListener = function( dragger, property, xOrY, changeSign ) {
+    var createDragListener = function( dragHandle, property, xOrY, changeSign ) {
 
       var startPoint; // track where the mouse drag starts
       var startProperty; // track the beginning width
       var mousePoint; // where the mouse is currently
 
-      dragger.addInputListener( new SimpleDragHandler( {
+      dragHandle.addInputListener( new SimpleDragHandler( {
+        // Help touch a bit more
+        allowTouchSnag: true,
+
         start: function( event ) {
-          startPoint = dragger.globalToParentPoint( event.pointer.point );
+          startPoint = dragHandle.globalToParentPoint( event.pointer.point );
           startProperty = property.value;
         },
 
         drag: function( event ) {
           // Convert to parent coordinates for dragging billiard table node, so the mouse stays at the right relative position, see #26
-          mousePoint = leftDragger.globalToParentPoint( event.pointer.point );
+          // TODO: leftDragHandle reference is unclean
+          mousePoint = leftDragHandle.globalToParentPoint( event.pointer.point );
           var change = Util.roundSymmetric( changeSign * ( mousePoint[ xOrY ] - startPoint[ xOrY ] ) * 2 / SCALE );
 
           // change width so its within the acceptable range
@@ -150,10 +147,10 @@ define( function( require ) {
     };
 
     // When a side of the table is dragged, the appropriate width or length changes.
-    createDragListener( leftDragger, billiardsTable.widthProperty, 'x', -1 );
-    createDragListener( rightDragger, billiardsTable.widthProperty, 'x', 1 );
-    createDragListener( topDragger, billiardsTable.lengthProperty, 'y', -1 );
-    createDragListener( bottomDragger, billiardsTable.lengthProperty, 'y', 1 );
+    createDragListener( leftDragHandle, billiardsTable.widthProperty, 'x', -1 );
+    createDragListener( rightDragHandle, billiardsTable.widthProperty, 'x', 1 );
+    createDragListener( topDragHandle, billiardsTable.lengthProperty, 'y', -1 );
+    createDragListener( bottomDragHandle, billiardsTable.lengthProperty, 'y', 1 );
 
     // When the table is resized, redraw it.
     Property.multilink( [
@@ -166,10 +163,7 @@ define( function( require ) {
       modelViewTransform.setMatrix( self.computeModelViewMatrix() );
 
       var viewEdgeWidth = 11;
-      // var modelEdgeWidth = viewEdgeWidth / SCALE;
-      var scaledWidth = width * SCALE;
-      var scaledLength = length * SCALE;
-      var lineWidthAmount = viewEdgeWidth * 2;
+      var modelEdgeWidth = viewEdgeWidth / SCALE;
 
       if ( options.fullSizeBounds ) {
         self.localBounds =  Bounds2.point( 0, 0 ).dilatedXY(
@@ -183,27 +177,35 @@ define( function( require ) {
       insideRectangle.setRectBounds( viewBounds );
       borderRectangle.setRectBounds( viewBounds.dilated( viewEdgeWidth ) );
 
-      leftDragger.setRect( 0, 0, lineWidthAmount / 2, scaledLength );
-      rightDragger.setRect( 0, 0, lineWidthAmount / 2, scaledLength );
-      topDragger.setRect( 0, 0, scaledWidth, lineWidthAmount / 2 );
-      bottomDragger.setRect( 0, 0, scaledWidth, lineWidthAmount / 2 );
+      leftDragHandle.center = modelViewTransform.modelToViewPosition( new Vector2( -modelEdgeWidth / 2, length / 2 ) );
+      rightDragHandle.center = modelViewTransform.modelToViewPosition( new Vector2( width + modelEdgeWidth / 2, length / 2 ) );
+      topDragHandle.center = modelViewTransform.modelToViewPosition( new Vector2( width / 2, length + modelEdgeWidth / 2 ) );
+      bottomDragHandle.center = modelViewTransform.modelToViewPosition( new Vector2( width / 2, -modelEdgeWidth / 2 ) );
 
-      // Change the area of the grid lines that is shown
-      gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, scaledWidth, scaledLength ).dilated( GRID_LINE_WIDTH / 2 ) );
+      function setMouseTouchAreas( dragHandle, width, length, rotation ) {
+        dragHandle.mouseArea = new Shape().polygon( [
+          new Vector2( -width / 2, -length / 2 ),
+          new Vector2( -width / 2, length / 2 ),
+          new Vector2( width / 2, length / 2 + width ),
+          new Vector2( width / 2, -length / 2 - width )
+        ] ).transformed( Matrix3.rotation2( rotation ) );
 
-      // center the draggers
-      leftDragger.center = new Vector2( -scaledWidth / 2 - lineWidthAmount / 4, 0 );
-      rightDragger.center = new Vector2( scaledWidth / 2 + lineWidthAmount / 4, 0 );
-      topDragger.center = new Vector2( 0, -scaledLength / 2 - lineWidthAmount / 4 );
-      bottomDragger.center = new Vector2( 0, scaledLength / 2 + lineWidthAmount / 4 );
+        var touchOffset = 0.6 * width;
+        dragHandle.touchArea = new Shape().polygon( [
+          new Vector2( -width / 2 - touchOffset, -length / 2 + touchOffset ),
+          new Vector2( -width / 2 - touchOffset, length / 2 - touchOffset ),
+          new Vector2( width / 2 + touchOffset, length / 2 + width + touchOffset ),
+          new Vector2( width / 2 + touchOffset, -length / 2 - width - touchOffset )
+        ] ).transformed( Matrix3.rotation2( rotation ) );
+      }
+      setMouseTouchAreas( leftDragHandle, viewEdgeWidth, -modelViewTransform.modelToViewDeltaY( length ), Math.PI );
+      setMouseTouchAreas( rightDragHandle, viewEdgeWidth, -modelViewTransform.modelToViewDeltaY( length ), 0 );
+      setMouseTouchAreas( topDragHandle, viewEdgeWidth, modelViewTransform.modelToViewDeltaX( width ), -Math.PI / 2 );
+      setMouseTouchAreas( bottomDragHandle, viewEdgeWidth, modelViewTransform.modelToViewDeltaX( width ), Math.PI / 2 );
 
-      leftDragHandle.center = leftDragger.center;
-      rightDragHandle.center = rightDragger.center;
-      topDragHandle.center = topDragger.center;
-      bottomDragHandle.center = bottomDragger.center;
-
-      // Position the lines layer
-      gridLinesNode.translation = new Vector2( -scaledWidth / 2, -scaledLength / 2 );
+      // Position and clip the grid lines (positioning is relevant, can't use view bounds above)
+      gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, width * SCALE, length * SCALE ).dilated( GRID_LINE_WIDTH / 2 ) );
+      gridLinesNode.translation = new Vector2( -width * SCALE / 2, -length * SCALE / 2 );
 
       // Position the holes.
       bottomRightHoleNode.translation = modelViewTransform.modelToViewPosition( new Vector2( width, 0 ) );
@@ -213,13 +215,11 @@ define( function( require ) {
 
 
     var rectangles = [ borderRectangle, insideRectangle ];
-    var draggers = [ leftDragger, rightDragger, topDragger, bottomDragger ];
     var paths = [ gridLinesNode, pathNode, topLeftHoleNode, topRightHoleNode, bottomRightHoleNode ];
     var handles = [ leftDragHandle, rightDragHandle, topDragHandle, bottomDragHandle ];
 
     if ( options.allowDragToResize ) {
-      this.children = rectangles.concat( draggers )
-                                .concat( paths )
+      this.children = rectangles.concat( paths )
                                 .concat( handles )
                                 .concat( [ ballNode ] );
     }
