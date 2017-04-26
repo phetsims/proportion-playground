@@ -200,7 +200,7 @@ define( function( require ) {
       setMouseTouchAreas( bottomDragHandle, viewEdgeWidth, modelViewTransform.modelToViewDeltaX( width ), Math.PI / 2 );
 
       // Position and clip the grid lines (positioning is relevant, can't use view bounds above)
-      gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, width * SCALE, length * SCALE ).dilated( GRID_LINE_WIDTH / 2 ) );
+      gridLinesNode.clipArea = Shape.bounds( new Bounds2( 0, 0, width, length ).dilated( GRID_LINE_WIDTH / SCALE / 2 ) );
       gridLinesNode.translation = new Vector2( -width * SCALE / 2, -length * SCALE / 2 );
 
       // Position the holes.
@@ -254,17 +254,17 @@ define( function( require ) {
       var max = ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max + 1;
       var shape = new Shape();
 
-      // TODO: ditch scale in a bit
       _.range( min, max + 1 ).forEach( function( n ) {
-        shape.moveTo( n * SCALE, min * SCALE )
-             .lineTo( n * SCALE, max * SCALE );
-        shape.moveTo( min * SCALE, n * SCALE )
-             .lineTo( max * SCALE, n * SCALE );
+        shape.moveTo( n, min )
+             .lineTo( n, max );
+        shape.moveTo( min, n )
+             .lineTo( max, n );
       } );
 
       return new Path( shape, {
+        scale: SCALE,
         stroke: ProportionPlaygroundColorProfile.billiardsGridLineProperty,
-        lineWidth: GRID_LINE_WIDTH
+        lineWidth: GRID_LINE_WIDTH / SCALE
       } );
     }
   } );
