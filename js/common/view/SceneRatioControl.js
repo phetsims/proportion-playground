@@ -61,7 +61,7 @@ define( function( require ) {
       var staticOptions = _.extend( {
         scale: 2,
         valueMaxWidth: 40,
-        timerInterval: 250
+        timerInterval: 100
       }, pickerOptions );
       var dynamicOptions = {
         color: side === Side.LEFT ? leftPickerColorProperty : rightPickerColorProperty
