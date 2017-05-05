@@ -32,8 +32,8 @@ define( function( require ) {
 
     Node.call( this );
 
-    // {Property.<HTMLCanvasElement>} - Canvas for the current gradient colors.
-    var canvasProperty = new DerivedProperty( [ paintChoice.leftColorProperty, paintChoice.rightColorProperty ], function( leftColor, rightColor ) {
+    // {string} - Image for the current gradient colors.
+    var imageUrlProperty = new DerivedProperty( [ paintChoice.leftColorProperty, paintChoice.rightColorProperty ], function( leftColor, rightColor ) {
       var canvas = document.createElement( 'canvas' );
       var context = canvas.getContext( '2d' );
       canvas.width = width;
@@ -46,15 +46,15 @@ define( function( require ) {
         context.fillRect( 0, i, width, 1 );
       }
 
-      return canvas;
+      return canvas.toDataURL();
     } );
 
     // Gradient (swap image when the colors change)
-    var image = new Image( canvasProperty.value, {
+    var image = new Image( imageUrlProperty.value, {
       initialWidth: width,
       initialHeight: height
     } );
-    canvasProperty.linkAttribute( image, 'image' );
+    imageUrlProperty.linkAttribute( image, 'image' );
     this.addChild( image );
 
     // Outline
