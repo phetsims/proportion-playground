@@ -38,9 +38,23 @@ define( function( require ) {
 
     var homeScreenIconBounds = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
 
-    var billiardsTable = new BilliardsTable( 6, 3, new Property( true ), new Property( true ), true );
+    Screen.call( this,
+      function() { return new ProportionModel( false ); },
+      function( model ) { return new ProportionScreenView( model ); }, {
+        name: exploreString,
+        backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
+        homeScreenIcon: createHomeScreenIcon( homeScreenIconBounds ),
+        navigationBarIcon: createNavigationBarIcon( homeScreenIconBounds)
+      } );
+  }
 
-    // Step all the way through the animation
+  proportionPlayground.register( 'ExploreScreen', ExploreScreen );
+
+  // Creates the home screen icon.
+  var createHomeScreenIcon = function( homeScreenIconBounds ) {
+
+    // Step all the way through the animation of a billiards table
+    var billiardsTable = new BilliardsTable( 6, 3, new Property( true ), new Property( true ) );
     billiardsTable.step( Number.POSITIVE_INFINITY );
 
     var homeScreenIconContent = new HBox( {
@@ -68,36 +82,32 @@ define( function( require ) {
       ]
     } );
 
-    Screen.call( this,
-      function() { return new ProportionModel( false ); },
-      function( model ) { return new ProportionScreenView( model ); }, {
-        name: exploreString,
-        backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
-        homeScreenIcon: new Node( {
-          children: [
-            Rectangle.bounds( homeScreenIconBounds, {
-              fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
-            } ),
-            new AlignBox( homeScreenIconContent, {
-              alignBounds: homeScreenIconBounds
-            } )
-          ]
+    return new Node( {
+      children: [
+        Rectangle.bounds( homeScreenIconBounds, {
+          fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
         } ),
-        navigationBarIcon: new Node( {
-          children: [
-            Rectangle.bounds( homeScreenIconBounds, {
-              fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
-            } ),
-            // Just a simple necklace for the nav-bar
-            new AlignBox( NecklaceGraphicNode.createStaticNecklace( 6, 3, { scale: 3.5, pickable: false } ), {
-              alignBounds: homeScreenIconBounds
-            } )
-          ]
+        new AlignBox( homeScreenIconContent, {
+          alignBounds: homeScreenIconBounds
         } )
-      } );
-  }
+      ]
+    } );
+  };
 
-  proportionPlayground.register( 'ExploreScreen', ExploreScreen );
+  // Creates the navigation bar icon.
+  var createNavigationBarIcon = function( homeScreenIconBounds) {
+    return new Node( {
+      children: [
+        Rectangle.bounds( homeScreenIconBounds, {
+          fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
+        } ),
+        // Just a simple necklace for the nav-bar
+        new AlignBox( NecklaceGraphicNode.createStaticNecklace( 6, 3, { scale: 3.5, pickable: false } ), {
+          alignBounds: homeScreenIconBounds
+        } )
+      ]
+    } );
+  };
 
   return inherit( Screen, ExploreScreen );
 } );

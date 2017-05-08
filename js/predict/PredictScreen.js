@@ -29,62 +29,75 @@ define( function( require ) {
   // strings
   var predictString = require( 'string!PROPORTION_PLAYGROUND/predict' );
 
+  // Our splotch's "visual center" is not in the center of its bounds, so we need to shift the text slightly.
+  var SCREEN_ICON_TEXT_OFFSET = new Vector2( 14, 14 );
+
   /**
    * @constructor
    * @extends {Screen}
    */
   function PredictScreen() {
+
+    // used to create screen icons
     var homeScreenIconBounds = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
-
-    var orangeSplotch = new Splotch( 30, 30, new Property( true ), new Property( true ) );
-    var orangeSplotchNode = new SplotchNode( orangeSplotch, new Property( PaintChoice.RED_YELLOW ) );
-
-    // Our splotch's "visual center" is not in the center of its bounds, so we need to shift the text slightly.
-    var textOffset = new Vector2( 14, 14 );
-
-    // Not translatable, see https://github.com/phetsims/proportion-playground/issues/18#issuecomment-276216535
-    var homeScreenQuestionText = new Text( '? : ?', {
-      center: orangeSplotchNode.center.plus( textOffset ),
-      font: new PhetFont( 80 )
-    } );
-
-    // Not translatable, see https://github.com/phetsims/proportion-playground/issues/18#issuecomment-276216535
-    var navigationBarQuestionText = new Text( '??', {
-      center: orangeSplotchNode.center.plus( textOffset ),
-      font: new PhetFont( 140 )
-    } );
+    var splotch = new Splotch( 30, 30, new Property( true ), new Property( true ) );
+    var splotchNode = new SplotchNode( splotch, new Property( PaintChoice.RED_YELLOW ) );
 
     Screen.call( this,
       function() { return new ProportionModel( true ); },
       function( model ) { return new ProportionScreenView( model ); }, {
         name: predictString,
         backgroundColorProperty: ProportionPlaygroundColorProfile.predictBackgroundProperty,
-        homeScreenIcon: new Node( {
-          children: [
-            Rectangle.bounds( homeScreenIconBounds, {
-              fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
-            } ),
-            // Centered splotch with home-screen text
-            new AlignBox( new Node( { children: [ orangeSplotchNode, homeScreenQuestionText ] } ), {
-              alignBounds: homeScreenIconBounds
-            } )
-          ]
-        } ),
-        navigationBarIcon: new Node( {
-          children: [
-            Rectangle.bounds( homeScreenIconBounds, {
-              fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
-            } ),
-            // Centered splotch with nav-bar text
-            new AlignBox( new Node( { children: [ orangeSplotchNode, navigationBarQuestionText ] } ), {
-              alignBounds: homeScreenIconBounds
-            } )
-          ]
-        } )
+        homeScreenIcon: createHomeScreenIcon( homeScreenIconBounds, splotchNode ),
+        navigationBarIcon: createNavigationBarIcon( homeScreenIconBounds, splotchNode )
       } );
   }
 
   proportionPlayground.register( 'PredictScreen', PredictScreen );
+
+  // Creates the home screen icon.
+  var createHomeScreenIcon = function( homeScreenIconBounds, splotchNode ) {
+
+    // Not translatable, see https://github.com/phetsims/proportion-playground/issues/18#issuecomment-276216535
+    var homeScreenQuestionText = new Text( '? : ?', {
+      center: splotchNode.center.plus( SCREEN_ICON_TEXT_OFFSET ),
+      font: new PhetFont( 80 )
+    } );
+
+    return new Node( {
+      children: [
+        Rectangle.bounds( homeScreenIconBounds, {
+          fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
+        } ),
+        // Centered splotch with home-screen text
+        new AlignBox( new Node( { children: [ splotchNode, homeScreenQuestionText ] } ), {
+          alignBounds: homeScreenIconBounds
+        } )
+      ]
+    } );
+  };
+
+  // Creates the navigation bar icon
+  var createNavigationBarIcon = function( homeScreenIconBounds, splotchNode ) {
+
+    // Not translatable, see https://github.com/phetsims/proportion-playground/issues/18#issuecomment-276216535
+    var navigationBarQuestionText = new Text( '??', {
+      center: splotchNode.center.plus( SCREEN_ICON_TEXT_OFFSET ),
+      font: new PhetFont( 140 )
+    } );
+
+    return new Node( {
+      children: [
+        Rectangle.bounds( homeScreenIconBounds, {
+          fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
+        } ),
+        // Centered splotch with nav-bar text
+        new AlignBox( new Node( { children: [ splotchNode, navigationBarQuestionText ] } ), {
+          alignBounds: homeScreenIconBounds
+        } )
+      ]
+    } );
+  };
 
   return inherit( Screen, PredictScreen );
 } );
