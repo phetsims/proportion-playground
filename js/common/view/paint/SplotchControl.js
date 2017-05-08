@@ -42,13 +42,6 @@ define( function( require ) {
     var dripLayer = new Node();
     var balloonLayer = new Node();
 
-    // Performance note: These are added so that WebGL will pre-allocate these images in the SpriteSheet, so it doesn't
-    // happen upon loading. It also ensures there's a WebGLBlock.
-    balloonLayer.addChild( new Node( {
-      visible: false,
-      children: PaintBalloonNode.BALLOON_IMAGES
-    } ) );
-
     // @private {SplotchNode}
     this.splotchNode = new SplotchNode( splotch, paintChoiceProperty, {
       useVisibleAmounts: useVisibleAmounts,
