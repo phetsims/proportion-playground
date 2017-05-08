@@ -15,7 +15,7 @@ define( function( require ) {
   // {number} - In seconds, the time from "launch" to when the balloon "hits" the splotch.
   var TIME_TO_HIT = 0.5;
 
-  var balloonCounter = 0;
+  var balloonCounter = 0; //REVIEW doc, or better name might be numberOfInstances
 
   /**
    * @constructor

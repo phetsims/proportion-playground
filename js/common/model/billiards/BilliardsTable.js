@@ -73,6 +73,8 @@ define( function( require ) {
      * @public
      */
     restartBall: function() {
+
+      //REVIEW a & b don't exactly improve readability. How about length and width?
       // For readability
       var a = this.lengthProperty.value;
       var b = this.widthProperty.value;

@@ -17,6 +17,7 @@ define( function( require ) {
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
   var SquareBeadNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/SquareBeadNode' );
 
+  //REVIEW revealProperty is not used
   /**
    * @constructor
    * @extends {SceneRatioControl}

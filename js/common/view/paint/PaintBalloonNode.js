@@ -139,6 +139,7 @@ define( function( require ) {
     /**
      * Releases references.
      * @public
+     * @override
      */
     dispose: function() {
       this.paintChoiceProperty.unlink( this.colorChoiceListener );

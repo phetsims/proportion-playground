@@ -67,6 +67,7 @@ define( function( require ) {
     var leftColorProperty = options.useVisibleAmounts ? splotch.visibleLeftColorProperty : splotch.leftColorCountProperty;
     var rightColorProperty = options.useVisibleAmounts ? splotch.visibleRightColorProperty : splotch.rightColorCountProperty;
 
+    //REVIEW move getSplotchColor out of constructor, it doesn't require access to instance fields
     /**
      * For constructing our derived property.
      *

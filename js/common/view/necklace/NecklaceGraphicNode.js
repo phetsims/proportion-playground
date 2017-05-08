@@ -26,7 +26,7 @@ define( function( require ) {
    * @constructor
    * @extends {Node}
    *
-   * @param {Property.<NecklaceLayout>}
+   * @param {Property.<NecklaceLayout>} layoutProperty
    * @param {Object} [options] - node options
    */
   function NecklaceGraphicNode( layoutProperty, options ) {

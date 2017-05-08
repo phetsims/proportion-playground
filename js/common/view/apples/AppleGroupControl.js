@@ -21,6 +21,7 @@ define( function( require ) {
   var applesString = require( 'string!PROPORTION_PLAYGROUND/apples' );
   var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
+  //REVIEW revealProperty is not used
   /**
    * @constructor
    * @extends {SceneRatioControl}

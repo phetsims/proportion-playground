@@ -27,8 +27,10 @@ define( function( require ) {
   var ROUND = RADIUS / 5;
   var colorProperty = ProportionPlaygroundColorProfile.necklaceSquareBeadProperty;
 
+  //REVIEW dark7 and dark4 are Properties, so should be named dark7Property and dark4Property respectively
   var dark7 = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.7 );
   var dark4 = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.4 );
+
   var gradientProperty = new DerivedProperty( [ colorProperty ], function( color ) {
     return new RadialGradient( 0, 0, 0, 0, 0, DIAMETER + GRADIENT_OFFSET )
       .addColorStop( 0, color.colorUtilsBrighter( 0.3 ) )
@@ -54,6 +56,7 @@ define( function( require ) {
       scale: 0.95
     } );
 
+    //REVIEW visibility annotation
     this.backRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
       fill: dark7,
       x: -DIAMETER / 15,
@@ -61,6 +64,7 @@ define( function( require ) {
     } );
     this.container.addChild( this.backRectangle );
 
+    //REVIEW visibility annotation
     this.middleRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
       fill: dark4,
       scale: 20 / 21,
@@ -69,6 +73,7 @@ define( function( require ) {
     } );
     this.container.addChild( this.middleRectangle );
 
+    //REVIEW visibility annotation
     this.frontRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
       scale: 10 / 11
     } );

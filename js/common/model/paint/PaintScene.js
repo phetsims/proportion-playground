@@ -68,6 +68,7 @@ define( function( require ) {
     /**
      * Reset the model and both child splotches.
      * @public
+     * @override
      */
     reset: function() {
       Scene.prototype.reset.call( this );

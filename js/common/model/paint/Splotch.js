@@ -101,6 +101,7 @@ define( function( require ) {
 
     /**
      * Resets the model
+     * @public
      * @override
      */
     reset: function() {

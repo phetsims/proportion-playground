@@ -24,6 +24,7 @@ define( function( require ) {
   var TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
   var Util = require( 'DOT/Util' );
 
+  // strings
   var appleCostString = require( 'string!PROPORTION_PLAYGROUND/appleCost' );
 
   // constants
@@ -79,6 +80,7 @@ define( function( require ) {
       ]
     } );
 
+    //REVIEW move updateIndicator out of constructor, it requires no access to instance fields
     /**
      * @param {Node} indicator - the left/right triangle node
      * @param {AppleGroup} appleGroup - the model

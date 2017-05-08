@@ -56,9 +56,12 @@ define( function( require ) {
      * @param {SceneRatio} rightRatio
      */
     initializeRatios: function( leftRatio, rightRatio ) {
+
+      //REVIEW this.ratios should be declared in constructor with a note that it's initialized in initializeRatios
       // @public {Array.<SceneRatio>}
       this.ratios = [ leftRatio, rightRatio ];
 
+      //REVIEW this.quantityProperties should be declared in constructor with a note that it's initialized in initializeRatios
       // @public {Array.<NumberProperty>}
       this.quantityProperties = leftRatio.quantityProperties.concat( rightRatio.quantityProperties );
 

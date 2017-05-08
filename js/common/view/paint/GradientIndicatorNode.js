@@ -35,7 +35,7 @@ define( function( require ) {
   function GradientIndicatorNode( layoutBounds, scene, revealProperty, options ) {
     var self = this;
 
-    // Create the cradients
+    // Create the gradients
     var gradientNodes = PaintChoice.CHOICES.map( function( paintChoice ) {
       var gradientNode = new PaintChoiceGradientNode( GRADIENT_WIDTH, GRADIENT_HEIGHT, paintChoice );
       gradientNode.paintChoice = paintChoice;

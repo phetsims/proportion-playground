@@ -43,6 +43,7 @@ define( function( require ) {
     /**
      * Reset the model
      * @public
+     * @override
      */
     reset: function() {
       Scene.prototype.reset.call( this );

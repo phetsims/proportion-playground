@@ -24,8 +24,9 @@ define( function( require ) {
 
   // constants
   var BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
-  var TWO_BEAD_OFFSET = BEAD_DIAMETER - 7;
+  var TWO_BEAD_OFFSET = BEAD_DIAMETER - 7; //REVIEW document, not obvious what this is
 
+  //REVIEW @private?
   /**
    * Creates an immutable spline with specific parameters from a list of points.
    * @public
@@ -43,6 +44,7 @@ define( function( require ) {
   // {Object} - maps a seed {number} => {Array.<Vector2>}, see getRepulsionPoints(). Lazily computed
   var repulsionPointMap = {};
 
+  //REVIEW @private?
   /**
    * Returns points used for adjusting the necklace into a random-looking shape.
    * @public
@@ -288,6 +290,7 @@ define( function( require ) {
 
   return inherit( Object, NecklaceLayout, {}, {
 
+    //REVIEW typo, ONE_ROUND_BEAD_SPAPE
     /**
      * {Shape} - Immutable shared string shape for when there is only one round bead.
      */
@@ -298,6 +301,7 @@ define( function( require ) {
       new Vector2( 0.5 * BEAD_DIAMETER, -1.55 * BEAD_DIAMETER )
     ] ),
 
+    //REVIEW typo, ONE_SQUARE_BEAD_SPAPE
     /**
      * {Shape} - Immutable shared string shape for when there is only one square bead.
      */
