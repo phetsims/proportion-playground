@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2016-2017, University of Colorado Boulder
 
 /**
  * Base type for a combined visual representation with controls (spinners, etc.) for the ratio-based items

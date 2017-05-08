@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2016-2017, University of Colorado Boulder
 
 /**
  * Shows a vertical representation of the price per apple with moving triangles on the left and right sides to indicate

@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2016-2017, University of Colorado Boulder
 
 /**
  * Node that shows everything for a paint scene (including NumberPickers and paint splotches and gradient).

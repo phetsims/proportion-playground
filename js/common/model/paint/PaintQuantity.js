@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2017, University of Colorado Boulder
 
 /**
  * Models the quantity of a specific color/choice of paint, that can be added (with balloons) and removed (with drips)

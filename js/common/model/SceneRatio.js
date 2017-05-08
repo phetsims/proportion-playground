@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2016-2017, University of Colorado Boulder
 
 /**
  * Base type for the ratio-based items (necklaces, billiard tables, splotches, etc.)

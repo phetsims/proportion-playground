@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2016-2017, University of Colorado Boulder
 
 /**
  * A drip of paint, falls from the splotch and disappears once off-screen.
