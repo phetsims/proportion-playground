@@ -144,11 +144,5 @@ define( function( require ) {
       this.paintChoiceProperty.unlink( this.colorChoiceListener );
       Node.prototype.dispose.call( this );
     }
-  }, {
-    /**
-     * {Array.<Image>} - All of the balloon Node images, so we can preload them
-     * @public
-     */
-    BALLOON_IMAGES: _.flatten( _.map( PaintChoice.COLORS, function( paintColor ) { return balloonImageMap[ paintColor.paintId ]; } ) )
   } );
 } );

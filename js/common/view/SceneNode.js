@@ -60,8 +60,8 @@ define( function( require ) {
 
     Node.call( this, {
       children: [
-        this.leftControl,
-        this.rightControl
+        this.rightControl,
+        this.leftControl
       ]
     } );
 
