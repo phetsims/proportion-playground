@@ -95,11 +95,11 @@ define( function( require ) {
           value: paintChoice
         };
       } ), {
-      // options
-      spacing: 10,
-      left: layoutBounds.left + 15,
-      bottom: layoutBounds.bottom - 15
-    } ) );
+        // options
+        spacing: 10,
+        left: layoutBounds.left + 15,
+        bottom: layoutBounds.bottom - 15
+      } ) );
 
     this.addChild( new GradientIndicatorNode( layoutBounds, scene, scene.revealProperty, {
       centerY: 250 // TODO: refactor out 250?

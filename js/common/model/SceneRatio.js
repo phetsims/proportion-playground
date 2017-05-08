@@ -103,9 +103,9 @@ define( function( require ) {
      */
     isEquivalentTo: function( ratio ) {
       return SceneRatio.areRatiosEquivalent( this.quantityProperties[ 0 ].value,
-                                             this.quantityProperties[ 1 ].value,
-                                             ratio.quantityProperties[ 0 ].value,
-                                             ratio.quantityProperties[ 1 ].value );
+        this.quantityProperties[ 1 ].value,
+        ratio.quantityProperties[ 0 ].value,
+        ratio.quantityProperties[ 1 ].value );
     }
   }, {
     /**

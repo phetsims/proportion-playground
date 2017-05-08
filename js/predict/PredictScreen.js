@@ -57,31 +57,31 @@ define( function( require ) {
     Screen.call( this,
       function() { return new ProportionModel( true ); },
       function( model ) { return new ProportionScreenView( model ); }, {
-      name: predictString,
-      backgroundColorProperty: ProportionPlaygroundColorProfile.predictBackgroundProperty,
-      homeScreenIcon: new Node( {
-        children: [
-          Rectangle.bounds( homeScreenIconBounds, {
-            fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
-          } ),
-          // Centered splotch with home-screen text
-          new AlignBox( new Node( { children: [ orangeSplotchNode, homeScreenQuestionText ] } ), {
-            alignBounds: homeScreenIconBounds
-          } )
-        ]
-      } ),
-      navigationBarIcon: new Node( {
-        children: [
-          Rectangle.bounds( homeScreenIconBounds, {
-            fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
-          } ),
-          // Centered splotch with nav-bar text
-          new AlignBox( new Node( { children: [ orangeSplotchNode, navigationBarQuestionText ] } ), {
-            alignBounds: homeScreenIconBounds
-          } )
-        ]
-      } )
-    } );
+        name: predictString,
+        backgroundColorProperty: ProportionPlaygroundColorProfile.predictBackgroundProperty,
+        homeScreenIcon: new Node( {
+          children: [
+            Rectangle.bounds( homeScreenIconBounds, {
+              fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
+            } ),
+            // Centered splotch with home-screen text
+            new AlignBox( new Node( { children: [ orangeSplotchNode, homeScreenQuestionText ] } ), {
+              alignBounds: homeScreenIconBounds
+            } )
+          ]
+        } ),
+        navigationBarIcon: new Node( {
+          children: [
+            Rectangle.bounds( homeScreenIconBounds, {
+              fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
+            } ),
+            // Centered splotch with nav-bar text
+            new AlignBox( new Node( { children: [ orangeSplotchNode, navigationBarQuestionText ] } ), {
+              alignBounds: homeScreenIconBounds
+            } )
+          ]
+        } )
+      } );
   }
 
   proportionPlayground.register( 'PredictScreen', PredictScreen );

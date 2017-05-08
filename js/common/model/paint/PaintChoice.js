@@ -50,8 +50,8 @@ define( function( require ) {
    */
   function blendSubtractiveRGBGamma( a, b, ratio ) {
     return new Color( gammaSubtract( a.red, b.red, ratio ),
-                      gammaSubtract( a.green, b.green, ratio ),
-                      gammaSubtract( a.blue, b.blue, ratio ) );
+      gammaSubtract( a.green, b.green, ratio ),
+      gammaSubtract( a.blue, b.blue, ratio ) );
   }
 
   /**
@@ -97,8 +97,8 @@ define( function( require ) {
       assert && assert( blendAmount >= 0 && blendAmount <= 1, 'Blend amount was out of bounds.' );
 
       return blendSubtractiveRGBGamma( this.leftColorProperty.value,
-                                       this.rightColorProperty.value,
-                                       stretchRatio( blendAmount, 2.0 ) );
+        this.rightColorProperty.value,
+        stretchRatio( blendAmount, 2.0 ) );
     },
 
     /**

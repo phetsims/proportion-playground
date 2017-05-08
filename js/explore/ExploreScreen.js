@@ -71,30 +71,30 @@ define( function( require ) {
     Screen.call( this,
       function() { return new ProportionModel( false ); },
       function( model ) { return new ProportionScreenView( model ); }, {
-      name: exploreString,
-      backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
-      homeScreenIcon: new Node( {
-        children: [
-          Rectangle.bounds( homeScreenIconBounds, {
-            fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
-          } ),
-          new AlignBox( homeScreenIconContent, {
-            alignBounds: homeScreenIconBounds
-          } )
-        ]
-      } ),
-      navigationBarIcon: new Node( {
-        children: [
-          Rectangle.bounds( homeScreenIconBounds, {
-            fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
-          } ),
-          // Just a simple necklace for the nav-bar
-          new AlignBox( NecklaceGraphicNode.createStaticNecklace( 6, 3, { scale: 3.5, pickable: false } ), {
-            alignBounds: homeScreenIconBounds
-          } )
-        ]
-      } )
-    } );
+        name: exploreString,
+        backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
+        homeScreenIcon: new Node( {
+          children: [
+            Rectangle.bounds( homeScreenIconBounds, {
+              fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
+            } ),
+            new AlignBox( homeScreenIconContent, {
+              alignBounds: homeScreenIconBounds
+            } )
+          ]
+        } ),
+        navigationBarIcon: new Node( {
+          children: [
+            Rectangle.bounds( homeScreenIconBounds, {
+              fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
+            } ),
+            // Just a simple necklace for the nav-bar
+            new AlignBox( NecklaceGraphicNode.createStaticNecklace( 6, 3, { scale: 3.5, pickable: false } ), {
+              alignBounds: homeScreenIconBounds
+            } )
+          ]
+        } )
+      } );
   }
 
   proportionPlayground.register( 'ExploreScreen', ExploreScreen );

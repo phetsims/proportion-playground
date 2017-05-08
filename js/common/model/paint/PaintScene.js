@@ -49,9 +49,9 @@ define( function( require ) {
      */
     areVisualRatiosEquivalent: function() {
       return SceneRatio.areRatiosEquivalent( this.leftSplotch.visibleLeftColorProperty.value,
-                                             this.leftSplotch.visibleRightColorProperty.value,
-                                             this.rightSplotch.visibleLeftColorProperty.value,
-                                             this.rightSplotch.visibleRightColorProperty.value );
+        this.leftSplotch.visibleRightColorProperty.value,
+        this.rightSplotch.visibleLeftColorProperty.value,
+        this.rightSplotch.visibleRightColorProperty.value );
     },
 
     /**

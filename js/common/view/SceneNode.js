@@ -116,8 +116,8 @@ define( function( require ) {
       this.addChild( new ABSwitch( this.scene.showBothProperty,
         false, this.leftSwitchIcon,
         true, this.rightSwitchIcon, {
-        centerBottom: this.layoutBounds.centerBottom.plusXY( 0, -15 )
-      } ) );
+          centerBottom: this.layoutBounds.centerBottom.plusXY( 0, -15 )
+        } ) );
     },
 
     /**
@@ -134,7 +134,7 @@ define( function( require ) {
             this.controlButton.centerX = this.layoutBounds.centerX;
           }
           else {
-             // 10 amount of space for the larger button
+            // 10 amount of space for the larger button
             this.controlButton.centerX = this.layoutBounds.right - ProportionPlaygroundConstants.BUTTON_RIGHT_CENTER_OFFSET;
           }
           this.controlButton.centerY = this.layoutBounds.bottom - 128;
@@ -144,7 +144,8 @@ define( function( require ) {
           this.controlButton.centerX = pickerContainerBounds.right + 62; // 30 amount of space for the larger button
           this.controlButton.centerY = this.layoutBounds.bottom - 128;
         }
-      } else {
+      }
+      else {
         this.controlButton.centerX = this.layoutBounds.centerX;
         this.controlButton.centerY = this.layoutBounds.bottom - 100;
       }

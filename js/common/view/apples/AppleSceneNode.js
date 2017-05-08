@@ -60,10 +60,12 @@ define( function( require ) {
       leftControl: redAppleGroupControl,
       rightControl: greenAppleGroupControl,
       leftSwitchIcon: new Node( { children: [ appleImageNode ] } ),
-      rightSwitchIcon: new HBox( { children: [
-        new Node( { children: [ appleImageNode ] } ),
-        new Node( { children: [ appleImageNode ] } )
-      ] } )
+      rightSwitchIcon: new HBox( {
+        children: [
+          new Node( { children: [ appleImageNode ] } ),
+          new Node( { children: [ appleImageNode ] } )
+        ]
+      } )
     } );
 
     this.addChild( showCostPerAppleCheckBox );

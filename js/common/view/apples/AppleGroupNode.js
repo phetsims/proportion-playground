@@ -139,7 +139,10 @@ define( function( require ) {
         spacing: 4,
         children: [
           new Text( fixed, textOptions ),
-          new Line( 0, 0, 100, 0, { lineWidth: 2, stroke: ProportionPlaygroundColorProfile.applePriceTagTextProperty } ),
+          new Line( 0, 0, 100, 0, {
+            lineWidth: 2,
+            stroke: ProportionPlaygroundColorProfile.applePriceTagTextProperty
+          } ),
           new Text( 'Apple', textOptions ) // TODO: translate, and check for translation!!!
         ]
       } ), {
@@ -149,10 +152,10 @@ define( function( require ) {
 
       var labelRadius = 14;
       var labelShape = new Shape().arc( labelBox.left, labelBox.top, labelRadius, Math.PI / 2, 0, true )
-                                  .arc( labelBox.right, labelBox.top, labelRadius, Math.PI, Math.PI / 2, true )
-                                  .arc( labelBox.right, labelBox.bottom, labelRadius, -Math.PI / 2, -Math.PI, true )
-                                  .arc( labelBox.left, labelBox.bottom, labelRadius, 0, -Math.PI / 2, true )
-                                  .close();
+        .arc( labelBox.right, labelBox.top, labelRadius, Math.PI, Math.PI / 2, true )
+        .arc( labelBox.right, labelBox.bottom, labelRadius, -Math.PI / 2, -Math.PI, true )
+        .arc( labelBox.left, labelBox.bottom, labelRadius, 0, -Math.PI / 2, true )
+        .close();
       priceTagLayer.children = [
         new Path( labelShape, {
           fill: ProportionPlaygroundColorProfile.applePriceTagBackgroundProperty,

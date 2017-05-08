@@ -75,8 +75,8 @@ define( function( require ) {
     this.drips = new ObservableArray();
 
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
-                     this.leftColorCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE,
-                     this.rightColorCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE );
+      this.leftColorCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE,
+      this.rightColorCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE );
   }
 
   proportionPlayground.register( 'Splotch', Splotch );

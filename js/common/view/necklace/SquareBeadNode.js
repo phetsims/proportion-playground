@@ -63,7 +63,7 @@ define( function( require ) {
 
     this.middleRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
       fill: dark4,
-      scale: 20/21,
+      scale: 20 / 21,
       x: -DIAMETER / 30,
       y: DIAMETER / 30
     } );

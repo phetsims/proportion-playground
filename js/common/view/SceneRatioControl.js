@@ -85,8 +85,9 @@ define( function( require ) {
             picker
           ]
         } );
-      // With no label, return the picker directly
-      } else {
+        // With no label, return the picker directly
+      }
+      else {
         return picker;
       }
     }

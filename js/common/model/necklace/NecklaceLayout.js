@@ -198,7 +198,7 @@ define( function( require ) {
       var gcd = Util.gcd( roundBeadCount, squareBeadCount );
       var types = _.flatten( _.range( 0, gcd ).map( function() {
         return _.times( squareBeadCount / gcd, function() { return 'square'; } ).concat(
-                 _.times( roundBeadCount / gcd, function() { return 'round'; } ) );
+          _.times( roundBeadCount / gcd, function() { return 'round'; } ) );
       } ) );
 
       // Between each pair of vertices, we must put a bead in the center
@@ -238,7 +238,8 @@ define( function( require ) {
         if ( i !== centers.length - 1 ) {
           if ( types[ i ] === 'round' ) {
             this.roundBeads.push( new RoundBead( center ) );
-          } else {
+          }
+          else {
             this.squareBeads.push( new SquareBead( center, angle ) );
           }
         }
