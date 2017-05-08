@@ -1,5 +1,6 @@
+# Proportion Playground - implementation notes
 
-The explore and predict screens are very similar, so they use mainly the same components. A 'predictMode' ({boolean})
+The Explore and Predict screens are very similar, so they use mainly the same components. A 'predictMode' ({boolean})
 flag is passed to components that need to vary between the screens.
 
 Both screens have four 'scenes':

@@ -1,4 +1,5 @@
-
+# Proportion Playground - model description
+   
 # Necklace scenes
 
 Uses the GCD of the round/square bead counts to determine how many repetitions there will be, e.g.:
