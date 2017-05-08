@@ -31,6 +31,7 @@ define( function( require ) {
 
   // Our splotch's "visual center" is not in the center of its bounds, so we need to shift the text slightly.
   var SCREEN_ICON_TEXT_OFFSET = new Vector2( 14, 14 );
+  var HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
 
   /**
    * @constructor
@@ -39,7 +40,6 @@ define( function( require ) {
   function PredictScreen() {
 
     // used to create screen icons
-    var homeScreenIconBounds = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
     var splotch = new Splotch( 30, 30, new Property( true ), new Property( true ) );
     var splotchNode = new SplotchNode( splotch, new Property( PaintChoice.RED_YELLOW ) );
 
@@ -48,15 +48,15 @@ define( function( require ) {
       function( model ) { return new ProportionScreenView( model ); }, {
         name: predictString,
         backgroundColorProperty: ProportionPlaygroundColorProfile.predictBackgroundProperty,
-        homeScreenIcon: createHomeScreenIcon( homeScreenIconBounds, splotchNode ),
-        navigationBarIcon: createNavigationBarIcon( homeScreenIconBounds, splotchNode )
+        homeScreenIcon: createHomeScreenIcon( splotchNode ),
+        navigationBarIcon: createNavigationBarIcon( splotchNode )
       } );
   }
 
   proportionPlayground.register( 'PredictScreen', PredictScreen );
 
   // Creates the home screen icon.
-  var createHomeScreenIcon = function( homeScreenIconBounds, splotchNode ) {
+  var createHomeScreenIcon = function( splotchNode ) {
 
     // Not translatable, see https://github.com/phetsims/proportion-playground/issues/18#issuecomment-276216535
     var homeScreenQuestionText = new Text( '? : ?', {
@@ -66,19 +66,19 @@ define( function( require ) {
 
     return new Node( {
       children: [
-        Rectangle.bounds( homeScreenIconBounds, {
+        Rectangle.bounds( HOME_SCREEN_ICON_BOUNDS, {
           fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
         } ),
         // Centered splotch with home-screen text
         new AlignBox( new Node( { children: [ splotchNode, homeScreenQuestionText ] } ), {
-          alignBounds: homeScreenIconBounds
+          alignBounds: HOME_SCREEN_ICON_BOUNDS
         } )
       ]
     } );
   };
 
   // Creates the navigation bar icon
-  var createNavigationBarIcon = function( homeScreenIconBounds, splotchNode ) {
+  var createNavigationBarIcon = function( splotchNode ) {
 
     // Not translatable, see https://github.com/phetsims/proportion-playground/issues/18#issuecomment-276216535
     var navigationBarQuestionText = new Text( '??', {
@@ -88,12 +88,12 @@ define( function( require ) {
 
     return new Node( {
       children: [
-        Rectangle.bounds( homeScreenIconBounds, {
+        Rectangle.bounds( HOME_SCREEN_ICON_BOUNDS, {
           fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
         } ),
         // Centered splotch with nav-bar text
         new AlignBox( new Node( { children: [ splotchNode, navigationBarQuestionText ] } ), {
-          alignBounds: homeScreenIconBounds
+          alignBounds: HOME_SCREEN_ICON_BOUNDS
         } )
       ]
     } );

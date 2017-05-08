@@ -29,6 +29,7 @@ define( function( require ) {
 
   // strings
   var exploreString = require( 'string!PROPORTION_PLAYGROUND/explore' );
+  var HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
 
   /**
    * @constructor
@@ -36,22 +37,20 @@ define( function( require ) {
    */
   function ExploreScreen() {
 
-    var homeScreenIconBounds = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
-
     Screen.call( this,
       function() { return new ProportionModel( false ); },
       function( model ) { return new ProportionScreenView( model ); }, {
         name: exploreString,
         backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
-        homeScreenIcon: createHomeScreenIcon( homeScreenIconBounds ),
-        navigationBarIcon: createNavigationBarIcon( homeScreenIconBounds)
+        homeScreenIcon: createHomeScreenIcon(),
+        navigationBarIcon: createNavigationBarIcon()
       } );
   }
 
   proportionPlayground.register( 'ExploreScreen', ExploreScreen );
 
   // Creates the home screen icon.
-  var createHomeScreenIcon = function( homeScreenIconBounds ) {
+  var createHomeScreenIcon = function() {
 
     // Step all the way through the animation of a billiards table
     var billiardsTable = new BilliardsTable( 6, 3, new Property( true ), new Property( true ) );
@@ -84,26 +83,26 @@ define( function( require ) {
 
     return new Node( {
       children: [
-        Rectangle.bounds( homeScreenIconBounds, {
+        Rectangle.bounds( HOME_SCREEN_ICON_BOUNDS, {
           fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
         } ),
         new AlignBox( homeScreenIconContent, {
-          alignBounds: homeScreenIconBounds
+          alignBounds: HOME_SCREEN_ICON_BOUNDS
         } )
       ]
     } );
   };
 
   // Creates the navigation bar icon.
-  var createNavigationBarIcon = function( homeScreenIconBounds) {
+  var createNavigationBarIcon = function() {
     return new Node( {
       children: [
-        Rectangle.bounds( homeScreenIconBounds, {
+        Rectangle.bounds( HOME_SCREEN_ICON_BOUNDS, {
           fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
         } ),
         // Just a simple necklace for the nav-bar
         new AlignBox( NecklaceGraphicNode.createStaticNecklace( 6, 3, { scale: 3.5, pickable: false } ), {
-          alignBounds: homeScreenIconBounds
+          alignBounds: HOME_SCREEN_ICON_BOUNDS
         } )
       ]
     } );
