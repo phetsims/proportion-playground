@@ -29,6 +29,8 @@ define( function( require ) {
 
   // strings
   var exploreString = require( 'string!PROPORTION_PLAYGROUND/explore' );
+
+  // constants
   var HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
 
   /**
