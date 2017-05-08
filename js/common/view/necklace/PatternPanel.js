@@ -64,6 +64,7 @@ define( function( require ) {
         }
       } );
     }
+
     handlePattern( leftNecklace, Side.LEFT );
     handlePattern( rightNecklace, Side.RIGHT );
 

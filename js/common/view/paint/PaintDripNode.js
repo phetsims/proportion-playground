@@ -34,9 +34,9 @@ define( function( require ) {
 
   // {Shape} - Droplet shape
   var dropletShape = new Shape().ellipticalArc( 0, 0, xRadius, yRadius, 0, Math.PI / 2, 3 * Math.PI / 2, false )
-                                .cubicCurveTo( cp1x, -yRadius, cp2x, -yTail, endX, 0 )
-                                .cubicCurveTo( cp2x, yTail, cp1x, yRadius, 0, yRadius )
-                                .close().makeImmutable();
+    .cubicCurveTo( cp1x, -yRadius, cp2x, -yTail, endX, 0 )
+    .cubicCurveTo( cp2x, yTail, cp1x, yRadius, 0, yRadius )
+    .close().makeImmutable();
 
   /**
    * @constructor

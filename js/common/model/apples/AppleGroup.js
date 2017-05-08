@@ -33,8 +33,8 @@ define( function( require ) {
     this.numberOfApplesProperty = new NumberProperty( initialApples );
 
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
-                     this.totalCostProperty, ProportionPlaygroundConstants.APPLE_TOTAL_COST_RANGE,
-                     this.numberOfApplesProperty, ProportionPlaygroundConstants.APPLE_COUNT_RANGE );
+      this.totalCostProperty, ProportionPlaygroundConstants.APPLE_TOTAL_COST_RANGE,
+      this.numberOfApplesProperty, ProportionPlaygroundConstants.APPLE_COUNT_RANGE );
   }
 
   proportionPlayground.register( 'AppleGroup', AppleGroup );

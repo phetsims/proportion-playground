@@ -36,15 +36,15 @@ define( function( require ) {
 
     // @public {Property.<NecklaceLayout>}
     this.layoutProperty = new DerivedProperty( [
-      this.roundBeadCountProperty,
-      this.squareBeadCountProperty ],
-    function( roundBeadCount, squareBeadCount ) {
-      return NecklaceLayout.getLayout( roundBeadCount, squareBeadCount );
-    } );
+        this.roundBeadCountProperty,
+        this.squareBeadCountProperty ],
+      function( roundBeadCount, squareBeadCount ) {
+        return NecklaceLayout.getLayout( roundBeadCount, squareBeadCount );
+      } );
 
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
-                     this.roundBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE,
-                     this.squareBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE );
+      this.roundBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE,
+      this.squareBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE );
   }
 
   proportionPlayground.register( 'Necklace', Necklace );

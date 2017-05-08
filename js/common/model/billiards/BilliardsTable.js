@@ -57,8 +57,8 @@ define( function( require ) {
     this.restartBall(); // Helps initialize in one place
 
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
-                     this.lengthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
-                     this.widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE );
+      this.lengthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
+      this.widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE );
 
     // Restart the ball when the length or width changes
     this.lengthProperty.link( this.restartBall.bind( this ) );

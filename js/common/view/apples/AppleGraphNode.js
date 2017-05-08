@@ -52,7 +52,7 @@ define( function( require ) {
     // moveTo/lineTo for each tick
     var tickShape = _.reduce( tickLocations, function( shape, location ) {
       return shape.moveTo( -TICK_X, location )
-                  .lineTo( TICK_X, location );
+        .lineTo( TICK_X, location );
     }, new Shape() );
     arrowNode.addChild( new Path( tickShape, {
       stroke: 'black',

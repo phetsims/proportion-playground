@@ -26,10 +26,10 @@ define( function( require ) {
    */
   function NecklaceControl( necklace, revealProperty ) {
     SceneRatioControl.call( this, necklace, ProportionPlaygroundColorProfile.necklaceRoundBeadProperty,
-                                            ProportionPlaygroundColorProfile.necklaceSquareBeadProperty, {
-      leftPickerLabel: new RoundBeadNode(),
-      rightPickerLabel: new SquareBeadNode( 0 )
-    } );
+      ProportionPlaygroundColorProfile.necklaceSquareBeadProperty, {
+        leftPickerLabel: new RoundBeadNode(),
+        rightPickerLabel: new SquareBeadNode( 0 )
+      } );
 
     // The necklace itself
     this.addChild( new NecklaceNode( necklace ) );

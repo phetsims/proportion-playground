@@ -31,19 +31,19 @@ define( function( require ) {
    */
   function AppleGroupControl( appleGroup, showCostPerAppleProperty, revealProperty ) {
     SceneRatioControl.call( this, appleGroup, ProportionPlaygroundColorProfile.appleCostPickerProperty,
-                                              ProportionPlaygroundColorProfile.appleProperty, {
-      leftPickerLabel: totalCostString,
-      leftPickerOptions: {
-        // Put a $ sign in front of the spinner number
-        formatText: function( text ) {
-          return StringUtils.fillIn( pricePatternString, {
-            price: text
-          } );
-        }
-      },
-      rightPickerLabel: applesString,
-      pickerLabelMaxWidth: 90
-    } );
+      ProportionPlaygroundColorProfile.appleProperty, {
+        leftPickerLabel: totalCostString,
+        leftPickerOptions: {
+          // Put a $ sign in front of the spinner number
+          formatText: function( text ) {
+            return StringUtils.fillIn( pricePatternString, {
+              price: text
+            } );
+          }
+        },
+        rightPickerLabel: applesString,
+        pickerLabelMaxWidth: 90
+      } );
 
     // Create the place where apples and coins will be shown.
     var appleGroupNode = new AppleGroupNode( appleGroup, showCostPerAppleProperty );

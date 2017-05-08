@@ -33,11 +33,11 @@ define( function( require ) {
    */
   function BilliardsTableControl( layoutBounds, billiardsTable, revealProperty, options ) {
     SceneRatioControl.call( this, billiardsTable, ProportionPlaygroundColorProfile.billiardsBorderProperty,
-                                                  ProportionPlaygroundColorProfile.billiardsBorderProperty, {
-      leftPickerLabel: lengthString,
-      rightPickerLabel: widthString,
-      pickerLabelMaxWidth: 70
-    } );
+      ProportionPlaygroundColorProfile.billiardsBorderProperty, {
+        leftPickerLabel: lengthString,
+        rightPickerLabel: widthString,
+        pickerLabelMaxWidth: 70
+      } );
 
     assert && assert( options.side, 'side is required' );
 
@@ -63,7 +63,7 @@ define( function( require ) {
     this.addChild( new HBox( {
       spacing: 30,
       children: options.side === Side.LEFT ? [ this.pickerContainer, this.billiardsTableNode ] :
-                                             [ this.billiardsTableNode, this.pickerContainer ]
+        [ this.billiardsTableNode, this.pickerContainer ]
     } ) );
 
     this.mutate( options );

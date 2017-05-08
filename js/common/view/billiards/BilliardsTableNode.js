@@ -52,7 +52,7 @@ define( function( require ) {
 
     // {ModelViewTransform2} - Will be updated when the width/length changes.
     var modelViewTransform = new ModelViewTransform2( BilliardsTableNode.computeModelViewMatrix( billiardsTable.lengthProperty.value,
-                                                                                                 billiardsTable.widthProperty.value ) );
+      billiardsTable.widthProperty.value ) );
 
     options = _.extend( {
       // {boolean} - Whether this node should always take up the bounds for a full-size (20x20) billiards table.
@@ -161,7 +161,7 @@ define( function( require ) {
 
       // Recompute the model-view transform.
       modelViewTransform.setMatrix( BilliardsTableNode.computeModelViewMatrix( billiardsTable.lengthProperty.value,
-                                                                               billiardsTable.widthProperty.value ) );
+        billiardsTable.widthProperty.value ) );
 
       var viewEdgeWidth = 11;
       var modelEdgeWidth = modelViewTransform.viewToModelDeltaX( viewEdgeWidth );
@@ -175,9 +175,9 @@ define( function( require ) {
 
       // Determine the view bounds of the area where the ball can be.
       var viewBounds = new Bounds2( modelViewTransform.modelToViewX( 0 ),
-                                    modelViewTransform.modelToViewY( length ), // since this gets mapped to the min
-                                    modelViewTransform.modelToViewX( width ),
-                                    modelViewTransform.modelToViewY( 0 ) );
+        modelViewTransform.modelToViewY( length ), // since this gets mapped to the min
+        modelViewTransform.modelToViewX( width ),
+        modelViewTransform.modelToViewY( 0 ) );
       insideRectangle.setRectBounds( viewBounds );
       borderRectangle.setRectBounds( viewBounds.dilated( viewEdgeWidth ) );
 
@@ -204,6 +204,7 @@ define( function( require ) {
           new Vector2( width / 2 + touchOffset, -length / 2 - width - touchOffset )
         ] ).transformed( Matrix3.rotation2( rotation ) );
       }
+
       setMouseTouchAreas( leftDragHandle, viewEdgeWidth, -modelViewTransform.modelToViewDeltaY( length ), Math.PI );
       setMouseTouchAreas( rightDragHandle, viewEdgeWidth, -modelViewTransform.modelToViewDeltaY( length ), 0 );
       setMouseTouchAreas( topDragHandle, viewEdgeWidth, modelViewTransform.modelToViewDeltaX( width ), -Math.PI / 2 );
@@ -245,8 +246,8 @@ define( function( require ) {
      */
     computeModelViewMatrix: function( length, width ) {
       return new Matrix3().rowMajor( MODEL_VIEW_SCALE, 0, -MODEL_VIEW_SCALE * width / 2,
-                                     0, -MODEL_VIEW_SCALE, MODEL_VIEW_SCALE * length / 2,
-                                     0, 0, 1 );
+        0, -MODEL_VIEW_SCALE, MODEL_VIEW_SCALE * length / 2,
+        0, 0, 1 );
     },
 
     /**
@@ -262,9 +263,9 @@ define( function( require ) {
 
       _.range( min, max + 1 ).forEach( function( n ) {
         shape.moveTo( n, min )
-             .lineTo( n, max );
+          .lineTo( n, max );
         shape.moveTo( min, n )
-             .lineTo( max, n );
+          .lineTo( max, n );
       } );
 
       return new Path( shape, {

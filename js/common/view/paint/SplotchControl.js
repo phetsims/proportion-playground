@@ -37,7 +37,7 @@ define( function( require ) {
     var self = this;
 
     SceneRatioControl.call( this, splotch, PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.LEFT ),
-                                           PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.RIGHT ) );
+      PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.RIGHT ) );
 
     var dripLayer = new Node();
     var balloonLayer = new Node();
@@ -123,7 +123,7 @@ define( function( require ) {
 
         var balloonSign = this.balloonThrowSide === Side.LEFT ? -1 : 1;
         var startLocation = startVector.setXY( visibleBounds.centerX + 0.55 * balloonSign * visibleBounds.width,
-                                               visibleBounds.bottom * 0.8 );
+          visibleBounds.bottom * 0.8 );
         var splotchLocation = this.splotchNode.center;
 
         // Update balloon positions

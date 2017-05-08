@@ -39,8 +39,8 @@ define( function( require ) {
 
   // Remap the shape so that it has the target area, has its centroid at the origin, and has the desired rotation.
   splotchShape = splotchShape.transformed( Matrix3.scaling( Math.sqrt( TARGET_SHAPE_AREA / RAW_SHAPE_AREA ) )
-                                                  .timesMatrix( Matrix3.rotation2( 0.7 ) )
-                                                  .timesMatrix( Matrix3.translation( -SPLOTCH_CENTROID.x, -SPLOTCH_CENTROID.y ) ) );
+    .timesMatrix( Matrix3.rotation2( 0.7 ) )
+    .timesMatrix( Matrix3.translation( -SPLOTCH_CENTROID.x, -SPLOTCH_CENTROID.y ) ) );
 
   // {Color} - Because {Property.<null>} is not supported as a fill.
   var TRANSPARENT_COLOR = new Color( 'transparent' );
@@ -84,6 +84,7 @@ define( function( require ) {
         return TRANSPARENT_COLOR;
       }
     }
+
     var colorProperty = new DerivedProperty( [ leftColorProperty, rightColorProperty, paintChoiceProperty ].concat( PaintChoice.COLORS ), getSplotchColor );
 
     var splotchPath = new Path( splotchShape, {
