@@ -13,7 +13,7 @@ define( function( require ) {
 
   var ProportionPlaygroundQueryParameters = QueryStringMachine.getAll( {
 
-    // allow launching a specific explore scene, 0-based index
+    // allow launching a specific Explore scene, 0-based index
     scene: {
       type: 'number',
       defaultValue: 0
