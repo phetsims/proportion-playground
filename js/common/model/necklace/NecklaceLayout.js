@@ -61,6 +61,9 @@ define( function( require ) {
     var repulsionPoints = repulsionPointMap[ seed ];
 
     if ( !repulsionPoints ) {
+
+      // OK to use our own instance of Random here, see documentation of getRepulsionPoints
+      // and https://github.com/phetsims/proportion-playground/issues/81.
       var random = new Random( { seed: seed } );
       repulsionPoints = [];
       repulsionPointMap[ seed ] = repulsionPoints;
