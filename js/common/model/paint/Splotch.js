@@ -29,29 +29,10 @@ define( function( require ) {
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
   function Splotch( initialLeftCount, initialRightCount, visibleProperty, controlsVisibleProperty ) {
-    var self = this;
 
-    //TODO: refactor, doc -- we can isolate almost everything, with side and getVisibleColor?
-    this.leftQuantity = new PaintQuantity( initialLeftCount, function createBalloon( hitCallback ) {
-      self.balloons.push( new PaintBalloon( Side.LEFT, function( balloon ) {
-        self.balloons.remove( balloon );
-        hitCallback();
-      } ) );
-    }, function createDrip( amountToDrip, removeCallback ) {
-      self.drips.push( new PaintDrip( Side.LEFT, function( drip ) {
-        self.drips.remove( drip );
-      }, amountToDrip, removeCallback, self.visibleLeftColorProperty.value ) );
-    } );
-    this.rightQuantity = new PaintQuantity( initialRightCount, function createBalloon( hitCallback ) {
-      self.balloons.push( new PaintBalloon( Side.RIGHT, function( balloon ) {
-        self.balloons.remove( balloon );
-        hitCallback();
-      } ) );
-    }, function createDrip( amountToDrip, removeCallback ) {
-      self.drips.push( new PaintDrip( Side.RIGHT, function( drip ) {
-        self.drips.remove( drip );
-      }, amountToDrip, removeCallback, self.visibleRightColorProperty.value ) );
-    } );
+    // @public {PaintQuantity} - For each side
+    this.leftQuantity = createPaintQuantity( this, initialLeftCount, Side.LEFT );
+    this.rightQuantity = createPaintQuantity( this, initialRightCount, Side.RIGHT );
 
     // @public {NumberProperty} - Amount of paint from the color choice on the left (after resulting balloons have landed)
     this.leftColorCountProperty = this.leftQuantity.realCountProperty;
@@ -80,7 +61,7 @@ define( function( require ) {
 
   proportionPlayground.register( 'Splotch', Splotch );
 
-  return inherit( SceneRatio, Splotch, {
+  inherit( SceneRatio, Splotch, {
     /**
      * Steps forward in time.
      * @public
@@ -117,4 +98,29 @@ define( function( require ) {
       this.rightQuantity.reset();
     }
   } );
+
+  /**
+   * Creates a PaintQuantity given an initialCount / side.
+   * @private
+   *
+   * @param {Splotch} splotch
+   * @param {number} initialCount
+   * @param {Side} side
+   * @returns {PaintQuantity}
+   */
+  function createPaintQuantity( splotch, initialCount, side ) {
+    return new PaintQuantity( initialCount, function createBalloon( hitCallback ) {
+      splotch.balloons.push( new PaintBalloon( side, function( balloon ) {
+        splotch.balloons.remove( balloon );
+        hitCallback();
+      } ) );
+    }, function createDrip( amountToDrip, removeCallback ) {
+      var visibleColorProperty = side === Side.LEFT ? splotch.visibleLeftColorProperty : splotch.visibleRightColorProperty;
+      splotch.drips.push( new PaintDrip( side, function( drip ) {
+        splotch.drips.remove( drip );
+      }, amountToDrip, removeCallback, visibleColorProperty.value ) );
+    } );
+  }
+
+  return Splotch;
 } );
