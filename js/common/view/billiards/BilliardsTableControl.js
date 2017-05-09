@@ -22,7 +22,6 @@ define( function( require ) {
   var lengthString = require( 'string!PROPORTION_PLAYGROUND/length' );
   var widthString = require( 'string!PROPORTION_PLAYGROUND/width' );
 
-  //REVIEW layoutBounds and revealProperty are not used
   /**
    * @constructor
    * @extends {SceneRatioControl}
