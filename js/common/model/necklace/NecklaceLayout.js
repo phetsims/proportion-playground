@@ -113,7 +113,7 @@ define( function( require ) {
     this.containerTranslation = Vector2.ZERO;
 
     if ( roundBeadCount === 1 && squareBeadCount === 0 ) {
-      this.shape = NecklaceLayout.ONE_ROUND_BEAD_SPAPE;
+      this.shape = NecklaceLayout.ONE_ROUND_BEAD_SHAPE;
       this.roundBeads.push( new RoundBead( Vector2.ZERO ) );
       this.containerTranslation = new Vector2( 1.3514828985498655, 12.636803053853306 );
     }
@@ -130,7 +130,7 @@ define( function( require ) {
       this.containerTranslation = new Vector2( -11, 15.785 );
     }
     else if ( roundBeadCount === 0 && squareBeadCount === 1 ) {
-      this.shape = NecklaceLayout.ONE_SQUARE_BEAD_SPAPE;
+      this.shape = NecklaceLayout.ONE_SQUARE_BEAD_SHAPE;
       this.squareBeads.push( new SquareBead( Vector2.ZERO, 0 ) );
       this.containerTranslation = new Vector2( 0.2394730404209664, 10.390542501611892 );
     }
@@ -288,22 +288,20 @@ define( function( require ) {
 
   return inherit( Object, NecklaceLayout, {}, {
 
-    //REVIEW typo, ONE_ROUND_BEAD_SPAPE
     /**
      * {Shape} - Immutable shared string shape for when there is only one round bead.
      */
-    ONE_ROUND_BEAD_SPAPE: shapeFromSplintPoints( [
+    ONE_ROUND_BEAD_SHAPE: shapeFromSplintPoints( [
       new Vector2( 0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
       new Vector2( -0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
       new Vector2( -0.72 * BEAD_DIAMETER, -1.5 * BEAD_DIAMETER ),
       new Vector2( 0.5 * BEAD_DIAMETER, -1.55 * BEAD_DIAMETER )
     ] ),
 
-    //REVIEW typo, ONE_SQUARE_BEAD_SPAPE
     /**
      * {Shape} - Immutable shared string shape for when there is only one square bead.
      */
-    ONE_SQUARE_BEAD_SPAPE: shapeFromSplintPoints( [
+    ONE_SQUARE_BEAD_SHAPE: shapeFromSplintPoints( [
       new Vector2( 0.55 * BEAD_DIAMETER, 0 ),
       new Vector2( -0.61 * BEAD_DIAMETER, 0 ),
       new Vector2( -0.66 * BEAD_DIAMETER, -1.33 * BEAD_DIAMETER ),
