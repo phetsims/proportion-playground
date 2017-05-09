@@ -39,8 +39,8 @@ define( function( require ) {
 
     // Create child nodes to be displayed
     //TODO: simplify what is passed?
-    var redAppleGroupControl = new AppleGroupControl( scene.redAppleGroup, scene.showCostPerAppleProperty, scene.revealProperty );
-    var greenAppleGroupControl = new AppleGroupControl( scene.greenAppleGroup, scene.showCostPerAppleProperty, scene.revealProperty );
+    var redAppleGroupControl = new AppleGroupControl( scene.redAppleGroup, scene.showCostPerAppleProperty );
+    var greenAppleGroupControl = new AppleGroupControl( scene.greenAppleGroup, scene.showCostPerAppleProperty );
     var appleGraphNode = new AppleGraphNode( scene, {
       y: 150
     } );

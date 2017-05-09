@@ -21,16 +21,14 @@ define( function( require ) {
   var applesString = require( 'string!PROPORTION_PLAYGROUND/apples' );
   var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
-  //REVIEW revealProperty is not used
   /**
    * @constructor
    * @extends {SceneRatioControl}
    *
    * @param {AppleGroup} appleGroup - the model
    * @param {Property.<boolean>} showCostPerAppleProperty - true if the price tag should be shown
-   * @param {Property.<boolean>} revealProperty - true if the answer representation should be shown
    */
-  function AppleGroupControl( appleGroup, showCostPerAppleProperty, revealProperty ) {
+  function AppleGroupControl( appleGroup, showCostPerAppleProperty ) {
     SceneRatioControl.call( this, appleGroup, ProportionPlaygroundColorProfile.appleCostPickerProperty,
       ProportionPlaygroundColorProfile.appleProperty, {
         leftPickerLabel: totalCostString,
