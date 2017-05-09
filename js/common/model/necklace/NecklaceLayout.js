@@ -26,10 +26,9 @@ define( function( require ) {
   var BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
   var TWO_BEAD_OFFSET = BEAD_DIAMETER - 7; //REVIEW document, not obvious what this is
 
-  //REVIEW @private?
   /**
    * Creates an immutable spline with specific parameters from a list of points.
-   * @public
+   * @private
    *
    * @param {Array.<Vector2>} splinePoints
    * @returns {Shape}
@@ -44,10 +43,9 @@ define( function( require ) {
   // {Object} - maps a seed {number} => {Array.<Vector2>}, see getRepulsionPoints(). Lazily computed
   var repulsionPointMap = {};
 
-  //REVIEW @private?
   /**
    * Returns points used for adjusting the necklace into a random-looking shape.
-   * @public
+   * @private
    *
    * This repulsion should be the same for necklaces with the same proportion (and is not used if there is 0 of one
    * bead type), so a seed is generated from the ratio of the bead counts, and repulsion points are shared for every
