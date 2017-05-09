@@ -33,12 +33,12 @@ define( function( require ) {
     var billiardsCenterY = layoutBounds.height * 0.45;
 
     // Create the left/right tables
-    var billiardsTableLeftControl = new BilliardsTableControl( layoutBounds, scene.leftTable, scene.revealProperty, {
+    var billiardsTableLeftControl = new BilliardsTableControl( scene.leftTable, {
       centerY: billiardsCenterY,
       allowDragToResize: !scene.predictMode,
       side: Side.LEFT
     } );
-    var billiardsTableRightControl = new BilliardsTableControl( layoutBounds, scene.rightTable, scene.revealProperty, {
+    var billiardsTableRightControl = new BilliardsTableControl( scene.rightTable, {
       centerY: billiardsCenterY,
       allowDragToResize: !scene.predictMode,
       side: Side.RIGHT

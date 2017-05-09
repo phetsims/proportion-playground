@@ -27,12 +27,10 @@ define( function( require ) {
    * @constructor
    * @extends {SceneRatioControl}
    *
-   * @param {Bounds2} layoutBounds - coordinates within which all user interface components must be visible
    * @param {BilliardsTable} billiardsTable - the model
-   * @param {Property.<boolean>} revealProperty - indicates whether the billiards table should be shown
    * @param {Object} [options] - node layout options
    */
-  function BilliardsTableControl( layoutBounds, billiardsTable, revealProperty, options ) {
+  function BilliardsTableControl( billiardsTable, options ) {
     SceneRatioControl.call( this, billiardsTable, ProportionPlaygroundColorProfile.billiardsBorderProperty,
       ProportionPlaygroundColorProfile.billiardsBorderProperty, {
         leftPickerLabel: lengthString,

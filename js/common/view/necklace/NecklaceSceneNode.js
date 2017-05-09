@@ -34,8 +34,8 @@ define( function( require ) {
     var self = this;
 
     // Create the left and right necklace nodes, each with their own NumberPickers
-    var leftNecklaceControl = new NecklaceControl( scene.leftNecklace, scene.revealProperty );
-    var rightNecklaceControl = new NecklaceControl( scene.rightNecklace, scene.revealProperty );
+    var leftNecklaceControl = new NecklaceControl( scene.leftNecklace );
+    var rightNecklaceControl = new NecklaceControl( scene.rightNecklace );
     var patternPanel = new PatternPanel( scene.leftNecklace, scene.rightNecklace );
 
     // Super call
