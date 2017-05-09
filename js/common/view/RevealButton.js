@@ -31,8 +31,7 @@ define( function( require ) {
       minYMargin: 10
     }, {
       baseColor: ProportionPlaygroundColorProfile.revealButtonProperty
-    } );
-    this.mutate( options );
+    }, options );
   }
 
   proportionPlayground.register( 'RevealButton', RevealButton );
