@@ -2,11 +2,11 @@
    
 # Necklace scenes
 
-Uses the GCD of the round/square bead counts to determine how many repetitions there will be, e.g.:
+Uses the GCD of the round/square bead counts to determine how many repetitions there will be, i.e.:
 
 1. (squareCount/gcd) square beads,
 2. (roundCount/gcd) round beads,
-3. Repeat steps 1,2 until it there are (gcd) copies.
+3. Repeat steps 1,2 until there are (gcd) copies.
 
 # Paint scenes
 
