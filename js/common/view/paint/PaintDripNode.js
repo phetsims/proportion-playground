@@ -54,13 +54,16 @@ define( function( require ) {
     // @private {Property.<PaintChoice>}
     this.paintChoiceProperty = paintChoiceProperty;
 
+    // @private {Property.<Color>} - We'll need to dispose of this properly
+    this.fillColorProperty = PaintChoice.getActiveColorProperty( paintChoiceProperty, paintDrip.side );
+
     // @private {Path}
     this.path = new Path( dropletShape, {
       scale: Math.sqrt( SPLOTCH_AREA / SHAPE_AREA ),
       rotation: -Math.PI / 2,
       stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
       lineWidth: 0.6,
-      fill: PaintChoice.getActiveColorProperty( paintChoiceProperty, paintDrip.side )
+      fill: this.fillColorProperty
     } );
     this.addChild( this.path );
   }
@@ -96,6 +99,18 @@ define( function( require ) {
       if ( this.top > bottomCutoffY ) {
         this.paintDrip.remove();
       }
+    },
+
+    /**
+     * Releases references.
+     * @public
+     * @override
+     */
+    dispose: function() {
+      this.path.fill = null; // We need to release the listener to the color property first (for now).
+      this.fillColorProperty.dispose();
+
+      Node.prototype.dispose.call( this );
     }
   } );
 } );

@@ -101,6 +101,7 @@ define( function( require ) {
           if ( dripNode.paintDrip === drip ) {
             self.dripNodes.splice( i, 1 );
             dripLayer.removeChild( dripNode );
+            dripNode.dispose();
           }
         }
       } );
