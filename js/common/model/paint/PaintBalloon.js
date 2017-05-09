@@ -15,7 +15,9 @@ define( function( require ) {
   // {number} - In seconds, the time from "launch" to when the balloon "hits" the splotch.
   var TIME_TO_HIT = 0.5;
 
-  var balloonCounter = 0; //REVIEW doc, or better name might be numberOfInstances
+  // {number} - Number of balloons created. We rotate through 3 different graphic images, so we can take the number of
+  // balloons mod 3 to determine which image to use.
+  var numberOfBalloons = 0;
 
   /**
    * @constructor
@@ -34,7 +36,7 @@ define( function( require ) {
     this.hitCallback = hitCallback;
 
     // @public {number} - Determines which balloon orientation image is used
-    this.balloonType = ( balloonCounter++ ) % 3;
+    this.balloonType = ( numberOfBalloons++ ) % 3;
   }
 
   proportionPlayground.register( 'PaintBalloon', PaintBalloon );
