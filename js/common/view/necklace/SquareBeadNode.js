@@ -90,7 +90,12 @@ define( function( require ) {
   proportionPlayground.register( 'SquareBeadNode', SquareBeadNode );
 
   return inherit( Node, SquareBeadNode, {
-    // TODO: docs
+    /**
+     * Changes the desired visual rotation. Due to lighting/shadowing effects, we can't just rotate the node.
+     * @public
+     *
+     * @param {number} rotation - In radians
+     */
     setBeadRotation: function( rotation ) {
 
       var gradientAngle = -Math.PI / 4;
