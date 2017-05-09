@@ -52,8 +52,7 @@ define( function( require ) {
   function AppleGroupNode( appleGroup, showCostPerAppleProperty ) {
     SceneRatioNode.call( this, appleGroup );
 
-    //REVIEW doc what these magic numbers are relative to (presumably crateFrontImage?)
-    var priceTagLayer = new Node( { x: -132, y: 110 } );
+    var priceTagLayer = new Node();
 
     // Show/hide the price tag
     showCostPerAppleProperty.linkAttribute( priceTagLayer, 'visible' );
