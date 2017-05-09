@@ -24,8 +24,14 @@ define( function( require ) {
     Scene.call( this, predictMode );
 
     // @public
-    this.leftTable = new BilliardsTable( 5, 5, this.leftVisibleProperty, this.leftControlsVisibleProperty );
-    this.rightTable = new BilliardsTable( 5, 5, this.rightVisibleProperty, this.rightControlsVisibleProperty );
+    this.leftTable = new BilliardsTable( {
+      visibleProperty: this.leftVisibleProperty,
+      controlsVisibleProperty: this.leftControlsVisibleProperty
+    } );
+    this.rightTable = new BilliardsTable( {
+      visibleProperty: this.rightVisibleProperty,
+      controlsVisibleProperty: this.rightControlsVisibleProperty
+    } );
 
     this.initializeRatios( this.leftTable, this.rightTable );
   }

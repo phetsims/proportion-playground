@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
@@ -25,18 +26,29 @@ define( function( require ) {
    * @constructor
    * @extends {SceneRatio}
    *
-   * @param {number} initialLength - Initial length of the billiards table.
-   * @param {number} initialWidth - Initial width of the billiards table.
-   * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
-   * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
+   * @param {Object} [options] - See below for available options
    */
-  function BilliardsTable( initialLength, initialWidth, visibleProperty, controlsVisibleProperty ) {
+  function BilliardsTable( options ) {
+
+    options = _.extend( {
+      // {number} Initial length of the billiards table.
+      initialLength: 5,
+
+      // {number} Initial width of the billiards table.
+      initialWidth: 5,
+
+      // {Property.<boolean>} - Whether the view should be visible
+      visibleProperty: new BooleanProperty( true ),
+
+      // {Property.<boolean>} - Whether the controls should be visible
+      controlsVisibleProperty: new BooleanProperty( true )
+    }, options );
 
     // @public {NumberProperty} - Number of grid units vertically
-    this.lengthProperty = new NumberProperty( initialLength );
+    this.lengthProperty = new NumberProperty( options.initialLength );
 
     // @public {NumberProperty} - Number of grid units horizontally
-    this.widthProperty = new NumberProperty( initialWidth );
+    this.widthProperty = new NumberProperty( options.initialWidth );
 
     // @public {Property.<Vector2>} - The position of the ball in pixels
     this.ballPositionProperty = new Property( new Vector2() );
@@ -56,7 +68,7 @@ define( function( require ) {
 
     this.restartBall(); // Helps initialize in one place
 
-    SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
+    SceneRatio.call( this, options.visibleProperty, options.controlsVisibleProperty,
       this.lengthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
       this.widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE );
 

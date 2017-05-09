@@ -17,7 +17,6 @@ define( function( require ) {
   var NecklaceGraphicNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceGraphicNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Property = require( 'AXON/Property' );
   var ProportionModel = require( 'PROPORTION_PLAYGROUND/common/model/ProportionModel' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
@@ -55,7 +54,10 @@ define( function( require ) {
   var createHomeScreenIcon = function() {
 
     // Step all the way through the animation of a billiards table
-    var billiardsTable = new BilliardsTable( 6, 3, new Property( true ), new Property( true ) );
+    var billiardsTable = new BilliardsTable( {
+      initialLength: 6,
+      initialWidth: 3
+    } );
     billiardsTable.step( Number.POSITIVE_INFINITY );
 
     var homeScreenIconContent = new HBox( {
