@@ -15,9 +15,8 @@ define( function( require ) {
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
-  // Initial colors for each profile, by string key. If a basics/projector color is not defined, it will take the
-  // 'default' value provided.
-  // NOTE: This is NOT provided to clients directly, but is passed to the PropertySet constructor.
+  // Initial colors for each profile, by string key. Only profile currently is default (still helpful for making color
+  // tweaks with the top-level proportion-playground-colors.html)
   var ProportionPlaygroundColorProfile = new ColorProfile( {
     exploreBackground: { default: new Color( '#fcf3eb' ) },
     predictBackground: { default: new Color( '#eaeefd' ) },
