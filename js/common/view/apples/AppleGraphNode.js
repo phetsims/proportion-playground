@@ -71,15 +71,6 @@ define( function( require ) {
       maxWidth: 170
     } );
 
-    Node.call( this, {
-      children: [
-        arrowNode,
-        leftIndicator,
-        rightIndicator,
-        label
-      ]
-    } );
-
     //REVIEW move updateIndicator out of constructor, it requires no access to instance fields
     /**
      * @param {Node} indicator - the left/right triangle node
@@ -111,7 +102,15 @@ define( function( require ) {
       leftIndicator.fill = fill;
     } );
 
-    this.mutate( options );
+    assert && assert( !options.children, 'Unsupported option' );
+    options.children = [
+      arrowNode,
+      leftIndicator,
+      rightIndicator,
+      label
+    ];
+
+    Node.call( this, options );
   }
 
   proportionPlayground.register( 'AppleGraphNode', AppleGraphNode );
