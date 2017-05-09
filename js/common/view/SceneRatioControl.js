@@ -73,7 +73,7 @@ define( function( require ) {
         // Convert a string label to a Text node.
         if ( typeof label === 'string' ) {
           label = new Text( label, {
-            maxWidth: options.pickerLabelMaxWidth, //TODO: check
+            maxWidth: options.pickerLabelMaxWidth,
             font: ProportionPlaygroundConstants.CONTROL_FONT
           } );
         }
