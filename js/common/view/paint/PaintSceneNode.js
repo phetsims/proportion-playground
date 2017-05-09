@@ -18,6 +18,7 @@ define( function( require ) {
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   var PaintChoiceGradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintChoiceGradientNode' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
   var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
   var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
@@ -102,7 +103,7 @@ define( function( require ) {
       } ) );
 
     this.addChild( new GradientIndicatorNode( layoutBounds, scene, scene.revealProperty, {
-      centerY: 250 // TODO: refactor out 250?
+      centerY: ProportionPlaygroundConstants.CONTROL_Y_OFFSET
     } ) );
   }
 

@@ -15,6 +15,7 @@ define( function( require ) {
   var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   var PaintDripNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintDripNode' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
   var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
   var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
@@ -46,7 +47,7 @@ define( function( require ) {
     this.splotchNode = new SplotchNode( splotch, paintChoiceProperty, {
       useVisibleAmounts: useVisibleAmounts,
       centerX: 0,
-      centerY: 250
+      centerY: ProportionPlaygroundConstants.CONTROL_Y_OFFSET
     } );
 
     this.addChild( dripLayer );

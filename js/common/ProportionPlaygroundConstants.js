@@ -17,6 +17,9 @@ define( function( require ) {
     BEAD_DIAMETER: 18,
     BUTTON_RIGHT_CENTER_OFFSET: 42,
 
+    // @public {number} - For manually positioned scenes/controls, the y location of the controls
+    CONTROL_Y_OFFSET: 250,
+
     // @public {PhetFont}
     CONTROL_FONT: new PhetFont( 22 ),
     APPLE_PRICE_FONT: new PhetFont( 25 ),
