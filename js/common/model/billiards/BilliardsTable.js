@@ -74,13 +74,12 @@ define( function( require ) {
      */
     restartBall: function() {
 
-      //REVIEW a & b don't exactly improve readability. How about length and width?
       // For readability
-      var a = this.lengthProperty.value;
-      var b = this.widthProperty.value;
+      var length = this.lengthProperty.value;
+      var width = this.widthProperty.value;
 
       // See https://github.com/phetsims/proportion-playground/issues/13
-      var speed = 1.5 * Math.sqrt( Math.pow( a, 2 ) + Math.pow( b, 2 ) );
+      var speed = 1.5 * Math.sqrt( Math.pow( length, 2 ) + Math.pow( width, 2 ) );
 
       // initially the ball starts in the bottom left corner and moves up and to the right.
       this.ballPositionProperty.value = new Vector2();
