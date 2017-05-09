@@ -71,19 +71,6 @@ define( function( require ) {
       maxWidth: 170
     } );
 
-    //REVIEW move updateIndicator out of constructor, it requires no access to instance fields
-    /**
-     * @param {Node} indicator - the left/right triangle node
-     * @param {AppleGroup} appleGroup - the model
-     */
-    function updateIndicator( indicator, appleGroup ) {
-      indicator.visible = appleGroup.numberOfApplesProperty.value > 0 && appleGroup.visibleProperty.value;
-      var costPerApple = appleGroup.totalCostProperty.value / appleGroup.numberOfApplesProperty.value;
-      if ( isFinite( costPerApple ) ) {
-        indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
-      }
-    }
-
     // TODO: rename apple groups, since one is not green anymore!
     var updateLeftIndicator = updateIndicator.bind( undefined, leftIndicator, scene.redAppleGroup );
     var updateRightIndicator = updateIndicator.bind( undefined, rightIndicator, scene.greenAppleGroup );
@@ -115,5 +102,22 @@ define( function( require ) {
 
   proportionPlayground.register( 'AppleGraphNode', AppleGraphNode );
 
-  return inherit( Node, AppleGraphNode );
+  inherit( Node, AppleGraphNode );
+
+  /**
+   * Callback to update a triangular indicator.
+   * @private
+   *
+   * @param {Node} indicator - the left/right triangle node
+   * @param {AppleGroup} appleGroup - the model
+   */
+  function updateIndicator( indicator, appleGroup ) {
+    indicator.visible = appleGroup.numberOfApplesProperty.value > 0 && appleGroup.visibleProperty.value;
+    var costPerApple = appleGroup.totalCostProperty.value / appleGroup.numberOfApplesProperty.value;
+    if ( isFinite( costPerApple ) ) {
+      indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
+    }
+  }
+
+  return AppleGraphNode;
 } );
