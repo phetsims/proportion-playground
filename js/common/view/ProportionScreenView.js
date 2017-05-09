@@ -86,6 +86,9 @@ define( function( require ) {
      * @param {number} dt - In seconds
      */
     step: function( dt ) {
+      // NOTE: uncapped dt in the view so that the transient animations finish when someone tabs out. See
+      // https://github.com/phetsims/proportion-playground/issues/87 for more information.
+
       var visibleBounds = this.visibleBoundsProperty.value;
       for ( var i = 0; i < this.sceneNodes.length; i++ ) {
         this.sceneNodes[ i ].step( dt, visibleBounds );
