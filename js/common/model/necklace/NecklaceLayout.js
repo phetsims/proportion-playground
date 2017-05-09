@@ -22,9 +22,15 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // constants
+  // {number} - The diameter of beads (for the square bead, it's from the center of the bead to the center of a side)
   var BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
-  var TWO_BEAD_OFFSET = BEAD_DIAMETER - 7; //REVIEW document, not obvious what this is
+
+  // The horizontal offset in two-bead shapes from the vertical center-line to the beads.
+  // The "best" way would be to refactor all of the custom curves/positioning so things are
+  // curves centered about the origin created with a shared parameterized function
+  // (instead of many "magic" constants with custom x,y values for each curve).
+  // But this didn't seem to be worth the time/risk.
+  var TWO_BEAD_OFFSET = BEAD_DIAMETER - 7;
 
   /**
    * Creates an immutable spline with specific parameters from a list of points.
