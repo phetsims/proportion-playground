@@ -71,18 +71,16 @@ define( function( require ) {
       maxWidth: 170
     } );
 
-    // TODO: rename apple groups, since one is not green anymore!
-    var updateLeftIndicator = updateIndicator.bind( undefined, leftIndicator, scene.redAppleGroup );
-    var updateRightIndicator = updateIndicator.bind( undefined, rightIndicator, scene.greenAppleGroup );
+    var updateLeftIndicator = updateIndicator.bind( undefined, leftIndicator, scene.leftAppleGroup );
+    var updateRightIndicator = updateIndicator.bind( undefined, rightIndicator, scene.rightAppleGroup );
 
-    scene.redAppleGroup.visibleChangeEmitter.addListener( updateLeftIndicator );
-    scene.greenAppleGroup.visibleChangeEmitter.addListener( updateRightIndicator );
+    scene.leftAppleGroup.visibleChangeEmitter.addListener( updateLeftIndicator );
+    scene.rightAppleGroup.visibleChangeEmitter.addListener( updateRightIndicator );
     updateLeftIndicator();
     updateRightIndicator();
 
     // Update the indicator fills when salient properties change
     Property.multilink( scene.quantityProperties.concat( [ scene.showBothProperty ] ), function() {
-      // TODO: get the 'black'. Does it need to be the screen background color?
       var colorProperty = scene.predictMode ? ProportionPlaygroundColorProfile.predictBackgroundProperty : ProportionPlaygroundColorProfile.exploreBackgroundProperty;
       var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : colorProperty;
       rightIndicator.fill = fill;

@@ -39,8 +39,8 @@ define( function( require ) {
 
     // Create child nodes to be displayed
     //TODO: simplify what is passed?
-    var redAppleGroupControl = new AppleGroupControl( scene.redAppleGroup, scene.showCostPerAppleProperty );
-    var greenAppleGroupControl = new AppleGroupControl( scene.greenAppleGroup, scene.showCostPerAppleProperty );
+    var leftAppleGroupControl = new AppleGroupControl( scene.leftAppleGroup, scene.showCostPerAppleProperty );
+    var rightAppleGroupControl = new AppleGroupControl( scene.rightAppleGroup, scene.showCostPerAppleProperty );
     var appleGraphNode = new AppleGraphNode( scene, {
       y: 150
     } );
@@ -57,8 +57,8 @@ define( function( require ) {
     // Super call and add children
     SceneNode.call( this, scene, layoutBounds, {
       sceneIcon: new Image( redAppleImage, { scale: 0.25 } ),
-      leftControl: redAppleGroupControl,
-      rightControl: greenAppleGroupControl,
+      leftControl: leftAppleGroupControl,
+      rightControl: rightAppleGroupControl,
       leftSwitchIcon: new Node( { children: [ appleImageNode ] } ),
       rightSwitchIcon: new HBox( {
         children: [
@@ -74,13 +74,13 @@ define( function( require ) {
     // When the "show both" ABSwitch is toggled, change which apple groups are displayed and update their layouts
     scene.showBothProperty.link( function( showBoth ) {
       if ( showBoth ) {
-        redAppleGroupControl.right = layoutBounds.width * 0.465;
-        greenAppleGroupControl.left = layoutBounds.width * 0.535;
+        leftAppleGroupControl.right = layoutBounds.width * 0.465;
+        rightAppleGroupControl.left = layoutBounds.width * 0.535;
         appleGraphNode.x = layoutBounds.centerX;
       }
       else {
-        redAppleGroupControl.centerX = layoutBounds.width / 2;
-        appleGraphNode.left = redAppleGroupControl.right + layoutBounds.width * 0.05;
+        leftAppleGroupControl.centerX = layoutBounds.width / 2;
+        appleGraphNode.left = leftAppleGroupControl.right + layoutBounds.width * 0.05;
       }
       self.updateControlButton();
     } );

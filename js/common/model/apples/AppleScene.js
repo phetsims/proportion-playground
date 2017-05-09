@@ -31,10 +31,10 @@ define( function( require ) {
     var initialApples = predictMode ? 5 : 1;
 
     // @public {AppleGroup}
-    this.redAppleGroup = new AppleGroup( initialCost, initialApples, this.leftVisibleProperty, this.leftControlsVisibleProperty );
-    this.greenAppleGroup = new AppleGroup( initialCost, initialApples, this.rightVisibleProperty, this.rightControlsVisibleProperty );
+    this.leftAppleGroup = new AppleGroup( initialCost, initialApples, this.leftVisibleProperty, this.leftControlsVisibleProperty );
+    this.rightAppleGroup = new AppleGroup( initialCost, initialApples, this.rightVisibleProperty, this.rightControlsVisibleProperty );
 
-    this.initializeRatios( this.redAppleGroup, this.greenAppleGroup );
+    this.initializeRatios( this.leftAppleGroup, this.rightAppleGroup );
   }
 
   proportionPlayground.register( 'AppleScene', AppleScene );
