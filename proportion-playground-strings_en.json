@@ -20,6 +20,9 @@
   "apples": {
     "value": "Apples"
   },
+  "apple": {
+    "value": "Apple"
+  },
   "length": {
     "value": "Length"
   },

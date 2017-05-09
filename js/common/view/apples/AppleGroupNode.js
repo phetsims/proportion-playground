@@ -34,6 +34,7 @@ define( function( require ) {
   var crateFrontImage = require( 'mipmap!PROPORTION_PLAYGROUND/crate-front.png' );
 
   // strings
+  var appleString = require( 'string!PROPORTION_PLAYGROUND/apple' );
   var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
   // constants
@@ -145,7 +146,7 @@ define( function( require ) {
             lineWidth: 2,
             stroke: ProportionPlaygroundColorProfile.applePriceTagTextProperty
           } ),
-          new Text( 'Apple', textOptions ) // TODO: translate, and check for translation!!!
+          new Text( appleString, textOptions ) // TODO: translate, and check for translation!!!
         ]
       } ), {
         xMargin: 12,
