@@ -67,16 +67,8 @@ define( function( require ) {
     var leftColorProperty = options.useVisibleAmounts ? splotch.visibleLeftColorProperty : splotch.leftColorCountProperty;
     var rightColorProperty = options.useVisibleAmounts ? splotch.visibleRightColorProperty : splotch.rightColorCountProperty;
 
-    //REVIEW move getSplotchColor out of constructor, it doesn't require access to instance fields
-    /**
-     * For constructing our derived property.
-     *
-     * @param {number} leftColorAmount
-     * @param {number} rightColorAmount
-     * @param {PaintChoice} paintChoice
-     * @returns {Color}
-     */
-    function getSplotchColor( leftColorAmount, rightColorAmount, paintChoice ) {
+    var watchedProperties = [ leftColorProperty, rightColorProperty, paintChoiceProperty ].concat( PaintChoice.COLORS );
+    var colorProperty = new DerivedProperty( watchedProperties, function( leftColorAmount, rightColorAmount, paintChoice ) {
       var total = leftColorAmount + rightColorAmount;
       if ( total > 0 ) {
         return paintChoice.getBlendedColor( Util.clamp( rightColorAmount / total, 0, 1 ) );
@@ -84,9 +76,7 @@ define( function( require ) {
       else {
         return TRANSPARENT_COLOR;
       }
-    }
-
-    var colorProperty = new DerivedProperty( [ leftColorProperty, rightColorProperty, paintChoiceProperty ].concat( PaintChoice.COLORS ), getSplotchColor );
+    } );
 
     var splotchPath = new Path( splotchShape, {
       stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
