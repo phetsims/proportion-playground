@@ -24,6 +24,9 @@ define( function( require ) {
   // Used as scratch vectors below
   var startVector = new Vector2();
 
+  // {Vector2} - Center of the splotch in splotch-control coordinates.
+  var SPLOTCH_LOCATION = new Vector2( 0, ProportionPlaygroundConstants.CONTROL_Y_OFFSET );
+
   /**
    * @constructor
    * @extends {SceneRatioControl}
@@ -46,8 +49,7 @@ define( function( require ) {
     // @private {SplotchNode}
     this.splotchNode = new SplotchNode( splotch, paintChoiceProperty, {
       useVisibleAmounts: useVisibleAmounts,
-      centerX: 0,
-      centerY: ProportionPlaygroundConstants.CONTROL_Y_OFFSET
+      center: SPLOTCH_LOCATION
     } );
 
     this.addChild( dripLayer );
@@ -126,16 +128,15 @@ define( function( require ) {
         var balloonSign = this.balloonThrowSide === Side.LEFT ? -1 : 1;
         var startLocation = startVector.setXY( visibleBounds.centerX + 0.55 * balloonSign * visibleBounds.width,
           visibleBounds.bottom * 0.8 );
-        var splotchLocation = this.splotchNode.center;
 
         // Update balloon positions
         for ( var i = 0; i < this.balloonNodes.length; i++ ) {
-          this.balloonNodes[ i ].position( startLocation, splotchLocation );
+          this.balloonNodes[ i ].position( startLocation, SPLOTCH_LOCATION );
         }
 
         // Update drip positions
         for ( i = this.dripNodes.length - 1; i >= 0; i-- ) {
-          this.dripNodes[ i ].position( splotchLocation, visibleBounds.bottom );
+          this.dripNodes[ i ].position( SPLOTCH_LOCATION, visibleBounds.bottom );
         }
       }
     }
