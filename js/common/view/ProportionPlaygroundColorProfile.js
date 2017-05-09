@@ -33,14 +33,14 @@ define( function( require ) {
     applePriceTagText: { default: Color.BLACK },
 
     // Billiards scenes
-    billiardsBorder: { default: new Color( 0x11, 0x11, 0x11 ) },
-    billiardsInside: { default: new Color( 0x0A, 0x67, 0x39 ) },
+    billiardsBorder: { default: new Color( 85, 55, 0 ) },
+    billiardsInside: { default: new Color( 15, 102, 34 ) },
     billiardsPath: { default: Color.WHITE },
-    billiardsGripDots: { default: new Color( 102, 102, 102 ) },
+    billiardsGripDots: { default: new Color( 190, 190, 190 ) },
     billiardsGridLine: { default: new Color( 168, 168, 168 ) },
-    billiardsPocket: { default: new Color( 102, 102, 102 ) },
-    billiardsBallMain: { default: Color.WHITE },
-    billiardsBallHighlight: { default: Color.YELLOW },
+    billiardsPocket: { default: Color.BLACK },
+    billiardsBallMain: { default: new Color( 244, 244, 244 ) },
+    billiardsBallHighlight: { default: Color.WHITE },
 
     // Paint scenes
     // TODO: Isolate into six colors that don't have names?
