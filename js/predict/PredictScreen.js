@@ -27,7 +27,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var predictString = require( 'string!PROPORTION_PLAYGROUND/predict' );
+  var screenPredictString = require( 'string!PROPORTION_PLAYGROUND/screen.predict' );
 
   // Our splotch's "visual center" is not in the center of its bounds, so we need to shift the text slightly.
   var SCREEN_ICON_TEXT_OFFSET = new Vector2( 14, 14 );
@@ -46,7 +46,7 @@ define( function( require ) {
     Screen.call( this,
       function() { return new ProportionModel( true ); },
       function( model ) { return new ProportionScreenView( model ); }, {
-        name: predictString,
+        name: screenPredictString,
         backgroundColorProperty: ProportionPlaygroundColorProfile.predictBackgroundProperty,
         homeScreenIcon: createHomeScreenIcon( splotchNode ),
         navigationBarIcon: createNavigationBarIcon( splotchNode )

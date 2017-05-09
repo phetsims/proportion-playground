@@ -2,10 +2,10 @@
   "proportion-playground.title": {
     "value": "Proportion Playground"
   },
-  "explore": {
+  "screen.explore": {
     "value": "Explore"
   },
-  "predict": {
+  "screen.predict": {
     "value": "Predict"
   },
   "costPerApple": {

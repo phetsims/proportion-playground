@@ -28,7 +28,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var exploreString = require( 'string!PROPORTION_PLAYGROUND/explore' );
+  var screenExploreString = require( 'string!PROPORTION_PLAYGROUND/screen.explore' );
 
   // constants
   var HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
@@ -42,7 +42,7 @@ define( function( require ) {
     Screen.call( this,
       function() { return new ProportionModel( false ); },
       function( model ) { return new ProportionScreenView( model ); }, {
-        name: exploreString,
+        name: screenExploreString,
         backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
         homeScreenIcon: createHomeScreenIcon(),
         navigationBarIcon: createNavigationBarIcon()
