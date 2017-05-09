@@ -64,8 +64,13 @@ define( function( require ) {
     }, options );
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
-    var borderRectangle = new Rectangle( { fill: ProportionPlaygroundColorProfile.billiardsBorderProperty } );
-    var insideRectangle = new Rectangle( { fill: ProportionPlaygroundColorProfile.billiardsInsideProperty } );
+    var borderRectangle = new Rectangle( {
+      fill: ProportionPlaygroundColorProfile.billiardsBorderProperty,
+      cornerRadius: 9
+    } );
+    var insideRectangle = new Rectangle( {
+      fill: ProportionPlaygroundColorProfile.billiardsInsideProperty
+    } );
 
     // Create drag-handle parts to be used as children.
     var dragGripDots = new HBox( {

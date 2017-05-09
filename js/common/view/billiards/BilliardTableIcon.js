@@ -28,7 +28,8 @@ define( function( require ) {
     Node.call( this, {
       children: [
         new Rectangle( -inset, -inset, width, height, {
-          fill: ProportionPlaygroundColorProfile.billiardsBorderProperty
+          fill: ProportionPlaygroundColorProfile.billiardsBorderProperty,
+          cornerRadius: inset
         } ),
         new Rectangle( 0, 0, width - inset * 2, height - inset * 2, {
           fill: ProportionPlaygroundColorProfile.billiardsInsideProperty
