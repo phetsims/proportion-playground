@@ -19,7 +19,7 @@ The area of the balloons and drips should be the same as the area of a single-ba
 
 The ball stops when it hits any corner. Speed is slightly re-scaled depending on the width/height.
 
-To figure out the total length, it's easier to think of a ball traveling across a grid, where it stops if it hits horizontal/vertical grid lines at the same time. It's equivalent to traveling across a (width/gcd)x(height/gcd) rectangle from one corner to another, thus with (width+height)/gcd bumps/endpoints, and a total distance of width*length*sqrt(2)/gcd^2.
+To figure out the total length, it's easier to think of a ball traveling across a grid, where it stops if it hits horizontal/vertical grid lines at the same time. It's equivalent to traveling across a (width/gcd)x(height/gcd) rectangle from one corner to another, thus with (width+height)/gcd bumps/endpoints, and a total distance of `width*length*sqrt(2)/gcd^2`.
 
 # Apple scenes
 
