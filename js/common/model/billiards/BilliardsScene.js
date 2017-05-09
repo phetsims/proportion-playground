@@ -49,7 +49,6 @@ define( function( require ) {
     step: function( dt ) {
       Scene.prototype.step.call( dt );
 
-      //TODO: can we handle visibility for each in a more general way?
       if ( this.revealProperty.value ) {
         this.leftTable.step( dt );
         if ( this.showBothProperty.value || this.rightTable.hasStartedAnimating ) {
