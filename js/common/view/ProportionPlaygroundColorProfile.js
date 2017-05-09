@@ -43,7 +43,6 @@ define( function( require ) {
     billiardsBallHighlight: { default: Color.WHITE },
 
     // Paint scenes
-    // TODO: Isolate into six colors that don't have names?
     paintStroke: { default: Color.BLACK },
     paintBlue: { default: new Color( 0x05, 0x70, 0xFF ) },
     paintYellow: { default: new Color( 0xFF, 0xE0, 0x05 ) },
