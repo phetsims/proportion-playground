@@ -16,3 +16,10 @@ ProportionScreenView
   SceneNodes (one for each scene)
     SceneRatioControls (left and right, contains controls like pickers)
       SceneRatioNode (view for the ratio)
+
+Almost all model and view objects are created on startup and are persistent (and don't need to remove listeners), except for the following potential cases:
+
+- NecklaceLayout's layouts are lazily created (responsible for creating the beads also), but are retained.
+- PaintBalloon and PaintDrip in the model are transient, but references should be cleaned up.
+- RoundBeadNodes/SquareBeadNodes are lazily created and reused by NecklaceGraphicNode (up to the maximum number of beads in a necklace for each necklace).
+- PaintBalloonNode and PaintDripNode in the view are transient, and get disposed when not used.
