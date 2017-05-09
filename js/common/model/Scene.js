@@ -21,15 +21,20 @@ define( function( require ) {
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    */
   function Scene( predictMode ) {
+    // @public {Array.<SceneRatio>} - Initialized to a 2-length array (left and right ratios) in initializeRatios().
+    this.ratios = [];
+
+    // @public {Array.<NumberProperty>} - Initialized to a 2-length array (left and right quantity properties) in
+    // initializeRatios().
+    this.quantityProperties = [];
+
     // @public {boolean} - Whether predictions should be made for this scene.
     this.predictMode = predictMode;
 
     // @public {BooleanProperty} - Whether the visual representation is being shown
-    // TODO: consider rename
     this.revealProperty = new BooleanProperty( !predictMode );
 
     // @public {BooleanProperty} - Whether both representations are shown
-    // TODO: consider rename
     this.showBothProperty = new BooleanProperty( false );
 
     // @public {Property.<boolean>} - Whether the left ratio is visible.
@@ -56,13 +61,7 @@ define( function( require ) {
      * @param {SceneRatio} rightRatio
      */
     initializeRatios: function( leftRatio, rightRatio ) {
-
-      //REVIEW this.ratios should be declared in constructor with a note that it's initialized in initializeRatios
-      // @public {Array.<SceneRatio>}
       this.ratios = [ leftRatio, rightRatio ];
-
-      //REVIEW this.quantityProperties should be declared in constructor with a note that it's initialized in initializeRatios
-      // @public {Array.<NumberProperty>}
       this.quantityProperties = leftRatio.quantityProperties.concat( rightRatio.quantityProperties );
 
       if ( this.predictMode ) {
