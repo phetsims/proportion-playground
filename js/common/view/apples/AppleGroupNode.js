@@ -134,7 +134,8 @@ define( function( require ) {
       }
       var textOptions = {
         font: ProportionPlaygroundConstants.APPLE_PRICE_FONT,
-        fill: ProportionPlaygroundColorProfile.applePriceTagTextProperty
+        fill: ProportionPlaygroundColorProfile.applePriceTagTextProperty,
+        maxWidth: 200
       };
       var labelBox = new AlignBox( new VBox( {
         spacing: 4,
