@@ -38,7 +38,6 @@ define( function( require ) {
     var self = this;
 
     // Create child nodes to be displayed
-    //TODO: simplify what is passed?
     var leftAppleGroupControl = new AppleGroupControl( scene.leftAppleGroup, scene.showCostPerAppleProperty );
     var rightAppleGroupControl = new AppleGroupControl( scene.rightAppleGroup, scene.showCostPerAppleProperty );
     var appleGraphNode = new AppleGraphNode( scene, {

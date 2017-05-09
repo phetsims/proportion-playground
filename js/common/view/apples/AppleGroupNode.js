@@ -145,7 +145,7 @@ define( function( require ) {
             lineWidth: 2,
             stroke: ProportionPlaygroundColorProfile.applePriceTagTextProperty
           } ),
-          new Text( appleString, textOptions ) // TODO: translate, and check for translation!!!
+          new Text( appleString, textOptions )
         ]
       } ), {
         xMargin: 12,

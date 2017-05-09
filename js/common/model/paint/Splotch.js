@@ -54,7 +54,6 @@ define( function( require ) {
     } );
 
     // @public {NumberProperty} - Amount of paint from the color choice on the left (after resulting balloons have landed)
-    //TODO: remove count from the name?
     this.leftColorCountProperty = this.leftQuantity.realCountProperty;
 
     // @public {NumberProperty} - Amount of paint form the color choice on the right (after resulting balloons have landed)
@@ -113,7 +112,7 @@ define( function( require ) {
       this.balloons.clear();
       this.drips.clear();
 
-      //TODO: necessary for drip removal?
+      // Additional reset needed, as balloons/drips can potentially change the quantity when removed.
       this.leftQuantity.reset();
       this.rightQuantity.reset();
     }
