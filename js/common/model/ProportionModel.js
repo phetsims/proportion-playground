@@ -16,7 +16,7 @@ define( function( require ) {
   var PaintScene = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintScene' );
   var Property = require( 'AXON/Property' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundQueryParameters = require( 'PROPORTION_PLAYGROUND/ProportionPlaygroundQueryParameters' );
+  var ProportionPlaygroundQueryParameters = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundQueryParameters' );
 
   /**
    * @constructor
