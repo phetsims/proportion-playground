@@ -34,9 +34,9 @@ define( function( require ) {
         leftPickerLabel: totalCostString,
         leftPickerOptions: {
           // Put a $ sign in front of the spinner number
-          formatText: function( text ) {
+          formatValue: function( value ) {
             return StringUtils.fillIn( pricePatternString, {
-              price: text
+              price: '' + value
             } );
           }
         },
