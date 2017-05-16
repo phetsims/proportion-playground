@@ -44,16 +44,17 @@ define( function( require ) {
       side: Side.RIGHT
     } );
 
+    var iconBilliardsSize = 120;
     SceneNode.call( this, scene, layoutBounds, {
-      sceneIcon: new BilliardTableIcon( 120, 120, { scale: 0.3 } ),
+      sceneIcon: new BilliardTableIcon( iconBilliardsSize, iconBilliardsSize, { scale: 0.3 } ),
       leftControl: billiardsTableLeftControl,
       rightControl: billiardsTableRightControl,
-      leftSwitchIcon: new BilliardTableIcon( 120, 120, ICON_SCALE_OPTIONS ),
+      leftSwitchIcon: new BilliardTableIcon( iconBilliardsSize, iconBilliardsSize, ICON_SCALE_OPTIONS ),
       rightSwitchIcon: new HBox( {
         spacing: 10,
         children: [
-          new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ),
-          new BilliardTableIcon( 100, 100, ICON_SCALE_OPTIONS ) ]
+          new BilliardTableIcon( iconBilliardsSize, iconBilliardsSize, ICON_SCALE_OPTIONS ),
+          new BilliardTableIcon( iconBilliardsSize, iconBilliardsSize, ICON_SCALE_OPTIONS ) ]
       } ),
       controlLocation: 'bottom'
     } );
