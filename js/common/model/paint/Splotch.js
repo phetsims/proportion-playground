@@ -29,6 +29,7 @@ define( function( require ) {
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
   function Splotch( initialLeftCount, initialRightCount, visibleProperty, controlsVisibleProperty ) {
+    var self = this;
 
     // @public {PaintQuantity} - For each side
     this.leftQuantity = createPaintQuantity( this, initialLeftCount, Side.LEFT );
@@ -57,6 +58,11 @@ define( function( require ) {
     SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
       this.leftColorCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE,
       this.rightColorCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE );
+
+    // Clear balloons/drips in progress when visibility changes, see https://github.com/phetsims/proportion-playground/issues/100
+    visibleProperty.lazyLink( function( visible ) {
+      self.step( Number.POSITIVE_INFINITY );
+    } );
   }
 
   proportionPlayground.register( 'Splotch', Splotch );
