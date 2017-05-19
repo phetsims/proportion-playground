@@ -61,7 +61,7 @@ define( function( require ) {
 
     // Clear balloons/drips in progress when visibility changes, see https://github.com/phetsims/proportion-playground/issues/100
     visibleProperty.lazyLink( function( visible ) {
-      self.step( Number.POSITIVE_INFINITY );
+      self.step( 10000 ); // Just step a really big number (but not infinity, since we rely on finite numbers)
     } );
   }
 
