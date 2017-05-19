@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var PaintBalloon = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintBalloon' );
   var PaintDrip = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintDrip' );
@@ -45,9 +46,14 @@ define( function( require ) {
     this.currentLeftColorProperty = this.leftQuantity.currentCountProperty;
     this.currentRightColorProperty = this.rightQuantity.currentCountProperty;
 
-    // @public {Property.<number>} - Non-negative version of our internal count
-    this.visibleLeftColorProperty = this.leftQuantity.paintAreaProperty;
-    this.visibleRightColorProperty = this.rightQuantity.paintAreaProperty;
+    // @public {Property.<number>} - Non-negative version of our internal count, with maximums designed to limit the
+    // temporary appearance of https://github.com/phetsims/proportion-playground/issues/101.
+    this.visibleLeftColorProperty = new DerivedProperty( [ this.leftQuantity.paintAreaProperty ], function( value ) {
+      return Math.min( value, ProportionPlaygroundConstants.PAINT_COUNT_RANGE.max );
+    } );
+    this.visibleRightColorProperty = new DerivedProperty( [ this.rightQuantity.paintAreaProperty ], function( value ) {
+      return Math.min( value, ProportionPlaygroundConstants.PAINT_COUNT_RANGE.max );
+    } );
 
     // @public {ObservableArray.<PaintBalloon>}
     this.balloons = new ObservableArray();

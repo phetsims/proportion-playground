@@ -40,8 +40,10 @@ define( function( require ) {
   function PredictScreen() {
 
     // used to create screen icons
-    var splotch = new Splotch( 30, 30, new Property( true ), new Property( true ) );
-    var splotchNode = new SplotchNode( splotch, new Property( PaintChoice.RED_YELLOW ) );
+    var splotch = new Splotch( 20, 20, new Property( true ), new Property( true ) );
+    var splotchNode = new SplotchNode( splotch, new Property( PaintChoice.RED_YELLOW ), {
+      scale: SplotchNode.colorTotalToSplotchScale( 60 ) / SplotchNode.colorTotalToSplotchScale( 40 )
+    } );
 
     Screen.call( this,
       function() { return new ProportionModel( true ); },
