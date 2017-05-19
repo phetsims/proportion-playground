@@ -106,7 +106,7 @@ define( function( require ) {
      * @param {number} count
      */
     removeCurrent: function( count ) {
-      var amountToDrip = Math.min( count, this.currentCountProperty.value );
+      var amountToDrip = Math.min( count, Math.max( this.currentCountProperty.value, 0 ) );
       var amountToQueue = count - amountToDrip;
       this.pendingDripsProperty.value += amountToQueue;
       this.currentCountProperty.value -= amountToDrip;
