@@ -112,7 +112,7 @@ define( function( require ) {
     removeCurrent: function( count ) {
       assert && assert( typeof count === 'number' && isFinite( count ) && count >= 0 );
 
-      var amountToDrip = Math.min( count, Math.max( this.currentCountProperty.value, 0 ) );
+      var amountToDrip = Math.min( count, this.currentCountProperty.value );
       var amountToQueue = count - amountToDrip;
       this.pendingDripsProperty.value += amountToQueue;
       this.currentCountProperty.value -= amountToDrip;
