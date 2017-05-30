@@ -69,6 +69,8 @@ define( function( require ) {
      * @public
      */
     remove: function() {
+      assert && assert( Math.abs( this.amountToDrip ) < 1e-7 );
+
       this.leaveCallback( this );
     }
   } );

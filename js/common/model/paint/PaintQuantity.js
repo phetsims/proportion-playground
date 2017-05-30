@@ -79,6 +79,8 @@ define( function( require ) {
      * @param {number} amount - Amount to remove
      */
     removeArea: function( amount ) {
+      assert && assert( typeof amount === 'number' && isFinite( amount ) && amount >= 0 );
+
       this.paintAreaProperty.value -= amount;
     },
 
@@ -89,6 +91,8 @@ define( function( require ) {
      * @param {number} count
      */
     addCurrent: function( count ) {
+      assert && assert( typeof count === 'number' && isFinite( count ) && count > 0 );
+
       var amountToDrip = Math.min( count, this.pendingDripsProperty.value );
       var amountToAdd = count - amountToDrip;
       this.paintAreaProperty.value += count;
@@ -106,6 +110,8 @@ define( function( require ) {
      * @param {number} count
      */
     removeCurrent: function( count ) {
+      assert && assert( typeof count === 'number' && isFinite( count ) && count >= 0 );
+
       var amountToDrip = Math.min( count, Math.max( this.currentCountProperty.value, 0 ) );
       var amountToQueue = count - amountToDrip;
       this.pendingDripsProperty.value += amountToQueue;
