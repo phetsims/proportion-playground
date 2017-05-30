@@ -49,7 +49,7 @@ define( function( require ) {
     // @private {SplotchNode}
     this.splotchNode = new SplotchNode( splotch, paintChoiceProperty, {
       useVisibleAmounts: useVisibleAmounts,
-      center: SPLOTCH_LOCATION
+      translation: SPLOTCH_LOCATION
     } );
 
     this.addChild( dripLayer );
