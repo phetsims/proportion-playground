@@ -22,7 +22,7 @@ define( function( require ) {
       leadDesign: 'Amanda McGarry',
       softwareDevelopment: 'Andrea Lin, Sam Reid, Jonathan Olson',
       team: 'Karina K. R. Hensberry, Ariel Paul, Kathy Perkins, Beth Stade, Ian Whitacre',
-      qualityAssurance: '', // TODO: https://github.com/phetsims/proportion-playground/issues/71
+      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ethan Johnson, Ben Roberts, Maggie Wiseman',
       graphicArts: 'Mariah Hermsmeyer',
       thanks: 'This sim builds (in part) on prior work by our colleagues at SRI and the SunBay team (http://sunbay.sri.com/).'
     }
