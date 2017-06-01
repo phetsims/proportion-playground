@@ -57,7 +57,7 @@ define( function( require ) {
       self.currentLine.p2 = modelViewTransform.modelToViewPosition( modelPoint );
     } );
 
-    // @private {Function}
+    // @private {function}
     this.collisionListener = this.addCollision.bind( this );
     collisionPoints.addItemAddedListener( this.collisionListener );
     collisionPoints.forEach( this.collisionListener );

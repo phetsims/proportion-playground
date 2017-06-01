@@ -17,8 +17,8 @@ define( function( require ) {
    * @constructor
    *
    * @param {number} initialCount - Initial quantity of the paint
-   * @param {Function} createBalloon - function( callbackWhenHits() )
-   * @param {Function} createDrip - function( amountToRemove: number, dripCallback( amount ) )
+   * @param {function} createBalloon - function( callbackWhenHits() )
+   * @param {function} createDrip - function( amountToRemove: number, dripCallback( amount ) )
    */
   function PaintQuantity( initialCount, createBalloon, createDrip ) {
     // @private

@@ -18,7 +18,7 @@ define( function( require ) {
    * @param {Side} side - Whether this balloon contains the left-most color
    * @param {function} leaveCallback - Called with this as a single arg when the paint shouldn't be visible
    * @param {number} amountToDrip - Total amount of paint balloons to drip away
-   * @param {Function} removeCallback - Call with function( amount ) to remove a certain amount as the drop grows
+   * @param {function} removeCallback - Call with function( amount ) to remove a certain amount as the drop grows
    * @param {number} initialSplotchArea - Indicates the intial area, so the intial position can be calibrated
    */
   function PaintDrip( side, leaveCallback, amountToDrip, removeCallback, initialSplotchArea ) {
@@ -28,7 +28,7 @@ define( function( require ) {
     // @public {boolean}
     this.side = side;
 
-    // @public {Function}
+    // @public {function}
     this.leaveCallback = leaveCallback;
 
     // @public {number}
@@ -37,7 +37,7 @@ define( function( require ) {
     // @public {number}
     this.amountToDrip = amountToDrip;
 
-    // @public {Function}
+    // @public {function}
     this.removeCallback = removeCallback;
 
     // @public {number}

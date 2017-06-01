@@ -66,7 +66,7 @@ define( function( require ) {
      * @param {Node} indicator - the left or right triangle node
      * @param {Splotch} splotchModel - the model
      * @param {function} condition - additional condition indicating whether the indicator node should be shown.
-     * @returns {Function}
+     * @returns {function}
      */
     var createIndicatorUpdateFunction = function( indicator, splotchModel, condition ) {
       return function() {
