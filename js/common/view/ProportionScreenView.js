@@ -71,7 +71,16 @@ define( function( require ) {
     // When the scene radio button is selected, show the selected scene
     model.sceneProperty.link( function( scene ) {
       for ( var i = 0; i < self.sceneNodes.length; i++ ) {
-        self.sceneNodes[ i ].visible = self.sceneNodes[ i ].scene === scene;
+        var sceneNode = self.sceneNodes[ i ];
+
+        var shouldBeVisible = sceneNode.scene === scene;
+        var isCurrentlyVisible = sceneNode.visible;
+
+        // Interrupt
+        if ( !shouldBeVisible && isCurrentlyVisible ) {
+          sceneNode.interruptSubtreeInput();
+        }
+        sceneNode.visible = shouldBeVisible;
       }
     } );
   }
