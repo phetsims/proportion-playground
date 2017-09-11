@@ -12,8 +12,8 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var ColorProfile = require( 'SCENERY_PHET/ColorProfile' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   // Initial colors for each profile, by string key. Only profile currently is default (still helpful for making color
   // tweaks with the top-level proportion-playground-colors.html)

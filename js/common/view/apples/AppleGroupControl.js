@@ -17,9 +17,9 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
-  var totalCostString = require( 'string!PROPORTION_PLAYGROUND/totalCost' );
   var applesString = require( 'string!PROPORTION_PLAYGROUND/apples' );
   var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
+  var totalCostString = require( 'string!PROPORTION_PLAYGROUND/totalCost' );
 
   /**
    * @constructor

@@ -28,10 +28,10 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // images
-  var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
   var coinImage = require( 'mipmap!PROPORTION_PLAYGROUND/coin.png' );
   var crateBackImage = require( 'mipmap!PROPORTION_PLAYGROUND/crate-back.png' );
   var crateFrontImage = require( 'mipmap!PROPORTION_PLAYGROUND/crate-front.png' );
+  var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
 
   // strings
   var appleString = require( 'string!PROPORTION_PLAYGROUND/apple' );
