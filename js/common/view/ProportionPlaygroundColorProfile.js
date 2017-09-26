@@ -21,7 +21,7 @@ define( function( require ) {
     exploreBackground: { default: new Color( '#fcf3eb' ) },
     predictBackground: { default: new Color( '#eaeefd' ) },
     refreshBackground: { default: new Color( 242, 242, 242 ) },
-    revealButton: { default: PhetColorScheme.PHET_LOGO_YELLOW },
+    revealButton: { default: PhetColorScheme.BUTTON_YELLOW },
     sceneSelectionBorder: { default: Color.BLACK },
     sceneSelectionBackground: { default: Color.WHITE },
 
