@@ -14,6 +14,7 @@ define( function( require ) {
   var BilliardsPath = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsPath' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var DragListener = require( 'SCENERY/listeners/DragListener' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Matrix3 = require( 'DOT/Matrix3' );
@@ -29,7 +30,6 @@ define( function( require ) {
   var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   var Shape = require( 'KITE/Shape' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -132,17 +132,16 @@ define( function( require ) {
       var startPoint; // track where the mouse drag starts
       var startProperty; // track the beginning width
 
-      dragHandle.addInputListener( new SimpleDragHandler( {
+      dragHandle.addInputListener( new DragListener( {
         allowTouchSnag: true,
-
-        start: function( event ) {
-          startPoint = dragHandle.globalToParentPoint( event.pointer.point );
+        applyOffset: false,
+        start: function( event, listener ) {
+          startPoint = listener.parentPoint;
           startProperty = property.value;
         },
 
-        drag: function( event ) {
-          var mousePoint = self.globalToLocalPoint( event.pointer.point );
-          var change = Util.roundSymmetric( changeSign * ( mousePoint[ coordinate ] - startPoint[ coordinate ] ) * 2 / MODEL_VIEW_SCALE );
+        drag: function( event, listener ) {
+          var change = Util.roundSymmetric( changeSign * ( listener.parentPoint[ coordinate ] - startPoint[ coordinate ] ) * 2 / MODEL_VIEW_SCALE );
 
           // change width so its within the acceptable range
           property.value = ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.constrainValue( startProperty + change );
