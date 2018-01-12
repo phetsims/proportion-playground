@@ -47,7 +47,7 @@ define( function( require ) {
     // Create icons for the ABSwitch
     var appleImageNode = new Image( redAppleImage, { scale: 0.2 } );
 
-    // Check box that shows the cost per apple in a price tag
+    // Checkbox that shows the cost per apple in a price tag
     var showCostPerAppleCheckbox = new Checkbox( new Text( costPerAppleString, {
       maxWidth: 293, // ceiling value from ?stringTest=double for English
       font: ProportionPlaygroundConstants.CONTROL_FONT
