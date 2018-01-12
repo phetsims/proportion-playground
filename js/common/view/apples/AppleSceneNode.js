@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var AppleGraphNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGraphNode' );
   var AppleGroupControl = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGroupControl' );
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -48,7 +48,7 @@ define( function( require ) {
     var appleImageNode = new Image( redAppleImage, { scale: 0.2 } );
 
     // Check box that shows the cost per apple in a price tag
-    var showCostPerAppleCheckBox = new CheckBox( new Text( costPerAppleString, {
+    var showCostPerAppleCheckbox = new Checkbox( new Text( costPerAppleString, {
       maxWidth: 293, // ceiling value from ?stringTest=double for English
       font: ProportionPlaygroundConstants.CONTROL_FONT
     } ), scene.showCostPerAppleProperty );
@@ -67,7 +67,7 @@ define( function( require ) {
       } )
     } );
 
-    this.addChild( showCostPerAppleCheckBox );
+    this.addChild( showCostPerAppleCheckbox );
     this.addChild( appleGraphNode );
 
     // When the "show both" ABSwitch is toggled, change which apple groups are displayed and update their layouts
@@ -85,8 +85,8 @@ define( function( require ) {
     } );
 
     // Price tag checkbox goes in the bottom left
-    var checkBoxInset = 10;
-    showCostPerAppleCheckBox.leftBottom = layoutBounds.leftBottom.plusXY( checkBoxInset, -checkBoxInset );
+    var checkboxInset = 10;
+    showCostPerAppleCheckbox.leftBottom = layoutBounds.leftBottom.plusXY( checkboxInset, -checkboxInset );
   }
 
   proportionPlayground.register( 'AppleSceneNode', AppleSceneNode );
