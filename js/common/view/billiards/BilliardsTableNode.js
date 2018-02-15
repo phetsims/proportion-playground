@@ -133,7 +133,6 @@ define( function( require ) {
       var startProperty; // track the beginning width
 
       dragHandle.addInputListener( new DragListener( {
-        allowTouchSnag: true,
         applyOffset: false,
         start: function( event, listener ) {
           startPoint = listener.parentPoint;
