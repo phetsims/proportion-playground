@@ -1,5 +1,5 @@
 {
-  "comment": "# proportion-playground 1.0.0-phetio Thu Oct 27 2016 15:01:11 GMT-0600 (MDT)",
+  "comment": "# proportion-playground 1.0.0-phetio Tue Jun 05 2018 11:14:59 GMT-0600 (MDT)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "HEAD"
@@ -45,7 +45,7 @@
     "branch": "HEAD"
   },
   "proportion-playground": {
-    "sha": "32d845f1602610b41871cfa662ecfc1caece18a3",
+    "sha": "1d50a63f15b1fe99c60db66f25ab47e2f092e9a1",
     "branch": "1.0-phetio"
   },
   "query-string-machine": {
@@ -53,8 +53,8 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "60ae8f182b1cee8d0eced458114c4cef04c27701",
-    "branch": "HEAD"
+    "sha": "2d36681a025e393894fe8a90d9a0a6c5eeaf382b",
+    "branch": "proportion-playground-1.0-phetio"
   },
   "scenery-phet": {
     "sha": "7aa025e85da8ea204d593084b60a79fcfebff4cf",
