@@ -30,7 +30,7 @@ define( function( require ) {
   }, {
     mainColor: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.1 ),
     shadowColor: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.5 ),
-    highlightColor: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( 0.5 ),
+    highlightColor: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( 0.5 )
   } );
 
   // {Node} - Background

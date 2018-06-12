@@ -82,7 +82,7 @@ define( function( require ) {
           scene.ratios.forEach( function( sceneRatio ) {
             sceneRatio.reset();
           } );
-        },
+        }
       }, {
         baseColor: ProportionPlaygroundColorProfile.refreshBackgroundProperty
       } );
