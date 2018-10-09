@@ -51,7 +51,9 @@ define( function( require ) {
 
     // Hook up our visible-change emitter
     var self = this;
-    visibleProperty.lazyLink( this.visibleChangeEmitter.emit.bind( this.visibleChangeEmitter ) );
+    visibleProperty.lazyLink( function() {
+      self.visibleChangeEmitter.emit();
+    } );
     this.quantityProperties.forEach( function( quantityProperty ) {
       quantityProperty.lazyLink( function() {
         if ( visibleProperty.value ) {
