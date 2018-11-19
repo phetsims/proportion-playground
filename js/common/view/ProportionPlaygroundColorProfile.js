@@ -17,7 +17,8 @@ define( function( require ) {
 
   // Initial colors for each profile, by string key. Only profile currently is default (still helpful for making color
   // tweaks with the top-level proportion-playground-colors.html)
-  var ProportionPlaygroundColorProfile = new ColorProfile( {
+  var ProportionPlaygroundColorProfile = new ColorProfile( [ 'default' ], {
+
     exploreBackground: { default: new Color( '#fcf3eb' ) },
     predictBackground: { default: new Color( '#eaeefd' ) },
     refreshBackground: { default: new Color( 242, 242, 242 ) },
@@ -55,7 +56,7 @@ define( function( require ) {
     necklaceSquareBead: { default: new Color( 'hsl(206,65%,48%)' ) },
     necklaceString: { default: Color.BLACK },
     necklacePatternBorder: { default: new Color( '#B3B3B3' ) }
-  }, [ 'default' ] );
+  } );
 
   proportionPlayground.register( 'ProportionPlaygroundColorProfile', ProportionPlaygroundColorProfile );
 
