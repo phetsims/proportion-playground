@@ -29,34 +29,34 @@ define( function( require ) {
    *
    * @param {Scene} scene - Our scene to display
    * @param {Bounds2} layoutBounds - visible bounds within which the UI must fit
-   * @param {Object} [options] - node options
+   * @param {Object} config
    */
-  function SceneNode( scene, layoutBounds, options ) {
-    options = _.extend( {
-      sceneIcon: null, // {Node}, required - shown in the SceneSelectionControls
-      leftControl: null, // {SceneRatioControl}, required
-      rightControl: null, // {SceneRatioControl}, required
-      leftSwitchIcon: null, // {Node}, required - Left side of the showBoth ABSwitch
-      rightSwitchIcon: null, // {Node}, required - Right side of the showBoth ABSwitch
+  function SceneNode( scene, layoutBounds, config ) {
+    config = _.extend( {
+      sceneIcon: null, // {Node}, @required - shown in the SceneSelectionControls
+      leftControl: null, // {SceneRatioControl}, @required
+      rightControl: null, // {SceneRatioControl}, @required
+      leftSwitchIcon: null, // {Node}, @required - Left side of the showBoth ABSwitch
+      rightSwitchIcon: null, // {Node}, @required - Right side of the showBoth ABSwitch
       controlLocation: 'right', // 'right' or 'bottom', direction from the pickerContainer
       canCenterControlButton: true // Whether the control button can be centered when both left/right are shown
-    }, options );
+    }, config );
 
     // @protected
     this.layoutBounds = layoutBounds;
-    this.leftControl = options.leftControl;
-    this.rightControl = options.rightControl;
+    this.leftControl = config.leftControl;
+    this.rightControl = config.rightControl;
 
     // @private
-    this.controlLocation = options.controlLocation;
-    this.revealBothOffset = options.revealBothOffset;
-    this.canCenterControlButton = options.canCenterControlButton;
+    this.controlLocation = config.controlLocation;
+    this.revealBothOffset = config.revealBothOffset;
+    this.canCenterControlButton = config.canCenterControlButton;
 
     // @public {Scene} - The main model for this scene
     this.scene = scene;
 
     // @public {Node} - Will be displayed in the scene selection radio group
-    this.sceneIcon = options.sceneIcon;
+    this.sceneIcon = config.sceneIcon;
 
     Node.call( this, {
       children: [
@@ -65,8 +65,8 @@ define( function( require ) {
       ]
     } );
 
-    this.leftSwitchIcon = switchAlignGroup.createBox( options.leftSwitchIcon, { xAlign: 'right' } );
-    this.rightSwitchIcon = switchAlignGroup.createBox( options.rightSwitchIcon, { xAlign: 'left' } );
+    this.leftSwitchIcon = switchAlignGroup.createBox( config.leftSwitchIcon, { xAlign: 'right' } );
+    this.rightSwitchIcon = switchAlignGroup.createBox( config.rightSwitchIcon, { xAlign: 'left' } );
 
     // @private {Node} - A button that will either handle revealing the scene's visual representation, or will refresh the scene.
     this.controlButton = null;
