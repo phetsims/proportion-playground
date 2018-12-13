@@ -27,9 +27,9 @@ define( function( require ) {
    * @extends {SceneRatioControl}
    *
    * @param {BilliardsTable} billiardsTable - the model
-   * @param {Object} [options] - node layout options
+   * @param {Object} config - node layout config
    */
-  function BilliardsTableControl( billiardsTable, options ) {
+  function BilliardsTableControl( billiardsTable, config ) {
     SceneRatioControl.call( this, billiardsTable, ProportionPlaygroundColorProfile.billiardsBorderProperty,
       ProportionPlaygroundColorProfile.billiardsBorderProperty, {
         leftPickerLabel: lengthString,
@@ -37,16 +37,16 @@ define( function( require ) {
         pickerLabelMaxWidth: 70
       } );
 
-    assert && assert( options.side, 'side is required' );
+    assert && assert( config.side, 'side is required' );
 
-    options = _.extend( {
+    config = _.extend( {
       side: null, // {Side} - Required, assertion above
       allowDragToResize: false // Whether resizing is allowed
-    }, options );
+    }, config );
 
     // @public - The table itself, with the ball/holes/gridlines/etc.
     this.billiardsTableNode = new BilliardsTableNode( billiardsTable, {
-      allowDragToResize: options.allowDragToResize
+      allowDragToResize: config.allowDragToResize
     } );
 
     // @protected @override - We need more customization for positioning for the billiards scene, so we create our own
@@ -60,11 +60,11 @@ define( function( require ) {
     } );
     this.addChild( new HBox( {
       spacing: 30,
-      children: options.side === Side.LEFT ? [ this.pickerContainer, this.billiardsTableNode ] :
+      children: config.side === Side.LEFT ? [ this.pickerContainer, this.billiardsTableNode ] :
         [ this.billiardsTableNode, this.pickerContainer ]
     } ) );
 
-    this.mutate( options );
+    this.mutate( config );
   }
 
   proportionPlayground.register( 'BilliardsTableControl', BilliardsTableControl );

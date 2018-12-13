@@ -42,6 +42,12 @@ define( function( require ) {
       canCenterControlButton: true // Whether the control button can be centered when both left/right are shown
     }, config );
 
+    assert && assert( config.sceneIcon );
+    assert && assert( config.leftControl );
+    assert && assert( config.rightControl );
+    assert && assert( config.leftSwitchIcon );
+    assert && assert( config.rightSwitchIcon );
+
     // @protected
     this.layoutBounds = layoutBounds;
     this.leftControl = config.leftControl;
