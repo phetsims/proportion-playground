@@ -235,13 +235,13 @@ define( function( require ) {
 
         // Add 5 to the radius to give some more space between beads
         var extraSpace = 0.28 * BEAD_DIAMETER;
-        centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude() + extraSpace, oldCenter.angle() );
+        centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude() + extraSpace, oldCenter.angle );
       }
 
       // Instantiate the beads between each vertex
       for ( i = 0; i < centers.length; i++ ) {
         center = centers[ i ];
-        angle = pairs[ i ].end.minus( pairs[ i ].start ).angle();
+        angle = pairs[ i ].end.minus( pairs[ i ].start ).angle;
 
         // Add a bead if it is not the last pair
         if ( i !== centers.length - 1 ) {
@@ -255,7 +255,7 @@ define( function( require ) {
 
         // If it is the last pair, move center further away for a curved gap.
         else {
-          centers[ i ] = center.addXY( 15 * Math.cos( center.angle() ), 15 * Math.sin( center.angle() ) );
+          centers[ i ] = center.addXY( 15 * Math.cos( center.angle ), 15 * Math.sin( center.angle ) );
         }
       }
 
@@ -273,7 +273,7 @@ define( function( require ) {
         var control = center.blend( nextCenter, 0.5 );
 
         // curve necklace line based on a certain degree of strength
-        control.addXY( strength * Math.cos( control.angle() ), strength * Math.sin( control.angle() ) );
+        control.addXY( strength * Math.cos( control.angle ), strength * Math.sin( control.angle ) );
 
         // gap is more curved/bumpy than the rest of the black line
         if ( i === centers.length - 2 ) {
