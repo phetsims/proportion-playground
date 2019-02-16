@@ -35,9 +35,9 @@ define( function( require ) {
   var yellowBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/yellow-balloon-3.png' );
 
   // Persistent {Vector2} instances, so that we don't churn GC as much
-  var scratchStartVector = new Vector2();
-  var scratchEndVector = new Vector2();
-  var scratchPosition = new Vector2();
+  var scratchStartVector = new Vector2( 0, 0 );
+  var scratchEndVector = new Vector2( 0, 0 );
+  var scratchPosition = new Vector2( 0, 0 );
 
   // {number}
   var SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();

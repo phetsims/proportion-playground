@@ -20,7 +20,7 @@ define( function( require ) {
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  var scratchVector = new Vector2();
+  var scratchVector = new Vector2( 0, 0 );
 
   /**
    * @constructor
@@ -51,14 +51,14 @@ define( function( require ) {
     this.widthProperty = new NumberProperty( options.initialWidth );
 
     // @public {Property.<Vector2>} - The position of the ball in pixels
-    this.ballPositionProperty = new Property( new Vector2() );
+    this.ballPositionProperty = new Property( new Vector2( 0, 0 ) );
 
     // @public {Vector2} - The velocity of the ball in pixels per second
-    this.ballVelocity = new Vector2();
+    this.ballVelocity = new Vector2( 0, 0 );
 
     // Keep track of collision points so the path can be shown as an array of lines.
     // @public {ObservableArray.<Vector2>} (read-only) - the points where the ball has collided with the walls
-    this.collisionPoints = new ObservableArray( new Vector2() );
+    this.collisionPoints = new ObservableArray( new Vector2( 0, 0 ) );
 
     // @public {Emitter} (read-only) - emits when the ball was restarted
     this.restartEmitter = new Emitter();
@@ -94,11 +94,11 @@ define( function( require ) {
       var speed = 1.5 * Math.sqrt( Math.pow( length, 2 ) + Math.pow( width, 2 ) );
 
       // initially the ball starts in the bottom left corner and moves up and to the right.
-      this.ballPositionProperty.value = new Vector2();
+      this.ballPositionProperty.value = new Vector2( 0, 0 );
       this.ballVelocity.setXY( speed, speed );
 
       this.collisionPoints.clear();
-      this.collisionPoints.push( new Vector2() );
+      this.collisionPoints.push( new Vector2( 0, 0 ) );
       this.restartEmitter.emit();
 
       this.hasStartedAnimating = false;

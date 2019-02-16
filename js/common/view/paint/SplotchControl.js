@@ -22,7 +22,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // Used as scratch vectors below
-  var startVector = new Vector2();
+  var startVector = new Vector2( 0, 0 );
 
   // {Vector2} - Center of the splotch in splotch-control coordinates.
   var SPLOTCH_LOCATION = new Vector2( 0, ProportionPlaygroundConstants.CONTROL_Y_OFFSET );

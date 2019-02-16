@@ -93,7 +93,7 @@ define( function( require ) {
     reset: function() {
       this.previousCollisionPoint = null;
       this.children = [ this.currentLine ];
-      this.currentLine.p1 = new Vector2();
+      this.currentLine.p1 = new Vector2( 0, 0 );
       this.collisionPoints.forEach( this.collisionListener );
     }
   } );
