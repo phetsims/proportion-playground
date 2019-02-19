@@ -235,7 +235,7 @@ define( function( require ) {
 
         // Add 5 to the radius to give some more space between beads
         var extraSpace = 0.28 * BEAD_DIAMETER;
-        centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude() + extraSpace, oldCenter.angle );
+        centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude + extraSpace, oldCenter.angle );
       }
 
       // Instantiate the beads between each vertex

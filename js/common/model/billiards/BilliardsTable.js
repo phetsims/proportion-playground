@@ -141,12 +141,12 @@ define( function( require ) {
       var velocity = this.ballVelocity;
 
       // Bail out if the ball has stopped
-      if ( velocity.magnitude() === 0 ) {
+      if ( velocity.magnitude === 0 ) {
         return;
       }
 
       // Keep bouncing while we still can (and have time left)
-      while ( velocity.magnitude() > 0 && dt > 0 ) {
+      while ( velocity.magnitude > 0 && dt > 0 ) {
         // What are the wall x/y values in the direction we're traveling
         var boundaryX = velocity.x > 0 ? width : 0;
         var boundaryY = velocity.y > 0 ? length : 0;
