@@ -14,12 +14,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var Property = require( 'AXON/Property' );
   var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
   var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
+  // constants
   var scratchVector = new Vector2( 0, 0 );
 
   /**
@@ -51,7 +52,7 @@ define( function( require ) {
     this.widthProperty = new NumberProperty( options.initialWidth );
 
     // @public {Property.<Vector2>} - The position of the ball in pixels
-    this.ballPositionProperty = new Property( new Vector2( 0, 0 ) );
+    this.ballPositionProperty = new Vector2Property( new Vector2( 0, 0 ) );
 
     // @public {Vector2} - The velocity of the ball in pixels per second
     this.ballVelocity = new Vector2( 0, 0 );
