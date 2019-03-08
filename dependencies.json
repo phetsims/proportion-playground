@@ -1,5 +1,5 @@
 {
-  "comment": "# proportion-playground 1.0.6 Tue Nov 06 2018 14:35:32 GMT-0700 (MST)",
+  "comment": "# proportion-playground 1.0.6 Fri Mar 08 2019 14:02:03 GMT-0500 (EST)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -9,8 +9,8 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "c904b097800ac66bee43a37b4d36169a85990b34",
-    "branch": "HEAD"
+    "sha": "e9cfb79efe11f847778d126cdb697a9683da2987",
+    "branch": "proportion-playground-1.0"
   },
   "chipper": {
     "sha": "5655178345f95ec578ebd4096f952cef43ecfb02",
@@ -21,8 +21,8 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "003ade474164c6c4691f43fa6671f8e8454b2be4",
-    "branch": "HEAD"
+    "sha": "89c0467a848d4e5d4609525a69f4c7300b290e7a",
+    "branch": "proportion-playground-1.0"
   },
   "kite": {
     "sha": "7d2df183bd47abec3c3f7da477eb9172556f04e8",
@@ -37,7 +37,7 @@
     "branch": "HEAD"
   },
   "proportion-playground": {
-    "sha": "7a273cca4faa8d627817d12a67242ff6520efb08",
+    "sha": "186b63e6d9afdbb2f886af065a38b3816012daea",
     "branch": "1.0"
   },
   "query-string-machine": {
