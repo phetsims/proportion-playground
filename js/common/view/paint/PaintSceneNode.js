@@ -85,14 +85,13 @@ define( function( require ) {
       self.updateControlButton();
     } );
 
-    this.addChild( new VerticalAquaRadioButtonGroup(
+    this.addChild( new VerticalAquaRadioButtonGroup( scene.paintChoiceProperty,
       PaintChoice.CHOICES.map( function( paintChoice ) {
         var gradientNode = new PaintChoiceGradientNode( 25, 220, paintChoice, {
           rotation: -Math.PI / 2, scale: 0.5
         } );
         return {
           node: new AlignBox( gradientNode, { leftMargin: 5 } ),
-          property: scene.paintChoiceProperty,
           value: paintChoice
         };
       } ), {
