@@ -151,7 +151,7 @@ define( function( require ) {
       return paintChoice.getColorProperty( side );
     } ) );
 
-    return new DerivedProperty( dependencies, function() {
+    return new DerivedProperty( _.uniq( dependencies ), function() {
       return paintChoiceProperty.value.getColorProperty( side ).value;
     } );
   };
