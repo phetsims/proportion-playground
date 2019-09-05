@@ -59,7 +59,7 @@ define( function( require ) {
 
     // Keep track of collision points so the path can be shown as an array of lines.
     // @public {ObservableArray.<Vector2>} (read-only) - the points where the ball has collided with the walls
-    this.collisionPoints = new ObservableArray( new Vector2( 0, 0 ) );
+    this.collisionPoints = new ObservableArray();
 
     // @public {Emitter} (read-only) - emits when the ball was restarted
     this.restartEmitter = new Emitter();
