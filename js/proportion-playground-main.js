@@ -17,7 +17,7 @@ define( require => {
   // strings
   const proportionPlaygroundTitleString = require( 'string!PROPORTION_PLAYGROUND/proportion-playground.title' );
 
-  var simOptions = {
+  const simOptions = {
     credits: {
       leadDesign: 'Amanda McGarry',
       softwareDevelopment: 'Andrea Lin, Sam Reid, Jonathan Olson',
@@ -29,7 +29,7 @@ define( require => {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( proportionPlaygroundTitleString, [
+    const sim = new Sim( proportionPlaygroundTitleString, [
       new ExploreScreen(),
       new PredictScreen()
     ], simOptions );

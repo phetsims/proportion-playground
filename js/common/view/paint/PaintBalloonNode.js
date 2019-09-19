@@ -35,17 +35,17 @@ define( require => {
   const yellowBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/yellow-balloon-3.png' );
 
   // Persistent {Vector2} instances, so that we don't churn GC as much
-  var scratchStartVector = new Vector2( 0, 0 );
-  var scratchEndVector = new Vector2( 0, 0 );
-  var scratchPosition = new Vector2( 0, 0 );
+  const scratchStartVector = new Vector2( 0, 0 );
+  const scratchEndVector = new Vector2( 0, 0 );
+  const scratchPosition = new Vector2( 0, 0 );
 
   // {number}
-  var SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
-  var BALLOON_RADIUS = Math.sqrt( SPLOTCH_AREA / Math.PI ); // A = pi * r^2, r = sqrt( A / pi )
-  var BALLON_IMAGE_SCALE = 2 * BALLOON_RADIUS / 130; // Assuming the balloons in the images have a diameter of 130px
+  const SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
+  const BALLOON_RADIUS = Math.sqrt( SPLOTCH_AREA / Math.PI ); // A = pi * r^2, r = sqrt( A / pi )
+  const BALLON_IMAGE_SCALE = 2 * BALLOON_RADIUS / 130; // Assuming the balloons in the images have a diameter of 130px
 
   // After construction, will map color.paintId => scenery.Image, which will be scaled and centered around the origin.
-  var balloonImageMap = {};
+  const balloonImageMap = {};
   balloonImageMap[ PaintChoice.BLACK.paintId ] = [ blackBalloon1Image, blackBalloon2Image, blackBalloon3Image ];
   balloonImageMap[ PaintChoice.BLUE.paintId ] = [ blueBalloon1Image, blueBalloon2Image, blueBalloon3Image ];
   balloonImageMap[ PaintChoice.RED.paintId ] = [ redBalloon1Image, redBalloon2Image, redBalloon3Image ];
@@ -62,7 +62,7 @@ define( require => {
   } );
 
   // {number} Controls how the balloons rotate (from +halfRotation to -halfRotation or the opposite)
-  var HALF_ROTATION = Math.PI / 8;
+  const HALF_ROTATION = Math.PI / 8;
 
   /**
    * @constructor
@@ -103,7 +103,7 @@ define( require => {
      * @param {Vector2} endPosition
      */
     position: function( startPosition, endPosition ) {
-      var ratio = this.paintBalloon.getRatioToEnd();
+      const ratio = this.paintBalloon.getRatioToEnd();
 
       // rotate from -half to half, possibly reversed
       this.rotation = this.rotationDirection * ( -HALF_ROTATION + ratio * 2 * HALF_ROTATION );
@@ -113,15 +113,15 @@ define( require => {
       endPosition = scratchEndVector.set( endPosition ).add( this.endOffset );
 
       // pseudo gravity-like acceleration
-      var baseX = startPosition.x + Math.pow( ratio, 0.8 ) * ( endPosition.x - startPosition.x );
-      var baseY = startPosition.y + ratio * ( endPosition.y - startPosition.y );
-      var elevationY = ratio - ratio * ratio;
+      const baseX = startPosition.x + Math.pow( ratio, 0.8 ) * ( endPosition.x - startPosition.x );
+      const baseY = startPosition.y + ratio * ( endPosition.y - startPosition.y );
+      const elevationY = ratio - ratio * ratio;
       scratchPosition.setXY( baseX, baseY + -600 * elevationY );
 
       this.center = scratchPosition;
 
       // fake "make the balloon look farther away", from 1/4 distance to full distance
-      var distanceRatio = 0.25 + 0.75 * ratio;
+      const distanceRatio = 0.25 + 0.75 * ratio;
       this.setScaleMagnitude( 1 / distanceRatio );
     },
 
@@ -132,7 +132,7 @@ define( require => {
      * @param {PaintChoice} paintChoice
      */
     updateBalloonColor: function( paintChoice ) {
-      var colorProperty = paintChoice.getColorProperty( this.paintBalloon.side );
+      const colorProperty = paintChoice.getColorProperty( this.paintBalloon.side );
       this.children = [ balloonImageMap[ colorProperty.paintId ][ this.paintBalloon.balloonType ] ];
     },
 

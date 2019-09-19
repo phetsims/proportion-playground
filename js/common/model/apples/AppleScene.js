@@ -27,8 +27,8 @@ define( require => {
     // @public {BooleanProperty}
     this.showCostPerAppleProperty = new BooleanProperty( false );
 
-    var initialCost = predictMode ? 5 : 0;
-    var initialApples = predictMode ? 5 : 1;
+    const initialCost = predictMode ? 5 : 0;
+    const initialApples = predictMode ? 5 : 1;
 
     // @public {AppleGroup}
     this.leftAppleGroup = new AppleGroup( initialCost, initialApples, this.leftVisibleProperty, this.leftControlsVisibleProperty );

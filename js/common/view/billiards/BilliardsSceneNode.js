@@ -18,7 +18,7 @@ define( require => {
   const Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
   // constants
-  var ICON_SCALE_OPTIONS = { scale: 0.3 };
+  const ICON_SCALE_OPTIONS = { scale: 0.3 };
 
   /**
    * @constructor
@@ -28,23 +28,23 @@ define( require => {
    * @param {Bounds2} layoutBounds - the region within which all visual components should be layed out
    */
   function BilliardsSceneNode( scene, layoutBounds ) {
-    var self = this;
+    const self = this;
 
-    var billiardsCenterY = layoutBounds.height * 0.45;
+    const billiardsCenterY = layoutBounds.height * 0.45;
 
     // Create the left/right tables
-    var billiardsTableLeftControl = new BilliardsTableControl( scene.leftTable, {
+    const billiardsTableLeftControl = new BilliardsTableControl( scene.leftTable, {
       centerY: billiardsCenterY,
       allowDragToResize: !scene.predictMode,
       side: Side.LEFT
     } );
-    var billiardsTableRightControl = new BilliardsTableControl( scene.rightTable, {
+    const billiardsTableRightControl = new BilliardsTableControl( scene.rightTable, {
       centerY: billiardsCenterY,
       allowDragToResize: !scene.predictMode,
       side: Side.RIGHT
     } );
 
-    var iconBilliardsSize = 120;
+    const iconBilliardsSize = 120;
     SceneNode.call( this, scene, layoutBounds, {
       sceneIcon: new BilliardTableIcon( iconBilliardsSize, iconBilliardsSize, { scale: 0.3 } ),
       leftControl: billiardsTableLeftControl,

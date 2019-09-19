@@ -21,16 +21,16 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
-  var RADIUS = DIAMETER / 2;
-  var GRADIENT_OFFSET = RADIUS * 0.6;
-  var ROUND = RADIUS / 5;
-  var colorProperty = ProportionPlaygroundColorProfile.necklaceSquareBeadProperty;
+  const DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
+  const RADIUS = DIAMETER / 2;
+  const GRADIENT_OFFSET = RADIUS * 0.6;
+  const ROUND = RADIUS / 5;
+  const colorProperty = ProportionPlaygroundColorProfile.necklaceSquareBeadProperty;
 
-  var dark7Property = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.7 );
-  var dark4Property = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.4 );
+  const dark7Property = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.7 );
+  const dark4Property = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.4 );
 
-  var gradientProperty = new DerivedProperty( [ colorProperty ], function( color ) {
+  const gradientProperty = new DerivedProperty( [ colorProperty ], function( color ) {
     return new RadialGradient( 0, 0, 0, 0, 0, DIAMETER + GRADIENT_OFFSET )
       .addColorStop( 0, color.colorUtilsBrighter( 0.3 ) )
       .addColorStop( 0.3, color )
@@ -38,7 +38,7 @@ define( require => {
       .addColorStop( 0.8, color.colorUtilsDarker( 0.3 ) );
   } );
 
-  var scratchMatrix3 = new Matrix3();
+  const scratchMatrix3 = new Matrix3();
 
   /**
    * @constructor
@@ -98,9 +98,9 @@ define( require => {
      */
     setBeadRotation: function( rotation ) {
 
-      var gradientAngle = -Math.PI / 4;
-      var gradientX = GRADIENT_OFFSET * Math.cos( gradientAngle - rotation );
-      var gradientY = GRADIENT_OFFSET * Math.sin( gradientAngle - rotation );
+      const gradientAngle = -Math.PI / 4;
+      const gradientX = GRADIENT_OFFSET * Math.cos( gradientAngle - rotation );
+      const gradientY = GRADIENT_OFFSET * Math.sin( gradientAngle - rotation );
 
       this.backRectangle.rotation = rotation;
       this.middleRectangle.rotation = rotation;

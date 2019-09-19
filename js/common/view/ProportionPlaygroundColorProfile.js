@@ -17,7 +17,7 @@ define( require => {
 
   // Initial colors for each profile, by string key. Only profile currently is default (still helpful for making color
   // tweaks with the top-level proportion-playground-colors.html)
-  var ProportionPlaygroundColorProfile = new ColorProfile( [ 'default' ], {
+  const ProportionPlaygroundColorProfile = new ColorProfile( [ 'default' ], {
 
     exploreBackground: { default: new Color( '#fcf3eb' ) },
     predictBackground: { default: new Color( '#eaeefd' ) },

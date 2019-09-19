@@ -24,7 +24,7 @@ define( require => {
    * @param {Object} [options] - node options
    */
   function BilliardTableIcon( width, height, options ) {
-    var inset = width * 0.15;
+    const inset = width * 0.15;
     Node.call( this, {
       children: [
         new Rectangle( -inset, -inset, width, height, {

@@ -12,7 +12,7 @@ define( require => {
   const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   const Range = require( 'DOT/Range' );
 
-  var ProportionPlaygroundConstants = {
+  const ProportionPlaygroundConstants = {
     // @public {number} - Diameter/width of the beads in the necklace scene
     BEAD_DIAMETER: 18,
     BUTTON_RIGHT_CENTER_OFFSET: 42,

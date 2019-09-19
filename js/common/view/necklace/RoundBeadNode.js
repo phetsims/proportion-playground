@@ -20,10 +20,10 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
+  const DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
 
   // {Node} - Our colors need to be updated on the shaded sphere, so it's wrapped in a MutableOptionsNode.
-  var shadedNode = new MutableOptionsNode( ShadedSphereNode, [ DIAMETER ], {
+  const shadedNode = new MutableOptionsNode( ShadedSphereNode, [ DIAMETER ], {
     highlightDiameter: DIAMETER * 0.3,
     highlightXOffset: -0.3,
     highlightYOffset: -0.3
@@ -34,7 +34,7 @@ define( require => {
   } );
 
   // {Node} - Background
-  var backgroundNode = new Circle( DIAMETER * 0.51, {
+  const backgroundNode = new Circle( DIAMETER * 0.51, {
     fill: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.6 ),
     x: DIAMETER / 30,
     y: DIAMETER / 30
@@ -42,7 +42,7 @@ define( require => {
 
   // {Node} - Shared child node that will have a parent for every display of this node.
   // Presumably should not memory-leak, as we save and re-use references.
-  var containerNode = new Node( {
+  const containerNode = new Node( {
     children: [ backgroundNode, shadedNode ],
     center: Vector2.ZERO
   } );

@@ -29,8 +29,8 @@ define( require => {
   function SceneSelectionControls( sceneProperty, sceneNodes, options ) {
     Node.call( this );
 
-    var group = new AlignGroup();
-    var ratioItems = sceneNodes.map( function( sceneNode ) {
+    const group = new AlignGroup();
+    const ratioItems = sceneNodes.map( function( sceneNode ) {
       return {
         value: sceneNode.scene,
         node: new AlignBox( sceneNode.sceneIcon, { group: group } )

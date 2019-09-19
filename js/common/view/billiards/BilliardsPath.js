@@ -17,7 +17,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var LINE_OPTIONS = {
+  const LINE_OPTIONS = {
     stroke: ProportionPlaygroundColorProfile.billiardsPathProperty,
     lineWidth: 2,
     lineCap: 'round'
@@ -32,7 +32,7 @@ define( require => {
    * @param {Property.<Vector2>} ballPositionProperty - In model coordinates
    */
   function BilliardsPath( modelViewTransform, collisionPoints, ballPositionProperty ) {
-    var self = this;
+    const self = this;
 
     Node.call( this );
 

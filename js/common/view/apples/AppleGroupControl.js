@@ -45,7 +45,7 @@ define( require => {
       } );
 
     // Create the place where apples and coins will be shown.
-    var appleGroupNode = new AppleGroupNode( appleGroup, showCostPerAppleProperty );
+    const appleGroupNode = new AppleGroupNode( appleGroup, showCostPerAppleProperty );
 
     this.addChild( appleGroupNode );
     this.addBottomPickersWithLocation( appleGroupNode.coinStack.centerX, appleGroupNode.appleCrate.centerX );

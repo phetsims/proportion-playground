@@ -28,10 +28,10 @@ define( require => {
    * @returns {number} - The final color component
    */
   function gammaSubtract( x, y, ratio ) {
-    var gamma = 2.2; // Could adjust in the future
+    const gamma = 2.2; // Could adjust in the future
 
-    var linearX = Math.pow( x / 255, gamma );
-    var linearY = Math.pow( y / 255, gamma );
+    const linearX = Math.pow( x / 255, gamma );
+    const linearY = Math.pow( y / 255, gamma );
 
     // Use the weighted geometric mean for subtractive color modeling.
     // See http://www.handprint.com/HP/WCL/color3.html#mixprofile and http://scottburns.us/subtractive-color-mixture/
@@ -147,7 +147,7 @@ define( require => {
   ];
 
   PaintChoice.getActiveColorProperty = function( paintChoiceProperty, side ) {
-    var dependencies = [ paintChoiceProperty ].concat( PaintChoice.CHOICES.map( function( paintChoice ) {
+    const dependencies = [ paintChoiceProperty ].concat( PaintChoice.CHOICES.map( function( paintChoice ) {
       return paintChoice.getColorProperty( side );
     } ) );
 

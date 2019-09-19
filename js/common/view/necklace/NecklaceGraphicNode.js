@@ -69,35 +69,35 @@ define( require => {
      * @param {NecklaceLayout} layout
      */
     setLayout: function( layout ) {
-      var roundBeadCount = layout.roundBeadCount;
-      var squareBeadCount = layout.squareBeadCount;
+      const roundBeadCount = layout.roundBeadCount;
+      const squareBeadCount = layout.squareBeadCount;
 
       // Only show the background chain if we have beads.
       this.chain.visible = roundBeadCount > 0 || squareBeadCount > 0;
 
       // Adds beads up to the amount that we need (don't need to remove extras, they will be set to invisible).
       while ( this.roundBeads.length < roundBeadCount ) {
-        var roundBead = new RoundBeadNode();
+        const roundBead = new RoundBeadNode();
         this.beadContainer.addChild( roundBead );
         this.roundBeads.push( roundBead );
       }
       while ( this.squareBeads.length < squareBeadCount ) {
-        var squareBead = new SquareBeadNode( 0 );
+        const squareBead = new SquareBeadNode( 0 );
         this.beadContainer.addChild( squareBead );
         this.squareBeads.push( squareBead );
       }
 
       // Toggle visibilities, repositioning hidden beads so it won't affect our bounds.
-      var i;
+      let i;
       for ( i = 0; i < this.roundBeads.length; i++ ) {
-        var roundVisible = i < roundBeadCount;
+        const roundVisible = i < roundBeadCount;
         this.roundBeads[ i ].visible = i < roundBeadCount;
         if ( !roundVisible ) {
           this.roundBeads[ i ].translation = Vector2.ZERO; // Don't have it mess with our bounds
         }
       }
       for ( i = 0; i < this.squareBeads.length; i++ ) {
-        var squareVisible = i < squareBeadCount;
+        const squareVisible = i < squareBeadCount;
         this.squareBeads[ i ].visible = squareVisible;
         if ( !squareVisible ) {
           this.squareBeads[ i ].translation = Vector2.ZERO; // Don't have it mess with our bounds

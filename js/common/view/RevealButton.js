@@ -24,8 +24,8 @@ define( require => {
    * @param {Object} [options]
    */
   function RevealButton( revealingProperty, options ) {
-    var revealedNode = new FontAwesomeNode( 'eye_open' );
-    var hiddenNode = new FontAwesomeNode( 'eye_close' );
+    const revealedNode = new FontAwesomeNode( 'eye_open' );
+    const hiddenNode = new FontAwesomeNode( 'eye_close' );
     MutableOptionsNode.call( this, BooleanRoundToggleButton, [ revealedNode, hiddenNode, revealingProperty ], {
       minXMargin: 10,
       minYMargin: 10

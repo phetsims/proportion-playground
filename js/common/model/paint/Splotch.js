@@ -30,7 +30,7 @@ define( require => {
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
    */
   function Splotch( initialLeftCount, initialRightCount, visibleProperty, controlsVisibleProperty ) {
-    var self = this;
+    const self = this;
 
     // @public {PaintQuantity} - For each side
     this.leftQuantity = createPaintQuantity( this, initialLeftCount, Side.LEFT );
@@ -127,7 +127,7 @@ define( require => {
         hitCallback();
       } ) );
     }, function createDrip( amountToDrip, removeCallback ) {
-      var visibleColorProperty = side === Side.LEFT ? splotch.visibleLeftColorProperty : splotch.visibleRightColorProperty;
+      const visibleColorProperty = side === Side.LEFT ? splotch.visibleLeftColorProperty : splotch.visibleRightColorProperty;
       splotch.drips.push( new PaintDrip( side, function( drip ) {
         splotch.drips.remove( drip );
       }, amountToDrip, removeCallback, visibleColorProperty.value ) );

@@ -21,7 +21,7 @@ define( require => {
   const RevealButton = require( 'PROPORTION_PLAYGROUND/common/view/RevealButton' );
 
   // left and right labels for the switches should all share
-  var switchAlignGroup = new AlignGroup();
+  const switchAlignGroup = new AlignGroup();
 
   /**
    * @constructor
@@ -146,7 +146,7 @@ define( require => {
           this.controlButton.centerY = this.layoutBounds.bottom - 128;
         }
         else {
-          var pickerContainerBounds = this.leftControl.localToParentBounds( this.leftControl.pickerContainer.bounds );
+          const pickerContainerBounds = this.leftControl.localToParentBounds( this.leftControl.pickerContainer.bounds );
           this.controlButton.centerX = pickerContainerBounds.right + 62; // 30 amount of space for the larger button
           this.controlButton.centerY = this.layoutBounds.bottom - 128;
         }

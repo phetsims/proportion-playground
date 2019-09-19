@@ -11,7 +11,7 @@ define( require => {
   // modules
   const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
-  var Side = {
+  const Side = {
     LEFT: 'LEFT',
     RIGHT: 'RIGHT'
   };

@@ -23,14 +23,14 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // {number} - The diameter of beads (for the square bead, it's from the center of the bead to the center of a side)
-  var BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
+  const BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
 
   // The horizontal offset in two-bead shapes from the vertical center-line to the beads.
   // The "best" way would be to refactor all of the custom curves/positioning so things are
   // curves centered about the origin created with a shared parameterized function
   // (instead of many "magic" constants with custom x,y values for each curve).
   // But this didn't seem to be worth the time/risk.
-  var TWO_BEAD_OFFSET = BEAD_DIAMETER - 7;
+  const TWO_BEAD_OFFSET = BEAD_DIAMETER - 7;
 
   /**
    * Creates an immutable spline with specific parameters from a list of points.
@@ -47,7 +47,7 @@ define( require => {
   }
 
   // {Object} - maps a seed {number} => {Array.<Vector2>}, see getRepulsionPoints(). Lazily computed
-  var repulsionPointMap = {};
+  const repulsionPointMap = {};
 
   /**
    * Returns points used for adjusting the necklace into a random-looking shape.
@@ -63,23 +63,23 @@ define( require => {
    */
   function getRepulsionPoints( roundBeadCount, squareBeadCount ) {
     // Keeping prior behavior based on this formula.
-    var seed = squareBeadCount === 0 ? 30 : roundBeadCount / squareBeadCount;
-    var repulsionPoints = repulsionPointMap[ seed ];
+    const seed = squareBeadCount === 0 ? 30 : roundBeadCount / squareBeadCount;
+    let repulsionPoints = repulsionPointMap[ seed ];
 
     if ( !repulsionPoints ) {
 
       // OK to use our own instance of Random here, see documentation of getRepulsionPoints
       // and https://github.com/phetsims/proportion-playground/issues/81.
-      var random = new Random( { seed: seed } );
+      const random = new Random( { seed: seed } );
       repulsionPoints = [];
       repulsionPointMap[ seed ] = repulsionPoints;
 
-      var numRepulsionPoints = random.nextIntBetween( 1, 4 );
+      const numRepulsionPoints = random.nextIntBetween( 1, 4 );
       // create repulsion points
-      for ( var g = 0; g < numRepulsionPoints; g++ ) {
+      for ( let g = 0; g < numRepulsionPoints; g++ ) {
         // separate repulsion points by quadrant to prevent too much concentrated repulsion
-        var angle = Math.PI / 2 * ( random.nextDouble() / numRepulsionPoints + g );
-        var radius = ( random.nextDouble() * 0.3 + 0.2 ); // 0.2 - 0.5, ratio of apothem
+        const angle = Math.PI / 2 * ( random.nextDouble() / numRepulsionPoints + g );
+        const radius = ( random.nextDouble() * 0.3 + 0.2 ); // 0.2 - 0.5, ratio of apothem
 
         repulsionPoints.push( Vector2.createPolar( radius, angle ) );
       }
@@ -89,7 +89,7 @@ define( require => {
 
   // {Object} - Map from "{{roundBeadCount}},{{squareBeadCount}}" {string} => {NecklaceLayout}, lazily computed in
   // NecklaceLayout.getLayout().
-  var layoutMap = {};
+  const layoutMap = {};
 
   /**
    * @constructor
@@ -147,17 +147,17 @@ define( require => {
       this.containerTranslation = new Vector2( -10.753124040624703, 10.534079717389499 );
     }
     else {
-      var numBeads = roundBeadCount + squareBeadCount;
+      const numBeads = roundBeadCount + squareBeadCount;
 
       // Number of vertices is one more than number of beads to account for a gap.
-      var numVertices = numBeads + 1;
-      var angelBetweenVertices = Math.PI * 2 / numVertices;
+      const numVertices = numBeads + 1;
+      const angelBetweenVertices = Math.PI * 2 / numVertices;
 
       // empirical, larger spacing with only 3 beads
-      var sideLength = ( numBeads === 3 ? 1.94 : 1.28 ) * BEAD_DIAMETER;
+      const sideLength = ( numBeads === 3 ? 1.94 : 1.28 ) * BEAD_DIAMETER;
 
       // circumradius of the polygon, used to find polar coordinates for the vertices
-      var R = 1 / 2 * sideLength / Math.sin( Math.PI / numVertices );
+      let R = 1 / 2 * sideLength / Math.sin( Math.PI / numVertices );
 
       // make beads closer together as there are more of them
       if ( numVertices <= 20 ) {
@@ -166,36 +166,36 @@ define( require => {
 
       // Use repulsion of random points to make the shape look more natural.
       // apothem of the polygon, see http://www.mathopenref.com/apothem.html
-      var apothem = R * Math.cos( Math.PI / numVertices );
+      const apothem = R * Math.cos( Math.PI / numVertices );
 
       // Scale up the repulsion points to our size
-      var repulsionPoints = getRepulsionPoints( roundBeadCount, squareBeadCount ).map( function( point ) {
+      const repulsionPoints = getRepulsionPoints( roundBeadCount, squareBeadCount ).map( function( point ) {
         return point.timesScalar( apothem );
       } );
 
       // loop through vertices and change according to repulsion points
-      var vertices = [];
+      const vertices = [];
       for ( var i = 0; i < numVertices; i++ ) {
         var angle = ( i + 0.5 ) * angelBetweenVertices - Math.PI / 2;
-        var perfectVertex = Vector2.createPolar( R, angle );
-        var newRadius = R;
+        const perfectVertex = Vector2.createPolar( R, angle );
+        let newRadius = R;
 
         if ( roundBeadCount > 0 && squareBeadCount > 0 ) {
           // loop through repulsion points and change the vertex
-          for ( var g = 0; g < repulsionPoints.length; g++ ) {
-            var difference = repulsionPoints[ g ].distance( perfectVertex );
-            var amount = Math.pow( ( apothem - difference ), 2 );
-            var change = amount / R;
+          for ( let g = 0; g < repulsionPoints.length; g++ ) {
+            const difference = repulsionPoints[ g ].distance( perfectVertex );
+            const amount = Math.pow( ( apothem - difference ), 2 );
+            const change = amount / R;
             newRadius += change;
           }
         }
 
-        var vertex = Vector2.createPolar( newRadius, angle );
+        const vertex = Vector2.createPolar( newRadius, angle );
         vertices.push( vertex );
       }
 
       // Set up pairs of vertices - between each pair of vertices will be a bead
-      var pairs = [];
+      const pairs = [];
       for ( i = 0; i < vertices.length - 1; i++ ) {
         pairs.push( { start: vertices[ i ], end: vertices[ i + 1 ] } );
       }
@@ -204,37 +204,37 @@ define( require => {
         pairs.push( { start: vertices[ vertices.length - 1 ], end: vertices[ 0 ] } );
       }
 
-      var gcd = Util.gcd( roundBeadCount, squareBeadCount );
-      var types = _.flatten( _.range( 0, gcd ).map( function() {
+      const gcd = Util.gcd( roundBeadCount, squareBeadCount );
+      const types = _.flatten( _.range( 0, gcd ).map( function() {
         return _.times( squareBeadCount / gcd, function() { return 'square'; } ).concat(
           _.times( roundBeadCount / gcd, function() { return 'round'; } ) );
       } ) );
 
       // Between each pair of vertices, we must put a bead in the center
-      var centers = [];
+      const centers = [];
       for ( i = 0; i < pairs.length; i++ ) {
-        var pair = pairs[ i ];
+        const pair = pairs[ i ];
         var center = pair.start.blend( pair.end, 0.5 );
         centers.push( center );
       }
 
       // Find the shortest distance between any two centers
-      var minSideLength = centers[ centers.length - 1 ].distance( centers[ 0 ] );
+      let minSideLength = centers[ centers.length - 1 ].distance( centers[ 0 ] );
       for ( i = 0; i < centers.length - 1; i++ ) {
-        var newLength = centers[ i ].distance( centers[ i + 1 ] );
+        const newLength = centers[ i ].distance( centers[ i + 1 ] );
         if ( newLength < minSideLength ) {
           minSideLength = newLength;
         }
       }
 
       // Resize necklace to be smaller so beads are closer together
-      var radiusScale = BEAD_DIAMETER / minSideLength;
+      const radiusScale = BEAD_DIAMETER / minSideLength;
 
       for ( i = 0; i < centers.length; i++ ) {
-        var oldCenter = centers[ i ];
+        const oldCenter = centers[ i ];
 
         // Add 5 to the radius to give some more space between beads
-        var extraSpace = 0.28 * BEAD_DIAMETER;
+        const extraSpace = 0.28 * BEAD_DIAMETER;
         centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude + extraSpace, oldCenter.angle );
       }
 
@@ -264,13 +264,13 @@ define( require => {
         center = centers[ i ];
 
         // Have the last bead connect to the first bead.
-        var nextCenter = i === centers.length - 2 ? centers[ 0 ] : centers[ i + 1 ];
+        const nextCenter = i === centers.length - 2 ? centers[ 0 ] : centers[ i + 1 ];
 
         // the more vertices, the less curved the necklace line connecting to each bead
-        var strength = 20 / numVertices + 2;
+        const strength = 20 / numVertices + 2;
 
         // control point for the quadratic curve
-        var control = center.blend( nextCenter, 0.5 );
+        let control = center.blend( nextCenter, 0.5 );
 
         // curve necklace line based on a certain degree of strength
         control.addXY( strength * Math.cos( control.angle ), strength * Math.sin( control.angle ) );
@@ -358,12 +358,12 @@ define( require => {
      */
     getLayout: function( roundBeadCount, squareBeadCount ) {
 
-      var key = roundBeadCount + ',' + squareBeadCount;
+      const key = roundBeadCount + ',' + squareBeadCount;
       if ( layoutMap[ key ] ) {
         return layoutMap[ key ];
       }
 
-      var result = new NecklaceLayout( roundBeadCount, squareBeadCount );
+      const result = new NecklaceLayout( roundBeadCount, squareBeadCount );
       layoutMap[ key ] = result;
       return result;
     }

@@ -56,7 +56,7 @@ define( require => {
     step: function( dt ) {
       this.timeElapsed += dt;
 
-      var amountToRemove = Math.min( this.amountToDrip, dt * 7 );
+      const amountToRemove = Math.min( this.amountToDrip, dt * 7 );
       if ( amountToRemove ) {
         this.removeCallback( amountToRemove );
         this.amountToDrip -= amountToRemove;

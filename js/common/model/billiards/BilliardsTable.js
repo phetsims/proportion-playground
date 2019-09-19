@@ -21,7 +21,7 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
-  var scratchVector = new Vector2( 0, 0 );
+  const scratchVector = new Vector2( 0, 0 );
 
   /**
    * @constructor
@@ -88,11 +88,11 @@ define( require => {
     restartBall: function() {
 
       // For readability
-      var length = this.lengthProperty.value;
-      var width = this.widthProperty.value;
+      const length = this.lengthProperty.value;
+      const width = this.widthProperty.value;
 
       // See https://github.com/phetsims/proportion-playground/issues/13
-      var speed = 1.5 * Math.sqrt( Math.pow( length, 2 ) + Math.pow( width, 2 ) );
+      const speed = 1.5 * Math.sqrt( Math.pow( length, 2 ) + Math.pow( width, 2 ) );
 
       // initially the ball starts in the bottom left corner and moves up and to the right.
       this.ballPositionProperty.value = new Vector2( 0, 0 );
@@ -132,14 +132,14 @@ define( require => {
         this.hasStartedAnimating = true;
       }
 
-      var width = this.widthProperty.value;
-      var length = this.lengthProperty.value;
+      const width = this.widthProperty.value;
+      const length = this.lengthProperty.value;
 
       assert && assert( width > 0 && length > 0 );
 
       // Mutable vectors (we'll copy position to the new Property value at the end)
-      var position = scratchVector.set( this.ballPositionProperty.value );
-      var velocity = this.ballVelocity;
+      const position = scratchVector.set( this.ballPositionProperty.value );
+      const velocity = this.ballVelocity;
 
       // Bail out if the ball has stopped
       if ( velocity.magnitude === 0 ) {
@@ -149,17 +149,17 @@ define( require => {
       // Keep bouncing while we still can (and have time left)
       while ( velocity.magnitude > 0 && dt > 0 ) {
         // What are the wall x/y values in the direction we're traveling
-        var boundaryX = velocity.x > 0 ? width : 0;
-        var boundaryY = velocity.y > 0 ? length : 0;
+        const boundaryX = velocity.x > 0 ? width : 0;
+        const boundaryY = velocity.y > 0 ? length : 0;
 
         // How much time until we hit said boundaries.
-        var timeLeftX = ( boundaryX - position.x ) / velocity.x;
-        var timeLeftY = ( boundaryY - position.y ) / velocity.y;
+        const timeLeftX = ( boundaryX - position.x ) / velocity.x;
+        const timeLeftY = ( boundaryY - position.y ) / velocity.y;
         assert && assert( timeLeftX >= 0 );
         assert && assert( timeLeftY >= 0 );
 
         // Time until hitting the first wall
-        var minTimeLeft = Math.min( timeLeftX, timeLeftY );
+        const minTimeLeft = Math.min( timeLeftX, timeLeftY );
 
         // We won't make it to a wall, just step forward and use up DT
         if ( dt < minTimeLeft ) {

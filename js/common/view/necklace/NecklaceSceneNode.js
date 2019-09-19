@@ -18,7 +18,7 @@ define( require => {
   const SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
 
   // constants
-  var ICON_OPTIONS = {
+  const ICON_OPTIONS = {
     scale: 0.2,
     pickable: false
   };
@@ -31,12 +31,12 @@ define( require => {
    * @param {Bounds2} layoutBounds - the visible bounds of the sim
    */
   function NecklaceSceneNode( scene, layoutBounds ) {
-    var self = this;
+    const self = this;
 
     // Create the left and right necklace nodes, each with their own NumberPickers
-    var leftNecklaceControl = new NecklaceControl( scene.leftNecklace );
-    var rightNecklaceControl = new NecklaceControl( scene.rightNecklace );
-    var patternPanel = new PatternPanel( scene.leftNecklace, scene.rightNecklace );
+    const leftNecklaceControl = new NecklaceControl( scene.leftNecklace );
+    const rightNecklaceControl = new NecklaceControl( scene.rightNecklace );
+    const patternPanel = new PatternPanel( scene.leftNecklace, scene.rightNecklace );
 
     // Super call
     SceneNode.call( this, scene, layoutBounds, {
@@ -55,7 +55,7 @@ define( require => {
     scene.showBothProperty.link( function( showBoth ) {
       // Controllable necklace nodes have x=0 at their center
       if ( showBoth ) {
-        var ratio = 2 / 7;
+        const ratio = 2 / 7;
         leftNecklaceControl.x = layoutBounds.width * ratio;
         rightNecklaceControl.x = layoutBounds.width * ( 1 - ratio );
       }

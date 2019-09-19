@@ -63,7 +63,7 @@ define( require => {
      * @param {number} oldCount
      */
     realCountChange: function( newCount, oldCount ) {
-      var delta = Math.abs( newCount - oldCount );
+      const delta = Math.abs( newCount - oldCount );
       if ( newCount > oldCount ) {
         this.createBalloon( this.addCurrent.bind( this, delta ) );
       }
@@ -93,8 +93,8 @@ define( require => {
     addCurrent: function( count ) {
       assert && assert( typeof count === 'number' && isFinite( count ) && count > 0 );
 
-      var amountToDrip = Math.min( count, this.pendingDripsProperty.value );
-      var amountToAdd = count - amountToDrip;
+      const amountToDrip = Math.min( count, this.pendingDripsProperty.value );
+      const amountToAdd = count - amountToDrip;
       this.paintAreaProperty.value += count;
       this.currentCountProperty.value += amountToAdd;
       this.pendingDripsProperty.value -= amountToDrip;
@@ -112,8 +112,8 @@ define( require => {
     removeCurrent: function( count ) {
       assert && assert( typeof count === 'number' && isFinite( count ) && count >= 0 );
 
-      var amountToDrip = Math.min( count, this.currentCountProperty.value );
-      var amountToQueue = count - amountToDrip;
+      const amountToDrip = Math.min( count, this.currentCountProperty.value );
+      const amountToQueue = count - amountToDrip;
       this.pendingDripsProperty.value += amountToQueue;
       this.currentCountProperty.value -= amountToDrip;
       if ( amountToDrip ) {

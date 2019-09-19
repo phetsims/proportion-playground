@@ -23,7 +23,7 @@ define( require => {
   function NecklaceScene( predictMode ) {
     Scene.call( this, predictMode );
 
-    var initialCount = predictMode ? 5 : 0;
+    const initialCount = predictMode ? 5 : 0;
 
     // @public
     this.leftNecklace = new Necklace( initialCount, initialCount, this.leftVisibleProperty, this.leftControlsVisibleProperty );

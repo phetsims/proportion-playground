@@ -30,7 +30,7 @@ define( require => {
    * @param {ProportionModel} model - the model
    */
   function ProportionScreenView( model ) {
-    var self = this;
+    const self = this;
 
     ScreenView.call( this, {
       layoutBounds: new Bounds2( 0, 0, 1024, 618 )
@@ -63,18 +63,18 @@ define( require => {
       scene.addShowBothSwitch();
     } );
 
-    var sceneContainer = new Node( {
+    const sceneContainer = new Node( {
       children: this.sceneNodes
     } );
     this.addChild( sceneContainer );
 
     // When the scene radio button is selected, show the selected scene
     model.sceneProperty.link( function( scene ) {
-      for ( var i = 0; i < self.sceneNodes.length; i++ ) {
-        var sceneNode = self.sceneNodes[ i ];
+      for ( let i = 0; i < self.sceneNodes.length; i++ ) {
+        const sceneNode = self.sceneNodes[ i ];
 
-        var shouldBeVisible = sceneNode.scene === scene;
-        var isCurrentlyVisible = sceneNode.visible;
+        const shouldBeVisible = sceneNode.scene === scene;
+        const isCurrentlyVisible = sceneNode.visible;
 
         // Interrupt
         if ( !shouldBeVisible && isCurrentlyVisible ) {
@@ -98,8 +98,8 @@ define( require => {
       // NOTE: uncapped dt in the view so that the transient animations finish when someone tabs out. See
       // https://github.com/phetsims/proportion-playground/issues/87 for more information.
 
-      var visibleBounds = this.visibleBoundsProperty.value;
-      for ( var i = 0; i < this.sceneNodes.length; i++ ) {
+      const visibleBounds = this.visibleBoundsProperty.value;
+      for ( let i = 0; i < this.sceneNodes.length; i++ ) {
         this.sceneNodes[ i ].step( dt, visibleBounds );
       }
     }

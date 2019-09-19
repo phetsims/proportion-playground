@@ -50,7 +50,7 @@ define( require => {
     this.visibleChangeEmitter = new Emitter();
 
     // Hook up our visible-change emitter
-    var self = this;
+    const self = this;
     visibleProperty.lazyLink( function() {
       self.visibleChangeEmitter.emit();
     } );

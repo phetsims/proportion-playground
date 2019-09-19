@@ -28,12 +28,12 @@ define( require => {
   const appleCostString = require( 'string!PROPORTION_PLAYGROUND/appleCost' );
 
   // constants
-  var ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick
-  var ARROW_WIDTH = 3;
-  var ARROW_HEIGHT = 290;
-  var ARROW_LINE_WIDTH = 2;
+  const ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick
+  const ARROW_WIDTH = 3;
+  const ARROW_HEIGHT = 290;
+  const ARROW_LINE_WIDTH = 2;
 
-  var TICK_X = 10;
+  const TICK_X = 10;
 
   /**
    * @constructor
@@ -44,14 +44,14 @@ define( require => {
    */
   function AppleGraphNode( scene, options ) {
     // The vertical arrow for the graph
-    var arrowNode = new ArrowNode( 0, ARROW_HEIGHT, 0, -ARROW_OVERSHOOT, { tailWidth: ARROW_LINE_WIDTH } );
+    const arrowNode = new ArrowNode( 0, ARROW_HEIGHT, 0, -ARROW_OVERSHOOT, { tailWidth: ARROW_LINE_WIDTH } );
 
     // Tick marks for 0, 1/2 and 1 up the chart.
-    var tickLocations = [ 0, 0.5, 1 ].map( function( ratio ) {
+    const tickLocations = [ 0, 0.5, 1 ].map( function( ratio ) {
       return Util.linear( 0, 1, ARROW_HEIGHT, 0, ratio );
     } );
     // moveTo/lineTo for each tick
-    var tickShape = _.reduce( tickLocations, function( shape, location ) {
+    const tickShape = _.reduce( tickLocations, function( shape, location ) {
       return shape.moveTo( -TICK_X, location )
         .lineTo( TICK_X, location );
     }, new Shape() );
@@ -61,18 +61,18 @@ define( require => {
     } ) );
 
     // Create the triangle indicators
-    var leftIndicator = new TriangleNode( Side.LEFT, { right: -ARROW_WIDTH / 2 } );
-    var rightIndicator = new TriangleNode( Side.RIGHT, { left: ARROW_WIDTH / 2 } );
+    const leftIndicator = new TriangleNode( Side.LEFT, { right: -ARROW_WIDTH / 2 } );
+    const rightIndicator = new TriangleNode( Side.RIGHT, { left: ARROW_WIDTH / 2 } );
 
-    var label = new Text( appleCostString, {
+    const label = new Text( appleCostString, {
       font: ProportionPlaygroundConstants.CONTROL_FONT,
       centerX: arrowNode.centerX,
       bottom: arrowNode.top - 10,
       maxWidth: 170
     } );
 
-    var updateLeftIndicator = updateIndicator.bind( undefined, leftIndicator, scene.leftAppleGroup );
-    var updateRightIndicator = updateIndicator.bind( undefined, rightIndicator, scene.rightAppleGroup );
+    const updateLeftIndicator = updateIndicator.bind( undefined, leftIndicator, scene.leftAppleGroup );
+    const updateRightIndicator = updateIndicator.bind( undefined, rightIndicator, scene.rightAppleGroup );
 
     scene.leftAppleGroup.visibleChangeEmitter.addListener( updateLeftIndicator );
     scene.rightAppleGroup.visibleChangeEmitter.addListener( updateRightIndicator );
@@ -81,8 +81,8 @@ define( require => {
 
     // Update the indicator fills when salient properties change
     Property.multilink( scene.quantityProperties.concat( [ scene.showBothProperty ] ), function() {
-      var colorProperty = scene.predictMode ? ProportionPlaygroundColorProfile.predictBackgroundProperty : ProportionPlaygroundColorProfile.exploreBackgroundProperty;
-      var fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : colorProperty;
+      const colorProperty = scene.predictMode ? ProportionPlaygroundColorProfile.predictBackgroundProperty : ProportionPlaygroundColorProfile.exploreBackgroundProperty;
+      const fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : colorProperty;
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );
@@ -111,7 +111,7 @@ define( require => {
    */
   function updateIndicator( indicator, appleGroup ) {
     indicator.visible = appleGroup.numberOfApplesProperty.value > 0 && appleGroup.visibleProperty.value;
-    var costPerApple = appleGroup.totalCostProperty.value / appleGroup.numberOfApplesProperty.value;
+    const costPerApple = appleGroup.totalCostProperty.value / appleGroup.numberOfApplesProperty.value;
     if ( isFinite( costPerApple ) ) {
       indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
     }

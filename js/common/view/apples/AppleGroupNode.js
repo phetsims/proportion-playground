@@ -38,9 +38,9 @@ define( require => {
   const pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
   // constants
-  var APPLE_IMAGE_SCALE = 0.35; // Reduction factor for showing the image
-  var COIN_IMAGE_SCALE = 0.5; // Reduction factor for showing the image
-  var APPLES_PER_ROW = 5;
+  const APPLE_IMAGE_SCALE = 0.35; // Reduction factor for showing the image
+  const COIN_IMAGE_SCALE = 0.5; // Reduction factor for showing the image
+  const APPLES_PER_ROW = 5;
 
   /**
    * @constructor
@@ -52,17 +52,17 @@ define( require => {
   function AppleGroupNode( appleGroup, showCostPerAppleProperty ) {
     SceneRatioNode.call( this, appleGroup );
 
-    var priceTagLayer = new Node();
+    const priceTagLayer = new Node();
 
     // Show/hide the price tag
     showCostPerAppleProperty.linkAttribute( priceTagLayer, 'visible' );
 
     // {Image}
-    var appleImageNode = new Image( redAppleImage, { scale: APPLE_IMAGE_SCALE } );
-    var coinImageNode = new Image( coinImage, { scale: COIN_IMAGE_SCALE } );
+    const appleImageNode = new Image( redAppleImage, { scale: APPLE_IMAGE_SCALE } );
+    const coinImageNode = new Image( coinImage, { scale: COIN_IMAGE_SCALE } );
 
     // {Array.<Array.<Node>>} - Array of rows, each of which is an array of apple nodes
-    var appleRows = _.range( 0, ProportionPlaygroundConstants.APPLE_COUNT_RANGE.max / APPLES_PER_ROW ).map( function( row ) {
+    const appleRows = _.range( 0, ProportionPlaygroundConstants.APPLE_COUNT_RANGE.max / APPLES_PER_ROW ).map( function( row ) {
       return _.range( 0, APPLES_PER_ROW ).map( function( column ) {
         return new Node( {
           children: [ appleImageNode ],
@@ -73,13 +73,13 @@ define( require => {
       } );
     } );
 
-    var appleNodes = _.flatten( appleRows );
+    const appleNodes = _.flatten( appleRows );
 
-    var stackedAppleNodes = _.flatten( appleRows.map( function( row ) {
+    const stackedAppleNodes = _.flatten( appleRows.map( function( row ) {
       return row.slice().reverse();
     } ) );
 
-    var crateImageOffset = new Vector2( -7, -15 );
+    const crateImageOffset = new Vector2( -7, -15 );
 
     // @public {Node} - Exposed so we can properly align controls with the apples
     this.appleCrate = new Node( {
@@ -94,7 +94,7 @@ define( require => {
       ] )
     } );
 
-    var coinNodes = _.range( 0, ProportionPlaygroundConstants.APPLE_TOTAL_COST_RANGE.max ).map( function( coinNumber ) {
+    const coinNodes = _.range( 0, ProportionPlaygroundConstants.APPLE_TOTAL_COST_RANGE.max ).map( function( coinNumber ) {
       return new Node( {
         children: [ coinImageNode ],
         y: -coinNumber * coinImageNode.height / 10
@@ -122,8 +122,8 @@ define( require => {
 
     // Update the price tag
     Property.multilink( [ appleGroup.totalCostProperty, appleGroup.numberOfApplesProperty ], function( totalCost, numberOfApples ) {
-      var pricePerApple = totalCost / numberOfApples;
-      var fixed = Util.toFixed( pricePerApple, 2 );
+      const pricePerApple = totalCost / numberOfApples;
+      let fixed = Util.toFixed( pricePerApple, 2 );
       if ( numberOfApples === 0 ) {
         fixed = '?';
       }
@@ -132,12 +132,12 @@ define( require => {
           price: fixed
         } );
       }
-      var textOptions = {
+      const textOptions = {
         font: ProportionPlaygroundConstants.APPLE_PRICE_FONT,
         fill: ProportionPlaygroundColorProfile.applePriceTagTextProperty,
         maxWidth: 200
       };
-      var labelBox = new AlignBox( new VBox( {
+      const labelBox = new AlignBox( new VBox( {
         spacing: 4,
         children: [
           new Text( fixed, textOptions ),
@@ -152,8 +152,8 @@ define( require => {
         yMargin: 5
       } );
 
-      var labelRadius = 14;
-      var labelShape = new Shape().arc( labelBox.left, labelBox.top, labelRadius, Math.PI / 2, 0, true )
+      const labelRadius = 14;
+      const labelShape = new Shape().arc( labelBox.left, labelBox.top, labelRadius, Math.PI / 2, 0, true )
         .arc( labelBox.right, labelBox.top, labelRadius, Math.PI, Math.PI / 2, true )
         .arc( labelBox.right, labelBox.bottom, labelRadius, -Math.PI / 2, -Math.PI, true )
         .arc( labelBox.left, labelBox.bottom, labelRadius, 0, -Math.PI / 2, true )

@@ -30,7 +30,7 @@ define( require => {
   const screenExploreString = require( 'string!PROPORTION_PLAYGROUND/screen.explore' );
 
   // constants
-  var HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
+  const HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
 
   /**
    * @constructor
@@ -54,13 +54,13 @@ define( require => {
   var createHomeScreenIcon = function() {
 
     // Step all the way through the animation of a billiards table
-    var billiardsTable = new BilliardsTable( {
+    const billiardsTable = new BilliardsTable( {
       initialLength: 6,
       initialWidth: 3
     } );
     billiardsTable.step( Number.POSITIVE_INFINITY );
 
-    var homeScreenIconContent = new HBox( {
+    const homeScreenIconContent = new HBox( {
       scale: 1.25,
       spacing: 70,
       children: [

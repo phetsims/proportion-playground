@@ -34,9 +34,9 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var MODEL_VIEW_SCALE = 18;
-  var BALL_DIAMETER = 10;
-  var GRID_LINE_WIDTH = 0.028;
+  const MODEL_VIEW_SCALE = 18;
+  const BALL_DIAMETER = 10;
+  const GRID_LINE_WIDTH = 0.028;
 
   /**
    * @constructor
@@ -46,12 +46,12 @@ define( require => {
    * @param {Object} [options] - See options below. Also passed to Node's mutate.
    */
   function BilliardsTableNode( billiardsTable, options ) {
-    var self = this;
+    const self = this;
 
     SceneRatioNode.call( this, billiardsTable );
 
     // {ModelViewTransform2} - Will be updated when the width/length changes.
-    var modelViewTransform = new ModelViewTransform2( BilliardsTableNode.computeModelViewMatrix( billiardsTable.lengthProperty.value,
+    const modelViewTransform = new ModelViewTransform2( BilliardsTableNode.computeModelViewMatrix( billiardsTable.lengthProperty.value,
       billiardsTable.widthProperty.value ) );
 
     options = _.extend( {
@@ -64,16 +64,16 @@ define( require => {
     }, options );
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
-    var borderRectangle = new Rectangle( {
+    const borderRectangle = new Rectangle( {
       fill: ProportionPlaygroundColorProfile.billiardsBorderProperty,
       cornerRadius: 9
     } );
-    var insideRectangle = new Rectangle( {
+    const insideRectangle = new Rectangle( {
       fill: ProportionPlaygroundColorProfile.billiardsInsideProperty
     } );
 
     // Create drag-handle parts to be used as children.
-    var dragGripDots = new HBox( {
+    const dragGripDots = new HBox( {
       pickable: false, // use the mouse/touch areas directly, don't test these
       spacing: 1.3,
       children: [ 0, 1, 2 ].map( function() {
@@ -83,25 +83,25 @@ define( require => {
       } ),
       center: Vector2.ZERO
     } );
-    var rotatedGripDots = new Node( { children: [ dragGripDots ], rotation: Math.PI / 2 } );
+    const rotatedGripDots = new Node( { children: [ dragGripDots ], rotation: Math.PI / 2 } );
 
     // Drag handles (with grippy dots). These will live on the 4 borders, and can be dragged to resize the table.
-    var leftDragHandle = new Node( { cursor: 'pointer', children: [ rotatedGripDots ] } );
-    var rightDragHandle = new Node( { cursor: 'pointer', children: [ rotatedGripDots ] } );
-    var topDragHandle = new Node( { cursor: 'pointer', children: [ dragGripDots ] } );
-    var bottomDragHandle = new Node( { cursor: 'pointer', children: [ dragGripDots ] } );
+    const leftDragHandle = new Node( { cursor: 'pointer', children: [ rotatedGripDots ] } );
+    const rightDragHandle = new Node( { cursor: 'pointer', children: [ rotatedGripDots ] } );
+    const topDragHandle = new Node( { cursor: 'pointer', children: [ dragGripDots ] } );
+    const bottomDragHandle = new Node( { cursor: 'pointer', children: [ dragGripDots ] } );
 
     // Grid lines for in the inner rectangle. Clipping will be used instead of redrawing when width/length changes.
-    var gridLinesNode = BilliardsTableNode.createGridLinesNode();
+    const gridLinesNode = BilliardsTableNode.createGridLinesNode();
 
     // The path shows the trail of where the ball has been
-    var pathNode = new BilliardsPath( modelViewTransform, billiardsTable.collisionPoints, billiardsTable.ballPositionProperty );
+    const pathNode = new BilliardsPath( modelViewTransform, billiardsTable.collisionPoints, billiardsTable.ballPositionProperty );
     billiardsTable.restartEmitter.addListener( function() {
       pathNode.reset();
     } );
 
     // The moving ball node
-    var ballNode = new MutableOptionsNode( ShadedSphereNode, [ BALL_DIAMETER ], {
+    const ballNode = new MutableOptionsNode( ShadedSphereNode, [ BALL_DIAMETER ], {
       pickable: false
     }, {
       mainColor: ProportionPlaygroundColorProfile.billiardsBallMainProperty,
@@ -112,12 +112,12 @@ define( require => {
     } );
 
     // Create the holes for top-left, top-right and bottom-right
-    var createCircle = function() {
+    const createCircle = function() {
       return new Circle( BALL_DIAMETER / 2, { fill: ProportionPlaygroundColorProfile.billiardsPocketProperty } );
     };
-    var topLeftHoleNode = createCircle();
-    var topRightHoleNode = createCircle();
-    var bottomRightHoleNode = createCircle();
+    const topLeftHoleNode = createCircle();
+    const topRightHoleNode = createCircle();
+    const bottomRightHoleNode = createCircle();
 
     /**
      * Hook up the drag listener for each drag handle.
@@ -127,10 +127,10 @@ define( require => {
      * @param {string} coordinate - the axis, 'x' or 'y', to use. Corresponds with width or length, respectively.
      * @param {number} changeSign - -1 or 1, designates whether its the left or right, top or bottom dragHandle
      */
-    var createDragListener = function( dragHandle, property, coordinate, changeSign ) {
+    const createDragListener = function( dragHandle, property, coordinate, changeSign ) {
 
-      var startPoint; // track where the mouse drag starts
-      var startProperty; // track the beginning width
+      let startPoint; // track where the mouse drag starts
+      let startProperty; // track the beginning width
 
       dragHandle.addInputListener( new DragListener( {
         applyOffset: false,
@@ -140,7 +140,7 @@ define( require => {
         },
 
         drag: function( event, listener ) {
-          var change = Util.roundSymmetric( changeSign * ( listener.parentPoint[ coordinate ] - startPoint[ coordinate ] ) * 2 / MODEL_VIEW_SCALE );
+          const change = Util.roundSymmetric( changeSign * ( listener.parentPoint[ coordinate ] - startPoint[ coordinate ] ) * 2 / MODEL_VIEW_SCALE );
 
           // change width so its within the acceptable range
           property.value = ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.constrainValue( startProperty + change );
@@ -159,15 +159,15 @@ define( require => {
       billiardsTable.lengthProperty,
       billiardsTable.widthProperty
     ], function() {
-      var length = billiardsTable.lengthProperty.value;
-      var width = billiardsTable.widthProperty.value;
+      const length = billiardsTable.lengthProperty.value;
+      const width = billiardsTable.widthProperty.value;
 
       // Recompute the model-view transform.
       modelViewTransform.setMatrix( BilliardsTableNode.computeModelViewMatrix( billiardsTable.lengthProperty.value,
         billiardsTable.widthProperty.value ) );
 
-      var viewEdgeWidth = 11;
-      var modelEdgeWidth = modelViewTransform.viewToModelDeltaX( viewEdgeWidth );
+      const viewEdgeWidth = 11;
+      const modelEdgeWidth = modelViewTransform.viewToModelDeltaX( viewEdgeWidth );
 
       // Compute the full bounds (and set as local bounds) if the option is provided.
       if ( options.fullSizeBounds ) {
@@ -177,7 +177,7 @@ define( require => {
       }
 
       // Determine the view bounds of the area where the ball can be.
-      var viewBounds = new Bounds2( modelViewTransform.modelToViewX( 0 ),
+      const viewBounds = new Bounds2( modelViewTransform.modelToViewX( 0 ),
         modelViewTransform.modelToViewY( length ), // since this gets mapped to the min
         modelViewTransform.modelToViewX( width ),
         modelViewTransform.modelToViewY( 0 ) );
@@ -199,7 +199,7 @@ define( require => {
         ] ).transformed( Matrix3.rotation2( rotation ) );
 
         // Apply an additional offset for touch
-        var touchOffset = 0.6 * width;
+        const touchOffset = 0.6 * width;
         dragHandle.touchArea = new Shape().polygon( [
           new Vector2( -width / 2 - touchOffset, -length / 2 + touchOffset ),
           new Vector2( -width / 2 - touchOffset, length / 2 - touchOffset ),
@@ -224,13 +224,13 @@ define( require => {
     } );
 
     // Set up child order, with the drag handles (if added) under the ball, but over everything else.
-    var baseNodes = [
+    const baseNodes = [
       borderRectangle, insideRectangle,
       gridLinesNode,
       pathNode,
       topLeftHoleNode, topRightHoleNode, bottomRightHoleNode
     ];
-    var dragHandles = [
+    const dragHandles = [
       leftDragHandle, rightDragHandle, topDragHandle, bottomDragHandle
     ];
     this.children = baseNodes.concat( options.allowDragToResize ? dragHandles : [], [ ballNode ] );
@@ -260,9 +260,9 @@ define( require => {
      * @returns {Node}
      */
     createGridLinesNode: function() {
-      var min = -1;
-      var max = ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max + 1;
-      var shape = new Shape();
+      const min = -1;
+      const max = ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.max + 1;
+      const shape = new Shape();
 
       _.range( min, max + 1 ).forEach( function( n ) {
         shape.moveTo( n, min )

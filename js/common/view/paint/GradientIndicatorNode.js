@@ -20,8 +20,8 @@ define( require => {
   const TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
 
   // constants
-  var GRADIENT_WIDTH = 20;
-  var GRADIENT_HEIGHT = 300;
+  const GRADIENT_WIDTH = 20;
+  const GRADIENT_HEIGHT = 300;
 
   /**
    * @constructor
@@ -33,18 +33,18 @@ define( require => {
    * @param {Object} [options] - node options
    */
   function GradientIndicatorNode( layoutBounds, scene, revealProperty, options ) {
-    var self = this;
+    const self = this;
 
     // Create the gradients
-    var gradientNodes = PaintChoice.CHOICES.map( function( paintChoice ) {
-      var gradientNode = new PaintChoiceGradientNode( GRADIENT_WIDTH, GRADIENT_HEIGHT, paintChoice );
+    const gradientNodes = PaintChoice.CHOICES.map( function( paintChoice ) {
+      const gradientNode = new PaintChoiceGradientNode( GRADIENT_WIDTH, GRADIENT_HEIGHT, paintChoice );
       gradientNode.paintChoice = paintChoice;
       return gradientNode;
     } );
 
     // Triangle indicators on the left/right
-    var leftIndicator = new TriangleNode( Side.LEFT, { right: 0 } );
-    var rightIndicator = new TriangleNode( Side.RIGHT, { left: GRADIENT_WIDTH } );
+    const leftIndicator = new TriangleNode( Side.LEFT, { right: 0 } );
+    const rightIndicator = new TriangleNode( Side.RIGHT, { left: GRADIENT_WIDTH } );
 
     // Show colored/gray based on the user selection
     scene.paintChoiceProperty.link( function( paintChoice ) {
@@ -68,16 +68,16 @@ define( require => {
      * @param {function} condition - additional condition indicating whether the indicator node should be shown.
      * @returns {function}
      */
-    var createIndicatorUpdateFunction = function( indicator, splotchModel, condition ) {
+    const createIndicatorUpdateFunction = function( indicator, splotchModel, condition ) {
       return function() {
-        var total = splotchModel.visibleLeftColorProperty.value + splotchModel.visibleRightColorProperty.value;
+        const total = splotchModel.visibleLeftColorProperty.value + splotchModel.visibleRightColorProperty.value;
         if ( total < 1e-6 ) {
           indicator.visible = false;
         }
         else {
           indicator.visible = condition() && revealProperty.get();
 
-          var proportion = splotchModel.visibleRightColorProperty.value / total;
+          const proportion = splotchModel.visibleRightColorProperty.value / total;
           indicator.centerY = proportion * GRADIENT_HEIGHT;
         }
       };
@@ -106,7 +106,7 @@ define( require => {
       scene.rightSplotch.visibleRightColorProperty,
       scene.showBothProperty
     ], function() {
-      var fill = ( scene.areVisualRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : null;
+      const fill = ( scene.areVisualRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : null;
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;
     } );

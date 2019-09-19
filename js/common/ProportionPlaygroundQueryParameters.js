@@ -11,7 +11,7 @@ define( require => {
   // modules
   const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
-  var ProportionPlaygroundQueryParameters = QueryStringMachine.getAll( {
+  const ProportionPlaygroundQueryParameters = QueryStringMachine.getAll( {
 
     // allow launching a specific Explore scene, 0-based index
     scene: {

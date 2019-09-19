@@ -35,24 +35,24 @@ define( require => {
    * @param {Object} options
    */
   function PatternPanel( leftNecklace, rightNecklace, options ) {
-    var labelNode = new Text( patternString, {
+    const labelNode = new Text( patternString, {
       maxWidth: 100,
       font: ProportionPlaygroundConstants.CONTROL_FONT
     } );
 
     // Determine the maximum necklace dimensions
-    var maxNecklace = new Necklace( 20, 19, new Property( true ), new Property( true ) );
-    var maxPatternBounds = new PatternNode( maxNecklace ).bounds;
+    const maxNecklace = new Necklace( 20, 19, new Property( true ), new Property( true ) );
+    const maxPatternBounds = new PatternNode( maxNecklace ).bounds;
     maxPatternBounds.maxX += 2 * maxPatternBounds.width;
     maxPatternBounds.maxY += 5; // Some extra padding
 
-    var patternContent = new Node();
+    const patternContent = new Node();
 
     function handlePattern( necklace, side ) {
-      var patternNode = new PatternNode( necklace, {
+      const patternNode = new PatternNode( necklace, {
         x: side === Side.RIGHT ? 30 : 0
       } );
-      var added = false;
+      let added = false;
       necklace.visibleProperty.link( function( visible ) { // No problem to leak, this is done twice
         if ( added && !visible ) {
           patternContent.removeChild( patternNode );
@@ -68,12 +68,12 @@ define( require => {
     handlePattern( leftNecklace, Side.LEFT );
     handlePattern( rightNecklace, Side.RIGHT );
 
-    var alignBox = new AlignBox( patternContent, {
+    const alignBox = new AlignBox( patternContent, {
       yAlign: 'top',
       alignBounds: maxPatternBounds
     } );
 
-    var content = new VBox( {
+    const content = new VBox( {
       spacing: 7,
       children: [
         labelNode,

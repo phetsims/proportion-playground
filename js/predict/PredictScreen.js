@@ -30,8 +30,8 @@ define( require => {
   const screenPredictString = require( 'string!PROPORTION_PLAYGROUND/screen.predict' );
 
   // Our splotch's "visual center" is not in the center of its bounds, so we need to shift the text slightly.
-  var SCREEN_ICON_TEXT_OFFSET = new Vector2( 14, 14 );
-  var HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
+  const SCREEN_ICON_TEXT_OFFSET = new Vector2( 14, 14 );
+  const HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
 
   /**
    * @constructor
@@ -40,8 +40,8 @@ define( require => {
   function PredictScreen() {
 
     // used to create screen icons
-    var splotch = new Splotch( 20, 20, new Property( true ), new Property( true ) );
-    var splotchNode = new SplotchNode( splotch, new Property( PaintChoice.RED_YELLOW ), {
+    const splotch = new Splotch( 20, 20, new Property( true ), new Property( true ) );
+    const splotchNode = new SplotchNode( splotch, new Property( PaintChoice.RED_YELLOW ), {
       scale: SplotchNode.colorTotalToSplotchScale( 60 ) / SplotchNode.colorTotalToSplotchScale( 40 )
     } );
 
@@ -61,7 +61,7 @@ define( require => {
   var createHomeScreenIcon = function( splotchNode ) {
 
     // Not translatable, see https://github.com/phetsims/proportion-playground/issues/18#issuecomment-276216535
-    var homeScreenQuestionText = new Text( '? : ?', {
+    const homeScreenQuestionText = new Text( '? : ?', {
       center: splotchNode.center.plus( SCREEN_ICON_TEXT_OFFSET ),
       font: new PhetFont( 80 )
     } );
@@ -83,7 +83,7 @@ define( require => {
   var createNavigationBarIcon = function( splotchNode ) {
 
     // Not translatable, see https://github.com/phetsims/proportion-playground/issues/18#issuecomment-276216535
-    var navigationBarQuestionText = new Text( '??', {
+    const navigationBarQuestionText = new Text( '??', {
       center: splotchNode.center.plus( SCREEN_ICON_TEXT_OFFSET ),
       font: new PhetFont( 140 )
     } );

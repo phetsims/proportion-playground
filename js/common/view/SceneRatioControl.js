@@ -23,7 +23,7 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // Bottom y value in layoutBounds for the pickers
-  var PICKER_BOTTOM = 540;
+  const PICKER_BOTTOM = 540;
 
   /**
    * @constructor
@@ -58,15 +58,15 @@ define( require => {
      */
     function createPickers( side, label, pickerOptions ) {
       // Use MutableOptionsNode, see https://github.com/phetsims/scenery-phet/issues/287
-      var staticOptions = _.extend( {
+      const staticOptions = _.extend( {
         scale: 2,
         valueMaxWidth: 40,
         timerInterval: 100
       }, pickerOptions );
-      var dynamicOptions = {
+      const dynamicOptions = {
         color: side === Side.LEFT ? leftPickerColorProperty : rightPickerColorProperty
       };
-      var picker = new MutableOptionsNode( NumberPicker, [ sceneRatio.getProperty( side ), new Property( sceneRatio.getRange( side ) ) ], staticOptions, dynamicOptions );
+      const picker = new MutableOptionsNode( NumberPicker, [ sceneRatio.getProperty( side ), new Property( sceneRatio.getRange( side ) ) ], staticOptions, dynamicOptions );
 
       // If there is a label, we'll add it above the picker
       if ( label ) {

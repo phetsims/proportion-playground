@@ -33,15 +33,15 @@ define( require => {
     Node.call( this );
 
     // {string} - Image for the current gradient colors.
-    var imageUrlProperty = new DerivedProperty( [ paintChoice.leftColorProperty, paintChoice.rightColorProperty ], function( leftColor, rightColor ) {
-      var canvas = document.createElement( 'canvas' );
-      var context = canvas.getContext( '2d' );
+    const imageUrlProperty = new DerivedProperty( [ paintChoice.leftColorProperty, paintChoice.rightColorProperty ], function( leftColor, rightColor ) {
+      const canvas = document.createElement( 'canvas' );
+      const context = canvas.getContext( '2d' );
       canvas.width = width;
       canvas.height = height;
 
       // Fill it in one pixel at a time
-      for ( var i = 0; i < height; i++ ) {
-        var parameter = Util.clamp( Util.linear( 0, height, 0, 1, i ), 0, 1 );
+      for ( let i = 0; i < height; i++ ) {
+        const parameter = Util.clamp( Util.linear( 0, height, 0, 1, i ), 0, 1 );
         context.fillStyle = paintChoice.getBlendedColor( parameter ).toCSS();
         context.fillRect( 0, i, width, 1 );
       }
@@ -50,7 +50,7 @@ define( require => {
     } );
 
     // Gradient (swap image when the colors change)
-    var image = new Image( imageUrlProperty.value, {
+    const image = new Image( imageUrlProperty.value, {
       initialWidth: width,
       initialHeight: height
     } );

@@ -35,20 +35,20 @@ define( require => {
    * @param {Bounds2} layoutBounds - the box within which to lay out all components
    */
   function AppleSceneNode( scene, layoutBounds ) {
-    var self = this;
+    const self = this;
 
     // Create child nodes to be displayed
-    var leftAppleGroupControl = new AppleGroupControl( scene.leftAppleGroup, scene.showCostPerAppleProperty );
-    var rightAppleGroupControl = new AppleGroupControl( scene.rightAppleGroup, scene.showCostPerAppleProperty );
-    var appleGraphNode = new AppleGraphNode( scene, {
+    const leftAppleGroupControl = new AppleGroupControl( scene.leftAppleGroup, scene.showCostPerAppleProperty );
+    const rightAppleGroupControl = new AppleGroupControl( scene.rightAppleGroup, scene.showCostPerAppleProperty );
+    const appleGraphNode = new AppleGraphNode( scene, {
       y: 150
     } );
 
     // Create icons for the ABSwitch
-    var appleImageNode = new Image( redAppleImage, { scale: 0.2 } );
+    const appleImageNode = new Image( redAppleImage, { scale: 0.2 } );
 
     // Checkbox that shows the cost per apple in a price tag
-    var showCostPerAppleCheckbox = new Checkbox( new Text( costPerAppleString, {
+    const showCostPerAppleCheckbox = new Checkbox( new Text( costPerAppleString, {
       maxWidth: 293, // ceiling value from ?stringTest=double for English
       font: ProportionPlaygroundConstants.CONTROL_FONT
     } ), scene.showCostPerAppleProperty );
@@ -85,7 +85,7 @@ define( require => {
     } );
 
     // Price tag checkbox goes in the bottom left
-    var checkboxInset = 10;
+    const checkboxInset = 10;
     showCostPerAppleCheckbox.leftBottom = layoutBounds.leftBottom.plusXY( checkboxInset, -checkboxInset );
   }
 

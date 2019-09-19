@@ -19,21 +19,21 @@ define( require => {
   const SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
 
   // {number} - Area of a single splotch (view coordinates)
-  var SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
+  const SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
 
   // {number} - Area of our raw dropletShape (via Shape.getApproximateArea()) with the below parameters.
-  var SHAPE_AREA = 1486.21309056;
+  const SHAPE_AREA = 1486.21309056;
 
   // Constants for creating the droplet shape.
-  var xRadius = 22; // the radius of the "bottom" part of the droplet
-  var yRadius = 18; // the half-width of the droplet
-  var yTail = 3; // slight control-point width near the pointed tip (so it isn't as pointy)
-  var cp1x = xRadius * 0.84;
-  var cp2x = xRadius * 1.12;
-  var endX = xRadius * 2.1;
+  const xRadius = 22; // the radius of the "bottom" part of the droplet
+  const yRadius = 18; // the half-width of the droplet
+  const yTail = 3; // slight control-point width near the pointed tip (so it isn't as pointy)
+  const cp1x = xRadius * 0.84;
+  const cp2x = xRadius * 1.12;
+  const endX = xRadius * 2.1;
 
   // {Shape} - Droplet shape
-  var dropletShape = new Shape().ellipticalArc( 0, 0, xRadius, yRadius, 0, Math.PI / 2, 3 * Math.PI / 2, false )
+  const dropletShape = new Shape().ellipticalArc( 0, 0, xRadius, yRadius, 0, Math.PI / 2, 3 * Math.PI / 2, false )
     .cubicCurveTo( cp1x, -yRadius, cp2x, -yTail, endX, 0 )
     .cubicCurveTo( cp2x, yTail, cp1x, yRadius, 0, yRadius )
     .close().makeImmutable();
@@ -83,14 +83,14 @@ define( require => {
       // horizontally, just center under the splotch
       this.centerX = splotchCenter.x;
 
-      var time = this.paintDrip.timeElapsed;
-      var bottomDistance = time * time * 1600; // acceleration at 1600 view units / s^2
+      const time = this.paintDrip.timeElapsed;
+      const bottomDistance = time * time * 1600; // acceleration at 1600 view units / s^2
 
       // constants control the bottom position of the droplet, so that it looks like it comes from the bottom of the splotch
       this.y = splotchCenter.y + 8 + bottomDistance - 22 + 12 * Math.sqrt( this.paintDrip.initialSplotchArea );
 
       // Don't zero out the drip's transform with setScaleMagnitude( 0 ). Instead we control visibility then.
-      var hasPaint = this.paintDrip.drippedAmount > 0;
+      const hasPaint = this.paintDrip.drippedAmount > 0;
       this.visible = hasPaint;
       if ( hasPaint ) {
         this.setScaleMagnitude( this.paintDrip.drippedAmount );
