@@ -5,22 +5,22 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableNode' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  const SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
+  const Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var lengthString = require( 'string!PROPORTION_PLAYGROUND/length' );
-  var widthString = require( 'string!PROPORTION_PLAYGROUND/width' );
+  const lengthString = require( 'string!PROPORTION_PLAYGROUND/length' );
+  const widthString = require( 'string!PROPORTION_PLAYGROUND/width' );
 
   /**
    * @constructor

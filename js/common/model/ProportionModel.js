@@ -5,18 +5,18 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AppleScene = require( 'PROPORTION_PLAYGROUND/common/model/apples/AppleScene' );
-  var BilliardsScene = require( 'PROPORTION_PLAYGROUND/common/model/billiards/BilliardsScene' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NecklaceScene = require( 'PROPORTION_PLAYGROUND/common/model/necklace/NecklaceScene' );
-  var PaintScene = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintScene' );
-  var Property = require( 'AXON/Property' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundQueryParameters = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundQueryParameters' );
+  const AppleScene = require( 'PROPORTION_PLAYGROUND/common/model/apples/AppleScene' );
+  const BilliardsScene = require( 'PROPORTION_PLAYGROUND/common/model/billiards/BilliardsScene' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NecklaceScene = require( 'PROPORTION_PLAYGROUND/common/model/necklace/NecklaceScene' );
+  const PaintScene = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintScene' );
+  const Property = require( 'AXON/Property' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundQueryParameters = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundQueryParameters' );
 
   /**
    * @constructor

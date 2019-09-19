@@ -5,17 +5,17 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BilliardsTableControl = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableControl' );
-  var BilliardTableIcon = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardTableIcon' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  const BilliardsTableControl = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableControl' );
+  const BilliardTableIcon = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardTableIcon' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
+  const Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
   // constants
   var ICON_SCALE_OPTIONS = { scale: 0.3 };

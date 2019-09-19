@@ -6,26 +6,26 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Property = require( 'AXON/Property' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
-  var Shape = require( 'KITE/Shape' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
-  var Util = require( 'DOT/Util' );
+  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const Property = require( 'AXON/Property' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  const ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
+  const Shape = require( 'KITE/Shape' );
+  const Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
+  const Util = require( 'DOT/Util' );
 
   // strings
-  var appleCostString = require( 'string!PROPORTION_PLAYGROUND/appleCost' );
+  const appleCostString = require( 'string!PROPORTION_PLAYGROUND/appleCost' );
 
   // constants
   var ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick

@@ -5,15 +5,15 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AppleGroup = require( 'PROPORTION_PLAYGROUND/common/model/apples/AppleGroup' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
+  const AppleGroup = require( 'PROPORTION_PLAYGROUND/common/model/apples/AppleGroup' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
 
   /**
    * @constructor

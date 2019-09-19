@@ -5,37 +5,37 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Property = require( 'AXON/Property' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
-  var SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
-  var Shape = require( 'KITE/Shape' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const Property = require( 'AXON/Property' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  const ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
+  const SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
+  const Shape = require( 'KITE/Shape' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // images
-  var coinImage = require( 'mipmap!PROPORTION_PLAYGROUND/coin.png' );
-  var crateBackImage = require( 'mipmap!PROPORTION_PLAYGROUND/crate-back.png' );
-  var crateFrontImage = require( 'mipmap!PROPORTION_PLAYGROUND/crate-front.png' );
-  var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
+  const coinImage = require( 'mipmap!PROPORTION_PLAYGROUND/coin.png' );
+  const crateBackImage = require( 'mipmap!PROPORTION_PLAYGROUND/crate-back.png' );
+  const crateFrontImage = require( 'mipmap!PROPORTION_PLAYGROUND/crate-front.png' );
+  const redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
 
   // strings
-  var appleString = require( 'string!PROPORTION_PLAYGROUND/apple' );
-  var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
+  const appleString = require( 'string!PROPORTION_PLAYGROUND/apple' );
+  const pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
 
   // constants
   var APPLE_IMAGE_SCALE = 0.35; // Reduction factor for showing the image

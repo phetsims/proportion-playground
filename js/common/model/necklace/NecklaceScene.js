@@ -5,14 +5,14 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
 
   /**
    * @constructor

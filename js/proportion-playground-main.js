@@ -5,17 +5,17 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ExploreScreen = require( 'PROPORTION_PLAYGROUND/explore/ExploreScreen' );
-  var PredictScreen = require( 'PROPORTION_PLAYGROUND/predict/PredictScreen' );
-  var Sim = require( 'JOIST/Sim' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
+  const ExploreScreen = require( 'PROPORTION_PLAYGROUND/explore/ExploreScreen' );
+  const PredictScreen = require( 'PROPORTION_PLAYGROUND/predict/PredictScreen' );
+  const Sim = require( 'JOIST/Sim' );
+  const SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var proportionPlaygroundTitleString = require( 'string!PROPORTION_PLAYGROUND/proportion-playground.title' );
+  const proportionPlaygroundTitleString = require( 'string!PROPORTION_PLAYGROUND/proportion-playground.title' );
 
   var simOptions = {
     credits: {

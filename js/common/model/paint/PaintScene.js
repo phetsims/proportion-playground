@@ -5,17 +5,17 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
-  var Property = require( 'AXON/Property' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
-  var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
-  var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
+  const Property = require( 'AXON/Property' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
+  const SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
+  const Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
 
   /**
    * @constructor

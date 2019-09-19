@@ -5,15 +5,15 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var ColorProfile = require( 'SCENERY_PHET/ColorProfile' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const Color = require( 'SCENERY/util/Color' );
+  const ColorProfile = require( 'SCENERY_PHET/ColorProfile' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   // Initial colors for each profile, by string key. Only profile currently is default (still helpful for making color
   // tweaks with the top-level proportion-playground-colors.html)

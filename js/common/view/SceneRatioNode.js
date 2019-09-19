@@ -5,13 +5,13 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   /**
    * @constructor

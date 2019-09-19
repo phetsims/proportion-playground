@@ -5,20 +5,20 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
-  var PaintBalloon = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintBalloon' );
-  var PaintDrip = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintDrip' );
-  var PaintQuantity = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintQuantity' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
-  var SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const ObservableArray = require( 'AXON/ObservableArray' );
+  const PaintBalloon = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintBalloon' );
+  const PaintDrip = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintDrip' );
+  const PaintQuantity = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintQuantity' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
+  const SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
+  const Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
 
   /**
    * @constructor

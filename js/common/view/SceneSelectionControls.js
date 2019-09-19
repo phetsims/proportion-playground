@@ -5,18 +5,18 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   /**
    * @constructor

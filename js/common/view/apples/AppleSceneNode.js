@@ -5,27 +5,27 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AppleGraphNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGraphNode' );
-  var AppleGroupControl = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGroupControl' );
-  var Checkbox = require( 'SUN/Checkbox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
-  var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const AppleGraphNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGraphNode' );
+  const AppleGroupControl = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGroupControl' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
+  const SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // images
-  var redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
+  const redAppleImage = require( 'mipmap!PROPORTION_PLAYGROUND/apple-red.png' );
 
   // strings
-  var costPerAppleString = require( 'string!PROPORTION_PLAYGROUND/costPerApple' );
+  const costPerAppleString = require( 'string!PROPORTION_PLAYGROUND/costPerApple' );
 
   /**
    * @constructor

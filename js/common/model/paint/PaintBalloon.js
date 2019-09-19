@@ -5,12 +5,12 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   // {number} - In seconds, the time from "launch" to when the balloon "hits" the splotch.
   var TIME_TO_HIT = 0.5;

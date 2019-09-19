@@ -5,34 +5,34 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // Balloon images (color and orientation)
-  var blackBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/black-balloon-1.png' );
-  var blackBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/black-balloon-2.png' );
-  var blackBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/black-balloon-3.png' );
-  var blueBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/blue-balloon-1.png' );
-  var blueBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/blue-balloon-2.png' );
-  var blueBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/blue-balloon-3.png' );
-  var redBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/red-balloon-1.png' );
-  var redBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/red-balloon-2.png' );
-  var redBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/red-balloon-3.png' );
-  var whiteBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/white-balloon-1.png' );
-  var whiteBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/white-balloon-2.png' );
-  var whiteBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/white-balloon-3.png' );
-  var yellowBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/yellow-balloon-1.png' );
-  var yellowBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/yellow-balloon-2.png' );
-  var yellowBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/yellow-balloon-3.png' );
+  const blackBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/black-balloon-1.png' );
+  const blackBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/black-balloon-2.png' );
+  const blackBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/black-balloon-3.png' );
+  const blueBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/blue-balloon-1.png' );
+  const blueBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/blue-balloon-2.png' );
+  const blueBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/blue-balloon-3.png' );
+  const redBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/red-balloon-1.png' );
+  const redBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/red-balloon-2.png' );
+  const redBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/red-balloon-3.png' );
+  const whiteBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/white-balloon-1.png' );
+  const whiteBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/white-balloon-2.png' );
+  const whiteBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/white-balloon-3.png' );
+  const yellowBalloon1Image = require( 'mipmap!PROPORTION_PLAYGROUND/yellow-balloon-1.png' );
+  const yellowBalloon2Image = require( 'mipmap!PROPORTION_PLAYGROUND/yellow-balloon-2.png' );
+  const yellowBalloon3Image = require( 'mipmap!PROPORTION_PLAYGROUND/yellow-balloon-3.png' );
 
   // Persistent {Vector2} instances, so that we don't churn GC as much
   var scratchStartVector = new Vector2( 0, 0 );

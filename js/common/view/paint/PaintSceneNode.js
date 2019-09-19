@@ -5,29 +5,29 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientIndicatorNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
-  var PaintChoiceGradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintChoiceGradientNode' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
-  var SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
-  var Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
-  var SplotchControl = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchControl' );
-  var SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
-  var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const GradientIndicatorNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/GradientIndicatorNode' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
+  const PaintChoiceGradientNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/PaintChoiceGradientNode' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
+  const SceneNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneNode' );
+  const Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  const Splotch = require( 'PROPORTION_PLAYGROUND/common/model/paint/Splotch' );
+  const SplotchControl = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchControl' );
+  const SplotchNode = require( 'PROPORTION_PLAYGROUND/common/view/paint/SplotchNode' );
+  const VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // images
-  var paintSceneImage = require( 'mipmap!PROPORTION_PLAYGROUND/paint-scene.png' );
+  const paintSceneImage = require( 'mipmap!PROPORTION_PLAYGROUND/paint-scene.png' );
 
   // constants
   var SPLOTCH_ICON_OPTIONS = {

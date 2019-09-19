@@ -5,11 +5,11 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
 
   var Side = {
     LEFT: 'LEFT',

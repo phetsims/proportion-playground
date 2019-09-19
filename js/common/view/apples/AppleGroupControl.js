@@ -5,21 +5,21 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AppleGroupNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGroupNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  var SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const AppleGroupNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGroupNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  const SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
-  var applesString = require( 'string!PROPORTION_PLAYGROUND/apples' );
-  var pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
-  var totalCostString = require( 'string!PROPORTION_PLAYGROUND/totalCost' );
+  const applesString = require( 'string!PROPORTION_PLAYGROUND/apples' );
+  const pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
+  const totalCostString = require( 'string!PROPORTION_PLAYGROUND/totalCost' );
 
   /**
    * @constructor

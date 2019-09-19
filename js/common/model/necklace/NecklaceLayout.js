@@ -8,19 +8,19 @@
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Andrea Lin
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
-  var Random = require( 'DOT/Random' );
-  var RoundBead = require( 'PROPORTION_PLAYGROUND/common/model/necklace/RoundBead' );
-  var Shape = require( 'KITE/Shape' );
-  var SquareBead = require( 'PROPORTION_PLAYGROUND/common/model/necklace/SquareBead' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
+  const Random = require( 'DOT/Random' );
+  const RoundBead = require( 'PROPORTION_PLAYGROUND/common/model/necklace/RoundBead' );
+  const Shape = require( 'KITE/Shape' );
+  const SquareBead = require( 'PROPORTION_PLAYGROUND/common/model/necklace/SquareBead' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // {number} - The diameter of beads (for the square bead, it's from the center of the bead to the center of a side)
   var BEAD_DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;

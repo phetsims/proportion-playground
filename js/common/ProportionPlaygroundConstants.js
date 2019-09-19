@@ -5,12 +5,12 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var Range = require( 'DOT/Range' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const Range = require( 'DOT/Range' );
 
   var ProportionPlaygroundConstants = {
     // @public {number} - Diameter/width of the beads in the necklace scene

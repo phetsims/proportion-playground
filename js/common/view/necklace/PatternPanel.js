@@ -6,25 +6,25 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var PatternNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/PatternNode' );
-  var Property = require( 'AXON/Property' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
-  var Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const PatternNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/PatternNode' );
+  const Property = require( 'AXON/Property' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  const ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
+  const Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
-  var patternString = require( 'string!PROPORTION_PLAYGROUND/pattern' );
+  const patternString = require( 'string!PROPORTION_PLAYGROUND/pattern' );
 
   /**
    * @constructor

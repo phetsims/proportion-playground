@@ -5,20 +5,20 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ABSwitch = require( 'SUN/ABSwitch' );
-  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  var ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  var ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
-  var ResetButton = require( 'SCENERY_PHET/buttons/ResetButton' );
-  var RevealButton = require( 'PROPORTION_PLAYGROUND/common/view/RevealButton' );
+  const ABSwitch = require( 'SUN/ABSwitch' );
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+  const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+  const ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
+  const ResetButton = require( 'SCENERY_PHET/buttons/ResetButton' );
+  const RevealButton = require( 'PROPORTION_PLAYGROUND/common/view/RevealButton' );
 
   // left and right labels for the switches should all share
   var switchAlignGroup = new AlignGroup();
