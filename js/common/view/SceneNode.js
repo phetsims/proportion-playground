@@ -12,6 +12,7 @@ define( require => {
   const ABSwitch = require( 'SUN/ABSwitch' );
   const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
@@ -32,7 +33,7 @@ define( require => {
    * @param {Object} config
    */
   function SceneNode( scene, layoutBounds, config ) {
-    config = _.extend( {
+    config = merge( {
       sceneIcon: null, // {Node}, @required - shown in the SceneSelectionControls
       leftControl: null, // {SceneRatioControl}, @required
       rightControl: null, // {SceneRatioControl}, @required

@@ -12,6 +12,7 @@ define( require => {
   // modules
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Necklace = require( 'PROPORTION_PLAYGROUND/common/model/necklace/Necklace' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
@@ -81,7 +82,7 @@ define( require => {
       ]
     } );
 
-    Panel.call( this, content, _.extend( {
+    Panel.call( this, content, merge( {
       cornerRadius: 3,
       stroke: ProportionPlaygroundColorProfile.necklacePatternBorderProperty,
       xMargin: 10

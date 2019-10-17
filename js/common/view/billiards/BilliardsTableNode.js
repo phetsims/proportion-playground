@@ -18,6 +18,7 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Matrix3 = require( 'DOT/Matrix3' );
+  const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -54,7 +55,7 @@ define( require => {
     const modelViewTransform = new ModelViewTransform2( BilliardsTableNode.computeModelViewMatrix( billiardsTable.lengthProperty.value,
       billiardsTable.widthProperty.value ) );
 
-    options = _.extend( {
+    options = merge( {
       // {boolean} - Whether this node should always take up the bounds for a full-size (20x20) billiards table.
       fullSizeBounds: true,
 

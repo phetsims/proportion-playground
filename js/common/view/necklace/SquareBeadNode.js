@@ -12,6 +12,7 @@ define( require => {
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Matrix3 = require( 'DOT/Matrix3' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
@@ -81,7 +82,7 @@ define( require => {
 
     this.setBeadRotation( rotation );
 
-    this.mutate( _.extend( {
+    this.mutate( merge( {
       children: [ this.container ],
       rotation: -Math.PI / 2
     }, options ) );

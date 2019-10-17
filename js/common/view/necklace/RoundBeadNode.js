@@ -11,6 +11,7 @@ define( require => {
   // modules
   const Circle = require( 'SCENERY/nodes/Circle' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
@@ -54,7 +55,7 @@ define( require => {
    * @param {Object} [options] - node options
    */
   function RoundBeadNode( options ) {
-    Node.call( this, _.extend( { children: [ containerNode ] }, options ) );
+    Node.call( this, merge( { children: [ containerNode ] }, options ) );
   }
 
   proportionPlayground.register( 'RoundBeadNode', RoundBeadNode );

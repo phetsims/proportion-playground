@@ -12,6 +12,7 @@ define( require => {
   // modules
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
@@ -35,7 +36,7 @@ define( require => {
    * @param {Object} [options] - node options
    */
   function SceneRatioControl( sceneRatio, leftPickerColorProperty, rightPickerColorProperty, options ) {
-    options = _.extend( {
+    options = merge( {
       leftPickerOptions: {}, // {Object} - Directly provided to the picker (for additional options)
       rightPickerOptions: {}, // {Object} - Directly provided to the picker (for additional options)
       leftPickerLabel: null, // {Node|string|null}
@@ -58,7 +59,7 @@ define( require => {
      */
     function createPickers( side, label, pickerOptions ) {
       // Use MutableOptionsNode, see https://github.com/phetsims/scenery-phet/issues/287
-      const staticOptions = _.extend( {
+      const staticOptions = merge( {
         scale: 2,
         valueMaxWidth: 40,
         timerInterval: 100

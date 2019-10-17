@@ -12,6 +12,7 @@ define( require => {
   const BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   const SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
@@ -39,7 +40,7 @@ define( require => {
 
     assert && assert( config.side, 'side is required' );
 
-    config = _.extend( {
+    config = merge( {
       side: null, // {Side} - Required, assertion above
       allowDragToResize: false // Whether resizing is allowed
     }, config );

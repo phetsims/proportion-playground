@@ -12,6 +12,7 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Emitter = require( 'AXON/Emitter' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
@@ -31,7 +32,7 @@ define( require => {
    */
   function BilliardsTable( options ) {
 
-    options = _.extend( {
+    options = merge( {
       // {number} Initial length of the billiards table.
       initialLength: 5,
 

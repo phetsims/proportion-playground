@@ -13,6 +13,7 @@ define( require => {
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Matrix3 = require( 'DOT/Matrix3' );
+  const merge = require( 'PHET_CORE/merge' );
   const PaintChoice = require( 'PROPORTION_PLAYGROUND/common/model/paint/PaintChoice' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Property = require( 'AXON/Property' );
@@ -59,7 +60,7 @@ define( require => {
     // @public {Splotch}
     this.splotch = splotch;
 
-    options = _.extend( {
+    options = merge( {
       useVisibleAmounts: false
     }, options );
 
