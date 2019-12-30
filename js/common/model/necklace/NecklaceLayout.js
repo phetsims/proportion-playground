@@ -19,7 +19,7 @@ define( require => {
   const RoundBead = require( 'PROPORTION_PLAYGROUND/common/model/necklace/RoundBead' );
   const Shape = require( 'KITE/Shape' );
   const SquareBead = require( 'PROPORTION_PLAYGROUND/common/model/necklace/SquareBead' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // {number} - The diameter of beads (for the square bead, it's from the center of the bead to the center of a side)
@@ -161,7 +161,7 @@ define( require => {
 
       // make beads closer together as there are more of them
       if ( numVertices <= 20 ) {
-        R *= Util.linear( 3, ProportionPlaygroundConstants.BEAD_COUNT_RANGE.max, 1.5, 1, numVertices );
+        R *= Utils.linear( 3, ProportionPlaygroundConstants.BEAD_COUNT_RANGE.max, 1.5, 1, numVertices );
       }
 
       // Use repulsion of random points to make the shape look more natural.
@@ -204,7 +204,7 @@ define( require => {
         pairs.push( { start: vertices[ vertices.length - 1 ], end: vertices[ 0 ] } );
       }
 
-      const gcd = Util.gcd( roundBeadCount, squareBeadCount );
+      const gcd = Utils.gcd( roundBeadCount, squareBeadCount );
       const types = _.flatten( _.range( 0, gcd ).map( function() {
         return _.times( squareBeadCount / gcd, function() { return 'square'; } ).concat(
           _.times( roundBeadCount / gcd, function() { return 'round'; } ) );

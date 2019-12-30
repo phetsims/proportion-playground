@@ -16,7 +16,7 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   /**
    * Rectangle that shows a given spectrum
@@ -41,7 +41,7 @@ define( require => {
 
       // Fill it in one pixel at a time
       for ( let i = 0; i < height; i++ ) {
-        const parameter = Util.clamp( Util.linear( 0, height, 0, 1, i ), 0, 1 );
+        const parameter = Utils.clamp( Utils.linear( 0, height, 0, 1, i ), 0, 1 );
         context.fillStyle = paintChoice.getBlendedColor( parameter ).toCSS();
         context.fillRect( 0, i, width, 1 );
       }

@@ -31,7 +31,7 @@ define( require => {
   const SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   const ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   const Shape = require( 'KITE/Shape' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -141,7 +141,7 @@ define( require => {
         },
 
         drag: function( event, listener ) {
-          const change = Util.roundSymmetric( changeSign * ( listener.parentPoint[ coordinate ] - startPoint[ coordinate ] ) * 2 / MODEL_VIEW_SCALE );
+          const change = Utils.roundSymmetric( changeSign * ( listener.parentPoint[ coordinate ] - startPoint[ coordinate ] ) * 2 / MODEL_VIEW_SCALE );
 
           // change width so its within the acceptable range
           property.value = ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE.constrainValue( startProperty + change );

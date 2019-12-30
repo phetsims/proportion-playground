@@ -22,7 +22,7 @@ define( require => {
   const Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
   const Text = require( 'SCENERY/nodes/Text' );
   const TriangleNode = require( 'PROPORTION_PLAYGROUND/common/view/TriangleNode' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // strings
   const appleCostString = require( 'string!PROPORTION_PLAYGROUND/appleCost' );
@@ -48,7 +48,7 @@ define( require => {
 
     // Tick marks for 0, 1/2 and 1 up the chart.
     const tickLocations = [ 0, 0.5, 1 ].map( function( ratio ) {
-      return Util.linear( 0, 1, ARROW_HEIGHT, 0, ratio );
+      return Utils.linear( 0, 1, ARROW_HEIGHT, 0, ratio );
     } );
     // moveTo/lineTo for each tick
     const tickShape = _.reduce( tickLocations, function( shape, location ) {
@@ -113,7 +113,7 @@ define( require => {
     indicator.visible = appleGroup.numberOfApplesProperty.value > 0 && appleGroup.visibleProperty.value;
     const costPerApple = appleGroup.totalCostProperty.value / appleGroup.numberOfApplesProperty.value;
     if ( isFinite( costPerApple ) ) {
-      indicator.centerY = Util.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
+      indicator.centerY = Utils.linear( 0, 20, ARROW_HEIGHT, 0, costPerApple );
     }
   }
 

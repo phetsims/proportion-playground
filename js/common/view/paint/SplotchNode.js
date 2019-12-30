@@ -22,7 +22,7 @@ define( require => {
   const ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
   const SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
   const Shape = require( 'KITE/Shape' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // {Shape} SVG declaration for the splotch shape. Generated from AI file => cut shape => save svg => cut newlines.
@@ -72,7 +72,7 @@ define( require => {
     const colorProperty = new DerivedProperty( watchedProperties, function( leftColorAmount, rightColorAmount, paintChoice ) {
       const total = leftColorAmount + rightColorAmount;
       if ( total > 0 ) {
-        return paintChoice.getBlendedColor( Util.clamp( rightColorAmount / total, 0, 1 ) );
+        return paintChoice.getBlendedColor( Utils.clamp( rightColorAmount / total, 0, 1 ) );
       }
       else {
         return TRANSPARENT_COLOR;

@@ -18,7 +18,7 @@ define( require => {
   const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
   const ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -69,7 +69,7 @@ define( require => {
 
     // Toggle visibility based on current counts
     Property.multilink( [ necklace.roundBeadCountProperty, necklace.squareBeadCountProperty ], function( roundBeadCount, squareBeadCount ) {
-      const gcd = Util.gcd( roundBeadCount, squareBeadCount );
+      const gcd = Utils.gcd( roundBeadCount, squareBeadCount );
       if ( gcd !== 0 ) {
         roundBeadCount /= gcd;
         squareBeadCount /= gcd;

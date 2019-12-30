@@ -23,7 +23,7 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -123,7 +123,7 @@ define( require => {
     // Update the price tag
     Property.multilink( [ appleGroup.totalCostProperty, appleGroup.numberOfApplesProperty ], function( totalCost, numberOfApples ) {
       const pricePerApple = totalCost / numberOfApples;
-      let fixed = Util.toFixed( pricePerApple, 2 );
+      let fixed = Utils.toFixed( pricePerApple, 2 );
       if ( numberOfApples === 0 ) {
         fixed = '?';
       }
