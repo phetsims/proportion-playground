@@ -33,7 +33,7 @@ define( require => {
    *
    * @param {Necklace} leftNecklace
    * @param {Necklace} rightNecklace
-   * @param {Object} options
+   * @param {Object} [options]
    */
   function PatternPanel( leftNecklace, rightNecklace, options ) {
     const labelNode = new Text( patternString, {
