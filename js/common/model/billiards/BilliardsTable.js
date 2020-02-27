@@ -5,202 +5,198 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Emitter = require( 'AXON/Emitter' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
-  const ObservableArray = require( 'AXON/ObservableArray' );
-  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  const ProportionPlaygroundConstants = require( 'PROPORTION_PLAYGROUND/common/ProportionPlaygroundConstants' );
-  const SceneRatio = require( 'PROPORTION_PLAYGROUND/common/model/SceneRatio' );
-  const Vector2 = require( 'DOT/Vector2' );
-  const Vector2Property = require( 'DOT/Vector2Property' );
+import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
+import Emitter from '../../../../../axon/js/Emitter.js';
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import ObservableArray from '../../../../../axon/js/ObservableArray.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../../dot/js/Vector2Property.js';
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import proportionPlayground from '../../../proportionPlayground.js';
+import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
+import SceneRatio from '../SceneRatio.js';
 
-  // constants
-  const scratchVector = new Vector2( 0, 0 );
+// constants
+const scratchVector = new Vector2( 0, 0 );
+
+/**
+ * @constructor
+ * @extends {SceneRatio}
+ *
+ * @param {Object} [options] - See below for available options
+ */
+function BilliardsTable( options ) {
+
+  options = merge( {
+    // {number} Initial length of the billiards table.
+    initialLength: 5,
+
+    // {number} Initial width of the billiards table.
+    initialWidth: 5,
+
+    // {Property.<boolean>} - Whether the view should be visible
+    visibleProperty: new BooleanProperty( true ),
+
+    // {Property.<boolean>} - Whether the controls should be visible
+    controlsVisibleProperty: new BooleanProperty( true )
+  }, options );
+
+  // @public {NumberProperty} - Number of grid units vertically
+  this.lengthProperty = new NumberProperty( options.initialLength );
+
+  // @public {NumberProperty} - Number of grid units horizontally
+  this.widthProperty = new NumberProperty( options.initialWidth );
+
+  // @public {Property.<Vector2>} - The position of the ball in pixels
+  this.ballPositionProperty = new Vector2Property( new Vector2( 0, 0 ) );
+
+  // @public {Vector2} - The velocity of the ball in pixels per second
+  this.ballVelocity = new Vector2( 0, 0 );
+
+  // Keep track of collision points so the path can be shown as an array of lines.
+  // @public {ObservableArray.<Vector2>} (read-only) - the points where the ball has collided with the walls
+  this.collisionPoints = new ObservableArray();
+
+  // @public {Emitter} (read-only) - emits when the ball was restarted
+  this.restartEmitter = new Emitter();
+
+  // @public {boolean} - Whether the table has started animating (so we can continue to animate it in the background)
+  this.hasStartedAnimating = false;
+
+  this.restartBall(); // Helps initialize in one place
+
+  SceneRatio.call( this, options.visibleProperty, options.controlsVisibleProperty,
+    this.lengthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
+    this.widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE );
+
+  // Restart the ball when the length or width changes
+  this.lengthProperty.link( this.restartBall.bind( this ) );
+  this.widthProperty.link( this.restartBall.bind( this ) );
+}
+
+proportionPlayground.register( 'BilliardsTable', BilliardsTable );
+
+export default inherit( SceneRatio, BilliardsTable, {
+  /**
+   * Restart the ball in the correct location and notify observers.
+   * @public
+   */
+  restartBall: function() {
+
+    // For readability
+    const length = this.lengthProperty.value;
+    const width = this.widthProperty.value;
+
+    // See https://github.com/phetsims/proportion-playground/issues/13
+    const speed = 1.5 * Math.sqrt( Math.pow( length, 2 ) + Math.pow( width, 2 ) );
+
+    // initially the ball starts in the bottom left corner and moves up and to the right.
+    this.ballPositionProperty.value = new Vector2( 0, 0 );
+    this.ballVelocity.setXY( speed, speed );
+
+    this.collisionPoints.clear();
+    this.collisionPoints.push( new Vector2( 0, 0 ) );
+    this.restartEmitter.emit();
+
+    this.hasStartedAnimating = false;
+  },
 
   /**
-   * @constructor
-   * @extends {SceneRatio}
-   *
-   * @param {Object} [options] - See below for available options
+   * Reset the table and restart the ball.
+   * @public
+   * @override
    */
-  function BilliardsTable( options ) {
+  reset: function() {
+    SceneRatio.prototype.reset.call( this );
 
-    options = merge( {
-      // {number} Initial length of the billiards table.
-      initialLength: 5,
+    this.restartBall();
+  },
 
-      // {number} Initial width of the billiards table.
-      initialWidth: 5,
-
-      // {Property.<boolean>} - Whether the view should be visible
-      visibleProperty: new BooleanProperty( true ),
-
-      // {Property.<boolean>} - Whether the controls should be visible
-      controlsVisibleProperty: new BooleanProperty( true )
-    }, options );
-
-    // @public {NumberProperty} - Number of grid units vertically
-    this.lengthProperty = new NumberProperty( options.initialLength );
-
-    // @public {NumberProperty} - Number of grid units horizontally
-    this.widthProperty = new NumberProperty( options.initialWidth );
-
-    // @public {Property.<Vector2>} - The position of the ball in pixels
-    this.ballPositionProperty = new Vector2Property( new Vector2( 0, 0 ) );
-
-    // @public {Vector2} - The velocity of the ball in pixels per second
-    this.ballVelocity = new Vector2( 0, 0 );
-
-    // Keep track of collision points so the path can be shown as an array of lines.
-    // @public {ObservableArray.<Vector2>} (read-only) - the points where the ball has collided with the walls
-    this.collisionPoints = new ObservableArray();
-
-    // @public {Emitter} (read-only) - emits when the ball was restarted
-    this.restartEmitter = new Emitter();
-
-    // @public {boolean} - Whether the table has started animating (so we can continue to animate it in the background)
-    this.hasStartedAnimating = false;
-
-    this.restartBall(); // Helps initialize in one place
-
-    SceneRatio.call( this, options.visibleProperty, options.controlsVisibleProperty,
-      this.lengthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
-      this.widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE );
-
-    // Restart the ball when the length or width changes
-    this.lengthProperty.link( this.restartBall.bind( this ) );
-    this.widthProperty.link( this.restartBall.bind( this ) );
-  }
-
-  proportionPlayground.register( 'BilliardsTable', BilliardsTable );
-
-  return inherit( SceneRatio, BilliardsTable, {
-    /**
-     * Restart the ball in the correct location and notify observers.
-     * @public
-     */
-    restartBall: function() {
-
-      // For readability
-      const length = this.lengthProperty.value;
-      const width = this.widthProperty.value;
-
-      // See https://github.com/phetsims/proportion-playground/issues/13
-      const speed = 1.5 * Math.sqrt( Math.pow( length, 2 ) + Math.pow( width, 2 ) );
-
-      // initially the ball starts in the bottom left corner and moves up and to the right.
-      this.ballPositionProperty.value = new Vector2( 0, 0 );
-      this.ballVelocity.setXY( speed, speed );
-
-      this.collisionPoints.clear();
-      this.collisionPoints.push( new Vector2( 0, 0 ) );
-      this.restartEmitter.emit();
-
-      this.hasStartedAnimating = false;
-    },
-
-    /**
-     * Reset the table and restart the ball.
-     * @public
-     * @override
-     */
-    reset: function() {
-      SceneRatio.prototype.reset.call( this );
-
-      this.restartBall();
-    },
-
-    /**
-     * Moves the ball forward in time, and handles collisions.
-     * @public
-     *
-     * @param {number} dt - Time to move forward in seconds
-     */
-    step: function( dt ) {
-      // Skip 0 dt, so we can simplify our intersection detection
-      if ( dt === 0 ) {
-        return;
-      }
-
-      if ( !this.hasStartedAnimating ) {
-        this.hasStartedAnimating = true;
-      }
-
-      const width = this.widthProperty.value;
-      const length = this.lengthProperty.value;
-
-      assert && assert( width > 0 && length > 0 );
-
-      // Mutable vectors (we'll copy position to the new Property value at the end)
-      const position = scratchVector.set( this.ballPositionProperty.value );
-      const velocity = this.ballVelocity;
-
-      // Bail out if the ball has stopped
-      if ( velocity.magnitude === 0 ) {
-        return;
-      }
-
-      // Keep bouncing while we still can (and have time left)
-      while ( velocity.magnitude > 0 && dt > 0 ) {
-        // What are the wall x/y values in the direction we're traveling
-        const boundaryX = velocity.x > 0 ? width : 0;
-        const boundaryY = velocity.y > 0 ? length : 0;
-
-        // How much time until we hit said boundaries.
-        const timeLeftX = ( boundaryX - position.x ) / velocity.x;
-        const timeLeftY = ( boundaryY - position.y ) / velocity.y;
-        assert && assert( timeLeftX >= 0 );
-        assert && assert( timeLeftY >= 0 );
-
-        // Time until hitting the first wall
-        const minTimeLeft = Math.min( timeLeftX, timeLeftY );
-
-        // We won't make it to a wall, just step forward and use up DT
-        if ( dt < minTimeLeft ) {
-          position.add( velocity.times( dt ) );
-          dt = 0;
-        }
-        // We'll bounce off (and possibly continue afterwards)
-        else {
-          // Step to the position on the wall
-          position.add( velocity.times( minTimeLeft ) );
-
-          // Round (so our collision and end points are nice)
-          position.roundSymmetric();
-
-          // Record the bounce
-          this.collisionPoints.push( position.copy() );
-
-          // Sanity check, in case imprecise computations puts us over the boundary
-          if ( minTimeLeft > 0 ) {
-            dt -= minTimeLeft;
-          }
-
-          // If we bounced on the left or right
-          if ( timeLeftX === minTimeLeft ) {
-            velocity.x *= -1;
-          }
-          if ( timeLeftY === minTimeLeft ) {
-            velocity.y *= -1;
-          }
-
-          // Stop the ball when we hit a corner
-          if ( ( position.x === 0 || position.x === width ) &&
-               ( position.y === 0 || position.y === length ) ) {
-            this.ballVelocity.setXY( 0, 0 );
-          }
-        }
-      }
-
-      // Since we used a mutable vector for position, copy it over to the Property
-      this.ballPositionProperty.value = position.copy();
+  /**
+   * Moves the ball forward in time, and handles collisions.
+   * @public
+   *
+   * @param {number} dt - Time to move forward in seconds
+   */
+  step: function( dt ) {
+    // Skip 0 dt, so we can simplify our intersection detection
+    if ( dt === 0 ) {
+      return;
     }
-  } );
+
+    if ( !this.hasStartedAnimating ) {
+      this.hasStartedAnimating = true;
+    }
+
+    const width = this.widthProperty.value;
+    const length = this.lengthProperty.value;
+
+    assert && assert( width > 0 && length > 0 );
+
+    // Mutable vectors (we'll copy position to the new Property value at the end)
+    const position = scratchVector.set( this.ballPositionProperty.value );
+    const velocity = this.ballVelocity;
+
+    // Bail out if the ball has stopped
+    if ( velocity.magnitude === 0 ) {
+      return;
+    }
+
+    // Keep bouncing while we still can (and have time left)
+    while ( velocity.magnitude > 0 && dt > 0 ) {
+      // What are the wall x/y values in the direction we're traveling
+      const boundaryX = velocity.x > 0 ? width : 0;
+      const boundaryY = velocity.y > 0 ? length : 0;
+
+      // How much time until we hit said boundaries.
+      const timeLeftX = ( boundaryX - position.x ) / velocity.x;
+      const timeLeftY = ( boundaryY - position.y ) / velocity.y;
+      assert && assert( timeLeftX >= 0 );
+      assert && assert( timeLeftY >= 0 );
+
+      // Time until hitting the first wall
+      const minTimeLeft = Math.min( timeLeftX, timeLeftY );
+
+      // We won't make it to a wall, just step forward and use up DT
+      if ( dt < minTimeLeft ) {
+        position.add( velocity.times( dt ) );
+        dt = 0;
+      }
+      // We'll bounce off (and possibly continue afterwards)
+      else {
+        // Step to the position on the wall
+        position.add( velocity.times( minTimeLeft ) );
+
+        // Round (so our collision and end points are nice)
+        position.roundSymmetric();
+
+        // Record the bounce
+        this.collisionPoints.push( position.copy() );
+
+        // Sanity check, in case imprecise computations puts us over the boundary
+        if ( minTimeLeft > 0 ) {
+          dt -= minTimeLeft;
+        }
+
+        // If we bounced on the left or right
+        if ( timeLeftX === minTimeLeft ) {
+          velocity.x *= -1;
+        }
+        if ( timeLeftY === minTimeLeft ) {
+          velocity.y *= -1;
+        }
+
+        // Stop the ball when we hit a corner
+        if ( ( position.x === 0 || position.x === width ) &&
+             ( position.y === 0 || position.y === length ) ) {
+          this.ballVelocity.setXY( 0, 0 );
+        }
+      }
+    }
+
+    // Since we used a mutable vector for position, copy it over to the Property
+    this.ballPositionProperty.value = position.copy();
+  }
 } );

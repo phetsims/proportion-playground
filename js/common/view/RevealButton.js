@@ -5,36 +5,33 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanRoundToggleButton = require( 'SUN/buttons/BooleanRoundToggleButton' );
-  const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MutableOptionsNode = require( 'SUN/MutableOptionsNode' );
-  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
+import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
+import MutableOptionsNode from '../../../../sun/js/MutableOptionsNode.js';
+import proportionPlayground from '../../proportionPlayground.js';
+import ProportionPlaygroundColorProfile from './ProportionPlaygroundColorProfile.js';
 
-  /**
-   * @constructor
-   * @extends {BooleanRoundToggleButton}
-   *
-   * @param {Property.<boolean>} revealingProperty - true if the answer should be shown.
-   * @param {Object} [options]
-   */
-  function RevealButton( revealingProperty, options ) {
-    const revealedNode = new FontAwesomeNode( 'eye_open' );
-    const hiddenNode = new FontAwesomeNode( 'eye_close' );
-    MutableOptionsNode.call( this, BooleanRoundToggleButton, [ revealedNode, hiddenNode, revealingProperty ], {
-      minXMargin: 10,
-      minYMargin: 10
-    }, {
-      baseColor: ProportionPlaygroundColorProfile.revealButtonProperty
-    }, options );
-  }
+/**
+ * @constructor
+ * @extends {BooleanRoundToggleButton}
+ *
+ * @param {Property.<boolean>} revealingProperty - true if the answer should be shown.
+ * @param {Object} [options]
+ */
+function RevealButton( revealingProperty, options ) {
+  const revealedNode = new FontAwesomeNode( 'eye_open' );
+  const hiddenNode = new FontAwesomeNode( 'eye_close' );
+  MutableOptionsNode.call( this, BooleanRoundToggleButton, [ revealedNode, hiddenNode, revealingProperty ], {
+    minXMargin: 10,
+    minYMargin: 10
+  }, {
+    baseColor: ProportionPlaygroundColorProfile.revealButtonProperty
+  }, options );
+}
 
-  proportionPlayground.register( 'RevealButton', RevealButton );
+proportionPlayground.register( 'RevealButton', RevealButton );
 
-  return inherit( MutableOptionsNode, RevealButton );
-} );
+inherit( MutableOptionsNode, RevealButton );
+export default RevealButton;

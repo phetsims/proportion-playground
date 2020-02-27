@@ -5,55 +5,52 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AppleGroupNode = require( 'PROPORTION_PLAYGROUND/common/view/apples/AppleGroupNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  const SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
-  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
+import proportionPlaygroundStrings from '../../../proportion-playground-strings.js';
+import proportionPlayground from '../../../proportionPlayground.js';
+import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
+import SceneRatioControl from '../SceneRatioControl.js';
+import AppleGroupNode from './AppleGroupNode.js';
 
-  // strings
-  const applesString = require( 'string!PROPORTION_PLAYGROUND/apples' );
-  const pricePatternString = require( 'string!PROPORTION_PLAYGROUND/pricePattern' );
-  const totalCostString = require( 'string!PROPORTION_PLAYGROUND/totalCost' );
+const applesString = proportionPlaygroundStrings.apples;
+const pricePatternString = proportionPlaygroundStrings.pricePattern;
+const totalCostString = proportionPlaygroundStrings.totalCost;
 
-  /**
-   * @constructor
-   * @extends {SceneRatioControl}
-   *
-   * @param {AppleGroup} appleGroup - the model
-   * @param {Property.<boolean>} showCostPerAppleProperty - true if the price tag should be shown
-   */
-  function AppleGroupControl( appleGroup, showCostPerAppleProperty ) {
-    SceneRatioControl.call( this, appleGroup, ProportionPlaygroundColorProfile.appleCostPickerProperty,
-      ProportionPlaygroundColorProfile.appleProperty, {
-        leftPickerLabel: totalCostString,
-        leftPickerOptions: {
-          // Put a $ sign in front of the spinner number
-          formatValue: function( value ) {
-            return StringUtils.fillIn( pricePatternString, {
-              price: '' + value
-            } );
-          }
-        },
-        rightPickerLabel: applesString,
-        pickerLabelMaxWidth: 90
-      } );
+/**
+ * @constructor
+ * @extends {SceneRatioControl}
+ *
+ * @param {AppleGroup} appleGroup - the model
+ * @param {Property.<boolean>} showCostPerAppleProperty - true if the price tag should be shown
+ */
+function AppleGroupControl( appleGroup, showCostPerAppleProperty ) {
+  SceneRatioControl.call( this, appleGroup, ProportionPlaygroundColorProfile.appleCostPickerProperty,
+    ProportionPlaygroundColorProfile.appleProperty, {
+      leftPickerLabel: totalCostString,
+      leftPickerOptions: {
+        // Put a $ sign in front of the spinner number
+        formatValue: function( value ) {
+          return StringUtils.fillIn( pricePatternString, {
+            price: '' + value
+          } );
+        }
+      },
+      rightPickerLabel: applesString,
+      pickerLabelMaxWidth: 90
+    } );
 
-    // Create the place where apples and coins will be shown.
-    const appleGroupNode = new AppleGroupNode( appleGroup, showCostPerAppleProperty );
+  // Create the place where apples and coins will be shown.
+  const appleGroupNode = new AppleGroupNode( appleGroup, showCostPerAppleProperty );
 
-    this.addChild( appleGroupNode );
-    this.addBottomPickersWithLocation( appleGroupNode.coinStack.centerX, appleGroupNode.appleCrate.centerX );
+  this.addChild( appleGroupNode );
+  this.addBottomPickersWithLocation( appleGroupNode.coinStack.centerX, appleGroupNode.appleCrate.centerX );
 
-    appleGroupNode.bottom = this.pickerContainer.top - 30;
-  }
+  appleGroupNode.bottom = this.pickerContainer.top - 30;
+}
 
-  proportionPlayground.register( 'AppleGroupControl', AppleGroupControl );
+proportionPlayground.register( 'AppleGroupControl', AppleGroupControl );
 
-  return inherit( SceneRatioControl, AppleGroupControl );
-} );
+inherit( SceneRatioControl, AppleGroupControl );
+export default AppleGroupControl;

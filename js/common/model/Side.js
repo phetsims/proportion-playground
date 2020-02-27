@@ -5,30 +5,26 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+import proportionPlayground from '../../proportionPlayground.js';
 
-  const Side = {
-    LEFT: 'LEFT',
-    RIGHT: 'RIGHT'
-  };
+const Side = {
+  LEFT: 'LEFT',
+  RIGHT: 'RIGHT'
+};
 
-  proportionPlayground.register( 'Side', Side );
+proportionPlayground.register( 'Side', Side );
 
-  Side.SIDES = [ Side.LEFT, Side.RIGHT ];
+Side.SIDES = [ Side.LEFT, Side.RIGHT ];
 
-  Side.isSide = function( side ) {
-    return _.includes( Side.SIDES, side );
-  };
+Side.isSide = function( side ) {
+  return _.includes( Side.SIDES, side );
+};
 
-  Side.opposite = function( side ) {
-    assert && assert( Side.isSide( side ) );
+Side.opposite = function( side ) {
+  assert && assert( Side.isSide( side ) );
 
-    return ( side === Side.LEFT ) ? Side.RIGHT : Side.LEFT;
-  };
+  return ( side === Side.LEFT ) ? Side.RIGHT : Side.LEFT;
+};
 
-  return Side;
-} );
+export default Side;

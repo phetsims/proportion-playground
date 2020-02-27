@@ -5,22 +5,18 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+import proportionPlayground from '../proportionPlayground.js';
 
-  const ProportionPlaygroundQueryParameters = QueryStringMachine.getAll( {
+const ProportionPlaygroundQueryParameters = QueryStringMachine.getAll( {
 
-    // allow launching a specific Explore scene, 0-based index
-    scene: {
-      type: 'number',
-      defaultValue: 0
-    }
-  } );
-
-  proportionPlayground.register( 'ProportionPlaygroundQueryParameters', ProportionPlaygroundQueryParameters );
-
-  return ProportionPlaygroundQueryParameters;
+  // allow launching a specific Explore scene, 0-based index
+  scene: {
+    type: 'number',
+    defaultValue: 0
+  }
 } );
+
+proportionPlayground.register( 'ProportionPlaygroundQueryParameters', ProportionPlaygroundQueryParameters );
+
+export default ProportionPlaygroundQueryParameters;

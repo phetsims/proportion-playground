@@ -5,50 +5,46 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AppleGroup = require( 'PROPORTION_PLAYGROUND/common/model/apples/AppleGroup' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  const Scene = require( 'PROPORTION_PLAYGROUND/common/model/Scene' );
+import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
+import inherit from '../../../../../phet-core/js/inherit.js';
+import proportionPlayground from '../../../proportionPlayground.js';
+import Scene from '../Scene.js';
+import AppleGroup from './AppleGroup.js';
 
+/**
+ * @constructor
+ * @extends {Scene}
+ *
+ * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+ */
+function AppleScene( predictMode ) {
+  Scene.call( this, predictMode );
+
+  // @public {BooleanProperty}
+  this.showCostPerAppleProperty = new BooleanProperty( false );
+
+  const initialCost = predictMode ? 5 : 0;
+  const initialApples = predictMode ? 5 : 1;
+
+  // @public {AppleGroup}
+  this.leftAppleGroup = new AppleGroup( initialCost, initialApples, this.leftVisibleProperty, this.leftControlsVisibleProperty );
+  this.rightAppleGroup = new AppleGroup( initialCost, initialApples, this.rightVisibleProperty, this.rightControlsVisibleProperty );
+
+  this.initializeRatios( this.leftAppleGroup, this.rightAppleGroup );
+}
+
+proportionPlayground.register( 'AppleScene', AppleScene );
+
+export default inherit( Scene, AppleScene, {
   /**
-   * @constructor
-   * @extends {Scene}
-   *
-   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   * Reset the model
+   * @public
+   * @override
    */
-  function AppleScene( predictMode ) {
-    Scene.call( this, predictMode );
+  reset: function() {
+    Scene.prototype.reset.call( this );
 
-    // @public {BooleanProperty}
-    this.showCostPerAppleProperty = new BooleanProperty( false );
-
-    const initialCost = predictMode ? 5 : 0;
-    const initialApples = predictMode ? 5 : 1;
-
-    // @public {AppleGroup}
-    this.leftAppleGroup = new AppleGroup( initialCost, initialApples, this.leftVisibleProperty, this.leftControlsVisibleProperty );
-    this.rightAppleGroup = new AppleGroup( initialCost, initialApples, this.rightVisibleProperty, this.rightControlsVisibleProperty );
-
-    this.initializeRatios( this.leftAppleGroup, this.rightAppleGroup );
+    this.showCostPerAppleProperty.reset();
   }
-
-  proportionPlayground.register( 'AppleScene', AppleScene );
-
-  return inherit( Scene, AppleScene, {
-    /**
-     * Reset the model
-     * @public
-     * @override
-     */
-    reset: function() {
-      Scene.prototype.reset.call( this );
-
-      this.showCostPerAppleProperty.reset();
-    }
-  } );
 } );

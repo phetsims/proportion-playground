@@ -5,103 +5,99 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const DerivedProperty = require( 'AXON/DerivedProperty' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Property = require( 'AXON/Property' );
-  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import proportionPlayground from '../../proportionPlayground.js';
+
+/**
+ * @constructor
+ *
+ * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+ */
+function Scene( predictMode ) {
+  // @public {Array.<SceneRatio>} - Initialized to a 2-length array (left and right ratios) in initializeRatios().
+  this.ratios = [];
+
+  // @public {Array.<NumberProperty>} - Initialized to a 2-length array (left and right quantity properties) in
+  // initializeRatios().
+  this.quantityProperties = [];
+
+  // @public {boolean} - Whether predictions should be made for this scene.
+  this.predictMode = predictMode;
+
+  // @public {BooleanProperty} - Whether the visual representation is being shown
+  this.revealProperty = new BooleanProperty( !predictMode );
+
+  // @public {BooleanProperty} - Whether both representations are shown
+  this.showBothProperty = new BooleanProperty( false );
+
+  // @public {Property.<boolean>} - Whether the left ratio is visible.
+  this.leftVisibleProperty = this.revealProperty;
+
+  // @public {Property.<boolean>} - Whether the right ratio is visible.
+  this.rightVisibleProperty = DerivedProperty.and( [ this.revealProperty, this.showBothProperty ] );
+
+  // @public {Property.<boolean>} - Whether the controls for the left ratio are visible
+  this.leftControlsVisibleProperty = new BooleanProperty( true );
+
+  // @public {Property.<boolean>} - Whether the controls for the right ratio are visible
+  this.rightControlsVisibleProperty = this.showBothProperty;
+}
+
+proportionPlayground.register( 'Scene', Scene );
+
+export default inherit( Object, Scene, {
+  /**
+   * Initializes the Scene with the two SceneRatio objects.
+   * @protected
+   *
+   * @param {SceneRatio} leftRatio
+   * @param {SceneRatio} rightRatio
+   */
+  initializeRatios: function( leftRatio, rightRatio ) {
+    this.ratios = [ leftRatio, rightRatio ];
+    this.quantityProperties = leftRatio.quantityProperties.concat( rightRatio.quantityProperties );
+
+    if ( this.predictMode ) {
+      // In the predict screen, hide representations when one of the spinners is changed
+      Property.multilink( this.quantityProperties, this.revealProperty.set.bind( this.revealProperty, false ) );
+    }
+  },
 
   /**
-   * @constructor
+   * Returns whether our two ratios are equivalent (handling division by 0 properly).
+   * @public
    *
-   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   * @returns {boolean}
    */
-  function Scene( predictMode ) {
-    // @public {Array.<SceneRatio>} - Initialized to a 2-length array (left and right ratios) in initializeRatios().
-    this.ratios = [];
+  areRatiosEquivalent: function() {
+    return this.ratios[ 0 ].isEquivalentTo( this.ratios[ 1 ] );
+  },
 
-    // @public {Array.<NumberProperty>} - Initialized to a 2-length array (left and right quantity properties) in
-    // initializeRatios().
-    this.quantityProperties = [];
+  /**
+   * Steps the scene forward in time.
+   * @public
+   *
+   * @param {number} dt
+   */
+  step: function( dt ) {
+    // Default is no-op (override when behavior is needed)
+  },
 
-    // @public {boolean} - Whether predictions should be made for this scene.
-    this.predictMode = predictMode;
+  /**
+   * Resets the scene
+   * @public
+   */
+  reset: function() {
+    // Owned properties
+    this.revealProperty.reset();
+    this.showBothProperty.reset();
 
-    // @public {BooleanProperty} - Whether the visual representation is being shown
-    this.revealProperty = new BooleanProperty( !predictMode );
-
-    // @public {BooleanProperty} - Whether both representations are shown
-    this.showBothProperty = new BooleanProperty( false );
-
-    // @public {Property.<boolean>} - Whether the left ratio is visible.
-    this.leftVisibleProperty = this.revealProperty;
-
-    // @public {Property.<boolean>} - Whether the right ratio is visible.
-    this.rightVisibleProperty = DerivedProperty.and( [ this.revealProperty, this.showBothProperty ] );
-
-    // @public {Property.<boolean>} - Whether the controls for the left ratio are visible
-    this.leftControlsVisibleProperty = new BooleanProperty( true );
-
-    // @public {Property.<boolean>} - Whether the controls for the right ratio are visible
-    this.rightControlsVisibleProperty = this.showBothProperty;
+    this.ratios.forEach( function( sceneRatio ) {
+      sceneRatio.reset();
+    } );
   }
-
-  proportionPlayground.register( 'Scene', Scene );
-
-  return inherit( Object, Scene, {
-    /**
-     * Initializes the Scene with the two SceneRatio objects.
-     * @protected
-     *
-     * @param {SceneRatio} leftRatio
-     * @param {SceneRatio} rightRatio
-     */
-    initializeRatios: function( leftRatio, rightRatio ) {
-      this.ratios = [ leftRatio, rightRatio ];
-      this.quantityProperties = leftRatio.quantityProperties.concat( rightRatio.quantityProperties );
-
-      if ( this.predictMode ) {
-        // In the predict screen, hide representations when one of the spinners is changed
-        Property.multilink( this.quantityProperties, this.revealProperty.set.bind( this.revealProperty, false ) );
-      }
-    },
-
-    /**
-     * Returns whether our two ratios are equivalent (handling division by 0 properly).
-     * @public
-     *
-     * @returns {boolean}
-     */
-    areRatiosEquivalent: function() {
-      return this.ratios[ 0 ].isEquivalentTo( this.ratios[ 1 ] );
-    },
-
-    /**
-     * Steps the scene forward in time.
-     * @public
-     *
-     * @param {number} dt
-     */
-    step: function( dt ) {
-      // Default is no-op (override when behavior is needed)
-    },
-
-    /**
-     * Resets the scene
-     * @public
-     */
-    reset: function() {
-      // Owned properties
-      this.revealProperty.reset();
-      this.showBothProperty.reset();
-
-      this.ratios.forEach( function( sceneRatio ) {
-        sceneRatio.reset();
-      } );
-    }
-  } );
 } );

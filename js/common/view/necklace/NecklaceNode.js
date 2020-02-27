@@ -5,34 +5,31 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const NecklaceGraphicNode = require( 'PROPORTION_PLAYGROUND/common/view/necklace/NecklaceGraphicNode' );
-  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  const SceneRatioNode = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioNode' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import proportionPlayground from '../../../proportionPlayground.js';
+import SceneRatioNode from '../SceneRatioNode.js';
+import NecklaceGraphicNode from './NecklaceGraphicNode.js';
 
-  /**
-   * @constructor
-   * @extends {SceneRatioNode}
-   *
-   * @param {Necklace} necklace - the model
-   */
-  function NecklaceNode( necklace ) {
-    SceneRatioNode.call( this, necklace );
+/**
+ * @constructor
+ * @extends {SceneRatioNode}
+ *
+ * @param {Necklace} necklace - the model
+ */
+function NecklaceNode( necklace ) {
+  SceneRatioNode.call( this, necklace );
 
-    this.addChild( new NecklaceGraphicNode( necklace.layoutProperty, {
-      y: 256,
-      // Override bounds so that expensive recomputation isn't needed
-      localBounds: NecklaceGraphicNode.createStaticNecklace( 20, 20 ).localBounds.dilated( 15 ),
-      preventFit: true,
-      pickable: false
-    } ) );
-  }
+  this.addChild( new NecklaceGraphicNode( necklace.layoutProperty, {
+    y: 256,
+    // Override bounds so that expensive recomputation isn't needed
+    localBounds: NecklaceGraphicNode.createStaticNecklace( 20, 20 ).localBounds.dilated( 15 ),
+    preventFit: true,
+    pickable: false
+  } ) );
+}
 
-  proportionPlayground.register( 'NecklaceNode', NecklaceNode );
+proportionPlayground.register( 'NecklaceNode', NecklaceNode );
 
-  return inherit( SceneRatioNode, NecklaceNode );
-} );
+inherit( SceneRatioNode, NecklaceNode );
+export default NecklaceNode;

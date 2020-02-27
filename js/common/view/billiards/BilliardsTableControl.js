@@ -5,80 +5,76 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BilliardsTableNode = require( 'PROPORTION_PLAYGROUND/common/view/billiards/BilliardsTableNode' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
-  const ProportionPlaygroundColorProfile = require( 'PROPORTION_PLAYGROUND/common/view/ProportionPlaygroundColorProfile' );
-  const SceneRatioControl = require( 'PROPORTION_PLAYGROUND/common/view/SceneRatioControl' );
-  const Side = require( 'PROPORTION_PLAYGROUND/common/model/Side' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import HBox from '../../../../../scenery/js/nodes/HBox.js';
+import VBox from '../../../../../scenery/js/nodes/VBox.js';
+import proportionPlaygroundStrings from '../../../proportion-playground-strings.js';
+import proportionPlayground from '../../../proportionPlayground.js';
+import Side from '../../model/Side.js';
+import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
+import SceneRatioControl from '../SceneRatioControl.js';
+import BilliardsTableNode from './BilliardsTableNode.js';
 
-  // strings
-  const lengthString = require( 'string!PROPORTION_PLAYGROUND/length' );
-  const widthString = require( 'string!PROPORTION_PLAYGROUND/width' );
+const lengthString = proportionPlaygroundStrings.length;
+const widthString = proportionPlaygroundStrings.width;
 
-  /**
-   * @constructor
-   * @extends {SceneRatioControl}
-   *
-   * @param {BilliardsTable} billiardsTable - the model
-   * @param {Object} config - node layout config
-   */
-  function BilliardsTableControl( billiardsTable, config ) {
-    SceneRatioControl.call( this, billiardsTable, ProportionPlaygroundColorProfile.billiardsBorderProperty,
-      ProportionPlaygroundColorProfile.billiardsBorderProperty, {
-        leftPickerLabel: lengthString,
-        rightPickerLabel: widthString,
-        pickerLabelMaxWidth: 70
-      } );
-
-    assert && assert( config.side, 'side is required' );
-
-    config = merge( {
-      side: null, // {Side} - Required, assertion above
-      allowDragToResize: false // Whether resizing is allowed
-    }, config );
-
-    // @public - The table itself, with the ball/holes/gridlines/etc.
-    this.billiardsTableNode = new BilliardsTableNode( billiardsTable, {
-      allowDragToResize: config.allowDragToResize
+/**
+ * @constructor
+ * @extends {SceneRatioControl}
+ *
+ * @param {BilliardsTable} billiardsTable - the model
+ * @param {Object} config - node layout config
+ */
+function BilliardsTableControl( billiardsTable, config ) {
+  SceneRatioControl.call( this, billiardsTable, ProportionPlaygroundColorProfile.billiardsBorderProperty,
+    ProportionPlaygroundColorProfile.billiardsBorderProperty, {
+      leftPickerLabel: lengthString,
+      rightPickerLabel: widthString,
+      pickerLabelMaxWidth: 70
     } );
 
-    // @protected @override - We need more customization for positioning for the billiards scene, so we create our own
-    // pickerContainer instead of calling a function to create it.
-    this.pickerContainer = new VBox( {
-      spacing: 30,
-      children: [
-        this.leftPicker,
-        this.rightPicker
-      ]
-    } );
-    this.addChild( new HBox( {
-      spacing: 30,
-      children: config.side === Side.LEFT ? [ this.pickerContainer, this.billiardsTableNode ] :
-        [ this.billiardsTableNode, this.pickerContainer ]
-    } ) );
+  assert && assert( config.side, 'side is required' );
 
-    this.mutate( config );
-  }
+  config = merge( {
+    side: null, // {Side} - Required, assertion above
+    allowDragToResize: false // Whether resizing is allowed
+  }, config );
 
-  proportionPlayground.register( 'BilliardsTableControl', BilliardsTableControl );
-
-  return inherit( SceneRatioControl, BilliardsTableControl, {
-    /**
-     * Sets the center of our billiardsTableNode (not our whole control) to the given centerX.
-     * @public
-     *
-     * @param {number} centerX
-     */
-    setBilliardsCenter: function( centerX ) {
-      this.x = centerX - this.billiardsTableNode.centerX;
-    }
+  // @public - The table itself, with the ball/holes/gridlines/etc.
+  this.billiardsTableNode = new BilliardsTableNode( billiardsTable, {
+    allowDragToResize: config.allowDragToResize
   } );
+
+  // @protected @override - We need more customization for positioning for the billiards scene, so we create our own
+  // pickerContainer instead of calling a function to create it.
+  this.pickerContainer = new VBox( {
+    spacing: 30,
+    children: [
+      this.leftPicker,
+      this.rightPicker
+    ]
+  } );
+  this.addChild( new HBox( {
+    spacing: 30,
+    children: config.side === Side.LEFT ? [ this.pickerContainer, this.billiardsTableNode ] :
+      [ this.billiardsTableNode, this.pickerContainer ]
+  } ) );
+
+  this.mutate( config );
+}
+
+proportionPlayground.register( 'BilliardsTableControl', BilliardsTableControl );
+
+export default inherit( SceneRatioControl, BilliardsTableControl, {
+  /**
+   * Sets the center of our billiardsTableNode (not our whole control) to the given centerX.
+   * @public
+   *
+   * @param {number} centerX
+   */
+  setBilliardsCenter: function( centerX ) {
+    this.x = centerX - this.billiardsTableNode.centerX;
+  }
 } );

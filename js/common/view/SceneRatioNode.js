@@ -5,27 +5,24 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const proportionPlayground = require( 'PROPORTION_PLAYGROUND/proportionPlayground' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import proportionPlayground from '../../proportionPlayground.js';
 
-  /**
-   * @constructor
-   * @extends {Node}
-   *
-   * @param {SceneRatio} sceneRatio
-   */
-  function SceneRatioNode( sceneRatio ) {
-    Node.call( this );
+/**
+ * @constructor
+ * @extends {Node}
+ *
+ * @param {SceneRatio} sceneRatio
+ */
+function SceneRatioNode( sceneRatio ) {
+  Node.call( this );
 
-    sceneRatio.visibleProperty.linkAttribute( this, 'visible' );
-  }
+  sceneRatio.visibleProperty.linkAttribute( this, 'visible' );
+}
 
-  proportionPlayground.register( 'SceneRatioNode', SceneRatioNode );
+proportionPlayground.register( 'SceneRatioNode', SceneRatioNode );
 
-  return inherit( Node, SceneRatioNode );
-} );
+inherit( Node, SceneRatioNode );
+export default SceneRatioNode;
