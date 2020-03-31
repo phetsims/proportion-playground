@@ -13,7 +13,7 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../../sun/js/Checkbox.js';
 import redAppleImage from '../../../../mipmaps/apple-red_png.js';
-import proportionPlaygroundStrings from '../../../proportion-playground-strings.js';
+import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import SceneNode from '../SceneNode.js';

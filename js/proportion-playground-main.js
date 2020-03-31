@@ -10,7 +10,7 @@ import Sim from '../../joist/js/Sim.js';
 import SimLauncher from '../../joist/js/SimLauncher.js';
 import ExploreScreen from './explore/ExploreScreen.js';
 import PredictScreen from './predict/PredictScreen.js';
-import proportionPlaygroundStrings from './proportion-playground-strings.js';
+import proportionPlaygroundStrings from './proportionPlaygroundStrings.js';
 
 const proportionPlaygroundTitleString = proportionPlaygroundStrings[ 'proportion-playground' ].title;
 

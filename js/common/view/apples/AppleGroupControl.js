@@ -8,7 +8,7 @@
 
 import inherit from '../../../../../phet-core/js/inherit.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
-import proportionPlaygroundStrings from '../../../proportion-playground-strings.js';
+import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
 import SceneRatioControl from '../SceneRatioControl.js';

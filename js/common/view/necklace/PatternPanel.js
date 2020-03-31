@@ -15,7 +15,7 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../../scenery/js/nodes/VBox.js';
 import Panel from '../../../../../sun/js/Panel.js';
-import proportionPlaygroundStrings from '../../../proportion-playground-strings.js';
+import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import Necklace from '../../model/necklace/Necklace.js';
 import Side from '../../model/Side.js';

@@ -21,7 +21,7 @@ import ProportionModel from '../common/model/ProportionModel.js';
 import SplotchNode from '../common/view/paint/SplotchNode.js';
 import ProportionPlaygroundColorProfile from '../common/view/ProportionPlaygroundColorProfile.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
-import proportionPlaygroundStrings from '../proportion-playground-strings.js';
+import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
 import proportionPlayground from '../proportionPlayground.js';
 
 const screenPredictString = proportionPlaygroundStrings.screen.predict;

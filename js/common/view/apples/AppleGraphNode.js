@@ -15,7 +15,7 @@ import ArrowNode from '../../../../../scenery-phet/js/ArrowNode.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
-import proportionPlaygroundStrings from '../../../proportion-playground-strings.js';
+import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import Side from '../../model/Side.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';

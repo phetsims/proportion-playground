@@ -10,7 +10,7 @@ import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import HBox from '../../../../../scenery/js/nodes/HBox.js';
 import VBox from '../../../../../scenery/js/nodes/VBox.js';
-import proportionPlaygroundStrings from '../../../proportion-playground-strings.js';
+import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import Side from '../../model/Side.js';
 import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';

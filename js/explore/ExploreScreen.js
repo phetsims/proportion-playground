@@ -21,7 +21,7 @@ import BilliardsTableNode from '../common/view/billiards/BilliardsTableNode.js';
 import NecklaceGraphicNode from '../common/view/necklace/NecklaceGraphicNode.js';
 import ProportionPlaygroundColorProfile from '../common/view/ProportionPlaygroundColorProfile.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
-import proportionPlaygroundStrings from '../proportion-playground-strings.js';
+import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
 import proportionPlayground from '../proportionPlayground.js';
 
 const screenExploreString = proportionPlaygroundStrings.screen.explore;

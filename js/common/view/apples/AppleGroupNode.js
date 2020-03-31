@@ -23,7 +23,7 @@ import redAppleImage from '../../../../mipmaps/apple-red_png.js';
 import coinImage from '../../../../mipmaps/coin_png.js';
 import crateBackImage from '../../../../mipmaps/crate-back_png.js';
 import crateFrontImage from '../../../../mipmaps/crate-front_png.js';
-import proportionPlaygroundStrings from '../../../proportion-playground-strings.js';
+import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
