@@ -24,7 +24,7 @@ import SceneSelectionControls from './SceneSelectionControls.js';
  * @constructor
  * @extends {ScreenView}
  *
- * @param {ProportionModel} model - the model
+ * @param {BarModel} model - the model
  */
 function ProportionScreenView( model ) {
   const self = this;
