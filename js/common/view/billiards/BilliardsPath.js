@@ -60,7 +60,7 @@ function BilliardsPath( modelViewTransform, collisionPoints, ballPositionPropert
   collisionPoints.forEach( this.collisionListener );
 
   // Update our view on a model-view transform change.
-  modelViewTransform.on( 'change', this.reset.bind( this ) );
+  modelViewTransform.changeEmitter.addListener( this.reset.bind( this ) );
 }
 
 proportionPlayground.register( 'BilliardsPath', BilliardsPath );
