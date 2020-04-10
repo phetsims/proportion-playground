@@ -59,7 +59,8 @@ function BilliardsTableControl( billiardsTable, config ) {
   this.addChild( new HBox( {
     spacing: 30,
     children: config.side === Side.LEFT ? [ this.pickerContainer, this.billiardsTableNode ] :
-      [ this.billiardsTableNode, this.pickerContainer ]
+      [ this.billiardsTableNode, this.pickerContainer ],
+    excludeInvisibleChildrenFromBounds: false
   } ) );
 
   this.mutate( config );
