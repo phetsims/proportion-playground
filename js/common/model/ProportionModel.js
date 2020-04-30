@@ -44,7 +44,7 @@ function ProportionModel( predictMode ) {
 
 proportionPlayground.register( 'ProportionModel', ProportionModel );
 
-export default inherit( Object, ProportionModel, {
+inherit( Object, ProportionModel, {
   /**
    * Reset the model and all of the scenes.
    * @public
@@ -70,3 +70,5 @@ export default inherit( Object, ProportionModel, {
     this.sceneProperty.value.step( dt );
   }
 } );
+
+export default ProportionModel;

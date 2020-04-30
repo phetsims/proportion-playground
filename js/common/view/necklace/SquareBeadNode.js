@@ -87,7 +87,7 @@ function SquareBeadNode( rotation, options ) {
 
 proportionPlayground.register( 'SquareBeadNode', SquareBeadNode );
 
-export default inherit( Node, SquareBeadNode, {
+inherit( Node, SquareBeadNode, {
   /**
    * Changes the desired visual rotation. Due to lighting/shadowing effects, we can't just rotate the node.
    * @public
@@ -111,3 +111,5 @@ export default inherit( Node, SquareBeadNode, {
     this.container.center = Vector2.ZERO;
   }
 } );
+
+export default SquareBeadNode;

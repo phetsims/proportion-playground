@@ -36,7 +36,7 @@ function AppleScene( predictMode ) {
 
 proportionPlayground.register( 'AppleScene', AppleScene );
 
-export default inherit( Scene, AppleScene, {
+inherit( Scene, AppleScene, {
   /**
    * Reset the model
    * @public
@@ -48,3 +48,5 @@ export default inherit( Scene, AppleScene, {
     this.showCostPerAppleProperty.reset();
   }
 } );
+
+export default AppleScene;

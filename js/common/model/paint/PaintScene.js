@@ -37,7 +37,7 @@ function PaintScene( predictMode ) {
 
 proportionPlayground.register( 'PaintScene', PaintScene );
 
-export default inherit( Scene, PaintScene, {
+inherit( Scene, PaintScene, {
   /**
    * Returns whether our two (visible) ratios are equivalent (handling division by 0 properly).
    * @public
@@ -73,3 +73,5 @@ export default inherit( Scene, PaintScene, {
     this.paintChoiceProperty.reset();
   }
 } );
+
+export default PaintScene;

@@ -35,7 +35,7 @@ function BilliardsScene( predictMode ) {
 
 proportionPlayground.register( 'BilliardsScene', BilliardsScene );
 
-export default inherit( Scene, BilliardsScene, {
+inherit( Scene, BilliardsScene, {
   /**
    * Moves the balls which have been revealed.
    * @public
@@ -54,3 +54,5 @@ export default inherit( Scene, BilliardsScene, {
     }
   }
 } );
+
+export default BilliardsScene;

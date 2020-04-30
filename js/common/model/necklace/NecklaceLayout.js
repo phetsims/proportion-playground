@@ -289,7 +289,7 @@ function NecklaceLayout( roundBeadCount, squareBeadCount ) {
 
 proportionPlayground.register( 'NecklaceLayout', NecklaceLayout );
 
-export default inherit( Object, NecklaceLayout, {}, {
+inherit( Object, NecklaceLayout, {}, {
 
   /**
    * {Shape} - Immutable shared string shape for when there is only one round bead.
@@ -365,3 +365,5 @@ export default inherit( Object, NecklaceLayout, {}, {
     return result;
   }
 } );
+
+export default NecklaceLayout;

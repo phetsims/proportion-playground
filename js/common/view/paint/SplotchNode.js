@@ -99,7 +99,7 @@ function SplotchNode( splotch, paintChoiceProperty, options ) {
 
 proportionPlayground.register( 'SplotchNode', SplotchNode );
 
-export default inherit( SceneRatioNode, SplotchNode, {}, {
+inherit( SceneRatioNode, SplotchNode, {}, {
   /**
    * Converts the total amount of paint to the scale of our splotch. Increasing scale increases the area
    * quadratically, so we use sqrt().
@@ -126,3 +126,5 @@ export default inherit( SceneRatioNode, SplotchNode, {}, {
     return scale * scale * TARGET_SHAPE_AREA; // Area proportional to scale squared
   }
 } );
+
+export default SplotchNode;

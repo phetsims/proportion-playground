@@ -238,7 +238,7 @@ function BilliardsTableNode( billiardsTable, options ) {
 
 proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );
 
-export default inherit( SceneRatioNode, BilliardsTableNode, {}, {
+inherit( SceneRatioNode, BilliardsTableNode, {}, {
   /**
    * Computes what the current model-view transform should be (depends on length/width).
    * @private
@@ -276,3 +276,5 @@ export default inherit( SceneRatioNode, BilliardsTableNode, {}, {
     } );
   }
 } );
+
+export default BilliardsTableNode;

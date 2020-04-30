@@ -38,7 +38,7 @@ function PaintBalloon( side, hitCallback ) {
 
 proportionPlayground.register( 'PaintBalloon', PaintBalloon );
 
-export default inherit( Object, PaintBalloon, {
+inherit( Object, PaintBalloon, {
   /**
    * Steps the balloon forward in time.
    * @public
@@ -70,3 +70,5 @@ export default inherit( Object, PaintBalloon, {
     return ( TIME_TO_HIT - this.timeToHit ) / TIME_TO_HIT;
   }
 } );
+
+export default PaintBalloon;

@@ -65,7 +65,7 @@ function BilliardsPath( modelViewTransform, collisionPoints, ballPositionPropert
 
 proportionPlayground.register( 'BilliardsPath', BilliardsPath );
 
-export default inherit( Node, BilliardsPath, {
+inherit( Node, BilliardsPath, {
   /**
    * Handles added collision points.
    * @private
@@ -94,3 +94,5 @@ export default inherit( Node, BilliardsPath, {
     this.collisionPoints.forEach( this.collisionListener );
   }
 } );
+
+export default BilliardsPath;

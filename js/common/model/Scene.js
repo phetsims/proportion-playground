@@ -49,7 +49,7 @@ function Scene( predictMode ) {
 
 proportionPlayground.register( 'Scene', Scene );
 
-export default inherit( Object, Scene, {
+inherit( Object, Scene, {
   /**
    * Initializes the Scene with the two SceneRatio objects.
    * @protected
@@ -101,3 +101,5 @@ export default inherit( Object, Scene, {
     } );
   }
 } );
+
+export default Scene;

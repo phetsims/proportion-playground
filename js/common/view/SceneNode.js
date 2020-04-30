@@ -96,7 +96,7 @@ function SceneNode( scene, layoutBounds, config ) {
 
 proportionPlayground.register( 'SceneNode', SceneNode );
 
-export default inherit( Node, SceneNode, {
+inherit( Node, SceneNode, {
   /**
    * Steps forward in time.
    * @public
@@ -155,3 +155,5 @@ export default inherit( Node, SceneNode, {
     }
   }
 } );
+
+export default SceneNode;

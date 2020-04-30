@@ -67,7 +67,7 @@ function PaintDripNode( paintDrip, paintChoiceProperty ) {
 
 proportionPlayground.register( 'PaintDripNode', PaintDripNode );
 
-export default inherit( Node, PaintDripNode, {
+inherit( Node, PaintDripNode, {
   /**
    * Positions the paint drip, given the splotchCenter and the bottom of the screen
    * (so that if the drip goes off the bottom, we can remove it and stop tracking it).
@@ -110,3 +110,5 @@ export default inherit( Node, PaintDripNode, {
     Node.prototype.dispose.call( this );
   }
 } );
+
+export default PaintDripNode;

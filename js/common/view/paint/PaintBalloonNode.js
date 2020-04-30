@@ -91,7 +91,7 @@ function PaintBalloonNode( paintBalloon, paintChoiceProperty, startOffset, endOf
 
 proportionPlayground.register( 'PaintBalloonNode', PaintBalloonNode );
 
-export default inherit( Node, PaintBalloonNode, {
+inherit( Node, PaintBalloonNode, {
   /**
    * Positions the balloon given its start (off the screen) and end (center of splotch), with a gravity-like arc
    * @public
@@ -143,3 +143,5 @@ export default inherit( Node, PaintBalloonNode, {
     Node.prototype.dispose.call( this );
   }
 } );
+
+export default PaintBalloonNode;

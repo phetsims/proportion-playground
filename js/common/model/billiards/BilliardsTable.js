@@ -78,7 +78,7 @@ function BilliardsTable( options ) {
 
 proportionPlayground.register( 'BilliardsTable', BilliardsTable );
 
-export default inherit( SceneRatio, BilliardsTable, {
+inherit( SceneRatio, BilliardsTable, {
   /**
    * Restart the ball in the correct location and notify observers.
    * @public
@@ -200,3 +200,5 @@ export default inherit( SceneRatio, BilliardsTable, {
     this.ballPositionProperty.value = position.copy();
   }
 } );
+
+export default BilliardsTable;

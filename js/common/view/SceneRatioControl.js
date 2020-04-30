@@ -100,7 +100,7 @@ function SceneRatioControl( sceneRatio, leftPickerColorProperty, rightPickerColo
 
 proportionPlayground.register( 'SceneRatioControl', SceneRatioControl );
 
-export default inherit( Node, SceneRatioControl, {
+inherit( Node, SceneRatioControl, {
   /**
    * Add both pickers to the bottom-middle.
    * @protected
@@ -133,3 +133,5 @@ export default inherit( Node, SceneRatioControl, {
     this.addChild( this.pickerContainer );
   }
 } );
+
+export default SceneRatioControl;

@@ -68,7 +68,7 @@ function BilliardsTableControl( billiardsTable, config ) {
 
 proportionPlayground.register( 'BilliardsTableControl', BilliardsTableControl );
 
-export default inherit( SceneRatioControl, BilliardsTableControl, {
+inherit( SceneRatioControl, BilliardsTableControl, {
   /**
    * Sets the center of our billiardsTableNode (not our whole control) to the given centerX.
    * @public
@@ -79,3 +79,5 @@ export default inherit( SceneRatioControl, BilliardsTableControl, {
     this.x = centerX - this.billiardsTableNode.centerX;
   }
 } );
+
+export default BilliardsTableControl;

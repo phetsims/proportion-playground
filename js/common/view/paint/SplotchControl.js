@@ -110,7 +110,7 @@ function SplotchControl( splotch, paintChoiceProperty, useVisibleAmounts, balloo
 
 proportionPlayground.register( 'SplotchControl', SplotchControl );
 
-export default inherit( SceneRatioControl, SplotchControl, {
+inherit( SceneRatioControl, SplotchControl, {
   /**
    * Steps forward in time.
    * @public
@@ -138,3 +138,5 @@ export default inherit( SceneRatioControl, SplotchControl, {
     }
   }
 } );
+
+export default SplotchControl;

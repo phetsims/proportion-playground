@@ -39,7 +39,7 @@ function PaintQuantity( initialCount, createBalloon, createDrip ) {
 
 proportionPlayground.register( 'PaintQuantity', PaintQuantity );
 
-export default inherit( Object, PaintQuantity, {
+inherit( Object, PaintQuantity, {
   /**
    * Resets the amount of paint.
    * @public
@@ -118,3 +118,5 @@ export default inherit( Object, PaintQuantity, {
     }
   }
 } );
+
+export default PaintQuantity;

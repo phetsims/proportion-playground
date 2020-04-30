@@ -62,7 +62,7 @@ function SceneRatio( visibleProperty, controlsVisibleProperty, leftProperty, lef
 
 proportionPlayground.register( 'SceneRatio', SceneRatio );
 
-export default inherit( Object, SceneRatio, {
+inherit( Object, SceneRatio, {
   /**
    * Returns the count property for a specific side (left or right).
    * @public
@@ -123,3 +123,5 @@ export default inherit( Object, SceneRatio, {
            ( a2 / a1 === b2 / b1 || Math.abs( a2 / a1 - b2 / b1 ) < 1e-6 );
   }
 } );
+
+export default SceneRatio;

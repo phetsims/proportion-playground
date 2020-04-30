@@ -84,7 +84,7 @@ function ProportionScreenView( model ) {
 
 proportionPlayground.register( 'ProportionScreenView', ProportionScreenView );
 
-export default inherit( ScreenView, ProportionScreenView, {
+inherit( ScreenView, ProportionScreenView, {
   /**
    * Steps forward in time.
    * @public
@@ -101,3 +101,5 @@ export default inherit( ScreenView, ProportionScreenView, {
     }
   }
 } );
+
+export default ProportionScreenView;

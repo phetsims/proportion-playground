@@ -43,7 +43,7 @@ function PaintDrip( side, leaveCallback, amountToDrip, removeCallback, initialSp
 
 proportionPlayground.register( 'PaintDrip', PaintDrip );
 
-export default inherit( Object, PaintDrip, {
+inherit( Object, PaintDrip, {
   /**
    * Steps the balloon forward in time.
    * @public
@@ -71,3 +71,5 @@ export default inherit( Object, PaintDrip, {
     this.leaveCallback( this );
   }
 } );
+
+export default PaintDrip;

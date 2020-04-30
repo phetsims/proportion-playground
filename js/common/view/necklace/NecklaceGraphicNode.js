@@ -58,7 +58,7 @@ function NecklaceGraphicNode( layoutProperty, options ) {
 
 proportionPlayground.register( 'NecklaceGraphicNode', NecklaceGraphicNode );
 
-export default inherit( Node, NecklaceGraphicNode, {
+inherit( Node, NecklaceGraphicNode, {
   /**
    * Rebuilds the necklace display to show the given layout.
    * @public
@@ -129,3 +129,5 @@ export default inherit( Node, NecklaceGraphicNode, {
     return new NecklaceGraphicNode( new Property( NecklaceLayout.getLayout( roundBeadCount, squareBeadCount ) ), options );
   }
 } );
+
+export default NecklaceGraphicNode;
