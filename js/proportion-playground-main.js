@@ -7,7 +7,7 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import ExploreScreen from './explore/ExploreScreen.js';
 import PredictScreen from './predict/PredictScreen.js';
 import proportionPlaygroundStrings from './proportionPlaygroundStrings.js';
@@ -25,7 +25,7 @@ const simOptions = {
   }
 };
 
-SimLauncher.launch( function() {
+simLauncher.launch( function() {
   const sim = new Sim( proportionPlaygroundTitleString, [
     new ExploreScreen(),
     new PredictScreen()
