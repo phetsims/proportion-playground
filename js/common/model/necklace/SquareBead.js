@@ -1,7 +1,7 @@
 // Copyright 2017-2020, University of Colorado Boulder
 
 /**
- * Simple model for the location of a square bead
+ * Simple model for the position of a square bead
  *
  * @author Jonathan Olson
  */

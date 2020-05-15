@@ -53,7 +53,7 @@ function BilliardsSceneNode( scene, layoutBounds ) {
         new BilliardTableIcon( iconBilliardsSize, iconBilliardsSize, ICON_SCALE_OPTIONS ),
         new BilliardTableIcon( iconBilliardsSize, iconBilliardsSize, ICON_SCALE_OPTIONS ) ]
     } ),
-    controlLocation: 'bottom'
+    controlAlign: 'bottom'
   } );
 
   // When the ABSwitch is toggled, show/hide the rightmost table and update the layout.

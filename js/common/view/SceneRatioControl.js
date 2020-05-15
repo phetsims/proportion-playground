@@ -123,7 +123,7 @@ inherit( Node, SceneRatioControl, {
    * @param {number} leftPickerX
    * @param {number} rightPickerX
    */
-  addBottomPickersWithLocation: function( leftPickerX, rightPickerX ) {
+  addBottomPickersWithPosition: function( leftPickerX, rightPickerX ) {
     this.leftPicker.centerX = leftPickerX;
     this.rightPicker.centerX = rightPickerX;
     this.leftPicker.bottom = this.rightPicker.bottom = PICKER_BOTTOM;

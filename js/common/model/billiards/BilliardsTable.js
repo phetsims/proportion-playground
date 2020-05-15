@@ -80,7 +80,7 @@ proportionPlayground.register( 'BilliardsTable', BilliardsTable );
 
 inherit( SceneRatio, BilliardsTable, {
   /**
-   * Restart the ball in the correct location and notify observers.
+   * Restart the ball in the correct position and notify observers.
    * @public
    */
   restartBall: function() {

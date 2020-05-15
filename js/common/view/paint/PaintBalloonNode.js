@@ -67,8 +67,8 @@ const HALF_ROTATION = Math.PI / 8;
  *
  * @param {PaintBalloon} paintBalloon - Our paint balloon
  * @param {Property.<PaintChoice>} paintChoiceProperty - The current paint choice
- * @param {Vector2} startOffset - Offset from the typical starting location
- * @param {Vector2} endOffset - Offset from the typical ending location
+ * @param {Vector2} startOffset - Offset from the typical starting position
+ * @param {Vector2} endOffset - Offset from the typical ending position
  */
 function PaintBalloonNode( paintBalloon, paintChoiceProperty, startOffset, endOffset ) {
   Node.call( this );

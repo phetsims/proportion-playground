@@ -1,7 +1,7 @@
 // Copyright 2017-2020, University of Colorado Boulder
 
 /**
- * Simple model for the location of a round bead
+ * Simple model for the position of a round bead
  *
  * @author Jonathan Olson
  */

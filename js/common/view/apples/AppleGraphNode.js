@@ -44,13 +44,13 @@ function AppleGraphNode( scene, options ) {
   const arrowNode = new ArrowNode( 0, ARROW_HEIGHT, 0, -ARROW_OVERSHOOT, { tailWidth: ARROW_LINE_WIDTH } );
 
   // Tick marks for 0, 1/2 and 1 up the chart.
-  const tickLocations = [ 0, 0.5, 1 ].map( function( ratio ) {
+  const tickPositions = [ 0, 0.5, 1 ].map( function( ratio ) {
     return Utils.linear( 0, 1, ARROW_HEIGHT, 0, ratio );
   } );
   // moveTo/lineTo for each tick
-  const tickShape = _.reduce( tickLocations, function( shape, location ) {
-    return shape.moveTo( -TICK_X, location )
-      .lineTo( TICK_X, location );
+  const tickShape = _.reduce( tickPositions, function( shape, position ) {
+    return shape.moveTo( -TICK_X, position )
+      .lineTo( TICK_X, position );
   }, new Shape() );
   arrowNode.addChild( new Path( tickShape, {
     stroke: 'black',

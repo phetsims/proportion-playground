@@ -45,7 +45,7 @@ function AppleGroupControl( appleGroup, showCostPerAppleProperty ) {
   const appleGroupNode = new AppleGroupNode( appleGroup, showCostPerAppleProperty );
 
   this.addChild( appleGroupNode );
-  this.addBottomPickersWithLocation( appleGroupNode.coinStack.centerX, appleGroupNode.appleCrate.centerX );
+  this.addBottomPickersWithPosition( appleGroupNode.coinStack.centerX, appleGroupNode.appleCrate.centerX );
 
   appleGroupNode.bottom = this.pickerContainer.top - 30;
 }

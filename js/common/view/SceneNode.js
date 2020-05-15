@@ -36,7 +36,7 @@ function SceneNode( scene, layoutBounds, config ) {
     rightControl: null, // {SceneRatioControl}, @required
     leftSwitchIcon: null, // {Node}, @required - Left side of the showBoth ABSwitch
     rightSwitchIcon: null, // {Node}, @required - Right side of the showBoth ABSwitch
-    controlLocation: 'right', // 'right' or 'bottom', direction from the pickerContainer
+    controlAlign: 'right', // 'right' or 'bottom', direction from the pickerContainer
     canCenterControlButton: true // Whether the control button can be centered when both left/right are shown
   }, config );
 
@@ -52,7 +52,7 @@ function SceneNode( scene, layoutBounds, config ) {
   this.rightControl = config.rightControl;
 
   // @private
-  this.controlLocation = config.controlLocation;
+  this.controlAlign = config.controlAlign;
   this.revealBothOffset = config.revealBothOffset;
   this.canCenterControlButton = config.canCenterControlButton;
 
@@ -132,7 +132,7 @@ inherit( Node, SceneNode, {
     // Only does something if we have a button
     if ( !this.controlButton ) { return; }
 
-    if ( this.controlLocation === 'right' ) {
+    if ( this.controlAlign === 'right' ) {
       if ( this.scene.showBothProperty.value ) {
         if ( this.canCenterControlButton ) {
           this.controlButton.centerX = this.layoutBounds.centerX;

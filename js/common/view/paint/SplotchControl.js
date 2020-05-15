@@ -22,7 +22,7 @@ import SplotchNode from './SplotchNode.js';
 const startVector = new Vector2( 0, 0 );
 
 // {Vector2} - Center of the splotch in splotch-control coordinates.
-const SPLOTCH_LOCATION = new Vector2( 0, ProportionPlaygroundConstants.CONTROL_Y_OFFSET );
+const SPLOTCH_POSITION = new Vector2( 0, ProportionPlaygroundConstants.CONTROL_Y_OFFSET );
 
 /**
  * @constructor
@@ -31,7 +31,7 @@ const SPLOTCH_LOCATION = new Vector2( 0, ProportionPlaygroundConstants.CONTROL_Y
  * @param {Splotch} splotch - the model
  * @param {Property.<PaintChoice>} paintChoiceProperty - Holds our current paint choice
  * @param {boolean} useVisibleAmounts - Whether our visible splotch size should be based on the "visible" counts as
- *                                      determined by the location of balloons/drips, or by the "real count"
+ *                                      determined by the position of balloons/drips, or by the "real count"
  * @param {Side} balloonThrowSide - The side where balloon throws should originate from
  */
 function SplotchControl( splotch, paintChoiceProperty, useVisibleAmounts, balloonThrowSide ) {
@@ -46,7 +46,7 @@ function SplotchControl( splotch, paintChoiceProperty, useVisibleAmounts, balloo
   // @private {SplotchNode}
   this.splotchNode = new SplotchNode( splotch, paintChoiceProperty, {
     useVisibleAmounts: useVisibleAmounts,
-    translation: SPLOTCH_LOCATION
+    translation: SPLOTCH_POSITION
   } );
 
   this.addChild( dripLayer );
@@ -123,17 +123,17 @@ inherit( SceneRatioControl, SplotchControl, {
       visibleBounds = this.parentToLocalBounds( visibleBounds );
 
       const balloonSign = this.balloonThrowSide === Side.LEFT ? -1 : 1;
-      const startLocation = startVector.setXY( visibleBounds.centerX + 0.55 * balloonSign * visibleBounds.width,
+      const startPosition = startVector.setXY( visibleBounds.centerX + 0.55 * balloonSign * visibleBounds.width,
         visibleBounds.bottom * 0.8 );
 
       // Update balloon positions
       for ( var i = 0; i < this.balloonNodes.length; i++ ) {
-        this.balloonNodes[ i ].position( startLocation, SPLOTCH_LOCATION );
+        this.balloonNodes[ i ].position( startPosition, SPLOTCH_POSITION );
       }
 
       // Update drip positions
       for ( i = this.dripNodes.length - 1; i >= 0; i-- ) {
-        this.dripNodes[ i ].position( SPLOTCH_LOCATION, visibleBounds.bottom );
+        this.dripNodes[ i ].position( SPLOTCH_POSITION, visibleBounds.bottom );
       }
     }
   }

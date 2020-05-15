@@ -15,7 +15,7 @@ const ProportionPlaygroundConstants = {
   BEAD_DIAMETER: 18,
   BUTTON_RIGHT_CENTER_OFFSET: 42,
 
-  // @public {number} - For manually positioned scenes/controls, the y location of the controls
+  // @public {number} - For manually positioned scenes/controls, the y position of the controls
   CONTROL_Y_OFFSET: 250,
 
   // @public {PhetFont}

@@ -31,7 +31,7 @@ const TARGET_SHAPE_AREA = 12300;
 // {number} - The area of splotchShape, computed with getApproximateArea()
 const RAW_SHAPE_AREA = 21426.8;
 
-// {number} - The location of the centroid of splotchShape (the 'center' of all of its included areas),
+// {number} - The position of the centroid of splotchShape (the 'center' of all of its included areas),
 //            computed by Shape.getApproximateCentroid()
 const SPLOTCH_CENTROID = new Vector2( 117.37949080493232, 126.91260432847004 );
 
