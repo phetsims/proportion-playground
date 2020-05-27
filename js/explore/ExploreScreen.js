@@ -7,6 +7,7 @@
  */
 
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import inherit from '../../../phet-core/js/inherit.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import AlignBox from '../../../scenery/js/nodes/AlignBox.js';
@@ -15,14 +16,14 @@ import Node from '../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../scenery/js/nodes/Text.js';
 import VBox from '../../../scenery/js/nodes/VBox.js';
-import BilliardsTable from '../common/model/billiards/BilliardsTable.js';
 import ProportionModel from '../common/model/ProportionModel.js';
-import BilliardsTableNode from '../common/view/billiards/BilliardsTableNode.js';
-import NecklaceGraphicNode from '../common/view/necklace/NecklaceGraphicNode.js';
+import BilliardsTable from '../common/model/billiards/BilliardsTable.js';
 import ProportionPlaygroundColorProfile from '../common/view/ProportionPlaygroundColorProfile.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
-import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
+import BilliardsTableNode from '../common/view/billiards/BilliardsTableNode.js';
+import NecklaceGraphicNode from '../common/view/necklace/NecklaceGraphicNode.js';
 import proportionPlayground from '../proportionPlayground.js';
+import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
 
 const screenExploreString = proportionPlaygroundStrings.screen.explore;
 
@@ -40,8 +41,14 @@ function ExploreScreen() {
     function( model ) { return new ProportionScreenView( model ); }, {
       name: screenExploreString,
       backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
-      homeScreenIcon: createHomeScreenIcon(),
-      navigationBarIcon: createNavigationBarIcon()
+      homeScreenIcon: new ScreenIcon( createHomeScreenIcon(), {
+        maxIconWidthProportion: 1,
+        maxIconHeightProportion: 1
+      } ),
+      navigationBarIcon: new ScreenIcon( createNavigationBarIcon(), {
+        maxIconWidthProportion: 1,
+        maxIconHeightProportion: 1
+      } )
     } );
 }
 

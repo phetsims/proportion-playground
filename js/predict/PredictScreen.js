@@ -9,20 +9,21 @@
 import Property from '../../../axon/js/Property.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import inherit from '../../../phet-core/js/inherit.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import AlignBox from '../../../scenery/js/nodes/AlignBox.js';
 import Node from '../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../scenery/js/nodes/Text.js';
+import ProportionModel from '../common/model/ProportionModel.js';
 import PaintChoice from '../common/model/paint/PaintChoice.js';
 import Splotch from '../common/model/paint/Splotch.js';
-import ProportionModel from '../common/model/ProportionModel.js';
-import SplotchNode from '../common/view/paint/SplotchNode.js';
 import ProportionPlaygroundColorProfile from '../common/view/ProportionPlaygroundColorProfile.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
-import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
+import SplotchNode from '../common/view/paint/SplotchNode.js';
 import proportionPlayground from '../proportionPlayground.js';
+import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
 
 const screenPredictString = proportionPlaygroundStrings.screen.predict;
 
@@ -47,8 +48,14 @@ function PredictScreen() {
     function( model ) { return new ProportionScreenView( model ); }, {
       name: screenPredictString,
       backgroundColorProperty: ProportionPlaygroundColorProfile.predictBackgroundProperty,
-      homeScreenIcon: createHomeScreenIcon( splotchNode ),
-      navigationBarIcon: createNavigationBarIcon( splotchNode )
+      homeScreenIcon: new ScreenIcon( createHomeScreenIcon( splotchNode ), {
+        maxIconWidthProportion: 1,
+        maxIconHeightProportion: 1
+      } ),
+      navigationBarIcon: new ScreenIcon( createNavigationBarIcon( splotchNode ), {
+        maxIconWidthProportion: 1,
+        maxIconHeightProportion: 1
+      } )
     } );
 }
 
