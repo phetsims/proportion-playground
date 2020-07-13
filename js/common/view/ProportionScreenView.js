@@ -7,7 +7,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -29,9 +28,7 @@ import SceneSelectionControls from './SceneSelectionControls.js';
 function ProportionScreenView( model ) {
   const self = this;
 
-  ScreenView.call( this, {
-    layoutBounds: new Bounds2( 0, 0, 1024, 618 )
-  } );
+  ScreenView.call( this );
 
   // Reset All button
   this.addChild( new ResetAllButton( {
