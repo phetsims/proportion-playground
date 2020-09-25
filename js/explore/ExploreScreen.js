@@ -8,7 +8,6 @@
 
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import inherit from '../../../phet-core/js/inherit.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import AlignBox from '../../../scenery/js/nodes/AlignBox.js';
 import HBox from '../../../scenery/js/nodes/HBox.js';
@@ -16,46 +15,39 @@ import Node from '../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../scenery/js/nodes/Text.js';
 import VBox from '../../../scenery/js/nodes/VBox.js';
-import ProportionModel from '../common/model/ProportionModel.js';
 import BilliardsTable from '../common/model/billiards/BilliardsTable.js';
-import ProportionPlaygroundColorProfile from '../common/view/ProportionPlaygroundColorProfile.js';
-import ProportionScreenView from '../common/view/ProportionScreenView.js';
+import ProportionModel from '../common/model/ProportionModel.js';
 import BilliardsTableNode from '../common/view/billiards/BilliardsTableNode.js';
 import NecklaceGraphicNode from '../common/view/necklace/NecklaceGraphicNode.js';
+import ProportionPlaygroundColorProfile from '../common/view/ProportionPlaygroundColorProfile.js';
+import ProportionScreenView from '../common/view/ProportionScreenView.js';
 import proportionPlayground from '../proportionPlayground.js';
 import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
-
-const screenExploreString = proportionPlaygroundStrings.screen.explore;
 
 // constants
 const HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
 
-/**
- * @constructor
- * @extends {Screen}
- */
-function ExploreScreen() {
-
-  Screen.call( this,
-    function() { return new ProportionModel( false ); },
-    function( model ) { return new ProportionScreenView( model ); }, {
-      name: screenExploreString,
-      backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
-      homeScreenIcon: new ScreenIcon( createHomeScreenIcon(), {
-        maxIconWidthProportion: 1,
-        maxIconHeightProportion: 1
-      } ),
-      navigationBarIcon: new ScreenIcon( createNavigationBarIcon(), {
-        maxIconWidthProportion: 1,
-        maxIconHeightProportion: 1
-      } )
-    } );
+class ExploreScreen extends Screen {
+  constructor() {
+    super(
+      function() { return new ProportionModel( false ); },
+      function( model ) { return new ProportionScreenView( model ); }, {
+        name: proportionPlaygroundStrings.screen.explore,
+        backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
+        homeScreenIcon: new ScreenIcon( createHomeScreenIcon(), {
+          maxIconWidthProportion: 1,
+          maxIconHeightProportion: 1
+        } ),
+        navigationBarIcon: new ScreenIcon( createNavigationBarIcon(), {
+          maxIconWidthProportion: 1,
+          maxIconHeightProportion: 1
+        } )
+      } );
+  }
 }
 
-proportionPlayground.register( 'ExploreScreen', ExploreScreen );
-
 // Creates the home screen icon.
-var createHomeScreenIcon = function() {
+function createHomeScreenIcon() {
 
   // Step all the way through the animation of a billiards table
   const billiardsTable = new BilliardsTable( {
@@ -99,10 +91,10 @@ var createHomeScreenIcon = function() {
       } )
     ]
   } );
-};
+}
 
 // Creates the navigation bar icon.
-var createNavigationBarIcon = function() {
+function createNavigationBarIcon() {
   return new Node( {
     children: [
       Rectangle.bounds( HOME_SCREEN_ICON_BOUNDS, {
@@ -114,7 +106,7 @@ var createNavigationBarIcon = function() {
       } )
     ]
   } );
-};
+}
 
-inherit( Screen, ExploreScreen );
+proportionPlayground.register( 'ExploreScreen', ExploreScreen );
 export default ExploreScreen;
