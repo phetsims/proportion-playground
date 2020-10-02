@@ -9,7 +9,7 @@
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import ObservableArray from '../../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../../axon/js/createObservableArray.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../../dot/js/Vector2Property.js';
 import inherit from '../../../../../phet-core/js/inherit.js';
@@ -57,7 +57,7 @@ function BilliardsTable( options ) {
 
   // Keep track of collision points so the path can be shown as an array of lines.
   // @public {ObservableArray.<Vector2>} (read-only) - the points where the ball has collided with the walls
-  this.collisionPoints = new ObservableArray();
+  this.collisionPoints = createObservableArray();
 
   // @public {Emitter} (read-only) - emits when the ball was restarted
   this.restartEmitter = new Emitter();

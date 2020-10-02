@@ -7,7 +7,7 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import ObservableArray from '../../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../../axon/js/createObservableArray.js';
 import inherit from '../../../../../phet-core/js/inherit.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
@@ -53,10 +53,10 @@ function Splotch( initialLeftCount, initialRightCount, visibleProperty, controls
   } );
 
   // @public {ObservableArray.<PaintBalloon>}
-  this.balloons = new ObservableArray();
+  this.balloons = createObservableArray();
 
   // @public {ObservableArray.<PaintDrip>}
-  this.drips = new ObservableArray();
+  this.drips = createObservableArray();
 
   SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
     this.leftColorCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE,
