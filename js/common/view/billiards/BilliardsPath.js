@@ -25,7 +25,7 @@ const LINE_OPTIONS = {
  * @extends {Node}
  *
  * @param {ModelViewTransform2} modelViewTransform
- * @param {ObservableArray.<Vector2>} collisionPoints - In model coordinates
+ * @param {ObservableArrayDef.<Vector2>} collisionPoints - In model coordinates
  * @param {Property.<Vector2>} ballPositionProperty - In model coordinates
  */
 function BilliardsPath( modelViewTransform, collisionPoints, ballPositionProperty ) {
@@ -38,7 +38,7 @@ function BilliardsPath( modelViewTransform, collisionPoints, ballPositionPropert
   // @private {ModelViewTransform2}
   this.modelViewTransform = modelViewTransform;
 
-  // @private {ObservableArray.<Vector2>}
+  // @private {ObservableArrayDef.<Vector2>}
   this.collisionPoints = collisionPoints;
 
   // @private {Vector2}

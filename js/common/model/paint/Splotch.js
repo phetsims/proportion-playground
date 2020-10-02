@@ -52,10 +52,10 @@ function Splotch( initialLeftCount, initialRightCount, visibleProperty, controls
     return Math.min( value, ProportionPlaygroundConstants.PAINT_COUNT_RANGE.max );
   } );
 
-  // @public {ObservableArray.<PaintBalloon>}
+  // @public {ObservableArrayDef.<PaintBalloon>}
   this.balloons = createObservableArray();
 
-  // @public {ObservableArray.<PaintDrip>}
+  // @public {ObservableArrayDef.<PaintDrip>}
   this.drips = createObservableArray();
 
   SceneRatio.call( this, visibleProperty, controlsVisibleProperty,

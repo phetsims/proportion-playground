@@ -56,7 +56,7 @@ function BilliardsTable( options ) {
   this.ballVelocity = new Vector2( 0, 0 );
 
   // Keep track of collision points so the path can be shown as an array of lines.
-  // @public {ObservableArray.<Vector2>} (read-only) - the points where the ball has collided with the walls
+  // @public {ObservableArrayDef.<Vector2>} (read-only) - the points where the ball has collided with the walls
   this.collisionPoints = createObservableArray();
 
   // @public {Emitter} (read-only) - emits when the ball was restarted
