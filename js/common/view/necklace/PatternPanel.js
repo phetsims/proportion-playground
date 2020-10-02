@@ -8,15 +8,14 @@
  */
 
 import Property from '../../../../../axon/js/Property.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import AlignBox from '../../../../../scenery/js/nodes/AlignBox.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../../scenery/js/nodes/VBox.js';
 import Panel from '../../../../../sun/js/Panel.js';
-import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import proportionPlayground from '../../../proportionPlayground.js';
+import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import Necklace from '../../model/necklace/Necklace.js';
 import Side from '../../model/Side.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
@@ -25,69 +24,66 @@ import PatternNode from './PatternNode.js';
 
 const patternString = proportionPlaygroundStrings.pattern;
 
-/**
- * @constructor
- * @extends {Panel}
- *
- * @param {Necklace} leftNecklace
- * @param {Necklace} rightNecklace
- * @param {Object} [options]
- */
-function PatternPanel( leftNecklace, rightNecklace, options ) {
-  const labelNode = new Text( patternString, {
-    maxWidth: 100,
-    font: ProportionPlaygroundConstants.CONTROL_FONT
-  } );
-
-  // Determine the maximum necklace dimensions
-  const maxNecklace = new Necklace( 20, 19, new Property( true ), new Property( true ) );
-  const maxPatternBounds = new PatternNode( maxNecklace ).bounds;
-  maxPatternBounds.maxX += 2 * maxPatternBounds.width;
-  maxPatternBounds.maxY += 5; // Some extra padding
-
-  const patternContent = new Node();
-
-  function handlePattern( necklace, side ) {
-    const patternNode = new PatternNode( necklace, {
-      x: side === Side.RIGHT ? 30 : 0
+class PatternPanel extends Panel {
+  /**
+   * @param {Necklace} leftNecklace
+   * @param {Necklace} rightNecklace
+   * @param {Object} [options]
+   */
+  constructor( leftNecklace, rightNecklace, options ) {
+    const labelNode = new Text( patternString, {
+      maxWidth: 100,
+      font: ProportionPlaygroundConstants.CONTROL_FONT
     } );
-    let added = false;
-    necklace.visibleProperty.link( function( visible ) { // No problem to leak, this is done twice
-      if ( added && !visible ) {
-        patternContent.removeChild( patternNode );
-        added = false;
-      }
-      else if ( !added && visible ) {
-        patternContent.addChild( patternNode );
-        added = true;
-      }
+
+    // Determine the maximum necklace dimensions
+    const maxNecklace = new Necklace( 20, 19, new Property( true ), new Property( true ) );
+    const maxPatternBounds = new PatternNode( maxNecklace ).bounds;
+    maxPatternBounds.maxX += 2 * maxPatternBounds.width;
+    maxPatternBounds.maxY += 5; // Some extra padding
+
+    const patternContent = new Node();
+
+    function handlePattern( necklace, side ) {
+      const patternNode = new PatternNode( necklace, {
+        x: side === Side.RIGHT ? 30 : 0
+      } );
+      let added = false;
+      necklace.visibleProperty.link( function( visible ) { // No problem to leak, this is done twice
+        if ( added && !visible ) {
+          patternContent.removeChild( patternNode );
+          added = false;
+        }
+        else if ( !added && visible ) {
+          patternContent.addChild( patternNode );
+          added = true;
+        }
+      } );
+    }
+
+    handlePattern( leftNecklace, Side.LEFT );
+    handlePattern( rightNecklace, Side.RIGHT );
+
+    const alignBox = new AlignBox( patternContent, {
+      yAlign: 'top',
+      alignBounds: maxPatternBounds
     } );
+
+    const content = new VBox( {
+      spacing: 7,
+      children: [
+        labelNode,
+        alignBox
+      ]
+    } );
+
+    super( content, merge( {
+      cornerRadius: 3,
+      stroke: ProportionPlaygroundColorProfile.necklacePatternBorderProperty,
+      xMargin: 10
+    }, options ) );
   }
-
-  handlePattern( leftNecklace, Side.LEFT );
-  handlePattern( rightNecklace, Side.RIGHT );
-
-  const alignBox = new AlignBox( patternContent, {
-    yAlign: 'top',
-    alignBounds: maxPatternBounds
-  } );
-
-  const content = new VBox( {
-    spacing: 7,
-    children: [
-      labelNode,
-      alignBox
-    ]
-  } );
-
-  Panel.call( this, content, merge( {
-    cornerRadius: 3,
-    stroke: ProportionPlaygroundColorProfile.necklacePatternBorderProperty,
-    xMargin: 10
-  }, options ) );
 }
 
 proportionPlayground.register( 'PatternPanel', PatternPanel );
-
-inherit( Panel, PatternPanel );
 export default PatternPanel;
