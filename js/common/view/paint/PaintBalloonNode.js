@@ -7,7 +7,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import blackBalloon1Image from '../../../../mipmaps/black-balloon-1_png.js';
@@ -48,50 +47,43 @@ balloonImageMap[ PaintChoice.BLUE.paintId ] = [ blueBalloon1Image, blueBalloon2I
 balloonImageMap[ PaintChoice.RED.paintId ] = [ redBalloon1Image, redBalloon2Image, redBalloon3Image ];
 balloonImageMap[ PaintChoice.WHITE.paintId ] = [ whiteBalloon1Image, whiteBalloon2Image, whiteBalloon3Image ];
 balloonImageMap[ PaintChoice.YELLOW.paintId ] = [ yellowBalloon1Image, yellowBalloon2Image, yellowBalloon3Image ];
-_.each( PaintChoice.COLORS, function( paintColor ) {
-  balloonImageMap[ paintColor.paintId ] = balloonImageMap[ paintColor.paintId ].map( function( imageElement ) {
-    return new Image( imageElement, {
+_.each( PaintChoice.COLORS, paintColor => {
+  balloonImageMap[ paintColor.paintId ] = balloonImageMap[ paintColor.paintId ].map( imageElement => new Image( imageElement, {
       centerX: 0,
       centerY: 0,
       scale: BALLON_IMAGE_SCALE
-    } );
-  } );
+    } ) );
 } );
 
 // {number} Controls how the balloons rotate (from +halfRotation to -halfRotation or the opposite)
 const HALF_ROTATION = Math.PI / 8;
 
-/**
- * @constructor
- * @extends {Node}
- *
- * @param {PaintBalloon} paintBalloon - Our paint balloon
- * @param {Property.<PaintChoice>} paintChoiceProperty - The current paint choice
- * @param {Vector2} startOffset - Offset from the typical starting position
- * @param {Vector2} endOffset - Offset from the typical ending position
- */
-function PaintBalloonNode( paintBalloon, paintChoiceProperty, startOffset, endOffset ) {
-  Node.call( this );
+class PaintBalloonNode extends Node {
+  /**
+   * @param {PaintBalloon} paintBalloon - Our paint balloon
+   * @param {Property.<PaintChoice>} paintChoiceProperty - The current paint choice
+   * @param {Vector2} startOffset - Offset from the typical starting position
+   * @param {Vector2} endOffset - Offset from the typical ending position
+   */
+  constructor( paintBalloon, paintChoiceProperty, startOffset, endOffset ) {
+    super();
 
-  // @public {PaintBalloon}
-  this.paintBalloon = paintBalloon;
+    // @public {PaintBalloon}
+    this.paintBalloon = paintBalloon;
 
-  // @private
-  this.paintChoiceProperty = paintChoiceProperty;
-  this.startOffset = startOffset;
-  this.endOffset = endOffset;
+    // @private
+    this.paintChoiceProperty = paintChoiceProperty;
+    this.startOffset = startOffset;
+    this.endOffset = endOffset;
 
-  // @private {boolean} - Which direction should this balloon rotate?
-  this.rotationDirection = phet.joist.random.nextBoolean() ? -1 : 1;
+    // @private {boolean} - Which direction should this balloon rotate?
+    this.rotationDirection = phet.joist.random.nextBoolean() ? -1 : 1;
 
-  // @private - Stored for disposal
-  this.colorChoiceListener = this.updateBalloonColor.bind( this );
-  this.paintChoiceProperty.link( this.colorChoiceListener );
-}
+    // @private - Stored for disposal
+    this.colorChoiceListener = this.updateBalloonColor.bind( this );
+    this.paintChoiceProperty.link( this.colorChoiceListener );
+  }
 
-proportionPlayground.register( 'PaintBalloonNode', PaintBalloonNode );
-
-inherit( Node, PaintBalloonNode, {
   /**
    * Positions the balloon given its start (off the screen) and end (center of splotch), with a gravity-like arc
    * @public
@@ -99,7 +91,7 @@ inherit( Node, PaintBalloonNode, {
    * @param {Vector2} startPosition
    * @param {Vector2} endPosition
    */
-  position: function( startPosition, endPosition ) {
+  position( startPosition, endPosition ) {
     const ratio = this.paintBalloon.getRatioToEnd();
 
     // rotate from -half to half, possibly reversed
@@ -120,7 +112,7 @@ inherit( Node, PaintBalloonNode, {
     // fake "make the balloon look farther away", from 1/4 distance to full distance
     const distanceRatio = 0.25 + 0.75 * ratio;
     this.setScaleMagnitude( 1 / distanceRatio );
-  },
+  }
 
   /**
    * Updates the balloon's color based on the paintChoice
@@ -128,20 +120,22 @@ inherit( Node, PaintBalloonNode, {
    *
    * @param {PaintChoice} paintChoice
    */
-  updateBalloonColor: function( paintChoice ) {
+  updateBalloonColor( paintChoice ) {
     const colorProperty = paintChoice.getColorProperty( this.paintBalloon.side );
     this.children = [ balloonImageMap[ colorProperty.paintId ][ this.paintBalloon.balloonType ] ];
-  },
+  }
 
   /**
    * Releases references.
    * @public
    * @override
    */
-  dispose: function() {
+  dispose() {
     this.paintChoiceProperty.unlink( this.colorChoiceListener );
-    Node.prototype.dispose.call( this );
+    super.dispose();
   }
-} );
+}
+
+proportionPlayground.register( 'PaintBalloonNode', PaintBalloonNode );
 
 export default PaintBalloonNode;

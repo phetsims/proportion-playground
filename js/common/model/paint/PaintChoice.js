@@ -9,7 +9,6 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Color from '../../../../../scenery/js/util/Color.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundColorProfile from '../../view/ProportionPlaygroundColorProfile.js';
@@ -68,35 +67,32 @@ function stretchRatio( ratio, power ) {
   }
 }
 
-/**
- * @constructor
- * @private
- *
- * @param {Property.<Color>} leftColorProperty
- * @param {Property.<Color>} rightColorProperty
- */
-function PaintChoice( leftColorProperty, rightColorProperty ) {
-  // @public
-  this.leftColorProperty = leftColorProperty;
-  this.rightColorProperty = rightColorProperty;
-}
+class PaintChoice {
+  /**
+   * @private
+   *
+   * @param {Property.<Color>} leftColorProperty
+   * @param {Property.<Color>} rightColorProperty
+   */
+  constructor( leftColorProperty, rightColorProperty ) {
+    // @public
+    this.leftColorProperty = leftColorProperty;
+    this.rightColorProperty = rightColorProperty;
+  }
 
-proportionPlayground.register( 'PaintChoice', PaintChoice );
-
-inherit( Object, PaintChoice, {
   /**
    * @public
    *
    * @param {number} blendAmount - value between 0 (left color) and 1 (right color)
    * @returns {Color}
    */
-  getBlendedColor: function( blendAmount ) {
+  getBlendedColor( blendAmount ) {
     assert && assert( blendAmount >= 0 && blendAmount <= 1, 'Blend amount was out of bounds.' );
 
     return blendSubtractiveRGBGamma( this.leftColorProperty.value,
       this.rightColorProperty.value,
       stretchRatio( blendAmount, 2.0 ) );
-  },
+  }
 
   /**
    * Returns either the left or right color property, depending on what side is requested.
@@ -105,12 +101,27 @@ inherit( Object, PaintChoice, {
    * @param {Side} side
    * @returns {Property.<Color>}
    */
-  getColorProperty: function( side ) {
+  getColorProperty( side ) {
     assert && assert( Side.isSide( side ) );
 
     return side === Side.LEFT ? this.leftColorProperty : this.rightColorProperty;
   }
-} );
+
+  /**
+   * @public
+   *
+   * @param {Property.<PaintChoice>} paintChoiceProperty
+   * @param {Side} side
+   * @returns {Property.<Color>}
+   */
+  static getActiveColorProperty( paintChoiceProperty, side ) {
+    const dependencies = [ paintChoiceProperty ].concat( PaintChoice.CHOICES.map( paintChoice => paintChoice.getColorProperty( side ) ) );
+
+    return new DerivedProperty( _.uniq( dependencies ), () => paintChoiceProperty.value.getColorProperty( side ).value );
+  }
+}
+
+proportionPlayground.register( 'PaintChoice', PaintChoice );
 
 PaintChoice.BLUE = ProportionPlaygroundColorProfile.paintBlueProperty;
 PaintChoice.YELLOW = ProportionPlaygroundColorProfile.paintYellowProperty;
@@ -142,15 +153,5 @@ PaintChoice.COLORS = [
   PaintChoice.BLACK,
   PaintChoice.WHITE
 ];
-
-PaintChoice.getActiveColorProperty = function( paintChoiceProperty, side ) {
-  const dependencies = [ paintChoiceProperty ].concat( PaintChoice.CHOICES.map( function( paintChoice ) {
-    return paintChoice.getColorProperty( side );
-  } ) );
-
-  return new DerivedProperty( _.uniq( dependencies ), function() {
-    return paintChoiceProperty.value.getColorProperty( side ).value;
-  } );
-};
 
 export default PaintChoice;

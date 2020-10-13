@@ -17,11 +17,9 @@ proportionPlayground.register( 'Side', Side );
 
 Side.SIDES = [ Side.LEFT, Side.RIGHT ];
 
-Side.isSide = function( side ) {
-  return _.includes( Side.SIDES, side );
-};
+Side.isSide = side => _.includes( Side.SIDES, side );
 
-Side.opposite = function( side ) {
+Side.opposite = side => {
   assert && assert( Side.isSide( side ) );
 
   return ( side === Side.LEFT ) ? Side.RIGHT : Side.LEFT;

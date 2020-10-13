@@ -6,23 +6,20 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import proportionPlayground from '../../proportionPlayground.js';
 
-/**
- * @constructor
- * @extends {Node}
- *
- * @param {SceneRatio} sceneRatio
- */
-function SceneRatioNode( sceneRatio ) {
-  Node.call( this );
+class SceneRatioNode extends Node {
+  /**
+   * @param {SceneRatio} sceneRatio
+   */
+  constructor( sceneRatio ) {
+    super();
 
-  sceneRatio.visibleProperty.linkAttribute( this, 'visible' );
+    sceneRatio.visibleProperty.linkAttribute( this, 'visible' );
+  }
 }
 
 proportionPlayground.register( 'SceneRatioNode', SceneRatioNode );
 
-inherit( Node, SceneRatioNode );
 export default SceneRatioNode;

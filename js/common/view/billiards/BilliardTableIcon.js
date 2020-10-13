@@ -6,37 +6,34 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
 
-/**
- * @constructor
- * @extends {Node}
- *
- * @param {number} width - the width of the icon
- * @param {number} height - the height of the icon (called length in the model)
- * @param {Object} [options] - node options
- */
-function BilliardTableIcon( width, height, options ) {
-  const inset = width * 0.15;
-  Node.call( this, {
-    children: [
-      new Rectangle( -inset, -inset, width, height, {
-        fill: ProportionPlaygroundColorProfile.billiardsBorderProperty,
-        cornerRadius: inset
-      } ),
-      new Rectangle( 0, 0, width - inset * 2, height - inset * 2, {
-        fill: ProportionPlaygroundColorProfile.billiardsInsideProperty
-      } )
-    ]
-  } );
-  this.mutate( options );
+class BilliardTableIcon extends Node {
+  /**
+   * @param {number} width - the width of the icon
+   * @param {number} height - the height of the icon (called length in the model)
+   * @param {Object} [options] - node options
+   */
+  constructor( width, height, options ) {
+    const inset = width * 0.15;
+    super( {
+      children: [
+        new Rectangle( -inset, -inset, width, height, {
+          fill: ProportionPlaygroundColorProfile.billiardsBorderProperty,
+          cornerRadius: inset
+        } ),
+        new Rectangle( 0, 0, width - inset * 2, height - inset * 2, {
+          fill: ProportionPlaygroundColorProfile.billiardsInsideProperty
+        } )
+      ]
+    } );
+    this.mutate( options );
+  }
 }
 
 proportionPlayground.register( 'BilliardTableIcon', BilliardTableIcon );
 
-inherit( Node, BilliardTableIcon );
 export default BilliardTableIcon;

@@ -12,7 +12,6 @@ import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import createObservableArray from '../../../../../axon/js/createObservableArray.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../../dot/js/Vector2Property.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
@@ -21,69 +20,67 @@ import SceneRatio from '../SceneRatio.js';
 // constants
 const scratchVector = new Vector2( 0, 0 );
 
-/**
- * @constructor
- * @extends {SceneRatio}
- *
- * @param {Object} [options] - See below for available options
- */
-function BilliardsTable( options ) {
+class BilliardsTable extends SceneRatio {
+  /**
+   * @param {Object} [options] - See below for available options
+   */
+  constructor( options ) {
 
-  options = merge( {
-    // {number} Initial length of the billiards table.
-    initialLength: 5,
+    options = merge( {
+      // {number} Initial length of the billiards table.
+      initialLength: 5,
 
-    // {number} Initial width of the billiards table.
-    initialWidth: 5,
+      // {number} Initial width of the billiards table.
+      initialWidth: 5,
 
-    // {Property.<boolean>} - Whether the view should be visible
-    visibleProperty: new BooleanProperty( true ),
+      // {Property.<boolean>} - Whether the view should be visible
+      visibleProperty: new BooleanProperty( true ),
 
-    // {Property.<boolean>} - Whether the controls should be visible
-    controlsVisibleProperty: new BooleanProperty( true )
-  }, options );
+      // {Property.<boolean>} - Whether the controls should be visible
+      controlsVisibleProperty: new BooleanProperty( true )
+    }, options );
 
-  // @public {NumberProperty} - Number of grid units vertically
-  this.lengthProperty = new NumberProperty( options.initialLength );
+    const lengthProperty = new NumberProperty( options.initialLength );
+    const widthProperty = new NumberProperty( options.initialWidth );
 
-  // @public {NumberProperty} - Number of grid units horizontally
-  this.widthProperty = new NumberProperty( options.initialWidth );
+    super( options.visibleProperty, options.controlsVisibleProperty,
+      lengthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
+      widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE );
 
-  // @public {Property.<Vector2>} - The position of the ball in pixels
-  this.ballPositionProperty = new Vector2Property( new Vector2( 0, 0 ) );
+    // @public {NumberProperty} - Number of grid units vertically
+    this.lengthProperty = lengthProperty;
 
-  // @public {Vector2} - The velocity of the ball in pixels per second
-  this.ballVelocity = new Vector2( 0, 0 );
+    // @public {NumberProperty} - Number of grid units horizontally
+    this.widthProperty = widthProperty;
 
-  // Keep track of collision points so the path can be shown as an array of lines.
-  // @public {ObservableArrayDef.<Vector2>} (read-only) - the points where the ball has collided with the walls
-  this.collisionPoints = createObservableArray();
+    // @public {Property.<Vector2>} - The position of the ball in pixels
+    this.ballPositionProperty = new Vector2Property( new Vector2( 0, 0 ) );
 
-  // @public {Emitter} (read-only) - emits when the ball was restarted
-  this.restartEmitter = new Emitter();
+    // @public {Vector2} - The velocity of the ball in pixels per second
+    this.ballVelocity = new Vector2( 0, 0 );
 
-  // @public {boolean} - Whether the table has started animating (so we can continue to animate it in the background)
-  this.hasStartedAnimating = false;
+    // Keep track of collision points so the path can be shown as an array of lines.
+    // @public {ObservableArrayDef.<Vector2>} (read-only) - the points where the ball has collided with the walls
+    this.collisionPoints = createObservableArray();
 
-  this.restartBall(); // Helps initialize in one place
+    // @public {Emitter} (read-only) - emits when the ball was restarted
+    this.restartEmitter = new Emitter();
 
-  SceneRatio.call( this, options.visibleProperty, options.controlsVisibleProperty,
-    this.lengthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
-    this.widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE );
+    // @public {boolean} - Whether the table has started animating (so we can continue to animate it in the background)
+    this.hasStartedAnimating = false;
 
-  // Restart the ball when the length or width changes
-  this.lengthProperty.link( this.restartBall.bind( this ) );
-  this.widthProperty.link( this.restartBall.bind( this ) );
-}
+    this.restartBall(); // Helps initialize in one place
 
-proportionPlayground.register( 'BilliardsTable', BilliardsTable );
+    // Restart the ball when the length or width changes
+    this.lengthProperty.link( this.restartBall.bind( this ) );
+    this.widthProperty.link( this.restartBall.bind( this ) );
+  }
 
-inherit( SceneRatio, BilliardsTable, {
   /**
    * Restart the ball in the correct position and notify observers.
    * @public
    */
-  restartBall: function() {
+  restartBall() {
 
     // For readability
     const length = this.lengthProperty.value;
@@ -101,18 +98,18 @@ inherit( SceneRatio, BilliardsTable, {
     this.restartEmitter.emit();
 
     this.hasStartedAnimating = false;
-  },
+  }
 
   /**
    * Reset the table and restart the ball.
    * @public
    * @override
    */
-  reset: function() {
-    SceneRatio.prototype.reset.call( this );
+  reset() {
+    super.reset();
 
     this.restartBall();
-  },
+  }
 
   /**
    * Moves the ball forward in time, and handles collisions.
@@ -120,7 +117,7 @@ inherit( SceneRatio, BilliardsTable, {
    *
    * @param {number} dt - Time to move forward in seconds
    */
-  step: function( dt ) {
+  step( dt ) {
     // Skip 0 dt, so we can simplify our intersection detection
     if ( dt === 0 ) {
       return;
@@ -199,6 +196,8 @@ inherit( SceneRatio, BilliardsTable, {
     // Since we used a mutable vector for position, copy it over to the Property
     this.ballPositionProperty.value = position.copy();
   }
-} );
+}
+
+proportionPlayground.register( 'BilliardsTable', BilliardsTable );
 
 export default BilliardsTable;

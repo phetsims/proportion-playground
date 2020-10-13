@@ -9,42 +9,40 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import SceneRatio from '../SceneRatio.js';
 import NecklaceLayout from './NecklaceLayout.js';
 
-/**
- * @constructor
- * @extends {SceneRatio}
- *
- * @param {number} initialRoundCount - Initial number of round beads
- * @param {number} initialSquareCount - Initial number of square beads
- * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
- * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
- */
-function Necklace( initialRoundCount, initialSquareCount, visibleProperty, controlsVisibleProperty ) {
-  // @public {NumberProperty} - Quantity of round beads in the necklace
-  this.roundBeadCountProperty = new NumberProperty( initialRoundCount );
+class Necklace extends SceneRatio {
+  /**
+   * @param {number} initialRoundCount - Initial number of round beads
+   * @param {number} initialSquareCount - Initial number of square beads
+   * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
+   * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
+   */
+  constructor( initialRoundCount, initialSquareCount, visibleProperty, controlsVisibleProperty ) {
+    const roundBeadCountProperty = new NumberProperty( initialRoundCount );
+    const squareBeadCountProperty = new NumberProperty( initialSquareCount );
 
-  // @public {NumberProperty} - Quantity of square beads in the necklace
-  this.squareBeadCountProperty = new NumberProperty( initialSquareCount );
+    super( visibleProperty, controlsVisibleProperty,
+      roundBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE,
+      squareBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE );
 
-  // @public {Property.<NecklaceLayout>}
-  this.layoutProperty = new DerivedProperty( [
-      this.roundBeadCountProperty,
-      this.squareBeadCountProperty ],
-    function( roundBeadCount, squareBeadCount ) {
-      return NecklaceLayout.getLayout( roundBeadCount, squareBeadCount );
-    } );
+    // @public {NumberProperty} - Quantity of round beads in the necklace
+    this.roundBeadCountProperty = roundBeadCountProperty;
 
-  SceneRatio.call( this, visibleProperty, controlsVisibleProperty,
-    this.roundBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE,
-    this.squareBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE );
+    // @public {NumberProperty} - Quantity of square beads in the necklace
+    this.squareBeadCountProperty = squareBeadCountProperty;
+
+    // @public {Property.<NecklaceLayout>}
+    this.layoutProperty = new DerivedProperty( [
+        this.roundBeadCountProperty,
+        this.squareBeadCountProperty ],
+      ( roundBeadCount, squareBeadCount ) => NecklaceLayout.getLayout( roundBeadCount, squareBeadCount ) );
+  }
 }
 
 proportionPlayground.register( 'Necklace', Necklace );
 
-inherit( SceneRatio, Necklace );
 export default Necklace;

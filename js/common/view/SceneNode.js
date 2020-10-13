@@ -6,7 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetButton from '../../../../scenery-phet/js/buttons/ResetButton.js';
 import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
@@ -21,82 +20,79 @@ import RevealButton from './RevealButton.js';
 // left and right labels for the switches should all share
 const switchAlignGroup = new AlignGroup();
 
-/**
- * @constructor
- * @extends {Node}
- *
- * @param {Scene} scene - Our scene to display
- * @param {Bounds2} layoutBounds - visible bounds within which the UI must fit
- * @param {Object} config
- */
-function SceneNode( scene, layoutBounds, config ) {
-  config = merge( {
-    sceneIcon: null, // {Node}, @required - shown in the SceneSelectionControls
-    leftControl: null, // {SceneRatioControl}, @required
-    rightControl: null, // {SceneRatioControl}, @required
-    leftSwitchIcon: null, // {Node}, @required - Left side of the showBoth ABSwitch
-    rightSwitchIcon: null, // {Node}, @required - Right side of the showBoth ABSwitch
-    controlAlign: 'right', // 'right' or 'bottom', direction from the pickerContainer
-    canCenterControlButton: true // Whether the control button can be centered when both left/right are shown
-  }, config );
+class SceneNode extends Node {
+  /**
+   * @param {Scene} scene - Our scene to display
+   * @param {Bounds2} layoutBounds - visible bounds within which the UI must fit
+   * @param {Object} config
+   */
+  constructor( scene, layoutBounds, config ) {
+    config = merge( {
+      sceneIcon: null, // {Node}, @required - shown in the SceneSelectionControls
+      leftControl: null, // {SceneRatioControl}, @required
+      rightControl: null, // {SceneRatioControl}, @required
+      leftSwitchIcon: null, // {Node}, @required - Left side of the showBoth ABSwitch
+      rightSwitchIcon: null, // {Node}, @required - Right side of the showBoth ABSwitch
+      controlAlign: 'right', // 'right' or 'bottom', direction from the pickerContainer
+      canCenterControlButton: true // Whether the control button can be centered when both left/right are shown
+    }, config );
 
-  assert && assert( config.sceneIcon );
-  assert && assert( config.leftControl );
-  assert && assert( config.rightControl );
-  assert && assert( config.leftSwitchIcon );
-  assert && assert( config.rightSwitchIcon );
+    assert && assert( config.sceneIcon );
+    assert && assert( config.leftControl );
+    assert && assert( config.rightControl );
+    assert && assert( config.leftSwitchIcon );
+    assert && assert( config.rightSwitchIcon );
 
-  // @protected
-  this.layoutBounds = layoutBounds;
-  this.leftControl = config.leftControl;
-  this.rightControl = config.rightControl;
+    super();
 
-  // @private
-  this.controlAlign = config.controlAlign;
-  this.revealBothOffset = config.revealBothOffset;
-  this.canCenterControlButton = config.canCenterControlButton;
+    // @protected
+    this.layoutBounds = layoutBounds;
+    this.leftControl = config.leftControl;
+    this.rightControl = config.rightControl;
 
-  // @public {Scene} - The main model for this scene
-  this.scene = scene;
+    // @private
+    this.controlAlign = config.controlAlign;
+    this.revealBothOffset = config.revealBothOffset;
+    this.canCenterControlButton = config.canCenterControlButton;
 
-  // @public {Node} - Will be displayed in the scene selection radio group
-  this.sceneIcon = config.sceneIcon;
+    // @public {Scene} - The main model for this scene
+    this.scene = scene;
 
-  Node.call( this, {
-    children: [
-      this.rightControl,
-      this.leftControl
-    ]
-  } );
+    // @public {Node} - Will be displayed in the scene selection radio group
+    this.sceneIcon = config.sceneIcon;
 
-  this.leftSwitchIcon = switchAlignGroup.createBox( config.leftSwitchIcon, { xAlign: 'right' } );
-  this.rightSwitchIcon = switchAlignGroup.createBox( config.rightSwitchIcon, { xAlign: 'left' } );
-
-  // @private {Node} - A button that will either handle revealing the scene's visual representation, or will refresh the scene.
-  this.controlButton = null;
-
-  // For predict mode, add a reveal button that show the representations
-  if ( scene.predictMode ) {
-    this.controlButton = new RevealButton( scene.revealProperty );
-  }
-  // Otherwise, have a 'Refresh' button, see https://github.com/phetsims/proportion-playground/issues/55
-  else {
-    this.controlButton = new MutableOptionsNode( ResetButton, [], {
-      listener: function() {
-        scene.ratios.forEach( function( sceneRatio ) {
-          sceneRatio.reset();
-        } );
-      }
-    }, {
-      baseColor: ProportionPlaygroundColorProfile.refreshBackgroundProperty
+    this.mutate( {
+      children: [
+        this.rightControl,
+        this.leftControl
+      ]
     } );
+
+    this.leftSwitchIcon = switchAlignGroup.createBox( config.leftSwitchIcon, { xAlign: 'right' } );
+    this.rightSwitchIcon = switchAlignGroup.createBox( config.rightSwitchIcon, { xAlign: 'left' } );
+
+    // @private {Node} - A button that will either handle revealing the scene's visual representation, or will refresh the scene.
+    this.controlButton = null;
+
+    // For predict mode, add a reveal button that show the representations
+    if ( scene.predictMode ) {
+      this.controlButton = new RevealButton( scene.revealProperty );
+    }
+    // Otherwise, have a 'Refresh' button, see https://github.com/phetsims/proportion-playground/issues/55
+    else {
+      this.controlButton = new MutableOptionsNode( ResetButton, [], {
+        listener: () => {
+          scene.ratios.forEach( sceneRatio => {
+            sceneRatio.reset();
+          } );
+        }
+      }, {
+        baseColor: ProportionPlaygroundColorProfile.refreshBackgroundProperty
+      } );
+    }
+    this.addChild( this.controlButton );
   }
-  this.addChild( this.controlButton );
-}
 
-proportionPlayground.register( 'SceneNode', SceneNode );
-
-inherit( Node, SceneNode, {
   /**
    * Steps forward in time.
    * @public
@@ -104,10 +100,10 @@ inherit( Node, SceneNode, {
    * @param {number} dt - In seconds
    * @param {Bounds2} visibleBounds
    */
-  step: function( dt, visibleBounds ) {
+  step( dt, visibleBounds ) {
     this.leftControl.step && this.leftControl.step( dt, visibleBounds );
     this.rightControl.step && this.rightControl.step( dt, visibleBounds );
-  },
+  }
 
   /**
    * Adds the "showBoth" ABSwitch.
@@ -116,19 +112,19 @@ inherit( Node, SceneNode, {
    * We have to do this later, since we need all of the scenes' switchIcons to be created/sized first. When ABSwitch
    * can handle resizing content, we can inline this.
    */
-  addShowBothSwitch: function() {
+  addShowBothSwitch() {
     this.addChild( new ABSwitch( this.scene.showBothProperty,
       false, this.leftSwitchIcon,
       true, this.rightSwitchIcon, {
         centerBottom: this.layoutBounds.centerBottom.plusXY( 0, -15 )
       } ) );
-  },
+  }
 
   /**
    * Moves the reveal button to the desired position.
    * @protected
    */
-  updateControlButton: function() {
+  updateControlButton() {
     // Only does something if we have a button
     if ( !this.controlButton ) { return; }
 
@@ -154,6 +150,8 @@ inherit( Node, SceneNode, {
       this.controlButton.centerY = this.layoutBounds.bottom - 100;
     }
   }
-} );
+}
+
+proportionPlayground.register( 'SceneNode', SceneNode );
 
 export default SceneNode;

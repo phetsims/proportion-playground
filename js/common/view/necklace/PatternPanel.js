@@ -16,9 +16,9 @@ import VBox from '../../../../../scenery/js/nodes/VBox.js';
 import Panel from '../../../../../sun/js/Panel.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
-import Necklace from '../../model/necklace/Necklace.js';
-import Side from '../../model/Side.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
+import Side from '../../model/Side.js';
+import Necklace from '../../model/necklace/Necklace.js';
 import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
 import PatternNode from './PatternNode.js';
 
@@ -49,7 +49,7 @@ class PatternPanel extends Panel {
         x: side === Side.RIGHT ? 30 : 0
       } );
       let added = false;
-      necklace.visibleProperty.link( function( visible ) { // No problem to leak, this is done twice
+      necklace.visibleProperty.link( visible => { // No problem to leak, this is done twice
         if ( added && !visible ) {
           patternContent.removeChild( patternNode );
           added = false;

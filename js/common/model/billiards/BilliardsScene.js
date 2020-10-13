@@ -6,36 +6,30 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import Scene from '../Scene.js';
 import BilliardsTable from './BilliardsTable.js';
 
-/**
- * @constructor
- * @extends {Scene}
- *
- * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
- */
-function BilliardsScene( predictMode ) {
-  Scene.call( this, predictMode );
+class BilliardsScene extends Scene {
+  /**
+   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   */
+  constructor( predictMode ) {
+    super( predictMode );
 
-  // @public
-  this.leftTable = new BilliardsTable( {
-    visibleProperty: this.leftVisibleProperty,
-    controlsVisibleProperty: this.leftControlsVisibleProperty
-  } );
-  this.rightTable = new BilliardsTable( {
-    visibleProperty: this.rightVisibleProperty,
-    controlsVisibleProperty: this.rightControlsVisibleProperty
-  } );
+    // @public
+    this.leftTable = new BilliardsTable( {
+      visibleProperty: this.leftVisibleProperty,
+      controlsVisibleProperty: this.leftControlsVisibleProperty
+    } );
+    this.rightTable = new BilliardsTable( {
+      visibleProperty: this.rightVisibleProperty,
+      controlsVisibleProperty: this.rightControlsVisibleProperty
+    } );
 
-  this.initializeRatios( this.leftTable, this.rightTable );
-}
+    this.initializeRatios( this.leftTable, this.rightTable );
+  }
 
-proportionPlayground.register( 'BilliardsScene', BilliardsScene );
-
-inherit( Scene, BilliardsScene, {
   /**
    * Moves the balls which have been revealed.
    * @public
@@ -43,7 +37,7 @@ inherit( Scene, BilliardsScene, {
    *
    * @param {number} dt
    */
-  step: function( dt ) {
+  step( dt ) {
     Scene.prototype.step.call( dt );
 
     if ( this.revealProperty.value ) {
@@ -53,6 +47,8 @@ inherit( Scene, BilliardsScene, {
       }
     }
   }
-} );
+}
+
+proportionPlayground.register( 'BilliardsScene', BilliardsScene );
 
 export default BilliardsScene;

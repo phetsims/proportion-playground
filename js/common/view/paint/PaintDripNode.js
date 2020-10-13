@@ -7,7 +7,6 @@
  */
 
 import Shape from '../../../../../kite/js/Shape.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import proportionPlayground from '../../../proportionPlayground.js';
@@ -35,39 +34,34 @@ const dropletShape = new Shape().ellipticalArc( 0, 0, xRadius, yRadius, 0, Math.
   .cubicCurveTo( cp2x, yTail, cp1x, yRadius, 0, yRadius )
   .close().makeImmutable();
 
-/**
- * @constructor
- * @extends {Node}
- *
- * @param {PaintDrip} paintDrip - Our paint drip
- * @param {Property.<PaintChoice>} paintChoiceProperty - The current paint choice
- */
-function PaintDripNode( paintDrip, paintChoiceProperty ) {
-  Node.call( this );
+class PaintDripNode extends Node {
+  /**
+   * @param {PaintDrip} paintDrip - Our paint drip
+   * @param {Property.<PaintChoice>} paintChoiceProperty - The current paint choice
+   */
+  constructor( paintDrip, paintChoiceProperty ) {
+    super();
 
-  // @public {PaintDrip}
-  this.paintDrip = paintDrip;
+    // @public {PaintDrip}
+    this.paintDrip = paintDrip;
 
-  // @private {Property.<PaintChoice>}
-  this.paintChoiceProperty = paintChoiceProperty;
+    // @private {Property.<PaintChoice>}
+    this.paintChoiceProperty = paintChoiceProperty;
 
-  // @private {Property.<Color>} - We'll need to dispose of this properly
-  this.fillColorProperty = PaintChoice.getActiveColorProperty( paintChoiceProperty, paintDrip.side );
+    // @private {Property.<Color>} - We'll need to dispose of this properly
+    this.fillColorProperty = PaintChoice.getActiveColorProperty( paintChoiceProperty, paintDrip.side );
 
-  // @private {Path}
-  this.path = new Path( dropletShape, {
-    scale: Math.sqrt( SPLOTCH_AREA / SHAPE_AREA ),
-    rotation: -Math.PI / 2,
-    stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
-    lineWidth: 0.6,
-    fill: this.fillColorProperty
-  } );
-  this.addChild( this.path );
-}
+    // @private {Path}
+    this.path = new Path( dropletShape, {
+      scale: Math.sqrt( SPLOTCH_AREA / SHAPE_AREA ),
+      rotation: -Math.PI / 2,
+      stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
+      lineWidth: 0.6,
+      fill: this.fillColorProperty
+    } );
+    this.addChild( this.path );
+  }
 
-proportionPlayground.register( 'PaintDripNode', PaintDripNode );
-
-inherit( Node, PaintDripNode, {
   /**
    * Positions the paint drip, given the splotchCenter and the bottom of the screen
    * (so that if the drip goes off the bottom, we can remove it and stop tracking it).
@@ -76,7 +70,7 @@ inherit( Node, PaintDripNode, {
    * @param {Vector2} splotchCenter
    * @param {number} bottomCutoffY - Y value of the bottom of the layout area, so if we are below it wouldn't be visible
    */
-  position: function( splotchCenter, bottomCutoffY ) {
+  position( splotchCenter, bottomCutoffY ) {
     // horizontally, just center under the splotch
     this.centerX = splotchCenter.x;
 
@@ -96,19 +90,21 @@ inherit( Node, PaintDripNode, {
     if ( this.top > bottomCutoffY ) {
       this.paintDrip.remove();
     }
-  },
+  }
 
   /**
    * Releases references.
    * @public
    * @override
    */
-  dispose: function() {
+  dispose() {
     this.path.fill = null; // We need to release the listener to the color property first (for now).
     this.fillColorProperty.dispose();
 
-    Node.prototype.dispose.call( this );
+    super.dispose();
   }
-} );
+}
+
+proportionPlayground.register( 'PaintDripNode', PaintDripNode );
 
 export default PaintDripNode;

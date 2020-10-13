@@ -7,49 +7,44 @@
  */
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 
-/**
- * @constructor
- *
- * @param {number} initialCount - Initial quantity of the paint
- * @param {function} createBalloon - function( callbackWhenHits() )
- * @param {function} createDrip - function( amountToRemove: number, dripCallback( amount ) )
- */
-function PaintQuantity( initialCount, createBalloon, createDrip ) {
-  // @private
-  this.createBalloon = createBalloon;
-  this.createDrip = createDrip;
+class PaintQuantity {
+  /**
+   * @param {number} initialCount - Initial quantity of the paint
+   * @param {function} createBalloon - function( callbackWhenHits() )
+   * @param {function} createDrip - function( amountToRemove: number, dripCallback( amount ) )
+   */
+  constructor( initialCount, createBalloon, createDrip ) {
+    // @private
+    this.createBalloon = createBalloon;
+    this.createDrip = createDrip;
 
-  // @public {NumberProperty} - The real model value (ignoring balloons, drips, etc.), changes instantly on toggles.
-  this.realCountProperty = new NumberProperty( initialCount );
+    // @public {NumberProperty} - The real model value (ignoring balloons, drips, etc.), changes instantly on toggles.
+    this.realCountProperty = new NumberProperty( initialCount );
 
-  // @public {NumberProperty} - The model value that increases instantly when balloons hit. Can go negative.
-  this.currentCountProperty = new NumberProperty( initialCount );
+    // @public {NumberProperty} - The model value that increases instantly when balloons hit. Can go negative.
+    this.currentCountProperty = new NumberProperty( initialCount );
 
-  // @public {NumberProperty} - The visual amount of paint for the meter and splotch.
-  this.paintAreaProperty = new NumberProperty( initialCount );
+    // @public {NumberProperty} - The visual amount of paint for the meter and splotch.
+    this.paintAreaProperty = new NumberProperty( initialCount );
 
-  // @private {NumberProperty} - Pending drips that will occur when a balloon hit happens.
-  this.pendingDripsProperty = new NumberProperty( 0 );
+    // @private {NumberProperty} - Pending drips that will occur when a balloon hit happens.
+    this.pendingDripsProperty = new NumberProperty( 0 );
 
-  this.realCountProperty.lazyLink( this.realCountChange.bind( this ) );
-}
+    this.realCountProperty.lazyLink( this.realCountChange.bind( this ) );
+  }
 
-proportionPlayground.register( 'PaintQuantity', PaintQuantity );
-
-inherit( Object, PaintQuantity, {
   /**
    * Resets the amount of paint.
    * @public
    */
-  reset: function() {
+  reset() {
     this.realCountProperty.reset();
     this.currentCountProperty.reset();
     this.paintAreaProperty.reset();
     this.pendingDripsProperty.reset();
-  },
+  }
 
   /**
    * Called when the real amount of paint changes. This either kicks off a balloon being thrown (increase), or queues
@@ -59,7 +54,7 @@ inherit( Object, PaintQuantity, {
    * @param {number} newCount
    * @param {number} oldCount
    */
-  realCountChange: function( newCount, oldCount ) {
+  realCountChange( newCount, oldCount ) {
     const delta = Math.abs( newCount - oldCount );
     if ( newCount > oldCount ) {
       this.createBalloon( this.addCurrent.bind( this, delta ) );
@@ -67,7 +62,7 @@ inherit( Object, PaintQuantity, {
     else {
       this.removeCurrent( delta );
     }
-  },
+  }
 
   /**
    * Removes a certain amount of paint area.
@@ -75,11 +70,11 @@ inherit( Object, PaintQuantity, {
    *
    * @param {number} amount - Amount to remove
    */
-  removeArea: function( amount ) {
+  removeArea( amount ) {
     assert && assert( typeof amount === 'number' && isFinite( amount ) && amount >= 0 );
 
     this.paintAreaProperty.value -= amount;
-  },
+  }
 
   /**
    * Callback for when a balloon hits that adds a certain count to the current count.
@@ -87,7 +82,7 @@ inherit( Object, PaintQuantity, {
    *
    * @param {number} count
    */
-  addCurrent: function( count ) {
+  addCurrent( count ) {
     assert && assert( typeof count === 'number' && isFinite( count ) && count > 0 );
 
     const amountToDrip = Math.min( count, this.pendingDripsProperty.value );
@@ -98,7 +93,7 @@ inherit( Object, PaintQuantity, {
     if ( amountToDrip ) {
       this.createDrip( amountToDrip, this.removeArea.bind( this ) );
     }
-  },
+  }
 
   /**
    * Called when an amount of paint is removed (immediately), so we can potentially create drips.
@@ -106,7 +101,7 @@ inherit( Object, PaintQuantity, {
    *
    * @param {number} count
    */
-  removeCurrent: function( count ) {
+  removeCurrent( count ) {
     assert && assert( typeof count === 'number' && isFinite( count ) && count >= 0 );
 
     const amountToDrip = Math.min( count, this.currentCountProperty.value );
@@ -117,6 +112,8 @@ inherit( Object, PaintQuantity, {
       this.createDrip( amountToDrip, this.removeArea.bind( this ) );
     }
   }
-} );
+}
+
+proportionPlayground.register( 'PaintQuantity', PaintQuantity );
 
 export default PaintQuantity;

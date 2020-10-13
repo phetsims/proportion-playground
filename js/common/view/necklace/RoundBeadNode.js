@@ -7,7 +7,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import ShadedSphereNode from '../../../../../scenery-phet/js/ShadedSphereNode.js';
 import Circle from '../../../../../scenery/js/nodes/Circle.js';
@@ -45,17 +44,15 @@ const containerNode = new Node( {
   center: Vector2.ZERO
 } );
 
-/**
- * @constructor
- * @extends {Node}
- *
- * @param {Object} [options] - node options
- */
-function RoundBeadNode( options ) {
-  Node.call( this, merge( { children: [ containerNode ] }, options ) );
+class RoundBeadNode extends Node {
+  /**
+   * @param {Object} [options] - node options
+   */
+  constructor( options ) {
+    super( merge( { children: [ containerNode ] }, options ) );
+  }
 }
 
 proportionPlayground.register( 'RoundBeadNode', RoundBeadNode );
 
-inherit( Node, RoundBeadNode );
 export default RoundBeadNode;

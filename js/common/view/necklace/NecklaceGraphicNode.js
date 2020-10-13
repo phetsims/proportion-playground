@@ -10,7 +10,6 @@
 
 import Property from '../../../../../axon/js/Property.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import proportionPlayground from '../../../proportionPlayground.js';
@@ -19,53 +18,48 @@ import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfil
 import RoundBeadNode from './RoundBeadNode.js';
 import SquareBeadNode from './SquareBeadNode.js';
 
-/**
- * @constructor
- * @extends {Node}
- *
- * @param {Property.<NecklaceLayout>} layoutProperty
- * @param {Object} [options] - node options
- */
-function NecklaceGraphicNode( layoutProperty, options ) {
-  Node.call( this );
+class NecklaceGraphicNode extends Node {
+  /**
+   * @param {Property.<NecklaceLayout>} layoutProperty
+   * @param {Object} [options] - node options
+   */
+  constructor( layoutProperty, options ) {
+    super();
 
-  // @private {Node} - Holds all of the content, so that a translation can be applied to everything (that isn't part
-  // of our top-level Node's transform).
-  this.container = new Node();
-  this.addChild( this.container );
+    // @private {Node} - Holds all of the content, so that a translation can be applied to everything (that isn't part
+    // of our top-level Node's transform).
+    this.container = new Node();
+    this.addChild( this.container );
 
-  // @private {Path} - The chain/string behind the beads
-  this.chain = new Path( null, {
-    stroke: ProportionPlaygroundColorProfile.necklaceStringProperty,
-    lineWidth: 2
-  } );
-  this.container.addChild( this.chain );
+    // @private {Path} - The chain/string behind the beads
+    this.chain = new Path( null, {
+      stroke: ProportionPlaygroundColorProfile.necklaceStringProperty,
+      lineWidth: 2
+    } );
+    this.container.addChild( this.chain );
 
-  // @private {Node} - Holds all of the beads
-  this.beadContainer = new Node();
-  this.container.addChild( this.beadContainer );
+    // @private {Node} - Holds all of the beads
+    this.beadContainer = new Node();
+    this.container.addChild( this.beadContainer );
 
-  // @private {Array.<RoundBeadNode>} - Always grows to lazily create, and sets unused ones invisible.
-  this.roundBeads = [];
+    // @private {Array.<RoundBeadNode>} - Always grows to lazily create, and sets unused ones invisible.
+    this.roundBeads = [];
 
-  // @private {Array.<SquareBeadNode>} - Always grows to lazily create, and sets unused ones invisible.
-  this.squareBeads = [];
+    // @private {Array.<SquareBeadNode>} - Always grows to lazily create, and sets unused ones invisible.
+    this.squareBeads = [];
 
-  layoutProperty.link( this.setLayout.bind( this ) );
+    layoutProperty.link( this.setLayout.bind( this ) );
 
-  this.mutate( options );
-}
+    this.mutate( options );
+  }
 
-proportionPlayground.register( 'NecklaceGraphicNode', NecklaceGraphicNode );
-
-inherit( Node, NecklaceGraphicNode, {
   /**
    * Rebuilds the necklace display to show the given layout.
    * @public
    *
    * @param {NecklaceLayout} layout
    */
-  setLayout: function( layout ) {
+  setLayout( layout ) {
     const roundBeadCount = layout.roundBeadCount;
     const squareBeadCount = layout.squareBeadCount;
 
@@ -116,7 +110,7 @@ inherit( Node, NecklaceGraphicNode, {
       this.squareBeads[ i ].setBeadRotation( layout.squareBeads[ i ].angle );
     }
   }
-}, {
+
   /**
    * Creates a static Necklace graphic.
    * @public
@@ -125,9 +119,11 @@ inherit( Node, NecklaceGraphicNode, {
    * @param {number} squareBeadCount
    * @param {Object} [options] - node options
    */
-  createStaticNecklace: function( roundBeadCount, squareBeadCount, options ) {
+  static createStaticNecklace( roundBeadCount, squareBeadCount, options ) {
     return new NecklaceGraphicNode( new Property( NecklaceLayout.getLayout( roundBeadCount, squareBeadCount ) ), options );
   }
-} );
+}
+
+proportionPlayground.register( 'NecklaceGraphicNode', NecklaceGraphicNode );
 
 export default NecklaceGraphicNode;

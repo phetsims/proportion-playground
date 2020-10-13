@@ -13,7 +13,6 @@ import Random from '../../../../../dot/js/Random.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import RoundBead from './RoundBead.js';
@@ -88,262 +87,201 @@ function getRepulsionPoints( roundBeadCount, squareBeadCount ) {
 // NecklaceLayout.getLayout().
 const layoutMap = {};
 
-/**
- * @constructor
- *
- * @param {number} roundBeadCount - Number of round beads in the necklace
- * @param {number} squareBeadCount - Number of square beads in the necklace
- */
-function NecklaceLayout( roundBeadCount, squareBeadCount ) {
+class NecklaceLayout {
+  /**
+   * @param {number} roundBeadCount - Number of round beads in the necklace
+   * @param {number} squareBeadCount - Number of square beads in the necklace
+   */
+  constructor( roundBeadCount, squareBeadCount ) {
 
-  // @public {number} - Number of round beads in the necklace
-  this.roundBeadCount = roundBeadCount;
+    // @public {number} - Number of round beads in the necklace
+    this.roundBeadCount = roundBeadCount;
 
-  // @public {number} - Number of square beads in the necklace
-  this.squareBeadCount = squareBeadCount;
+    // @public {number} - Number of square beads in the necklace
+    this.squareBeadCount = squareBeadCount;
 
-  // @public {Shape} - Shape of the chain/string behind the beads
-  this.shape = new Shape();
+    // @public {Shape} - Shape of the chain/string behind the beads
+    this.shape = new Shape();
 
-  // @public {Array.<RoundBead>} - All round beads in the necklace
-  this.roundBeads = [];
+    // @public {Array.<RoundBead>} - All round beads in the necklace
+    this.roundBeads = [];
 
-  // @public {Array.<SquareBead>} - All square beads in the necklace
-  this.squareBeads = [];
+    // @public {Array.<SquareBead>} - All square beads in the necklace
+    this.squareBeads = [];
 
-  // @public {Vector2} - Global translation that should be applied to the shape/beads in order to look approximately
-  // centered when in the view (heuristic to avoid expensive operations on older code).
-  this.containerTranslation = Vector2.ZERO;
+    // @public {Vector2} - Global translation that should be applied to the shape/beads in order to look approximately
+    // centered when in the view (heuristic to avoid expensive operations on older code).
+    this.containerTranslation = Vector2.ZERO;
 
-  if ( roundBeadCount === 1 && squareBeadCount === 0 ) {
-    this.shape = NecklaceLayout.ONE_ROUND_BEAD_SHAPE;
-    this.roundBeads.push( new RoundBead( Vector2.ZERO ) );
-    this.containerTranslation = new Vector2( 1.3514828985498655, 12.636803053853306 );
-  }
-  else if ( roundBeadCount === 2 && squareBeadCount === 0 ) {
-    this.shape = NecklaceLayout.TWO_ROUND_BEADS_SHAPE;
-    this.roundBeads.push( new RoundBead( Vector2.ZERO ) );
-    this.roundBeads.push( new RoundBead( new Vector2( TWO_BEAD_OFFSET * 2, 0 ) ) );
-    this.containerTranslation = new Vector2( -11, 12.991498868074157 );
-  }
-  else if ( roundBeadCount === 1 && squareBeadCount === 1 ) {
-    this.shape = NecklaceLayout.TWO_MIXED_BEADS_SHAPE;
-    this.roundBeads.push( new RoundBead( Vector2.ZERO ) );
-    this.squareBeads.push( new SquareBead( new Vector2( TWO_BEAD_OFFSET * 2, 0 ), 0 ) );
-    this.containerTranslation = new Vector2( -11, 15.785 );
-  }
-  else if ( roundBeadCount === 0 && squareBeadCount === 1 ) {
-    this.shape = NecklaceLayout.ONE_SQUARE_BEAD_SHAPE;
-    this.squareBeads.push( new SquareBead( Vector2.ZERO, 0 ) );
-    this.containerTranslation = new Vector2( 0.2394730404209664, 10.390542501611892 );
-  }
-  else if ( roundBeadCount === 0 && squareBeadCount === 2 ) {
-    this.shape = NecklaceLayout.TWO_SQUARE_BEADS_SHAPE;
-    this.squareBeads.push( new SquareBead( Vector2.ZERO, 0 ) );
-    this.squareBeads.push( new SquareBead( new Vector2( TWO_BEAD_OFFSET * 2, 0 ), 0 ) );
-    this.containerTranslation = new Vector2( -10.753124040624703, 10.534079717389499 );
-  }
-  else {
-    const numBeads = roundBeadCount + squareBeadCount;
-
-    // Number of vertices is one more than number of beads to account for a gap.
-    const numVertices = numBeads + 1;
-    const angelBetweenVertices = Math.PI * 2 / numVertices;
-
-    // empirical, larger spacing with only 3 beads
-    const sideLength = ( numBeads === 3 ? 1.94 : 1.28 ) * BEAD_DIAMETER;
-
-    // circumradius of the polygon, used to find polar coordinates for the vertices
-    let R = 1 / 2 * sideLength / Math.sin( Math.PI / numVertices );
-
-    // make beads closer together as there are more of them
-    if ( numVertices <= 20 ) {
-      R *= Utils.linear( 3, ProportionPlaygroundConstants.BEAD_COUNT_RANGE.max, 1.5, 1, numVertices );
+    if ( roundBeadCount === 1 && squareBeadCount === 0 ) {
+      this.shape = NecklaceLayout.ONE_ROUND_BEAD_SHAPE;
+      this.roundBeads.push( new RoundBead( Vector2.ZERO ) );
+      this.containerTranslation = new Vector2( 1.3514828985498655, 12.636803053853306 );
     }
+    else if ( roundBeadCount === 2 && squareBeadCount === 0 ) {
+      this.shape = NecklaceLayout.TWO_ROUND_BEADS_SHAPE;
+      this.roundBeads.push( new RoundBead( Vector2.ZERO ) );
+      this.roundBeads.push( new RoundBead( new Vector2( TWO_BEAD_OFFSET * 2, 0 ) ) );
+      this.containerTranslation = new Vector2( -11, 12.991498868074157 );
+    }
+    else if ( roundBeadCount === 1 && squareBeadCount === 1 ) {
+      this.shape = NecklaceLayout.TWO_MIXED_BEADS_SHAPE;
+      this.roundBeads.push( new RoundBead( Vector2.ZERO ) );
+      this.squareBeads.push( new SquareBead( new Vector2( TWO_BEAD_OFFSET * 2, 0 ), 0 ) );
+      this.containerTranslation = new Vector2( -11, 15.785 );
+    }
+    else if ( roundBeadCount === 0 && squareBeadCount === 1 ) {
+      this.shape = NecklaceLayout.ONE_SQUARE_BEAD_SHAPE;
+      this.squareBeads.push( new SquareBead( Vector2.ZERO, 0 ) );
+      this.containerTranslation = new Vector2( 0.2394730404209664, 10.390542501611892 );
+    }
+    else if ( roundBeadCount === 0 && squareBeadCount === 2 ) {
+      this.shape = NecklaceLayout.TWO_SQUARE_BEADS_SHAPE;
+      this.squareBeads.push( new SquareBead( Vector2.ZERO, 0 ) );
+      this.squareBeads.push( new SquareBead( new Vector2( TWO_BEAD_OFFSET * 2, 0 ), 0 ) );
+      this.containerTranslation = new Vector2( -10.753124040624703, 10.534079717389499 );
+    }
+    else {
+      const numBeads = roundBeadCount + squareBeadCount;
 
-    // Use repulsion of random points to make the shape look more natural.
-    // apothem of the polygon, see http://www.mathopenref.com/apothem.html
-    const apothem = R * Math.cos( Math.PI / numVertices );
+      // Number of vertices is one more than number of beads to account for a gap.
+      const numVertices = numBeads + 1;
+      const angelBetweenVertices = Math.PI * 2 / numVertices;
 
-    // Scale up the repulsion points to our size
-    const repulsionPoints = getRepulsionPoints( roundBeadCount, squareBeadCount ).map( function( point ) {
-      return point.timesScalar( apothem );
-    } );
+      // empirical, larger spacing with only 3 beads
+      const sideLength = ( numBeads === 3 ? 1.94 : 1.28 ) * BEAD_DIAMETER;
 
-    // loop through vertices and change according to repulsion points
-    const vertices = [];
-    for ( var i = 0; i < numVertices; i++ ) {
-      var angle = ( i + 0.5 ) * angelBetweenVertices - Math.PI / 2;
-      const perfectVertex = Vector2.createPolar( R, angle );
-      let newRadius = R;
+      // circumradius of the polygon, used to find polar coordinates for the vertices
+      let R = 1 / 2 * sideLength / Math.sin( Math.PI / numVertices );
 
-      if ( roundBeadCount > 0 && squareBeadCount > 0 ) {
-        // loop through repulsion points and change the vertex
-        for ( let g = 0; g < repulsionPoints.length; g++ ) {
-          const difference = repulsionPoints[ g ].distance( perfectVertex );
-          const amount = Math.pow( ( apothem - difference ), 2 );
-          const change = amount / R;
-          newRadius += change;
+      // make beads closer together as there are more of them
+      if ( numVertices <= 20 ) {
+        R *= Utils.linear( 3, ProportionPlaygroundConstants.BEAD_COUNT_RANGE.max, 1.5, 1, numVertices );
+      }
+
+      // Use repulsion of random points to make the shape look more natural.
+      // apothem of the polygon, see http://www.mathopenref.com/apothem.html
+      const apothem = R * Math.cos( Math.PI / numVertices );
+
+      // Scale up the repulsion points to our size
+      const repulsionPoints = getRepulsionPoints( roundBeadCount, squareBeadCount ).map( point => point.timesScalar( apothem ) );
+
+      // loop through vertices and change according to repulsion points
+      const vertices = [];
+      for ( var i = 0; i < numVertices; i++ ) {
+        var angle = ( i + 0.5 ) * angelBetweenVertices - Math.PI / 2;
+        const perfectVertex = Vector2.createPolar( R, angle );
+        let newRadius = R;
+
+        if ( roundBeadCount > 0 && squareBeadCount > 0 ) {
+          // loop through repulsion points and change the vertex
+          for ( let g = 0; g < repulsionPoints.length; g++ ) {
+            const difference = repulsionPoints[ g ].distance( perfectVertex );
+            const amount = Math.pow( ( apothem - difference ), 2 );
+            const change = amount / R;
+            newRadius += change;
+          }
+        }
+
+        const vertex = Vector2.createPolar( newRadius, angle );
+        vertices.push( vertex );
+      }
+
+      // Set up pairs of vertices - between each pair of vertices will be a bead
+      const pairs = [];
+      for ( i = 0; i < vertices.length - 1; i++ ) {
+        pairs.push( { start: vertices[ i ], end: vertices[ i + 1 ] } );
+      }
+      // join last->first
+      if ( vertices.length > 0 ) {
+        pairs.push( { start: vertices[ vertices.length - 1 ], end: vertices[ 0 ] } );
+      }
+
+      const gcd = Utils.gcd( roundBeadCount, squareBeadCount );
+      const types = _.flatten( _.range( 0, gcd ).map( () => _.times( squareBeadCount / gcd, () => 'square' ).concat(
+          _.times( roundBeadCount / gcd, () => 'round' ) ) ) );
+
+      // Between each pair of vertices, we must put a bead in the center
+      const centers = [];
+      for ( i = 0; i < pairs.length; i++ ) {
+        const pair = pairs[ i ];
+        var center = pair.start.blend( pair.end, 0.5 );
+        centers.push( center );
+      }
+
+      // Find the shortest distance between any two centers
+      let minSideLength = centers[ centers.length - 1 ].distance( centers[ 0 ] );
+      for ( i = 0; i < centers.length - 1; i++ ) {
+        const newLength = centers[ i ].distance( centers[ i + 1 ] );
+        if ( newLength < minSideLength ) {
+          minSideLength = newLength;
         }
       }
 
-      const vertex = Vector2.createPolar( newRadius, angle );
-      vertices.push( vertex );
-    }
+      // Resize necklace to be smaller so beads are closer together
+      const radiusScale = BEAD_DIAMETER / minSideLength;
 
-    // Set up pairs of vertices - between each pair of vertices will be a bead
-    const pairs = [];
-    for ( i = 0; i < vertices.length - 1; i++ ) {
-      pairs.push( { start: vertices[ i ], end: vertices[ i + 1 ] } );
-    }
-    // join last->first
-    if ( vertices.length > 0 ) {
-      pairs.push( { start: vertices[ vertices.length - 1 ], end: vertices[ 0 ] } );
-    }
+      for ( i = 0; i < centers.length; i++ ) {
+        const oldCenter = centers[ i ];
 
-    const gcd = Utils.gcd( roundBeadCount, squareBeadCount );
-    const types = _.flatten( _.range( 0, gcd ).map( function() {
-      return _.times( squareBeadCount / gcd, function() { return 'square'; } ).concat(
-        _.times( roundBeadCount / gcd, function() { return 'round'; } ) );
-    } ) );
-
-    // Between each pair of vertices, we must put a bead in the center
-    const centers = [];
-    for ( i = 0; i < pairs.length; i++ ) {
-      const pair = pairs[ i ];
-      var center = pair.start.blend( pair.end, 0.5 );
-      centers.push( center );
-    }
-
-    // Find the shortest distance between any two centers
-    let minSideLength = centers[ centers.length - 1 ].distance( centers[ 0 ] );
-    for ( i = 0; i < centers.length - 1; i++ ) {
-      const newLength = centers[ i ].distance( centers[ i + 1 ] );
-      if ( newLength < minSideLength ) {
-        minSideLength = newLength;
+        // Add 5 to the radius to give some more space between beads
+        const extraSpace = 0.28 * BEAD_DIAMETER;
+        centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude + extraSpace, oldCenter.angle );
       }
-    }
 
-    // Resize necklace to be smaller so beads are closer together
-    const radiusScale = BEAD_DIAMETER / minSideLength;
+      // Instantiate the beads between each vertex
+      for ( i = 0; i < centers.length; i++ ) {
+        center = centers[ i ];
+        angle = pairs[ i ].end.minus( pairs[ i ].start ).angle;
 
-    for ( i = 0; i < centers.length; i++ ) {
-      const oldCenter = centers[ i ];
-
-      // Add 5 to the radius to give some more space between beads
-      const extraSpace = 0.28 * BEAD_DIAMETER;
-      centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude + extraSpace, oldCenter.angle );
-    }
-
-    // Instantiate the beads between each vertex
-    for ( i = 0; i < centers.length; i++ ) {
-      center = centers[ i ];
-      angle = pairs[ i ].end.minus( pairs[ i ].start ).angle;
-
-      // Add a bead if it is not the last pair
-      if ( i !== centers.length - 1 ) {
-        if ( types[ i ] === 'round' ) {
-          this.roundBeads.push( new RoundBead( center ) );
+        // Add a bead if it is not the last pair
+        if ( i !== centers.length - 1 ) {
+          if ( types[ i ] === 'round' ) {
+            this.roundBeads.push( new RoundBead( center ) );
+          }
+          else {
+            this.squareBeads.push( new SquareBead( center, angle ) );
+          }
         }
+
+        // If it is the last pair, move center further away for a curved gap.
         else {
-          this.squareBeads.push( new SquareBead( center, angle ) );
+          centers[ i ] = center.addXY( 15 * Math.cos( center.angle ), 15 * Math.sin( center.angle ) );
         }
       }
 
-      // If it is the last pair, move center further away for a curved gap.
-      else {
-        centers[ i ] = center.addXY( 15 * Math.cos( center.angle ), 15 * Math.sin( center.angle ) );
-      }
-    }
+      // the black line of the necklace
+      for ( i = 0; i < centers.length - 1; i++ ) {
+        center = centers[ i ];
 
-    // the black line of the necklace
-    for ( i = 0; i < centers.length - 1; i++ ) {
-      center = centers[ i ];
+        // Have the last bead connect to the first bead.
+        const nextCenter = i === centers.length - 2 ? centers[ 0 ] : centers[ i + 1 ];
 
-      // Have the last bead connect to the first bead.
-      const nextCenter = i === centers.length - 2 ? centers[ 0 ] : centers[ i + 1 ];
+        // the more vertices, the less curved the necklace line connecting to each bead
+        const strength = 20 / numVertices + 2;
 
-      // the more vertices, the less curved the necklace line connecting to each bead
-      const strength = 20 / numVertices + 2;
+        // control point for the quadratic curve
+        let control = center.blend( nextCenter, 0.5 );
 
-      // control point for the quadratic curve
-      let control = center.blend( nextCenter, 0.5 );
+        // curve necklace line based on a certain degree of strength
+        control.addXY( strength * Math.cos( control.angle ), strength * Math.sin( control.angle ) );
 
-      // curve necklace line based on a certain degree of strength
-      control.addXY( strength * Math.cos( control.angle ), strength * Math.sin( control.angle ) );
+        // gap is more curved/bumpy than the rest of the black line
+        if ( i === centers.length - 2 ) {
+          control = centers[ centers.length - 1 ];
+        }
 
-      // gap is more curved/bumpy than the rest of the black line
-      if ( i === centers.length - 2 ) {
-        control = centers[ centers.length - 1 ];
+        this.shape.moveToPoint( center );
+        this.shape.quadraticCurveToPoint( control, nextCenter );
       }
 
-      this.shape.moveToPoint( center );
-      this.shape.quadraticCurveToPoint( control, nextCenter );
+      this.shape.makeImmutable();
+
+      this.containerTranslation = ( roundBeadCount + squareBeadCount === 3 ) ? new Vector2( 0, -5 ) : Vector2.ZERO;
     }
-
-    this.shape.makeImmutable();
-
-    this.containerTranslation = ( roundBeadCount + squareBeadCount === 3 ) ? new Vector2( 0, -5 ) : Vector2.ZERO;
   }
-}
 
-proportionPlayground.register( 'NecklaceLayout', NecklaceLayout );
 
-inherit( Object, NecklaceLayout, {}, {
-
-  /**
-   * {Shape} - Immutable shared string shape for when there is only one round bead.
-   */
-  ONE_ROUND_BEAD_SHAPE: shapeFromSplintPoints( [
-    new Vector2( 0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
-    new Vector2( -0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
-    new Vector2( -0.72 * BEAD_DIAMETER, -1.5 * BEAD_DIAMETER ),
-    new Vector2( 0.5 * BEAD_DIAMETER, -1.55 * BEAD_DIAMETER )
-  ] ),
-
-  /**
-   * {Shape} - Immutable shared string shape for when there is only one square bead.
-   */
-  ONE_SQUARE_BEAD_SHAPE: shapeFromSplintPoints( [
-    new Vector2( 0.55 * BEAD_DIAMETER, 0 ),
-    new Vector2( -0.61 * BEAD_DIAMETER, 0 ),
-    new Vector2( -0.66 * BEAD_DIAMETER, -1.33 * BEAD_DIAMETER ),
-    new Vector2( 0.66 * BEAD_DIAMETER, -1.33 * BEAD_DIAMETER )
-  ] ),
-
-  /**
-   * {Shape} - Immutable shared string shape for when there are only two round beads.
-   * Previous doc: "if all round beads, draw the same shape as twenty round beads", may not be accurate.
-   */
-  TWO_ROUND_BEADS_SHAPE: shapeFromSplintPoints( [
-    new Vector2( 0.55 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0.05 * BEAD_DIAMETER ),
-    new Vector2( -0.55 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0.05 * BEAD_DIAMETER ),
-    new Vector2( -0.78 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -1.5 * BEAD_DIAMETER ),
-    new Vector2( 0.55 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -1.61 * BEAD_DIAMETER )
-  ] ),
-
-  /**
-   * {Shape} - Immutable shared string shape for when there are only two square beads.
-   * Previous doc: "if all square beads, draw the same shape as twenty square beads", may not be accurate.
-   */
-  TWO_SQUARE_BEADS_SHAPE: shapeFromSplintPoints( [
-    new Vector2( 0.61 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0 ),
-    new Vector2( -0.66 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0 ),
-    new Vector2( -0.71 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -1.39 * BEAD_DIAMETER ),
-    new Vector2( 0.71 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -1.29 * BEAD_DIAMETER )
-  ] ),
-
-  /**
-   * {Shape} - Immutable shared string shape for when there is only one bead of each type.
-   * Previous doc: "if one bead of each kind, draw same shape as twenty round and twenty square beads", may not be
-   * accurate.
-   */
-  TWO_MIXED_BEADS_SHAPE: shapeFromSplintPoints( [
-    new Vector2( TWO_BEAD_OFFSET, 5 ),
-    new Vector2( -1.11 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -0.94 * BEAD_DIAMETER ),
-    new Vector2( TWO_BEAD_OFFSET, -2.22 * BEAD_DIAMETER ),
-    new Vector2( 1.11 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -0.94 * BEAD_DIAMETER )
-  ] ),
 
   /**
    * Returns a {NecklaceLayout} corresponding to the number of round/square beads (lazily computed and cached).
@@ -353,7 +291,7 @@ inherit( Object, NecklaceLayout, {}, {
    * @param {number} squareBeadCount - Number of square beads in the necklace
    * @returns {NecklaceLayout}
    */
-  getLayout: function( roundBeadCount, squareBeadCount ) {
+  static getLayout( roundBeadCount, squareBeadCount ) {
 
     const key = roundBeadCount + ',' + squareBeadCount;
     if ( layoutMap[ key ] ) {
@@ -364,6 +302,63 @@ inherit( Object, NecklaceLayout, {}, {
     layoutMap[ key ] = result;
     return result;
   }
-} );
+}
+
+
+/**
+ * {Shape} - Immutable shared string shape for when there is only one round bead.
+ */
+NecklaceLayout.ONE_ROUND_BEAD_SHAPE = shapeFromSplintPoints( [
+  new Vector2( 0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
+  new Vector2( -0.38 * BEAD_DIAMETER, 0.05 * BEAD_DIAMETER ),
+  new Vector2( -0.72 * BEAD_DIAMETER, -1.5 * BEAD_DIAMETER ),
+  new Vector2( 0.5 * BEAD_DIAMETER, -1.55 * BEAD_DIAMETER )
+] );
+
+/**
+ * {Shape} - Immutable shared string shape for when there is only one square bead.
+ */
+NecklaceLayout.ONE_SQUARE_BEAD_SHAPE = shapeFromSplintPoints( [
+  new Vector2( 0.55 * BEAD_DIAMETER, 0 ),
+  new Vector2( -0.61 * BEAD_DIAMETER, 0 ),
+  new Vector2( -0.66 * BEAD_DIAMETER, -1.33 * BEAD_DIAMETER ),
+  new Vector2( 0.66 * BEAD_DIAMETER, -1.33 * BEAD_DIAMETER )
+] );
+
+/**
+ * {Shape} - Immutable shared string shape for when there are only two round beads.
+ * Previous doc: "if all round beads, draw the same shape as twenty round beads", may not be accurate.
+ */
+NecklaceLayout.TWO_ROUND_BEADS_SHAPE = shapeFromSplintPoints( [
+  new Vector2( 0.55 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0.05 * BEAD_DIAMETER ),
+  new Vector2( -0.55 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0.05 * BEAD_DIAMETER ),
+  new Vector2( -0.78 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -1.5 * BEAD_DIAMETER ),
+  new Vector2( 0.55 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -1.61 * BEAD_DIAMETER )
+] );
+
+/**
+ * {Shape} - Immutable shared string shape for when there are only two square beads.
+ * Previous doc: "if all square beads, draw the same shape as twenty square beads", may not be accurate.
+ */
+NecklaceLayout.TWO_SQUARE_BEADS_SHAPE = shapeFromSplintPoints( [
+  new Vector2( 0.61 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0 ),
+  new Vector2( -0.66 * BEAD_DIAMETER + TWO_BEAD_OFFSET, 0 ),
+  new Vector2( -0.71 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -1.39 * BEAD_DIAMETER ),
+  new Vector2( 0.71 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -1.29 * BEAD_DIAMETER )
+] );
+
+/**
+ * {Shape} - Immutable shared string shape for when there is only one bead of each type.
+ * Previous doc: "if one bead of each kind, draw same shape as twenty round and twenty square beads", may not be
+ * accurate.
+ */
+NecklaceLayout.TWO_MIXED_BEADS_SHAPE = shapeFromSplintPoints( [
+  new Vector2( TWO_BEAD_OFFSET, 5 ),
+  new Vector2( -1.11 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -0.94 * BEAD_DIAMETER ),
+  new Vector2( TWO_BEAD_OFFSET, -2.22 * BEAD_DIAMETER ),
+  new Vector2( 1.11 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -0.94 * BEAD_DIAMETER )
+] );
+
+proportionPlayground.register( 'NecklaceLayout', NecklaceLayout );
 
 export default NecklaceLayout;

@@ -12,11 +12,11 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import Node from '../../../../scenery/js/nodes/Node.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../ProportionPlaygroundConstants.js';
+import SceneSelectionControls from './SceneSelectionControls.js';
 import AppleSceneNode from './apples/AppleSceneNode.js';
 import BilliardsSceneNode from './billiards/BilliardsSceneNode.js';
 import NecklaceSceneNode from './necklace/NecklaceSceneNode.js';
 import PaintSceneNode from './paint/PaintSceneNode.js';
-import SceneSelectionControls from './SceneSelectionControls.js';
 
 class ProportionScreenView extends ScreenView {
 
@@ -28,7 +28,7 @@ class ProportionScreenView extends ScreenView {
 
     // Reset All button
     this.addChild( new ResetAllButton( {
-      listener: function() {
+      listener: () => {
         model.reset();
       },
       centerX: this.layoutBounds.right - ProportionPlaygroundConstants.BUTTON_RIGHT_CENTER_OFFSET,
@@ -49,7 +49,7 @@ class ProportionScreenView extends ScreenView {
       top: 5
     } ) );
 
-    this.sceneNodes.forEach( function( scene ) {
+    this.sceneNodes.forEach( scene => {
       scene.addShowBothSwitch();
     } );
 

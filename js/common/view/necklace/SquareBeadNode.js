@@ -9,7 +9,6 @@
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Matrix3 from '../../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
@@ -28,73 +27,66 @@ const colorProperty = ProportionPlaygroundColorProfile.necklaceSquareBeadPropert
 const dark7Property = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.7 );
 const dark4Property = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.4 );
 
-const gradientProperty = new DerivedProperty( [ colorProperty ], function( color ) {
-  return new RadialGradient( 0, 0, 0, 0, 0, DIAMETER + GRADIENT_OFFSET )
+const gradientProperty = new DerivedProperty( [ colorProperty ], color => new RadialGradient( 0, 0, 0, 0, 0, DIAMETER + GRADIENT_OFFSET )
     .addColorStop( 0, color.colorUtilsBrighter( 0.3 ) )
     .addColorStop( 0.3, color )
     .addColorStop( 0.5, color.colorUtilsDarker( 0.1 ) )
-    .addColorStop( 0.8, color.colorUtilsDarker( 0.3 ) );
-} );
+    .addColorStop( 0.8, color.colorUtilsDarker( 0.3 ) ) );
 
 const scratchMatrix3 = new Matrix3();
 
-/**
- * @constructor
- * @extends {Node}
- *
- * @param {number} rotation - How the generated node should be rotated
- * @param {Object} [options] - node options
- */
-function SquareBeadNode( rotation, options ) {
-  Node.call( this );
+class SquareBeadNode extends Node {
+  /**
+   * @param {number} rotation - How the generated node should be rotated
+   * @param {Object} [options] - node options
+   */
+  constructor( rotation, options ) {
+    super();
 
-  // @private {Node} - Contains all of our content, so we can properly center ourselves when needed
-  this.container = new Node( {
-    scale: 0.95
-  } );
+    // @private {Node} - Contains all of our content, so we can properly center ourselves when needed
+    this.container = new Node( {
+      scale: 0.95
+    } );
 
-  // @private {Rectangle}
-  this.backRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
-    fill: dark7Property,
-    x: -DIAMETER / 15,
-    y: DIAMETER / 15
-  } );
-  this.container.addChild( this.backRectangle );
+    // @private {Rectangle}
+    this.backRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
+      fill: dark7Property,
+      x: -DIAMETER / 15,
+      y: DIAMETER / 15
+    } );
+    this.container.addChild( this.backRectangle );
 
-  // @private {Rectangle}
-  this.middleRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
-    fill: dark4Property,
-    scale: 20 / 21,
-    x: -DIAMETER / 30,
-    y: DIAMETER / 30
-  } );
-  this.container.addChild( this.middleRectangle );
+    // @private {Rectangle}
+    this.middleRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
+      fill: dark4Property,
+      scale: 20 / 21,
+      x: -DIAMETER / 30,
+      y: DIAMETER / 30
+    } );
+    this.container.addChild( this.middleRectangle );
 
-  // @private {Rectangle}
-  this.frontRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
-    scale: 10 / 11
-  } );
-  gradientProperty.linkAttribute( this.frontRectangle, 'fill' );
-  this.container.addChild( this.frontRectangle );
+    // @private {Rectangle}
+    this.frontRectangle = new Rectangle( -RADIUS, -RADIUS, DIAMETER, DIAMETER, ROUND, ROUND, {
+      scale: 10 / 11
+    } );
+    gradientProperty.linkAttribute( this.frontRectangle, 'fill' );
+    this.container.addChild( this.frontRectangle );
 
-  this.setBeadRotation( rotation );
+    this.setBeadRotation( rotation );
 
-  this.mutate( merge( {
-    children: [ this.container ],
-    rotation: -Math.PI / 2
-  }, options ) );
-}
+    this.mutate( merge( {
+      children: [ this.container ],
+      rotation: -Math.PI / 2
+    }, options ) );
+  }
 
-proportionPlayground.register( 'SquareBeadNode', SquareBeadNode );
-
-inherit( Node, SquareBeadNode, {
   /**
    * Changes the desired visual rotation. Due to lighting/shadowing effects, we can't just rotate the node.
    * @public
    *
    * @param {number} rotation - In radians
    */
-  setBeadRotation: function( rotation ) {
+  setBeadRotation( rotation ) {
 
     const gradientAngle = -Math.PI / 4;
     const gradientX = GRADIENT_OFFSET * Math.cos( gradientAngle - rotation );
@@ -110,6 +102,8 @@ inherit( Node, SquareBeadNode, {
 
     this.container.center = Vector2.ZERO;
   }
-} );
+}
+
+proportionPlayground.register( 'SquareBeadNode', SquareBeadNode );
 
 export default SquareBeadNode;

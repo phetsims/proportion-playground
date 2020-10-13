@@ -12,13 +12,12 @@ import Matrix3 from '../../../../../dot/js/Matrix3.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../../scenery/js/util/Color.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import PaintChoice from '../../model/paint/PaintChoice.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
+import PaintChoice from '../../model/paint/PaintChoice.js';
 import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
 import SceneRatioNode from '../SceneRatioNode.js';
 
@@ -43,63 +42,59 @@ splotchShape = splotchShape.transformed( Matrix3.scaling( Math.sqrt( TARGET_SHAP
 // {Color} - Because {Property.<null>} is not supported as a fill.
 const TRANSPARENT_COLOR = new Color( 'transparent' );
 
-/**
- * @constructor
- * @extends {SceneRatioNode}
- *
- * @param {Splotch} splotch - Our model
- * @param {Property.<PaintChoice>} paintChoiceProperty - Holds our current paint choice
- * @param {Object} [options] - node options
- */
-function SplotchNode( splotch, paintChoiceProperty, options ) {
-  SceneRatioNode.call( this, splotch );
+class SplotchNode extends SceneRatioNode {
+  /**
+   * @param {Splotch} splotch - Our model
+   * @param {Property.<PaintChoice>} paintChoiceProperty - Holds our current paint choice
+   * @param {Object} [options] - node options
+   */
+  constructor( splotch, paintChoiceProperty, options ) {
+    super( splotch );
 
-  // @public {Splotch}
-  this.splotch = splotch;
+    // @public {Splotch}
+    this.splotch = splotch;
 
-  options = merge( {
-    useVisibleAmounts: false
-  }, options );
+    options = merge( {
+      useVisibleAmounts: false
+    }, options );
 
-  // Use different properties based on whether we are viewing visible amounts
-  const leftColorProperty = options.useVisibleAmounts ? splotch.visibleLeftColorProperty : splotch.leftColorCountProperty;
-  const rightColorProperty = options.useVisibleAmounts ? splotch.visibleRightColorProperty : splotch.rightColorCountProperty;
+    // Use different properties based on whether we are viewing visible amounts
+    const leftColorProperty = options.useVisibleAmounts ? splotch.visibleLeftColorProperty : splotch.leftColorCountProperty;
+    const rightColorProperty = options.useVisibleAmounts ? splotch.visibleRightColorProperty : splotch.rightColorCountProperty;
 
-  const watchedProperties = [ leftColorProperty, rightColorProperty, paintChoiceProperty ].concat( PaintChoice.COLORS );
-  const colorProperty = new DerivedProperty( watchedProperties, function( leftColorAmount, rightColorAmount, paintChoice ) {
-    const total = leftColorAmount + rightColorAmount;
-    if ( total > 0 ) {
-      return paintChoice.getBlendedColor( Utils.clamp( rightColorAmount / total, 0, 1 ) );
-    }
-    else {
-      return TRANSPARENT_COLOR;
-    }
-  } );
+    const watchedProperties = [ leftColorProperty, rightColorProperty, paintChoiceProperty ].concat( PaintChoice.COLORS );
+    const colorProperty = new DerivedProperty( watchedProperties, ( leftColorAmount, rightColorAmount, paintChoice ) => {
+      const total = leftColorAmount + rightColorAmount;
+      if ( total > 0 ) {
+        return paintChoice.getBlendedColor( Utils.clamp( rightColorAmount / total, 0, 1 ) );
+      }
+      else {
+        return TRANSPARENT_COLOR;
+      }
+    } );
 
-  const splotchPath = new Path( splotchShape, {
-    stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
-    lineWidth: 0.7,
-    fill: colorProperty
-  } );
-  this.addChild( splotchPath );
+    const splotchPath = new Path( splotchShape, {
+      stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
+      lineWidth: 0.7,
+      fill: colorProperty
+    } );
+    this.addChild( splotchPath );
 
-  // When the color amounts change, update the size and color of the splotch.
-  Property.multilink( [ leftColorProperty, rightColorProperty ], function( leftColor, rightColor ) {
-    const total = leftColor + rightColor;
+    // When the color amounts change, update the size and color of the splotch.
+    Property.multilink( [ leftColorProperty, rightColorProperty ], ( leftColor, rightColor ) => {
+      const total = leftColor + rightColor;
 
-    // Don't fully zero our transform
-    if ( total > 0 ) {
-      splotchPath.setScaleMagnitude( SplotchNode.colorTotalToSplotchScale( total ) );
-    }
-    splotchPath.visible = total > 0;
-  } );
+      // Don't fully zero our transform
+      if ( total > 0 ) {
+        splotchPath.setScaleMagnitude( SplotchNode.colorTotalToSplotchScale( total ) );
+      }
+      splotchPath.visible = total > 0;
+    } );
 
-  this.mutate( options );
-}
+    this.mutate( options );
+  }
 
-proportionPlayground.register( 'SplotchNode', SplotchNode );
 
-inherit( SceneRatioNode, SplotchNode, {}, {
   /**
    * Converts the total amount of paint to the scale of our splotch. Increasing scale increases the area
    * quadratically, so we use sqrt().
@@ -108,11 +103,11 @@ inherit( SceneRatioNode, SplotchNode, {}, {
    * @param {number} totalPaint
    * @returns {number} - Scale
    */
-  colorTotalToSplotchScale: function( totalPaint ) {
+  static colorTotalToSplotchScale( totalPaint ) {
     const maxScale = 1.6;
     // Scale is square-root of count, since the area is proportional to scale squared. Assume two full paint counts.
     return maxScale * Math.sqrt( totalPaint ) / Math.sqrt( 2 * ProportionPlaygroundConstants.PAINT_COUNT_RANGE.max );
-  },
+  }
 
   /**
    * Returns the view area taken up by a splotch with only one unit of paint (as we'll want balloons and drips to
@@ -121,10 +116,12 @@ inherit( SceneRatioNode, SplotchNode, {}, {
    *
    * @returns {number}
    */
-  getSingleSplotchArea: function() {
+  static getSingleSplotchArea() {
     const scale = SplotchNode.colorTotalToSplotchScale( 1 );
     return scale * scale * TARGET_SHAPE_AREA; // Area proportional to scale squared
   }
-} );
+}
+
+proportionPlayground.register( 'SplotchNode', SplotchNode );
 
 export default SplotchNode;

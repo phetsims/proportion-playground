@@ -15,12 +15,12 @@ import AlignBox from '../../../scenery/js/nodes/AlignBox.js';
 import Node from '../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../scenery/js/nodes/Text.js';
+import ProportionModel from '../common/model/ProportionModel.js';
 import PaintChoice from '../common/model/paint/PaintChoice.js';
 import Splotch from '../common/model/paint/Splotch.js';
-import ProportionModel from '../common/model/ProportionModel.js';
-import SplotchNode from '../common/view/paint/SplotchNode.js';
 import ProportionPlaygroundColorProfile from '../common/view/ProportionPlaygroundColorProfile.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
+import SplotchNode from '../common/view/paint/SplotchNode.js';
 import proportionPlayground from '../proportionPlayground.js';
 import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
 
@@ -38,8 +38,8 @@ class PredictScreen extends Screen {
     } );
 
     super(
-      function() { return new ProportionModel( true ); },
-      function( model ) { return new ProportionScreenView( model ); }, {
+      () => new ProportionModel( true ),
+      model => new ProportionScreenView( model ), {
         name: proportionPlaygroundStrings.screen.predict,
         backgroundColorProperty: ProportionPlaygroundColorProfile.predictBackgroundProperty,
         homeScreenIcon: new ScreenIcon( createHomeScreenIcon( splotchNode ), {

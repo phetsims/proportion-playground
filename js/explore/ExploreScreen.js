@@ -15,12 +15,12 @@ import Node from '../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../scenery/js/nodes/Text.js';
 import VBox from '../../../scenery/js/nodes/VBox.js';
-import BilliardsTable from '../common/model/billiards/BilliardsTable.js';
 import ProportionModel from '../common/model/ProportionModel.js';
-import BilliardsTableNode from '../common/view/billiards/BilliardsTableNode.js';
-import NecklaceGraphicNode from '../common/view/necklace/NecklaceGraphicNode.js';
+import BilliardsTable from '../common/model/billiards/BilliardsTable.js';
 import ProportionPlaygroundColorProfile from '../common/view/ProportionPlaygroundColorProfile.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
+import BilliardsTableNode from '../common/view/billiards/BilliardsTableNode.js';
+import NecklaceGraphicNode from '../common/view/necklace/NecklaceGraphicNode.js';
 import proportionPlayground from '../proportionPlayground.js';
 import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
 
@@ -30,8 +30,8 @@ const HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
 class ExploreScreen extends Screen {
   constructor() {
     super(
-      function() { return new ProportionModel( false ); },
-      function( model ) { return new ProportionScreenView( model ); }, {
+      () => new ProportionModel( false ),
+      model => new ProportionScreenView( model ), {
         name: proportionPlaygroundStrings.screen.explore,
         backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
         homeScreenIcon: new ScreenIcon( createHomeScreenIcon(), {

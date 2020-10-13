@@ -9,58 +9,56 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Utils from '../../../../../dot/js/Utils.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 
-/**
- * Rectangle that shows a given spectrum
- * @constructor
- * @extends {Node}
- *
- * @param {number} width
- * @param {number} height
- * @param {PaintChoice} paintChoice
- * @param {Object} [options]
- */
-function PaintChoiceGradientNode( width, height, paintChoice, options ) {
+class PaintChoiceGradientNode extends Node {
+  /**
+   * Rectangle that shows a given spectrum
+   *
+   * @param {number} width
+   * @param {number} height
+   * @param {PaintChoice} paintChoice
+   * @param {Object} [options]
+   */
+  constructor( width, height, paintChoice, options ) {
 
-  Node.call( this );
+    super();
 
-  // {string} - Image for the current gradient colors.
-  const imageUrlProperty = new DerivedProperty( [ paintChoice.leftColorProperty, paintChoice.rightColorProperty ], function( leftColor, rightColor ) {
-    const canvas = document.createElement( 'canvas' );
-    const context = canvas.getContext( '2d' );
-    canvas.width = width;
-    canvas.height = height;
+    // {string} - Image for the current gradient colors.
+    const imageUrlProperty = new DerivedProperty( [ paintChoice.leftColorProperty, paintChoice.rightColorProperty ], ( leftColor, rightColor ) => {
+      const canvas = document.createElement( 'canvas' );
+      const context = canvas.getContext( '2d' );
+      canvas.width = width;
+      canvas.height = height;
 
-    // Fill it in one pixel at a time
-    for ( let i = 0; i < height; i++ ) {
-      const parameter = Utils.clamp( Utils.linear( 0, height, 0, 1, i ), 0, 1 );
-      context.fillStyle = paintChoice.getBlendedColor( parameter ).toCSS();
-      context.fillRect( 0, i, width, 1 );
-    }
+      // Fill it in one pixel at a time
+      for ( let i = 0; i < height; i++ ) {
+        const parameter = Utils.clamp( Utils.linear( 0, height, 0, 1, i ), 0, 1 );
+        context.fillStyle = paintChoice.getBlendedColor( parameter ).toCSS();
+        context.fillRect( 0, i, width, 1 );
+      }
 
-    return canvas.toDataURL();
-  } );
+      return canvas.toDataURL();
+    } );
 
-  // Gradient (swap image when the colors change)
-  const image = new Image( imageUrlProperty.value, {
-    initialWidth: width,
-    initialHeight: height
-  } );
-  imageUrlProperty.linkAttribute( image, 'image' );
-  this.addChild( image );
+    // Gradient (swap image when the colors change)
+    const image = new Image( imageUrlProperty.value, {
+      initialWidth: width,
+      initialHeight: height
+    } );
+    imageUrlProperty.linkAttribute( image, 'image' );
+    this.addChild( image );
 
-  // Outline
-  this.addChild( new Rectangle( 0, 0, width, height, { stroke: 'black', lineWidth: 2 } ) );
+    // Outline
+    this.addChild( new Rectangle( 0, 0, width, height, { stroke: 'black', lineWidth: 2 } ) );
 
-  this.mutate( options );
+    this.mutate( options );
+  }
 }
 
 proportionPlayground.register( 'PaintChoiceGradientNode', PaintChoiceGradientNode );
 
-inherit( Node, PaintChoiceGradientNode );
 export default PaintChoiceGradientNode;

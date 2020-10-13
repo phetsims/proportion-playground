@@ -10,7 +10,6 @@
 import Property from '../../../../../axon/js/Property.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Circle from '../../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
@@ -38,49 +37,43 @@ const NODE_OFFSET = roundBeadNode.height + 1.5;
 // {number} - Maximum number of beads visible in a pattern (20,20 will reduce to 1,1)
 const MAX_BEADS = 2 * ProportionPlaygroundConstants.BEAD_COUNT_RANGE.max - 1;
 
-/**
- * @constructor
- * @extends {Node}
- *
- * @param {Necklace} necklace
- * @param {Object} [options]
- */
-function PatternNode( necklace, options ) {
-  Node.call( this );
+class PatternNode extends Node {
+  /**
+   * @param {Necklace} necklace
+   * @param {Object} [options]
+   */
+  constructor( necklace, options ) {
+    super();
 
-  // Construct nodes for every possible bead
-  const roundBeadNodes = _.range( 0, MAX_BEADS ).map( function( n ) {
-    return new Node( {
-      children: [ roundBeadNode ],
-      y: NODE_OFFSET * n
+    // Construct nodes for every possible bead
+    const roundBeadNodes = _.range( 0, MAX_BEADS ).map( n => new Node( {
+        children: [ roundBeadNode ],
+        y: NODE_OFFSET * n
+      } ) );
+    const squareBeadNodes = _.range( 0, MAX_BEADS ).map( n => new Node( {
+        children: [ squareBeadNode ],
+        y: NODE_OFFSET * n
+      } ) );
+    roundBeadNodes.forEach( this.addChild.bind( this ) );
+    squareBeadNodes.forEach( this.addChild.bind( this ) );
+
+    // Toggle visibility based on current counts
+    Property.multilink( [ necklace.roundBeadCountProperty, necklace.squareBeadCountProperty ], ( roundBeadCount, squareBeadCount ) => {
+      const gcd = Utils.gcd( roundBeadCount, squareBeadCount );
+      if ( gcd !== 0 ) {
+        roundBeadCount /= gcd;
+        squareBeadCount /= gcd;
+      }
+      for ( let i = 0; i < MAX_BEADS; i++ ) {
+        roundBeadNodes[ i ].visible = i < roundBeadCount;
+        squareBeadNodes[ i ].visible = ( i >= roundBeadCount ) && ( i < squareBeadCount + roundBeadCount );
+      }
     } );
-  } );
-  const squareBeadNodes = _.range( 0, MAX_BEADS ).map( function( n ) {
-    return new Node( {
-      children: [ squareBeadNode ],
-      y: NODE_OFFSET * n
-    } );
-  } );
-  roundBeadNodes.forEach( this.addChild.bind( this ) );
-  squareBeadNodes.forEach( this.addChild.bind( this ) );
 
-  // Toggle visibility based on current counts
-  Property.multilink( [ necklace.roundBeadCountProperty, necklace.squareBeadCountProperty ], function( roundBeadCount, squareBeadCount ) {
-    const gcd = Utils.gcd( roundBeadCount, squareBeadCount );
-    if ( gcd !== 0 ) {
-      roundBeadCount /= gcd;
-      squareBeadCount /= gcd;
-    }
-    for ( let i = 0; i < MAX_BEADS; i++ ) {
-      roundBeadNodes[ i ].visible = i < roundBeadCount;
-      squareBeadNodes[ i ].visible = ( i >= roundBeadCount ) && ( i < squareBeadCount + roundBeadCount );
-    }
-  } );
-
-  this.mutate( options );
+    this.mutate( options );
+  }
 }
 
 proportionPlayground.register( 'PatternNode', PatternNode );
 
-inherit( Node, PatternNode );
 export default PatternNode;

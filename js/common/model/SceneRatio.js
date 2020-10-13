@@ -7,71 +7,66 @@
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import Side from './Side.js';
 
-/**
- * @constructor
- *
- * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
- * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
- * @param {Property.<number>} leftProperty - The numeric value for our ratio's left value
- * @param {Range} leftRange - The range of valid values for our leftProperty
- * @param {Property.<number>} rightProperty - The numeric value for our ratio's right value
- * @param {Range} rightRange - The range of valid values for our rightProperty
- */
-function SceneRatio( visibleProperty, controlsVisibleProperty, leftProperty, leftRange, rightProperty, rightRange ) {
-  // @public {Property.<boolean>} - Whether we are visible or not
-  this.visibleProperty = visibleProperty;
+class SceneRatio {
+  /**
+   * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
+   * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
+   * @param {Property.<number>} leftProperty - The numeric value for our ratio's left value
+   * @param {Range} leftRange - The range of valid values for our leftProperty
+   * @param {Property.<number>} rightProperty - The numeric value for our ratio's right value
+   * @param {Range} rightRange - The range of valid values for our rightProperty
+   */
+  constructor( visibleProperty, controlsVisibleProperty, leftProperty, leftRange, rightProperty, rightRange ) {
 
-  // @public {Property.<boolean>} - Whether our controls are visible
-  this.controlsVisibleProperty = controlsVisibleProperty;
+    // @public {Property.<boolean>} - Whether we are visible or not
+    this.visibleProperty = visibleProperty;
 
-  // @public {Property.<number>} - Left numeric value
-  this.leftProperty = leftProperty;
+    // @public {Property.<boolean>} - Whether our controls are visible
+    this.controlsVisibleProperty = controlsVisibleProperty;
 
-  // @public {Range} - Range for the left numeric value
-  this.leftRange = leftRange;
+    // @public {Property.<number>} - Left numeric value
+    this.leftProperty = leftProperty;
 
-  // @public {Property.<number>} - Right numeric value
-  this.rightProperty = rightProperty;
+    // @public {Range} - Range for the left numeric value
+    this.leftRange = leftRange;
 
-  // @public {Range} - Range for the right numeric value
-  this.rightRange = rightRange;
+    // @public {Property.<number>} - Right numeric value
+    this.rightProperty = rightProperty;
 
-  // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
-  this.quantityProperties = [ leftProperty, rightProperty ];
+    // @public {Range} - Range for the right numeric value
+    this.rightRange = rightRange;
 
-  // @public {Emitter} - Fires when there is a change to a quantity property while visible, or when visibility changes
-  this.visibleChangeEmitter = new Emitter();
+    // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
+    this.quantityProperties = [ leftProperty, rightProperty ];
 
-  // Hook up our visible-change emitter
-  const self = this;
-  visibleProperty.lazyLink( function() {
-    self.visibleChangeEmitter.emit();
-  } );
-  this.quantityProperties.forEach( function( quantityProperty ) {
-    quantityProperty.lazyLink( function() {
-      if ( visibleProperty.value ) {
-        self.visibleChangeEmitter.emit();
-      }
+    // @public {Emitter} - Fires when there is a change to a quantity property while visible, or when visibility changes
+    this.visibleChangeEmitter = new Emitter();
+
+    // Hook up our visible-change emitter
+    visibleProperty.lazyLink( () => {
+      this.visibleChangeEmitter.emit();
     } );
-  } );
-}
+    this.quantityProperties.forEach( quantityProperty => {
+      quantityProperty.lazyLink( () => {
+        if ( visibleProperty.value ) {
+          this.visibleChangeEmitter.emit();
+        }
+      } );
+    } );
+  }
 
-proportionPlayground.register( 'SceneRatio', SceneRatio );
-
-inherit( Object, SceneRatio, {
   /**
    * Returns the count property for a specific side (left or right).
    * @public
    *
    * @returns {Property.<number>}
    */
-  getProperty: function( side ) {
+  getProperty( side ) {
     return side === Side.LEFT ? this.leftProperty : this.rightProperty;
-  },
+  }
 
   /**
    * Returns the range property for a specific side (left or right).
@@ -79,19 +74,19 @@ inherit( Object, SceneRatio, {
    *
    * @returns {Range}
    */
-  getRange: function( side ) {
+  getRange( side ) {
     return side === Side.LEFT ? this.leftRange : this.rightRange;
-  },
+  }
 
   /**
    * Resets the ratio to the original values.
    * @public
    */
-  reset: function() {
-    this.quantityProperties.forEach( function( quantityProperty ) {
+  reset() {
+    this.quantityProperties.forEach( quantityProperty => {
       quantityProperty.reset();
     } );
-  },
+  }
 
   /**
    * Whether this ratio is equivalent to another ratio (accounting for 0s)
@@ -100,13 +95,13 @@ inherit( Object, SceneRatio, {
    * @param {SceneRatio} ratio
    * @returns {boolean}
    */
-  isEquivalentTo: function( ratio ) {
+  isEquivalentTo( ratio ) {
     return SceneRatio.areRatiosEquivalent( this.quantityProperties[ 0 ].value,
       this.quantityProperties[ 1 ].value,
       ratio.quantityProperties[ 0 ].value,
       ratio.quantityProperties[ 1 ].value );
   }
-}, {
+
   /**
    * Whether two ratios are equivalent.
    * @public
@@ -117,11 +112,13 @@ inherit( Object, SceneRatio, {
    * @param {number} b2 - Second number for the second ratio
    * @returns {boolean}
    */
-  areRatiosEquivalent: function( a1, a2, b1, b2 ) {
+  static areRatiosEquivalent( a1, a2, b1, b2 ) {
     // Division by zero in both places will have Infinity === Infinity, which is OK.
     return ( a1 / a2 === b1 / b2 || Math.abs( a1 / a2 - b1 / b2 ) < 1e-6 ) &&
            ( a2 / a1 === b2 / b1 || Math.abs( a2 / a1 - b2 / b1 ) < 1e-6 );
   }
-} );
+}
+
+proportionPlayground.register( 'SceneRatio', SceneRatio );
 
 export default SceneRatio;

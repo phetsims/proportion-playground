@@ -9,47 +9,42 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import proportionPlayground from '../../proportionPlayground.js';
 
-/**
- * @constructor
- *
- * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
- */
-function Scene( predictMode ) {
-  // @public {Array.<SceneRatio>} - Initialized to a 2-length array (left and right ratios) in initializeRatios().
-  this.ratios = [];
+class Scene {
+  /**
+   * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   */
+  constructor( predictMode ) {
+    // @public {Array.<SceneRatio>} - Initialized to a 2-length array (left and right ratios) in initializeRatios().
+    this.ratios = [];
 
-  // @public {Array.<NumberProperty>} - Initialized to a 2-length array (left and right quantity properties) in
-  // initializeRatios().
-  this.quantityProperties = [];
+    // @public {Array.<NumberProperty>} - Initialized to a 2-length array (left and right quantity properties) in
+    // initializeRatios().
+    this.quantityProperties = [];
 
-  // @public {boolean} - Whether predictions should be made for this scene.
-  this.predictMode = predictMode;
+    // @public {boolean} - Whether predictions should be made for this scene.
+    this.predictMode = predictMode;
 
-  // @public {BooleanProperty} - Whether the visual representation is being shown
-  this.revealProperty = new BooleanProperty( !predictMode );
+    // @public {BooleanProperty} - Whether the visual representation is being shown
+    this.revealProperty = new BooleanProperty( !predictMode );
 
-  // @public {BooleanProperty} - Whether both representations are shown
-  this.showBothProperty = new BooleanProperty( false );
+    // @public {BooleanProperty} - Whether both representations are shown
+    this.showBothProperty = new BooleanProperty( false );
 
-  // @public {Property.<boolean>} - Whether the left ratio is visible.
-  this.leftVisibleProperty = this.revealProperty;
+    // @public {Property.<boolean>} - Whether the left ratio is visible.
+    this.leftVisibleProperty = this.revealProperty;
 
-  // @public {Property.<boolean>} - Whether the right ratio is visible.
-  this.rightVisibleProperty = DerivedProperty.and( [ this.revealProperty, this.showBothProperty ] );
+    // @public {Property.<boolean>} - Whether the right ratio is visible.
+    this.rightVisibleProperty = DerivedProperty.and( [ this.revealProperty, this.showBothProperty ] );
 
-  // @public {Property.<boolean>} - Whether the controls for the left ratio are visible
-  this.leftControlsVisibleProperty = new BooleanProperty( true );
+    // @public {Property.<boolean>} - Whether the controls for the left ratio are visible
+    this.leftControlsVisibleProperty = new BooleanProperty( true );
 
-  // @public {Property.<boolean>} - Whether the controls for the right ratio are visible
-  this.rightControlsVisibleProperty = this.showBothProperty;
-}
+    // @public {Property.<boolean>} - Whether the controls for the right ratio are visible
+    this.rightControlsVisibleProperty = this.showBothProperty;
+  }
 
-proportionPlayground.register( 'Scene', Scene );
-
-inherit( Object, Scene, {
   /**
    * Initializes the Scene with the two SceneRatio objects.
    * @protected
@@ -57,7 +52,7 @@ inherit( Object, Scene, {
    * @param {SceneRatio} leftRatio
    * @param {SceneRatio} rightRatio
    */
-  initializeRatios: function( leftRatio, rightRatio ) {
+  initializeRatios( leftRatio, rightRatio ) {
     this.ratios = [ leftRatio, rightRatio ];
     this.quantityProperties = leftRatio.quantityProperties.concat( rightRatio.quantityProperties );
 
@@ -65,7 +60,7 @@ inherit( Object, Scene, {
       // In the predict screen, hide representations when one of the spinners is changed
       Property.multilink( this.quantityProperties, this.revealProperty.set.bind( this.revealProperty, false ) );
     }
-  },
+  }
 
   /**
    * Returns whether our two ratios are equivalent (handling division by 0 properly).
@@ -73,9 +68,9 @@ inherit( Object, Scene, {
    *
    * @returns {boolean}
    */
-  areRatiosEquivalent: function() {
+  areRatiosEquivalent() {
     return this.ratios[ 0 ].isEquivalentTo( this.ratios[ 1 ] );
-  },
+  }
 
   /**
    * Steps the scene forward in time.
@@ -83,23 +78,25 @@ inherit( Object, Scene, {
    *
    * @param {number} dt
    */
-  step: function( dt ) {
+  step( dt ) {
     // Default is no-op (override when behavior is needed)
-  },
+  }
 
   /**
    * Resets the scene
    * @public
    */
-  reset: function() {
+  reset() {
     // Owned properties
     this.revealProperty.reset();
     this.showBothProperty.reset();
 
-    this.ratios.forEach( function( sceneRatio ) {
+    this.ratios.forEach( sceneRatio => {
       sceneRatio.reset();
     } );
   }
-} );
+}
+
+proportionPlayground.register( 'Scene', Scene );
 
 export default Scene;
