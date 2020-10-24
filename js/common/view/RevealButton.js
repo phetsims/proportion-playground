@@ -21,8 +21,8 @@ class RevealButton extends MutableOptionsNode {
     const revealedNode = new FontAwesomeNode( 'eye_open' );
     const hiddenNode = new FontAwesomeNode( 'eye_close' );
     super( BooleanRoundToggleButton, [ revealedNode, hiddenNode, revealingProperty ], {
-      minXMargin: 10,
-      minYMargin: 10
+      xMargin: 10,
+      yMargin: 10
     }, {
       baseColor: ProportionPlaygroundColorProfile.revealButtonProperty
     }, options );
