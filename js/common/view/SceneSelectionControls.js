@@ -10,7 +10,7 @@ import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import MutableOptionsNode from '../../../../sun/js/MutableOptionsNode.js';
-import RadioButtonGroup from '../../../../sun/js/buttons/RadioButtonGroup.js';
+import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundColorProfile from './ProportionPlaygroundColorProfile.js';
 
@@ -30,7 +30,7 @@ class SceneSelectionControls extends Node {
       } ) );
 
     // We need to be able to change the colors of this node, so it's wrapped in a MutableOptionsNode.
-    this.addChild( new MutableOptionsNode( RadioButtonGroup, [ sceneProperty, ratioItems ], {
+    this.addChild( new MutableOptionsNode( RectangularRadioButtonGroup, [ sceneProperty, ratioItems ], {
       orientation: 'horizontal',
       buttonContentXMargin: 20,
       buttonContentYMargin: 12,
