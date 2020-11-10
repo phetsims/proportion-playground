@@ -6,13 +6,13 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
-import MutableOptionsNode from '../../../../sun/js/MutableOptionsNode.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundColorProfile from './ProportionPlaygroundColorProfile.js';
 
-class RevealButton extends MutableOptionsNode {
+class RevealButton extends BooleanRoundToggleButton {
   /**
    * @param {Property.<boolean>} revealingProperty - true if the answer should be shown.
    * @param {Object} [options]
@@ -20,12 +20,14 @@ class RevealButton extends MutableOptionsNode {
   constructor( revealingProperty, options ) {
     const revealedNode = new FontAwesomeNode( 'eye_open' );
     const hiddenNode = new FontAwesomeNode( 'eye_close' );
-    super( BooleanRoundToggleButton, [ revealedNode, hiddenNode, revealingProperty ], {
+
+    options = merge( {
       xMargin: 10,
-      yMargin: 10
-    }, {
+      yMargin: 10,
       baseColor: ProportionPlaygroundColorProfile.revealButtonProperty
     }, options );
+
+    super( revealedNode, hiddenNode, revealingProperty, options );
   }
 }
 
