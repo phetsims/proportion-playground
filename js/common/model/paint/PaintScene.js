@@ -20,6 +20,8 @@ class PaintScene extends Scene {
    * @param {Tandem} tandem
    */
   constructor( predictMode, tandem ) {
+    assert && assert( tandem );
+
     super( predictMode, tandem );
 
     // @public {Property.<PaintChoice>} - What two paints (left and right) are currently used.

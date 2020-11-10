@@ -17,6 +17,8 @@ class AppleScene extends Scene {
    * @param {Tandem} tandem
    */
   constructor( predictMode, tandem ) {
+    assert && assert( tandem );
+
     super( predictMode, tandem );
 
     // @public {BooleanProperty}

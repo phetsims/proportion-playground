@@ -7,8 +7,10 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundQueryParameters from '../ProportionPlaygroundQueryParameters.js';
+import Scene from './Scene.js';
 import AppleScene from './apples/AppleScene.js';
 import BilliardsScene from './billiards/BilliardsScene.js';
 import NecklaceScene from './necklace/NecklaceScene.js';
@@ -36,8 +38,8 @@ class ProportionModel {
 
     // @public {Property.<Scene>} - Our currently-selected scene (can change with a query parameter)
     this.sceneProperty = new Property( this.scenes[ ProportionPlaygroundQueryParameters.scene ], {
-      // phetioType: Property.PropertyIO( ReferenceIO( IOType.ObjectIO ) )
-      // tandem: tandem.createTandem( 'sceneProperty' )
+      phetioType: Property.PropertyIO( ReferenceIO( Scene.SceneIO ) ),
+      tandem: tandem.createTandem( 'sceneProperty' )
     } );
 
     // @public (read-only) - for the Predict screen, show a reveal button

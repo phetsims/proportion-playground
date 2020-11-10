@@ -16,6 +16,8 @@ class NecklaceScene extends Scene {
    * @param {Tandem} tandem
    */
   constructor( predictMode, tandem ) {
+    assert && assert( tandem );
+
     super( predictMode, tandem );
 
     const initialCount = predictMode ? 5 : 0;

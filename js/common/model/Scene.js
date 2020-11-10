@@ -9,14 +9,21 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import proportionPlayground from '../../proportionPlayground.js';
 
-class Scene {
+class Scene extends PhetioObject {
   /**
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
    * @param {Tandem} tandem
    */
   constructor( predictMode, tandem ) {
+    super( {
+      phetioType: SceneIO,
+      tandem: tandem
+    } );
+
     // @public {Array.<SceneRatio>} - Initialized to a 2-length array (left and right ratios) in initializeRatios().
     this.ratios = [];
 
@@ -103,6 +110,15 @@ class Scene {
     } );
   }
 }
+
+const SceneIO = new IOType( 'SceneIO', {
+  valueType: Scene,
+  documentation: 'A scene showing one or two ratios',
+  toStateObject( scene ) {
+    return {};
+  }
+} );
+Scene.SceneIO = SceneIO;
 
 proportionPlayground.register( 'Scene', Scene );
 
