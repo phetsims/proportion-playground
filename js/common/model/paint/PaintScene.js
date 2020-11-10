@@ -7,6 +7,7 @@
  */
 
 import Property from '../../../../../axon/js/Property.js';
+import ReferenceIO from '../../../../../tandem/js/types/ReferenceIO.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import Scene from '../Scene.js';
 import SceneRatio from '../SceneRatio.js';
@@ -16,18 +17,22 @@ import Splotch from './Splotch.js';
 class PaintScene extends Scene {
   /**
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   * @param {Tandem} tandem
    */
-  constructor( predictMode ) {
-    super( predictMode );
+  constructor( predictMode, tandem ) {
+    super( predictMode, tandem );
 
     // @public {Property.<PaintChoice>} - What two paints (left and right) are currently used.
-    this.paintChoiceProperty = new Property( PaintChoice.BLUE_YELLOW );
+    this.paintChoiceProperty = new Property( PaintChoice.BLUE_YELLOW, {
+      phetioType: Property.PropertyIO( ReferenceIO( PaintChoice.PaintChoiceIO ) ),
+      tandem: tandem.createTandem( 'paintChoiceProperty' )
+    } );
 
     const initialCount = predictMode ? 5 : 0;
 
     // @public (read-only) - the models for each splotch
-    this.leftSplotch = new Splotch( initialCount, initialCount, this.leftVisibleProperty, this.leftControlsVisibleProperty );
-    this.rightSplotch = new Splotch( initialCount, initialCount, this.rightVisibleProperty, this.rightControlsVisibleProperty );
+    this.leftSplotch = new Splotch( initialCount, initialCount, this.leftVisibleProperty, this.leftControlsVisibleProperty, tandem.createTandem( 'leftSplotch' ) );
+    this.rightSplotch = new Splotch( initialCount, initialCount, this.rightVisibleProperty, this.rightControlsVisibleProperty, tandem.createTandem( 'rightSplotch' ) );
 
     this.initializeRatios( this.leftSplotch, this.rightSplotch );
   }

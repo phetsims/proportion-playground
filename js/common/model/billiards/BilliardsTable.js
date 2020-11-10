@@ -22,9 +22,10 @@ const scratchVector = new Vector2( 0, 0 );
 
 class BilliardsTable extends SceneRatio {
   /**
+   * @param {Tandem} tandem
    * @param {Object} [options] - See below for available options
    */
-  constructor( options ) {
+  constructor( tandem, options ) {
 
     options = merge( {
       // {number} Initial length of the billiards table.
@@ -40,12 +41,19 @@ class BilliardsTable extends SceneRatio {
       controlsVisibleProperty: new BooleanProperty( true )
     }, options );
 
-    const lengthProperty = new NumberProperty( options.initialLength );
-    const widthProperty = new NumberProperty( options.initialWidth );
+    const lengthProperty = new NumberProperty( options.initialLength, {
+      range: ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
+      tandem: tandem.createTandem( 'lengthProperty' )
+    } );
+    const widthProperty = new NumberProperty( options.initialWidth, {
+      range: ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
+      tandem: tandem.createTandem( 'widthProperty' )
+    } );
 
     super( options.visibleProperty, options.controlsVisibleProperty,
       lengthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
-      widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE );
+      widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
+      tandem );
 
     // @public {NumberProperty} - Number of grid units vertically
     this.lengthProperty = lengthProperty;
@@ -54,7 +62,9 @@ class BilliardsTable extends SceneRatio {
     this.widthProperty = widthProperty;
 
     // @public {Property.<Vector2>} - The position of the ball in pixels
-    this.ballPositionProperty = new Vector2Property( new Vector2( 0, 0 ) );
+    this.ballPositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
+      tandem: tandem.createTandem( 'ballPositionProperty' )
+    } );
 
     // @public {Vector2} - The velocity of the ball in pixels per second
     this.ballVelocity = new Vector2( 0, 0 );

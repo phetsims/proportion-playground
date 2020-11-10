@@ -22,9 +22,12 @@ class ProportionScreenView extends ScreenView {
 
   /**
    * @param {BarModel} model - the model
+   * @param {Tandem} tandem
    */
-  constructor( model ) {
-    super();
+  constructor( model, tandem ) {
+    super( {
+      tandem: tandem
+    } );
 
     // Reset All button
     this.addChild( new ResetAllButton( {

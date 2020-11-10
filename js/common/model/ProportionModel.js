@@ -21,10 +21,10 @@ class ProportionModel {
    */
   constructor( predictMode, tandem ) {
     // @public (read-only) - the model for each scene
-    this.necklaceScene = new NecklaceScene( predictMode );
-    this.paintScene = new PaintScene( predictMode );
-    this.billiardsScene = new BilliardsScene( predictMode );
-    this.appleScene = new AppleScene( predictMode );
+    this.necklaceScene = new NecklaceScene( predictMode, tandem.createTandem( 'necklaceScene' ) );
+    this.paintScene = new PaintScene( predictMode, tandem.createTandem( 'paintScene' ) );
+    this.billiardsScene = new BilliardsScene( predictMode, tandem.createTandem( 'billiardsScene' ) );
+    this.appleScene = new AppleScene( predictMode, tandem.createTandem( 'appleScene' ) );
 
     // @private {Array.<Scene>} - List of all scenes in order (can be handled as a group)
     this.scenes = [
@@ -35,7 +35,10 @@ class ProportionModel {
     ];
 
     // @public {Property.<Scene>} - Our currently-selected scene (can change with a query parameter)
-    this.sceneProperty = new Property( this.scenes[ ProportionPlaygroundQueryParameters.scene ] );
+    this.sceneProperty = new Property( this.scenes[ ProportionPlaygroundQueryParameters.scene ], {
+      // phetioType: Property.PropertyIO( ReferenceIO( IOType.ObjectIO ) )
+      // tandem: tandem.createTandem( 'sceneProperty' )
+    } );
 
     // @public (read-only) - for the Predict screen, show a reveal button
     this.predictMode = predictMode;

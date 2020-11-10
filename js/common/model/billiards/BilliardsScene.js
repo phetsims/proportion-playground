@@ -13,16 +13,17 @@ import BilliardsTable from './BilliardsTable.js';
 class BilliardsScene extends Scene {
   /**
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   * @param {Tandem} tandem
    */
-  constructor( predictMode ) {
-    super( predictMode );
+  constructor( predictMode, tandem ) {
+    super( predictMode, tandem );
 
     // @public
-    this.leftTable = new BilliardsTable( {
+    this.leftTable = new BilliardsTable( tandem.createTandem( 'leftTable' ), {
       visibleProperty: this.leftVisibleProperty,
       controlsVisibleProperty: this.leftControlsVisibleProperty
     } );
-    this.rightTable = new BilliardsTable( {
+    this.rightTable = new BilliardsTable( tandem.createTandem( 'rightTable' ), {
       visibleProperty: this.rightVisibleProperty,
       controlsVisibleProperty: this.rightControlsVisibleProperty
     } );
@@ -38,7 +39,7 @@ class BilliardsScene extends Scene {
    * @param {number} dt
    */
   step( dt ) {
-    Scene.prototype.step.call( dt );
+    super.step( dt );
 
     if ( this.revealProperty.value ) {
       this.leftTable.step( dt );

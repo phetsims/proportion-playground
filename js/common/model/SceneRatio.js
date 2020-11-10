@@ -18,8 +18,9 @@ class SceneRatio {
    * @param {Range} leftRange - The range of valid values for our leftProperty
    * @param {Property.<number>} rightProperty - The numeric value for our ratio's right value
    * @param {Range} rightRange - The range of valid values for our rightProperty
+   * @param {Tandem} tandem
    */
-  constructor( visibleProperty, controlsVisibleProperty, leftProperty, leftRange, rightProperty, rightRange ) {
+  constructor( visibleProperty, controlsVisibleProperty, leftProperty, leftRange, rightProperty, rightRange, tandem ) {
 
     // @public {Property.<boolean>} - Whether we are visible or not
     this.visibleProperty = visibleProperty;

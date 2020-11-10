@@ -15,6 +15,7 @@ import Node from '../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../scenery/js/nodes/Text.js';
 import VBox from '../../../scenery/js/nodes/VBox.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import ProportionModel from '../common/model/ProportionModel.js';
 import BilliardsTable from '../common/model/billiards/BilliardsTable.js';
 import ProportionPlaygroundColorProfile from '../common/view/ProportionPlaygroundColorProfile.js';
@@ -34,7 +35,7 @@ class ExploreScreen extends Screen {
   constructor( tandem ) {
     super(
       () => new ProportionModel( false, tandem.createTandem( 'model' ) ),
-      model => new ProportionScreenView( model ),
+      model => new ProportionScreenView( model, tandem.createTandem( 'view' ) ),
       {
         name: proportionPlaygroundStrings.screen.explore,
         backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
@@ -56,7 +57,7 @@ class ExploreScreen extends Screen {
 function createHomeScreenIcon() {
 
   // Step all the way through the animation of a billiards table
-  const billiardsTable = new BilliardsTable( {
+  const billiardsTable = new BilliardsTable( Tandem.OPT_OUT, {
     initialLength: 6,
     initialWidth: 3
   } );

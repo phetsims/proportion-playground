@@ -10,6 +10,9 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Color from '../../../../../scenery/js/util/Color.js';
+import PhetioObject from '../../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
+import IOType from '../../../../../tandem/js/types/IOType.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundColorProfile from '../../view/ProportionPlaygroundColorProfile.js';
 import Side from '../Side.js';
@@ -67,14 +70,19 @@ function stretchRatio( ratio, power ) {
   }
 }
 
-class PaintChoice {
+class PaintChoice extends PhetioObject {
   /**
    * @private
    *
    * @param {Property.<Color>} leftColorProperty
    * @param {Property.<Color>} rightColorProperty
    */
-  constructor( leftColorProperty, rightColorProperty ) {
+  constructor( leftColorProperty, rightColorProperty, tandem ) {
+    super( {
+      tandem: tandem,
+      phetioType: PaintChoiceIO
+    } );
+
     // @public
     this.leftColorProperty = leftColorProperty;
     this.rightColorProperty = rightColorProperty;
@@ -121,6 +129,22 @@ class PaintChoice {
   }
 }
 
+const PaintChoiceIO = new IOType( 'PaintChoiceIO', {
+  valueType: PaintChoice,
+  documentation: 'A combination of a left and right effective color',
+  toStateObject( paintChoice ) {
+    return {
+      private: {
+        choice: ( paintChoice === PaintChoice.BLUE_YELLOW ) ? 'BLUE_YELLOW' : ( paintChoice === PaintChoice.RED_YELLOW ? 'RED_YELLOW' : 'BLACK_WHITE' )
+      }
+    };
+  },
+  fromStateObject( stateObject ) {
+    return PaintChoice[ stateObject.private.choice ];
+  }
+} );
+PaintChoice.PaintChoiceIO = PaintChoiceIO;
+
 proportionPlayground.register( 'PaintChoice', PaintChoice );
 
 PaintChoice.BLUE = ProportionPlaygroundColorProfile.paintBlueProperty;
@@ -136,9 +160,9 @@ PaintChoice.RED.paintId = 3;
 PaintChoice.BLACK.paintId = 4;
 PaintChoice.WHITE.paintId = 5;
 
-PaintChoice.BLUE_YELLOW = new PaintChoice( PaintChoice.BLUE, PaintChoice.YELLOW );
-PaintChoice.RED_YELLOW = new PaintChoice( PaintChoice.RED, PaintChoice.YELLOW );
-PaintChoice.BLACK_WHITE = new PaintChoice( PaintChoice.BLACK, PaintChoice.WHITE );
+PaintChoice.BLUE_YELLOW = new PaintChoice( PaintChoice.BLUE, PaintChoice.YELLOW, Tandem.GLOBAL_MODEL.createTandem( 'blueYellowPaintChoice' ) );
+PaintChoice.RED_YELLOW = new PaintChoice( PaintChoice.RED, PaintChoice.YELLOW, Tandem.GLOBAL_MODEL.createTandem( 'redYellowPaintChoice' ) );
+PaintChoice.BLACK_WHITE = new PaintChoice( PaintChoice.BLACK, PaintChoice.WHITE, Tandem.GLOBAL_MODEL.createTandem( 'blackWhitePaintChoice' ) );
 
 PaintChoice.CHOICES = [
   PaintChoice.BLUE_YELLOW,

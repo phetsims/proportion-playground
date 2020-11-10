@@ -22,8 +22,9 @@ class Splotch extends SceneRatio {
    * @param {number} initialRightCount - Initial quantity of the right paint
    * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
+   * @param {Tandem} tandem
    */
-  constructor( initialLeftCount, initialRightCount, visibleProperty, controlsVisibleProperty ) {
+  constructor( initialLeftCount, initialRightCount, visibleProperty, controlsVisibleProperty, tandem ) {
 
     const balloons = createObservableArray();
     const drips = createObservableArray();
@@ -33,7 +34,8 @@ class Splotch extends SceneRatio {
 
     super( visibleProperty, controlsVisibleProperty,
       leftQuantity.realCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE,
-      rightQuantity.realCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE );
+      rightQuantity.realCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE,
+      tandem );
 
     // @public {PaintQuantity} - For each side
     this.leftQuantity = leftQuantity;

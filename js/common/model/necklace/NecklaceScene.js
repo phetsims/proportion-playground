@@ -13,15 +13,16 @@ import Necklace from './Necklace.js';
 class NecklaceScene extends Scene {
   /**
    * @param {boolean} predictMode - Whether there should be a 'reveal' button to help the user predict.
+   * @param {Tandem} tandem
    */
-  constructor( predictMode ) {
-    super( predictMode );
+  constructor( predictMode, tandem ) {
+    super( predictMode, tandem );
 
     const initialCount = predictMode ? 5 : 0;
 
     // @public
-    this.leftNecklace = new Necklace( initialCount, initialCount, this.leftVisibleProperty, this.leftControlsVisibleProperty );
-    this.rightNecklace = new Necklace( initialCount, initialCount, this.rightVisibleProperty, this.rightControlsVisibleProperty );
+    this.leftNecklace = new Necklace( initialCount, initialCount, this.leftVisibleProperty, this.leftControlsVisibleProperty, tandem.createTandem( 'leftNecklace' ) );
+    this.rightNecklace = new Necklace( initialCount, initialCount, this.rightVisibleProperty, this.rightControlsVisibleProperty, tandem.createTandem( 'rightNecklace' ) );
 
     this.initializeRatios( this.leftNecklace, this.rightNecklace );
   }

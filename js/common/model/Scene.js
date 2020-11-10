@@ -14,8 +14,9 @@ import proportionPlayground from '../../proportionPlayground.js';
 class Scene {
   /**
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   * @param {Tandem} tandem
    */
-  constructor( predictMode ) {
+  constructor( predictMode, tandem ) {
     // @public {Array.<SceneRatio>} - Initialized to a 2-length array (left and right ratios) in initializeRatios().
     this.ratios = [];
 
@@ -27,10 +28,14 @@ class Scene {
     this.predictMode = predictMode;
 
     // @public {BooleanProperty} - Whether the visual representation is being shown
-    this.revealProperty = new BooleanProperty( !predictMode );
+    this.revealProperty = new BooleanProperty( !predictMode, {
+      tandem: tandem.createTandem( 'revealProperty' )
+    } );
 
     // @public {BooleanProperty} - Whether both representations are shown
-    this.showBothProperty = new BooleanProperty( false );
+    this.showBothProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showBothProperty' )
+    } );
 
     // @public {Property.<boolean>} - Whether the left ratio is visible.
     this.leftVisibleProperty = this.revealProperty;
@@ -39,7 +44,9 @@ class Scene {
     this.rightVisibleProperty = DerivedProperty.and( [ this.revealProperty, this.showBothProperty ] );
 
     // @public {Property.<boolean>} - Whether the controls for the left ratio are visible
-    this.leftControlsVisibleProperty = new BooleanProperty( true );
+    this.leftControlsVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'leftControlsVisibleProperty' )
+    } );
 
     // @public {Property.<boolean>} - Whether the controls for the right ratio are visible
     this.rightControlsVisibleProperty = this.showBothProperty;

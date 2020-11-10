@@ -20,14 +20,16 @@ class Necklace extends SceneRatio {
    * @param {number} initialSquareCount - Initial number of square beads
    * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
+   * @param {Tandem} tandem
    */
-  constructor( initialRoundCount, initialSquareCount, visibleProperty, controlsVisibleProperty ) {
+  constructor( initialRoundCount, initialSquareCount, visibleProperty, controlsVisibleProperty, tandem ) {
     const roundBeadCountProperty = new NumberProperty( initialRoundCount );
     const squareBeadCountProperty = new NumberProperty( initialSquareCount );
 
     super( visibleProperty, controlsVisibleProperty,
       roundBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE,
-      squareBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE );
+      squareBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE,
+      tandem );
 
     // @public {NumberProperty} - Quantity of round beads in the necklace
     this.roundBeadCountProperty = roundBeadCountProperty;
