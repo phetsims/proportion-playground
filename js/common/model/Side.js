@@ -6,23 +6,21 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import proportionPlayground from '../../proportionPlayground.js';
 
-const Side = {
-  LEFT: 'LEFT',
-  RIGHT: 'RIGHT'
-};
+const Side = Enumeration.byKeys( [
+  'LEFT',
+  'RIGHT'
+], {
+  beforeFreeze( Side ) {
+    Side.opposite = side => {
+      assert && assert( Side.includes( side ) );
+
+      return ( side === Side.LEFT ) ? Side.RIGHT : Side.LEFT;
+    };
+  }
+} );
 
 proportionPlayground.register( 'Side', Side );
-
-Side.SIDES = [ Side.LEFT, Side.RIGHT ];
-
-Side.isSide = side => _.includes( Side.SIDES, side );
-
-Side.opposite = side => {
-  assert && assert( Side.isSide( side ) );
-
-  return ( side === Side.LEFT ) ? Side.RIGHT : Side.LEFT;
-};
-
 export default Side;

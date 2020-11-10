@@ -110,7 +110,7 @@ class PaintChoice extends PhetioObject {
    * @returns {Property.<Color>}
    */
   getColorProperty( side ) {
-    assert && assert( Side.isSide( side ) );
+    assert && assert( Side.includes( side ) );
 
     return side === Side.LEFT ? this.leftColorProperty : this.rightColorProperty;
   }
