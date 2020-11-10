@@ -40,7 +40,7 @@ class BilliardsTableNode extends SceneRatioNode {
    * @param {BilliardsTable} billiardsTable - the model
    * @param {Object} [options] - See options below. Also passed to Node's mutate.
    */
-  constructor( billiardsTable, options ) {
+  constructor( billiardsTable, tandem, options ) {
 
     super( billiardsTable );
 
@@ -54,7 +54,9 @@ class BilliardsTableNode extends SceneRatioNode {
 
       // {boolean} - Whether to allow dragging the borders of the table to resize it. If true, it will show some
       //             "grippy dots" to indicate it is draggable.
-      allowDragToResize: true
+      allowDragToResize: true,
+
+      tandem: tandem
     }, options );
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
@@ -116,13 +118,15 @@ class BilliardsTableNode extends SceneRatioNode {
      * @param {Property.<number>} property - The width or length property of the table
      * @param {string} coordinate - the axis, 'x' or 'y', to use. Corresponds with width or length, respectively.
      * @param {number} changeSign - -1 or 1, designates whether its the left or right, top or bottom dragHandle
+     * @param {Tandem} tandem
      */
-    const createDragListener = ( dragHandle, property, coordinate, changeSign ) => {
+    const createDragListener = ( dragHandle, property, coordinate, changeSign, tandem ) => {
 
       let startPoint; // track where the mouse drag starts
       let startProperty; // track the beginning width
 
       dragHandle.addInputListener( new DragListener( {
+        tandem: tandem,
         applyOffset: false,
         start: ( event, listener ) => {
           startPoint = listener.parentPoint;
@@ -139,10 +143,10 @@ class BilliardsTableNode extends SceneRatioNode {
       } ) );
     };
     // When a side of the table is dragged, the appropriate width or length changes.
-    createDragListener( leftDragHandle, billiardsTable.widthProperty, 'x', -1 );
-    createDragListener( rightDragHandle, billiardsTable.widthProperty, 'x', 1 );
-    createDragListener( topDragHandle, billiardsTable.lengthProperty, 'y', -1 );
-    createDragListener( bottomDragHandle, billiardsTable.lengthProperty, 'y', 1 );
+    createDragListener( leftDragHandle, billiardsTable.widthProperty, 'x', -1, tandem.createTandem( 'leftDragListener' ) );
+    createDragListener( rightDragHandle, billiardsTable.widthProperty, 'x', 1, tandem.createTandem( 'rightDragListener' ) );
+    createDragListener( topDragHandle, billiardsTable.lengthProperty, 'y', -1, tandem.createTandem( 'topDragListener' ) );
+    createDragListener( bottomDragHandle, billiardsTable.lengthProperty, 'y', 1, tandem.createTandem( 'bottomDragListener' ) );
 
     // When the table is resized, redraw it.
     Property.multilink( [

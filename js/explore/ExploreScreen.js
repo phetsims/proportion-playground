@@ -80,7 +80,7 @@ function createHomeScreenIcon() {
         ]
       } ),
       // Billiards table on the right
-      new BilliardsTableNode( billiardsTable, {
+      new BilliardsTableNode( billiardsTable, Tandem.OPT_OUT, {
         fullSizeBounds: false, // don't take up 20x20 bounds
         allowDragToResize: false, // don't let the user drag it (or act like it's draggable)
         scale: 1.7

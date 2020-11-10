@@ -18,10 +18,7 @@
       "adapted-from-phet",
       "phet-io"
     ],
-    "simulation": true,
-    "phet-io": {
-      "validation": false
-    }
+    "simulation": true
   },
   "eslintConfig": {
     "extends": "../chipper/eslint/sim_eslintrc.js"

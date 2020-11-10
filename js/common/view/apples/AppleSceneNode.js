@@ -43,7 +43,9 @@ class AppleSceneNode extends SceneNode {
     const showCostPerAppleCheckbox = new Checkbox( new Text( costPerAppleString, {
       maxWidth: 293, // ceiling value from ?stringTest=double for English
       font: ProportionPlaygroundConstants.CONTROL_FONT
-    } ), scene.showCostPerAppleProperty );
+    } ), scene.showCostPerAppleProperty, {
+      tandem: tandem.createTandem( 'showCostPerAppleCheckbox' )
+    } );
 
     // Super call and add children
     super( scene, layoutBounds, {

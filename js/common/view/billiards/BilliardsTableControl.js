@@ -46,7 +46,7 @@ class BilliardsTableControl extends SceneRatioControl {
     }, config );
 
     // @public - The table itself, with the ball/holes/gridlines/etc.
-    this.billiardsTableNode = new BilliardsTableNode( billiardsTable, {
+    this.billiardsTableNode = new BilliardsTableNode( billiardsTable, tandem.createTandem( 'billiardsTableNode' ), {
       allowDragToResize: config.allowDragToResize
     } );
 
