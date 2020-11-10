@@ -27,15 +27,19 @@ class SceneRatioControl extends Node {
    * @param {SceneRatio} sceneRatio
    * @param {Property.<Color>} leftPickerColorProperty - The color of the left picker's arrows
    * @param {Property.<Color>} rightPickerColorProperty - The color of the right picker's arrows
+   * @param {Tandem} tandem
    * @param {Object} [options] - node options
    */
-  constructor( sceneRatio, leftPickerColorProperty, rightPickerColorProperty, options ) {
+  constructor( sceneRatio, leftPickerColorProperty, rightPickerColorProperty, tandem, options ) {
+    assert && assert( tandem );
+
     options = merge( {
       leftPickerOptions: {}, // {Object} - Directly provided to the picker (for additional options)
       rightPickerOptions: {}, // {Object} - Directly provided to the picker (for additional options)
       leftPickerLabel: null, // {Node|string|null}
       rightPickerLabel: null, // {Node|string|null}
-      pickerLabelMaxWidth: 150 // {number}
+      pickerLabelMaxWidth: 150, // {number},
+      tandem: tandem
     }, options );
 
     super( options );
@@ -61,7 +65,15 @@ class SceneRatioControl extends Node {
       const dynamicOptions = {
         color: side === Side.LEFT ? leftPickerColorProperty : rightPickerColorProperty
       };
-      const picker = new MutableOptionsNode( NumberPicker, [ sceneRatio.getProperty( side ), new Property( sceneRatio.getRange( side ) ) ], staticOptions, dynamicOptions );
+      const picker = new MutableOptionsNode(
+        NumberPicker,
+        [ sceneRatio.getProperty( side ), new Property( sceneRatio.getRange( side ) ) ],
+        staticOptions,
+        dynamicOptions,
+        {
+          tandem: tandem.createTandem( side === Side.LEFT ? 'leftPicker' : 'rightPicker' )
+        }
+      );
 
       // If there is a label, we'll add it above the picker
       if ( label ) {

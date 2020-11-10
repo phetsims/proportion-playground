@@ -16,13 +16,21 @@ import SquareBeadNode from './SquareBeadNode.js';
 class NecklaceControl extends SceneRatioControl {
   /**
    * @param {Necklace} necklace - the model
+   * @param {Tandem} tandem
    */
-  constructor( necklace ) {
-    super( necklace, ProportionPlaygroundColorProfile.necklaceRoundBeadProperty,
-      ProportionPlaygroundColorProfile.necklaceSquareBeadProperty, {
+  constructor( necklace, tandem ) {
+    assert && assert( tandem );
+
+    super(
+      necklace,
+      ProportionPlaygroundColorProfile.necklaceRoundBeadProperty,
+      ProportionPlaygroundColorProfile.necklaceSquareBeadProperty,
+      tandem,
+      {
         leftPickerLabel: new RoundBeadNode(),
         rightPickerLabel: new SquareBeadNode( 0 )
-      } );
+      }
+    );
 
     // The necklace itself
     this.addChild( new NecklaceNode( necklace ) );

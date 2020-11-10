@@ -34,16 +34,17 @@ class PaintSceneNode extends SceneNode {
   /**
    * @param {PaintScene} scene
    * @param {Bounds2} layoutBounds - bounds withing which the scene will be shown
+   * @param {Tandem} tandem
    */
-  constructor( scene, layoutBounds ) {
+  constructor( scene, layoutBounds, tandem ) {
 
     // Left/right splotches for the showBoth ABSwitch
     const blueSplotch = new Splotch( 2, 0, new BooleanProperty( true ), new BooleanProperty( true ), Tandem.OPT_OUT );
     const greenSplotch = new Splotch( 1, 1, new BooleanProperty( true ), new BooleanProperty( true ), Tandem.OPT_OUT );
 
     // Create the left/right splotches and their NumberPickers
-    const leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.paintChoiceProperty, !scene.predictMode, Side.LEFT );
-    const rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, !scene.predictMode, Side.RIGHT );
+    const leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.paintChoiceProperty, !scene.predictMode, Side.LEFT, tandem.createTandem( 'leftSplotchControl' ) );
+    const rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, !scene.predictMode, Side.RIGHT, tandem.createTandem( 'rightSplotchControl' ) );
 
     super( scene, layoutBounds, {
       sceneIcon: new Image( paintSceneImage, { scale: 0.17 } ),
@@ -61,7 +62,8 @@ class PaintSceneNode extends SceneNode {
           new SplotchNode( blueSplotch, scene.paintChoiceProperty, SPLOTCH_ICON_OPTIONS ),
           new SplotchNode( greenSplotch, scene.paintChoiceProperty, SPLOTCH_ICON_OPTIONS )
         ]
-      } )
+      } ),
+      tandem: tandem
     } );
 
     // When the ABSwitch is toggled, show one/both of the splotches.
@@ -84,17 +86,21 @@ class PaintSceneNode extends SceneNode {
         } );
         return {
           node: new AlignBox( gradientNode, { leftMargin: 5 } ),
+          tandemName: paintChoice.tandem.name + 'RadioButton',
           value: paintChoice
         };
       } ), {
         // options
         spacing: 10,
         left: layoutBounds.left + 15,
-        bottom: layoutBounds.bottom - 15
+        bottom: layoutBounds.bottom - 15,
+
+        tandem: tandem.createTandem( 'paintChoiceRadioButtonGroup' )
       } ) );
 
     this.addChild( new GradientIndicatorNode( layoutBounds, scene, scene.revealProperty, {
-      centerY: ProportionPlaygroundConstants.CONTROL_Y_OFFSET
+      centerY: ProportionPlaygroundConstants.CONTROL_Y_OFFSET,
+      tandem: tandem.createTandem( 'gradientIndicatorNode' )
     } ) );
   }
 }

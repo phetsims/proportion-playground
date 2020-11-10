@@ -21,10 +21,17 @@ class AppleGroupControl extends SceneRatioControl {
   /**
    * @param {AppleGroup} appleGroup - the model
    * @param {Property.<boolean>} showCostPerAppleProperty - true if the price tag should be shown
+   * @param {Tandem} tandem
    */
-  constructor( appleGroup, showCostPerAppleProperty ) {
-    super( appleGroup, ProportionPlaygroundColorProfile.appleCostPickerProperty,
-      ProportionPlaygroundColorProfile.appleProperty, {
+  constructor( appleGroup, showCostPerAppleProperty, tandem ) {
+    assert && assert( tandem );
+
+    super(
+      appleGroup,
+      ProportionPlaygroundColorProfile.appleCostPickerProperty,
+      ProportionPlaygroundColorProfile.appleProperty,
+      tandem,
+      {
         leftPickerLabel: totalCostString,
         leftPickerOptions: {
           // Put a $ sign in front of the spinner number
@@ -34,7 +41,8 @@ class AppleGroupControl extends SceneRatioControl {
         },
         rightPickerLabel: applesString,
         pickerLabelMaxWidth: 90
-      } );
+      }
+    );
 
     // Create the place where apples and coins will be shown.
     const appleGroupNode = new AppleGroupNode( appleGroup, showCostPerAppleProperty );

@@ -22,15 +22,21 @@ const widthString = proportionPlaygroundStrings.width;
 class BilliardsTableControl extends SceneRatioControl {
   /**
    * @param {BilliardsTable} billiardsTable - the model
+   * @param {Tandem} tandem
    * @param {Object} config - node layout config
    */
-  constructor( billiardsTable, config ) {
-    super( billiardsTable, ProportionPlaygroundColorProfile.billiardsBorderProperty,
-      ProportionPlaygroundColorProfile.billiardsBorderProperty, {
+  constructor( billiardsTable, tandem, config ) {
+    super(
+      billiardsTable,
+      ProportionPlaygroundColorProfile.billiardsBorderProperty,
+      ProportionPlaygroundColorProfile.billiardsBorderProperty,
+      tandem,
+      {
         leftPickerLabel: lengthString,
         rightPickerLabel: widthString,
         pickerLabelMaxWidth: 70
-      } );
+      }
+    );
 
     assert && assert( config.side, 'side is required' );
 

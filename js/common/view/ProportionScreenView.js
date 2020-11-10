@@ -35,19 +35,20 @@ class ProportionScreenView extends ScreenView {
         model.reset();
       },
       centerX: this.layoutBounds.right - ProportionPlaygroundConstants.BUTTON_RIGHT_CENTER_OFFSET,
-      bottom: this.layoutBounds.maxY - 10
+      bottom: this.layoutBounds.maxY - 10,
+      tandem: tandem.createTandem( 'resetAllButton' )
     } ) );
 
     // @private {Array.<SceneNode>} - Store by index for lookup by radio button index
     this.sceneNodes = [
-      new NecklaceSceneNode( model.necklaceScene, this.layoutBounds ),
-      new PaintSceneNode( model.paintScene, this.layoutBounds ),
-      new BilliardsSceneNode( model.billiardsScene, this.layoutBounds ),
-      new AppleSceneNode( model.appleScene, this.layoutBounds )
+      new NecklaceSceneNode( model.necklaceScene, this.layoutBounds, tandem.createTandem( 'necklaceScene' ) ),
+      new PaintSceneNode( model.paintScene, this.layoutBounds, tandem.createTandem( 'paintScene' ) ),
+      new BilliardsSceneNode( model.billiardsScene, this.layoutBounds, tandem.createTandem( 'billiardsScene' ) ),
+      new AppleSceneNode( model.appleScene, this.layoutBounds, tandem.createTandem( 'appleScene' ) )
     ];
 
     // Scene selection radio buttons
-    this.addChild( new SceneSelectionControls( model.sceneProperty, this.sceneNodes, {
+    this.addChild( new SceneSelectionControls( model.sceneProperty, this.sceneNodes, tandem.createTandem( 'sceneSelectionControls' ), {
       centerX: this.layoutBounds.centerX,
       top: 5
     } ) );

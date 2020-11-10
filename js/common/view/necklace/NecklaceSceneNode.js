@@ -23,13 +23,16 @@ class NecklaceSceneNode extends SceneNode {
   /**
    * @param {NecklaceScene} scene - the model
    * @param {Bounds2} layoutBounds - the visible bounds of the sim
+   * @param {Tandem} tandem
    */
-  constructor( scene, layoutBounds ) {
+  constructor( scene, layoutBounds, tandem ) {
 
     // Create the left and right necklace nodes, each with their own NumberPickers
-    const leftNecklaceControl = new NecklaceControl( scene.leftNecklace );
-    const rightNecklaceControl = new NecklaceControl( scene.rightNecklace );
-    const patternPanel = new PatternPanel( scene.leftNecklace, scene.rightNecklace );
+    const leftNecklaceControl = new NecklaceControl( scene.leftNecklace, tandem.createTandem( 'leftNecklaceControl' ) );
+    const rightNecklaceControl = new NecklaceControl( scene.rightNecklace, tandem.createTandem( 'rightNecklaceControl' ) );
+    const patternPanel = new PatternPanel( scene.leftNecklace, scene.rightNecklace, {
+      tandem: tandem.createTandem( 'patternPanel' )
+    } );
 
     // Super call
     super( scene, layoutBounds, {
@@ -41,7 +44,8 @@ class NecklaceSceneNode extends SceneNode {
       rightSwitchIcon: new HBox( {
         children: [
           NecklaceGraphicNode.createStaticNecklace( 10, 5, ICON_OPTIONS ), NecklaceGraphicNode.createStaticNecklace( 14, 7, ICON_OPTIONS ) ]
-      } )
+      } ),
+      tandem: tandem
     } );
 
     // When 2 necklaces are selected, show both

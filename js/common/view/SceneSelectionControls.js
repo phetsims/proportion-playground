@@ -18,9 +18,10 @@ class SceneSelectionControls extends Node {
   /**
    * @param {Property.<Scene>} sceneProperty - Determines which scene is visible
    * @param {Array.<SceneNode>} sceneNodes - Each sceneNode has a scene and an icon
+   * @param {Tandem} tandem
    * @param {Object} [options] - node options
    */
-  constructor( sceneProperty, sceneNodes, options ) {
+  constructor( sceneProperty, sceneNodes, tandem, options ) {
     super();
 
     const group = new AlignGroup();
@@ -38,6 +39,8 @@ class SceneSelectionControls extends Node {
     }, {
       selectedStroke: ProportionPlaygroundColorProfile.sceneSelectionBorderProperty,
       baseColor: ProportionPlaygroundColorProfile.sceneSelectionBackgroundProperty
+    }, {
+      tandem: tandem
     } ) );
 
     this.mutate( options );

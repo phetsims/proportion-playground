@@ -25,12 +25,13 @@ class AppleSceneNode extends SceneNode {
   /**
    * @param {AppleScene} scene - the model
    * @param {Bounds2} layoutBounds - the box within which to lay out all components
+   * @param {Tandem} tandem
    */
-  constructor( scene, layoutBounds ) {
+  constructor( scene, layoutBounds, tandem ) {
 
     // Create child nodes to be displayed
-    const leftAppleGroupControl = new AppleGroupControl( scene.leftAppleGroup, scene.showCostPerAppleProperty );
-    const rightAppleGroupControl = new AppleGroupControl( scene.rightAppleGroup, scene.showCostPerAppleProperty );
+    const leftAppleGroupControl = new AppleGroupControl( scene.leftAppleGroup, scene.showCostPerAppleProperty, tandem.createTandem( 'leftAppleGroupControl' ) );
+    const rightAppleGroupControl = new AppleGroupControl( scene.rightAppleGroup, scene.showCostPerAppleProperty, tandem.createTandem( 'rightAppleGroupControl' ) );
     const appleGraphNode = new AppleGraphNode( scene, {
       y: 150
     } );
@@ -55,7 +56,8 @@ class AppleSceneNode extends SceneNode {
           new Node( { children: [ appleImageNode ] } ),
           new Node( { children: [ appleImageNode ] } )
         ]
-      } )
+      } ),
+      tandem: tandem
     } );
 
     this.addChild( showCostPerAppleCheckbox );

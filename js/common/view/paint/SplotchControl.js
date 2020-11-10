@@ -30,11 +30,17 @@ class SplotchControl extends SceneRatioControl {
    * @param {boolean} useVisibleAmounts - Whether our visible splotch size should be based on the "visible" counts as
    *                                      determined by the position of balloons/drips, or by the "real count"
    * @param {Side} balloonThrowSide - The side where balloon throws should originate from
+   * @param {Tandem} tandem
    */
-  constructor( splotch, paintChoiceProperty, useVisibleAmounts, balloonThrowSide ) {
+  constructor( splotch, paintChoiceProperty, useVisibleAmounts, balloonThrowSide, tandem ) {
+    assert && assert( tandem );
 
-    super( splotch, PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.LEFT ),
-      PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.RIGHT ) );
+    super(
+      splotch,
+      PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.LEFT ),
+      PaintChoice.getActiveColorProperty( paintChoiceProperty, Side.RIGHT ),
+      tandem
+    );
 
     const dripLayer = new Node();
     const balloonLayer = new Node();

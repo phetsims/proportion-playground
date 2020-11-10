@@ -12,6 +12,7 @@ import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ABSwitch from '../../../../sun/js/ABSwitch.js';
 import MutableOptionsNode from '../../../../sun/js/MutableOptionsNode.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColorProfile from './ProportionPlaygroundColorProfile.js';
@@ -34,7 +35,8 @@ class SceneNode extends Node {
       leftSwitchIcon: null, // {Node}, @required - Left side of the showBoth ABSwitch
       rightSwitchIcon: null, // {Node}, @required - Right side of the showBoth ABSwitch
       controlAlign: 'right', // 'right' or 'bottom', direction from the pickerContainer
-      canCenterControlButton: true // Whether the control button can be centered when both left/right are shown
+      canCenterControlButton: true, // Whether the control button can be centered when both left/right are shown
+      tandem: Tandem.REQUIRED
     }, config );
 
     assert && assert( config.sceneIcon );
@@ -43,7 +45,9 @@ class SceneNode extends Node {
     assert && assert( config.leftSwitchIcon );
     assert && assert( config.rightSwitchIcon );
 
-    super();
+    super( {
+      tandem: config.tandem
+    } );
 
     // @protected
     this.layoutBounds = layoutBounds;
@@ -76,7 +80,9 @@ class SceneNode extends Node {
 
     // For predict mode, add a reveal button that show the representations
     if ( scene.predictMode ) {
-      this.controlButton = new RevealButton( scene.revealProperty );
+      this.controlButton = new RevealButton( scene.revealProperty, {
+        tandem: config.tandem.createTandem( 'revealButton' )
+      } );
     }
     // Otherwise, have a 'Refresh' button, see https://github.com/phetsims/proportion-playground/issues/55
     else {
@@ -88,6 +94,8 @@ class SceneNode extends Node {
         }
       }, {
         baseColor: ProportionPlaygroundColorProfile.refreshBackgroundProperty
+      }, {
+        tandem: config.tandem.createTandem( 'refreshButton' )
       } );
     }
     this.addChild( this.controlButton );
@@ -116,7 +124,8 @@ class SceneNode extends Node {
     this.addChild( new ABSwitch( this.scene.showBothProperty,
       false, this.leftSwitchIcon,
       true, this.rightSwitchIcon, {
-        centerBottom: this.layoutBounds.centerBottom.plusXY( 0, -15 )
+        centerBottom: this.layoutBounds.centerBottom.plusXY( 0, -15 ),
+        tandem: this.tandem.createTandem( 'showBothSwitch' )
       } ) );
   }
 
