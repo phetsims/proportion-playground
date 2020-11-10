@@ -33,7 +33,8 @@ class AppleSceneNode extends SceneNode {
     const leftAppleGroupControl = new AppleGroupControl( scene.leftAppleGroup, scene.showCostPerAppleProperty, tandem.createTandem( 'leftAppleGroupControl' ) );
     const rightAppleGroupControl = new AppleGroupControl( scene.rightAppleGroup, scene.showCostPerAppleProperty, tandem.createTandem( 'rightAppleGroupControl' ) );
     const appleGraphNode = new AppleGraphNode( scene, {
-      y: 150
+      y: 150,
+      tandem: tandem.createTandem( 'appleGraphNode' )
     } );
 
     // Create icons for the ABSwitch
