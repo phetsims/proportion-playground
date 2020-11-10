@@ -65,6 +65,8 @@ class BilliardsTable extends SceneRatio {
 
     // @public {Property.<Vector2>} - The position of the ball in pixels
     this.ballPositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
+      phetioState: false,
+      phetioReadOnly: true,
       tandem: tandem.createTandem( 'ballPositionProperty' )
     } );
 

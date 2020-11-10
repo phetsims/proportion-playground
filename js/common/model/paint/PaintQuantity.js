@@ -33,18 +33,21 @@ class PaintQuantity {
     this.currentCountProperty = new NumberProperty( initialCount, {
       numberType: 'Integer',
       phetioReadOnly: true,
+      phetioState: false,
       tandem: tandem.createTandem( 'currentCountProperty' )
     } );
 
     // @public {NumberProperty} - The visual amount of paint for the meter and splotch.
     this.paintAreaProperty = new NumberProperty( initialCount, {
       phetioReadOnly: true,
+      phetioState: false,
       tandem: tandem.createTandem( 'paintAreaProperty' )
     } );
 
     // @private {NumberProperty} - Pending drips that will occur when a balloon hit happens.
     this.pendingDripsProperty = new NumberProperty( 0, {
       phetioReadOnly: true,
+      phetioState: false,
       tandem: tandem.createTandem( 'pendingDripsProperty' )
     } );
 

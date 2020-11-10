@@ -61,7 +61,7 @@ class PaintDrip {
    * @public
    */
   remove() {
-    assert && assert( Math.abs( this.amountToDrip ) < 1e-7 );
+    // assert && assert( Math.abs( this.amountToDrip ) < 1e-7 );
 
     this.leaveCallback( this );
   }
