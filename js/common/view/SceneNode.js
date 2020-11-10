@@ -11,7 +11,6 @@ import ResetButton from '../../../../scenery-phet/js/buttons/ResetButton.js';
 import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ABSwitch from '../../../../sun/js/ABSwitch.js';
-import MutableOptionsNode from '../../../../sun/js/MutableOptionsNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../ProportionPlaygroundConstants.js';
@@ -86,15 +85,13 @@ class SceneNode extends Node {
     }
     // Otherwise, have a 'Refresh' button, see https://github.com/phetsims/proportion-playground/issues/55
     else {
-      this.controlButton = new MutableOptionsNode( ResetButton, [], {
+      this.controlButton = new ResetButton( {
         listener: () => {
           scene.ratios.forEach( sceneRatio => {
             sceneRatio.reset();
           } );
-        }
-      }, {
-        baseColor: ProportionPlaygroundColorProfile.refreshBackgroundProperty
-      }, {
+        },
+        baseColor: ProportionPlaygroundColorProfile.refreshBackgroundProperty,
         tandem: config.tandem.createTandem( 'refreshButton' )
       } );
     }
