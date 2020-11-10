@@ -29,7 +29,10 @@ const SCREEN_ICON_TEXT_OFFSET = new Vector2( 14, 14 );
 const HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
 
 class PredictScreen extends Screen {
-  constructor() {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
     // used to create screen icons
     const splotch = new Splotch( 20, 20, new Property( true ), new Property( true ) );
@@ -38,7 +41,7 @@ class PredictScreen extends Screen {
     } );
 
     super(
-      () => new ProportionModel( true ),
+      () => new ProportionModel( true, tandem.createTandem( 'model' ) ),
       model => new ProportionScreenView( model ), {
         name: proportionPlaygroundStrings.screen.predict,
         backgroundColorProperty: ProportionPlaygroundColorProfile.predictBackgroundProperty,
@@ -49,8 +52,10 @@ class PredictScreen extends Screen {
         navigationBarIcon: new ScreenIcon( createNavigationBarIcon( splotchNode ), {
           maxIconWidthProportion: 1,
           maxIconHeightProportion: 1
-        } )
-      } );
+        } ),
+        tandem: tandem
+      }
+    );
   }
 }
 

@@ -17,8 +17,9 @@ import PaintScene from './paint/PaintScene.js';
 class ProportionModel {
   /**
    * @param {boolean} predictMode - true for the Predict Screen which has a reveal button
+   * @param {Tandem} tandem
    */
-  constructor( predictMode ) {
+  constructor( predictMode, tandem ) {
     // @public (read-only) - the model for each scene
     this.necklaceScene = new NecklaceScene( predictMode );
     this.paintScene = new PaintScene( predictMode );

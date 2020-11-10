@@ -28,10 +28,14 @@ import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
 const HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
 
 class ExploreScreen extends Screen {
-  constructor() {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
     super(
-      () => new ProportionModel( false ),
-      model => new ProportionScreenView( model ), {
+      () => new ProportionModel( false, tandem.createTandem( 'model' ) ),
+      model => new ProportionScreenView( model ),
+      {
         name: proportionPlaygroundStrings.screen.explore,
         backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
         homeScreenIcon: new ScreenIcon( createHomeScreenIcon(), {
@@ -41,8 +45,10 @@ class ExploreScreen extends Screen {
         navigationBarIcon: new ScreenIcon( createNavigationBarIcon(), {
           maxIconWidthProportion: 1,
           maxIconHeightProportion: 1
-        } )
-      } );
+        } ),
+        tandem: tandem
+      }
+    );
   }
 }
 

@@ -8,6 +8,7 @@
 
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
+import Tandem from '../../tandem/js/Tandem.js';
 import ExploreScreen from './explore/ExploreScreen.js';
 import PredictScreen from './predict/PredictScreen.js';
 import proportionPlaygroundStrings from './proportionPlaygroundStrings.js';
@@ -27,8 +28,8 @@ const simOptions = {
 
 simLauncher.launch( function() {
   const sim = new Sim( proportionPlaygroundTitleString, [
-    new ExploreScreen(),
-    new PredictScreen()
+    new ExploreScreen( Tandem.ROOT.createTandem( 'exporeScreen' ) ),
+    new PredictScreen( Tandem.ROOT.createTandem( 'predictScreen' ) )
   ], simOptions );
   sim.start();
 } );
