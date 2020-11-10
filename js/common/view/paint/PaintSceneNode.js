@@ -11,6 +11,7 @@ import AlignBox from '../../../../../scenery/js/nodes/AlignBox.js';
 import HBox from '../../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import VerticalAquaRadioButtonGroup from '../../../../../sun/js/VerticalAquaRadioButtonGroup.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import paintSceneImage from '../../../../mipmaps/paint-scene_png.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
@@ -37,8 +38,8 @@ class PaintSceneNode extends SceneNode {
   constructor( scene, layoutBounds ) {
 
     // Left/right splotches for the showBoth ABSwitch
-    const blueSplotch = new Splotch( 2, 0, new BooleanProperty( true ), new BooleanProperty( true ) );
-    const greenSplotch = new Splotch( 1, 1, new BooleanProperty( true ), new BooleanProperty( true ) );
+    const blueSplotch = new Splotch( 2, 0, new BooleanProperty( true ), new BooleanProperty( true ), Tandem.OPT_OUT );
+    const greenSplotch = new Splotch( 1, 1, new BooleanProperty( true ), new BooleanProperty( true ), Tandem.OPT_OUT );
 
     // Create the left/right splotches and their NumberPickers
     const leftSplotchControl = new SplotchControl( scene.leftSplotch, scene.paintChoiceProperty, !scene.predictMode, Side.LEFT );

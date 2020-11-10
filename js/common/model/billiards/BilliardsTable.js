@@ -43,16 +43,18 @@ class BilliardsTable extends SceneRatio {
 
     const lengthProperty = new NumberProperty( options.initialLength, {
       range: ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
+      numberType: 'Integer',
       tandem: tandem.createTandem( 'lengthProperty' )
     } );
     const widthProperty = new NumberProperty( options.initialWidth, {
       range: ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
+      numberType: 'Integer',
       tandem: tandem.createTandem( 'widthProperty' )
     } );
 
     super( options.visibleProperty, options.controlsVisibleProperty,
-      lengthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
-      widthProperty, ProportionPlaygroundConstants.BILLIARDS_COUNT_RANGE,
+      lengthProperty,
+      widthProperty,
       tandem );
 
     // @public {NumberProperty} - Number of grid units vertically

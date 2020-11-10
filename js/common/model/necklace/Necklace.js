@@ -23,12 +23,20 @@ class Necklace extends SceneRatio {
    * @param {Tandem} tandem
    */
   constructor( initialRoundCount, initialSquareCount, visibleProperty, controlsVisibleProperty, tandem ) {
-    const roundBeadCountProperty = new NumberProperty( initialRoundCount );
-    const squareBeadCountProperty = new NumberProperty( initialSquareCount );
+    const roundBeadCountProperty = new NumberProperty( initialRoundCount, {
+      range: ProportionPlaygroundConstants.BEAD_COUNT_RANGE,
+      numberType: 'Integer',
+      tandem: tandem.createTandem( 'roundBeadCountProperty' )
+    } );
+    const squareBeadCountProperty = new NumberProperty( initialSquareCount, {
+      range: ProportionPlaygroundConstants.BEAD_COUNT_RANGE,
+      numberType: 'Integer',
+      tandem: tandem.createTandem( 'squareBeadCountProperty' )
+    } );
 
     super( visibleProperty, controlsVisibleProperty,
-      roundBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE,
-      squareBeadCountProperty, ProportionPlaygroundConstants.BEAD_COUNT_RANGE,
+      roundBeadCountProperty,
+      squareBeadCountProperty,
       tandem );
 
     // @public {NumberProperty} - Quantity of round beads in the necklace

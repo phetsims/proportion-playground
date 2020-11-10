@@ -15,6 +15,7 @@ import AlignBox from '../../../scenery/js/nodes/AlignBox.js';
 import Node from '../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../scenery/js/nodes/Text.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import ProportionModel from '../common/model/ProportionModel.js';
 import PaintChoice from '../common/model/paint/PaintChoice.js';
 import Splotch from '../common/model/paint/Splotch.js';
@@ -35,7 +36,7 @@ class PredictScreen extends Screen {
   constructor( tandem ) {
 
     // used to create screen icons
-    const splotch = new Splotch( 20, 20, new Property( true ), new Property( true ) );
+    const splotch = new Splotch( 20, 20, new Property( true ), new Property( true ), Tandem.OPT_OUT );
     const splotchNode = new SplotchNode( splotch, new Property( PaintChoice.RED_YELLOW ), {
       scale: SplotchNode.colorTotalToSplotchScale( 60 ) / SplotchNode.colorTotalToSplotchScale( 40 )
     } );

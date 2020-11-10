@@ -29,12 +29,12 @@ class Splotch extends SceneRatio {
     const balloons = createObservableArray();
     const drips = createObservableArray();
 
-    const leftQuantity = createPaintQuantity( initialLeftCount, Side.LEFT, balloons, drips, () => this.visibleLeftColorProperty );
-    const rightQuantity = createPaintQuantity( initialRightCount, Side.RIGHT, balloons, drips, () => this.visibleRightColorProperty );
+    const leftQuantity = createPaintQuantity( initialLeftCount, Side.LEFT, balloons, drips, () => this.visibleLeftColorProperty, tandem.createTandem( 'leftQuantity' ) );
+    const rightQuantity = createPaintQuantity( initialRightCount, Side.RIGHT, balloons, drips, () => this.visibleRightColorProperty, tandem.createTandem( 'rightQuantity' ) );
 
     super( visibleProperty, controlsVisibleProperty,
-      leftQuantity.realCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE,
-      rightQuantity.realCountProperty, ProportionPlaygroundConstants.PAINT_COUNT_RANGE,
+      leftQuantity.realCountProperty,
+      rightQuantity.realCountProperty,
       tandem );
 
     // @public {PaintQuantity} - For each side
@@ -116,9 +116,10 @@ proportionPlayground.register( 'Splotch', Splotch );
  * @param {Array.<PaintBallon>} balloons
  * @param {Array.<PaintDrip>} drips
  * @param {function} getVisibleColorProperty
+ * @param {Tandem} tandem
  * @returns {PaintQuantity}
  */
-function createPaintQuantity( initialCount, side, balloons, drips, getVisibleColorProperty ) {
+function createPaintQuantity( initialCount, side, balloons, drips, getVisibleColorProperty, tandem ) {
   return new PaintQuantity( initialCount, function createBalloon( hitCallback ) {
     balloons.push( new PaintBalloon( side, balloon => {
       balloons.remove( balloon );
@@ -129,7 +130,7 @@ function createPaintQuantity( initialCount, side, balloons, drips, getVisibleCol
     drips.push( new PaintDrip( side, drip => {
       drips.remove( drip );
     }, amountToDrip, removeCallback, visibleColorProperty.value ) );
-  } );
+  }, tandem );
 }
 
 export default Splotch;

@@ -8,29 +8,45 @@
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import proportionPlayground from '../../../proportionPlayground.js';
+import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 
 class PaintQuantity {
   /**
    * @param {number} initialCount - Initial quantity of the paint
    * @param {function} createBalloon - function( callbackWhenHits() )
    * @param {function} createDrip - function( amountToRemove: number, dripCallback( amount ) )
+   * @param {Tandem} tandem
    */
-  constructor( initialCount, createBalloon, createDrip ) {
+  constructor( initialCount, createBalloon, createDrip, tandem ) {
     // @private
     this.createBalloon = createBalloon;
     this.createDrip = createDrip;
 
     // @public {NumberProperty} - The real model value (ignoring balloons, drips, etc.), changes instantly on toggles.
-    this.realCountProperty = new NumberProperty( initialCount );
+    this.realCountProperty = new NumberProperty( initialCount, {
+      range: ProportionPlaygroundConstants.PAINT_COUNT_RANGE,
+      numberType: 'Integer',
+      tandem: tandem.createTandem( 'realCountProperty' )
+    } );
 
     // @public {NumberProperty} - The model value that increases instantly when balloons hit. Can go negative.
-    this.currentCountProperty = new NumberProperty( initialCount );
+    this.currentCountProperty = new NumberProperty( initialCount, {
+      numberType: 'Integer',
+      phetioReadOnly: true,
+      tandem: tandem.createTandem( 'currentCountProperty' )
+    } );
 
     // @public {NumberProperty} - The visual amount of paint for the meter and splotch.
-    this.paintAreaProperty = new NumberProperty( initialCount );
+    this.paintAreaProperty = new NumberProperty( initialCount, {
+      phetioReadOnly: true,
+      tandem: tandem.createTandem( 'paintAreaProperty' )
+    } );
 
     // @private {NumberProperty} - Pending drips that will occur when a balloon hit happens.
-    this.pendingDripsProperty = new NumberProperty( 0 );
+    this.pendingDripsProperty = new NumberProperty( 0, {
+      phetioReadOnly: true,
+      tandem: tandem.createTandem( 'pendingDripsProperty' )
+    } );
 
     this.realCountProperty.lazyLink( this.realCountChange.bind( this ) );
   }

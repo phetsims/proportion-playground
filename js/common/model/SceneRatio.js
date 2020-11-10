@@ -14,13 +14,13 @@ class SceneRatio {
   /**
    * @param {Property.<boolean>} visibleProperty - Whether our visual representation is visible
    * @param {Property.<boolean>} controlsVisibleProperty - Whether our controls are visible
-   * @param {Property.<number>} leftProperty - The numeric value for our ratio's left value
-   * @param {Range} leftRange - The range of valid values for our leftProperty
-   * @param {Property.<number>} rightProperty - The numeric value for our ratio's right value
-   * @param {Range} rightRange - The range of valid values for our rightProperty
+   * @param {NumberProperty.<number>} leftProperty - The numeric value for our ratio's left value
+   * @param {NumberProperty.<number>} rightProperty - The numeric value for our ratio's right value
    * @param {Tandem} tandem
    */
-  constructor( visibleProperty, controlsVisibleProperty, leftProperty, leftRange, rightProperty, rightRange, tandem ) {
+  constructor( visibleProperty, controlsVisibleProperty, leftProperty, rightProperty, tandem ) {
+    assert && assert( leftProperty.range );
+    assert && assert( rightProperty.range );
 
     // @public {Property.<boolean>} - Whether we are visible or not
     this.visibleProperty = visibleProperty;
@@ -31,14 +31,8 @@ class SceneRatio {
     // @public {Property.<number>} - Left numeric value
     this.leftProperty = leftProperty;
 
-    // @public {Range} - Range for the left numeric value
-    this.leftRange = leftRange;
-
     // @public {Property.<number>} - Right numeric value
     this.rightProperty = rightProperty;
-
-    // @public {Range} - Range for the right numeric value
-    this.rightRange = rightRange;
 
     // @public {Array.<NumberProperty>} - Properties that indicate a numerator or denominator in our ratio
     this.quantityProperties = [ leftProperty, rightProperty ];
@@ -76,7 +70,7 @@ class SceneRatio {
    * @returns {Range}
    */
   getRange( side ) {
-    return side === Side.LEFT ? this.leftRange : this.rightRange;
+    return this.getProperty( side ).range;
   }
 
   /**

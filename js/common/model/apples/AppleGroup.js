@@ -23,16 +23,18 @@ class AppleGroup extends SceneRatio {
 
     const totalCostProperty = new NumberProperty( initialCost, {
       range: ProportionPlaygroundConstants.APPLE_TOTAL_COST_RANGE,
+      numberType: 'Integer',
       tandem: tandem.createTandem( 'totalCostProperty' )
     } );
     const numberOfApplesProperty = new NumberProperty( initialApples, {
       range: ProportionPlaygroundConstants.APPLE_COUNT_RANGE,
+      numberType: 'Integer',
       tandem: tandem.createTandem( 'numberOfApplesProperty' )
     } );
 
     super( visibleProperty, controlsVisibleProperty,
-      totalCostProperty, ProportionPlaygroundConstants.APPLE_TOTAL_COST_RANGE,
-      numberOfApplesProperty, ProportionPlaygroundConstants.APPLE_COUNT_RANGE,
+      totalCostProperty,
+      numberOfApplesProperty,
       tandem );
 
     // @public {NumberProperty} - Total cost of all of the apples

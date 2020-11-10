@@ -14,6 +14,7 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../../scenery/js/nodes/VBox.js';
 import Panel from '../../../../../sun/js/Panel.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
@@ -37,7 +38,7 @@ class PatternPanel extends Panel {
     } );
 
     // Determine the maximum necklace dimensions
-    const maxNecklace = new Necklace( 20, 19, new Property( true ), new Property( true ) );
+    const maxNecklace = new Necklace( 20, 19, new Property( true ), new Property( true ), Tandem.OPT_OUT );
     const maxPatternBounds = new PatternNode( maxNecklace ).bounds;
     maxPatternBounds.maxX += 2 * maxPatternBounds.width;
     maxPatternBounds.maxY += 5; // Some extra padding
