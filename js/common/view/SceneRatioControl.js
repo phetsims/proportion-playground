@@ -14,7 +14,6 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
-import MutableOptionsNode from '../../../../sun/js/MutableOptionsNode.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../ProportionPlaygroundConstants.js';
 import Side from '../model/Side.js';
@@ -56,23 +55,14 @@ class SceneRatioControl extends Node {
      * @returns {Node}
      */
     function createPickers( side, label, pickerOptions ) {
-      // Use MutableOptionsNode, see https://github.com/phetsims/scenery-phet/issues/287
-      const staticOptions = merge( {
-        scale: 2,
-        valueMaxWidth: 40,
-        timerInterval: 100
-      }, pickerOptions );
-      const dynamicOptions = {
-        color: side === Side.LEFT ? leftPickerColorProperty : rightPickerColorProperty
-      };
-      const picker = new MutableOptionsNode(
-        NumberPicker,
-        [ sceneRatio.getProperty( side ), new Property( sceneRatio.getRange( side ) ) ],
-        staticOptions,
-        dynamicOptions,
-        {
+      const picker = new NumberPicker( sceneRatio.getProperty( side ), new Property( sceneRatio.getRange( side ) ),
+        merge( {
+          scale: 2,
+          valueMaxWidth: 40,
+          timerInterval: 100,
+          color: side === Side.LEFT ? leftPickerColorProperty : rightPickerColorProperty,
           tandem: tandem.createTandem( side === Side.LEFT ? 'leftPicker' : 'rightPicker' )
-        }
+        }, pickerOptions )
       );
 
       // If there is a label, we'll add it above the picker
