@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import proportionPlayground from '../../../proportionPlayground.js';
@@ -70,8 +71,8 @@ class SplotchControl extends SceneRatioControl {
       // Add balloon views when the model is added
       splotch.balloons.addItemAddedListener( balloon => {
         // Balloons have a random slight offset for the start/end (in the view only)
-        const randomStart = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 150 );
-        const randomEnd = new Vector2( phet.joist.random.nextDouble(), phet.joist.random.nextDouble() ).minusScalar( 0.5 ).timesScalar( 30 );
+        const randomStart = new Vector2( dotRandom.nextDouble(), dotRandom.nextDouble() ).minusScalar( 0.5 ).timesScalar( 150 );
+        const randomEnd = new Vector2( dotRandom.nextDouble(), dotRandom.nextDouble() ).minusScalar( 0.5 ).timesScalar( 30 );
         const balloonNode = new PaintBalloonNode( balloon, paintChoiceProperty, randomStart, randomEnd );
         balloonLayer.addChild( balloonNode );
         this.balloonNodes.push( balloonNode );

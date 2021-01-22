@@ -6,6 +6,7 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -77,7 +78,7 @@ class PaintBalloonNode extends Node {
     this.endOffset = endOffset;
 
     // @private {boolean} - Which direction should this balloon rotate?
-    this.rotationDirection = phet.joist.random.nextBoolean() ? -1 : 1;
+    this.rotationDirection = dotRandom.nextBoolean() ? -1 : 1;
 
     // @private - Stored for disposal
     this.colorChoiceListener = this.updateBalloonColor.bind( this );
