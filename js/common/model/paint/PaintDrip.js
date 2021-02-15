@@ -14,7 +14,7 @@ class PaintDrip {
    * @param {function} leaveCallback - Called with this as a single arg when the paint shouldn't be visible
    * @param {number} amountToDrip - Total amount of paint balloons to drip away
    * @param {function} removeCallback - Call with function( amount ) to remove a certain amount as the drop grows
-   * @param {number} initialSplotchArea - Indicates the intial area, so the intial position can be calibrated
+   * @param {number} initialSplotchArea - Indicates the initial area, so the initial position can be calibrated
    */
   constructor( side, leaveCallback, amountToDrip, removeCallback, initialSplotchArea ) {
     // @public {number}
