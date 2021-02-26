@@ -55,11 +55,11 @@ class AppleGroupNode extends SceneRatioNode {
 
     // {Array.<Array.<Node>>} - Array of rows, each of which is an array of apple nodes
     const appleRows = _.range( 0, ProportionPlaygroundConstants.APPLE_COUNT_RANGE.max / APPLES_PER_ROW ).map( row => _.range( 0, APPLES_PER_ROW ).map( column => new Node( {
-          children: [ appleImageNode ],
-          x: ( APPLES_PER_ROW - column ) * appleImageNode.width * 0.8 -
-             row * appleImageNode.width * 0.15,
-          y: row * appleImageNode.height * 0.55
-        } ) ) );
+      children: [ appleImageNode ],
+      x: ( APPLES_PER_ROW - column ) * appleImageNode.width * 0.8 -
+         row * appleImageNode.width * 0.15,
+      y: row * appleImageNode.height * 0.55
+    } ) ) );
 
     const appleNodes = _.flatten( appleRows );
 
@@ -81,9 +81,9 @@ class AppleGroupNode extends SceneRatioNode {
     } );
 
     const coinNodes = _.range( 0, ProportionPlaygroundConstants.APPLE_TOTAL_COST_RANGE.max ).map( coinNumber => new Node( {
-        children: [ coinImageNode ],
-        y: -coinNumber * coinImageNode.height / 10
-      } ) );
+      children: [ coinImageNode ],
+      y: -coinNumber * coinImageNode.height / 10
+    } ) );
 
     // @public {Node} - Exposed so we can properly align controls with the coins
     this.coinStack = new Node( {

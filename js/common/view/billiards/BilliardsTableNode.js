@@ -73,8 +73,8 @@ class BilliardsTableNode extends SceneRatioNode {
       pickable: false, // use the mouse/touch areas directly, don't test these
       spacing: 1.3,
       children: [ 0, 1, 2 ].map( () => new Circle( 1.2, {
-          fill: ProportionPlaygroundColorProfile.billiardsGripDotsProperty
-        } ) ),
+        fill: ProportionPlaygroundColorProfile.billiardsGripDotsProperty
+      } ) ),
       center: Vector2.ZERO
     } );
     const rotatedGripDots = new Node( { children: [ dragGripDots ], rotation: Math.PI / 2 } );

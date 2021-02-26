@@ -50,10 +50,10 @@ balloonImageMap[ PaintChoice.WHITE.paintId ] = [ whiteBalloon1Image, whiteBalloo
 balloonImageMap[ PaintChoice.YELLOW.paintId ] = [ yellowBalloon1Image, yellowBalloon2Image, yellowBalloon3Image ];
 _.each( PaintChoice.COLORS, paintColor => {
   balloonImageMap[ paintColor.paintId ] = balloonImageMap[ paintColor.paintId ].map( imageElement => new Image( imageElement, {
-      centerX: 0,
-      centerY: 0,
-      scale: BALLON_IMAGE_SCALE
-    } ) );
+    centerX: 0,
+    centerY: 0,
+    scale: BALLON_IMAGE_SCALE
+  } ) );
 } );
 
 // {number} Controls how the balloons rotate (from +halfRotation to -halfRotation or the opposite)

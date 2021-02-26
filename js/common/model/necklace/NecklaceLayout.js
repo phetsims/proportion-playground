@@ -199,7 +199,7 @@ class NecklaceLayout {
 
       const gcd = Utils.gcd( roundBeadCount, squareBeadCount );
       const types = _.flatten( _.range( 0, gcd ).map( () => _.times( squareBeadCount / gcd, () => 'square' ).concat(
-          _.times( roundBeadCount / gcd, () => 'round' ) ) ) );
+        _.times( roundBeadCount / gcd, () => 'round' ) ) ) );
 
       // Between each pair of vertices, we must put a bead in the center
       const centers = [];
@@ -280,7 +280,6 @@ class NecklaceLayout {
       this.containerTranslation = ( roundBeadCount + squareBeadCount === 3 ) ? new Vector2( 0, -5 ) : Vector2.ZERO;
     }
   }
-
 
 
   /**

@@ -44,7 +44,7 @@ class AppleGraphNode extends Node {
     const tickPositions = [ 0, 0.5, 1 ].map( ratio => Utils.linear( 0, 1, ARROW_HEIGHT, 0, ratio ) );
     // moveTo/lineTo for each tick
     const tickShape = _.reduce( tickPositions, ( shape, position ) => shape.moveTo( -TICK_X, position )
-        .lineTo( TICK_X, position ), new Shape() );
+      .lineTo( TICK_X, position ), new Shape() );
     arrowNode.addChild( new Path( tickShape, {
       stroke: 'black',
       lineWidth: ARROW_LINE_WIDTH

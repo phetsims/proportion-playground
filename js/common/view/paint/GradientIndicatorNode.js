@@ -62,17 +62,17 @@ class GradientIndicatorNode extends Node {
      * @returns {function}
      */
     const createIndicatorUpdateFunction = ( indicator, splotchModel, condition ) => () => {
-        const total = splotchModel.visibleLeftColorProperty.value + splotchModel.visibleRightColorProperty.value;
-        if ( total < 1e-6 ) {
-          indicator.visible = false;
-        }
-        else {
-          indicator.visible = condition() && revealProperty.get();
+      const total = splotchModel.visibleLeftColorProperty.value + splotchModel.visibleRightColorProperty.value;
+      if ( total < 1e-6 ) {
+        indicator.visible = false;
+      }
+      else {
+        indicator.visible = condition() && revealProperty.get();
 
-          const proportion = splotchModel.visibleRightColorProperty.value / total;
-          indicator.centerY = proportion * GRADIENT_HEIGHT;
-        }
-      };
+        const proportion = splotchModel.visibleRightColorProperty.value / total;
+        indicator.centerY = proportion * GRADIENT_HEIGHT;
+      }
+    };
 
     // Update the left triangle indicator node when its parameters change.
     Property.multilink( [

@@ -36,8 +36,8 @@ class AppleGroupControl extends SceneRatioControl {
         leftPickerOptions: {
           // Put a $ sign in front of the spinner number
           formatValue: value => StringUtils.fillIn( pricePatternString, {
-              price: '' + value
-            } )
+            price: '' + value
+          } )
         },
         rightPickerLabel: applesString,
         pickerLabelMaxWidth: 90

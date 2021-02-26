@@ -47,13 +47,13 @@ class PatternNode extends Node {
 
     // Construct nodes for every possible bead
     const roundBeadNodes = _.range( 0, MAX_BEADS ).map( n => new Node( {
-        children: [ roundBeadNode ],
-        y: NODE_OFFSET * n
-      } ) );
+      children: [ roundBeadNode ],
+      y: NODE_OFFSET * n
+    } ) );
     const squareBeadNodes = _.range( 0, MAX_BEADS ).map( n => new Node( {
-        children: [ squareBeadNode ],
-        y: NODE_OFFSET * n
-      } ) );
+      children: [ squareBeadNode ],
+      y: NODE_OFFSET * n
+    } ) );
     roundBeadNodes.forEach( this.addChild.bind( this ) );
     squareBeadNodes.forEach( this.addChild.bind( this ) );
 

@@ -28,10 +28,10 @@ const dark7Property = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBea
 const dark4Property = ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.4 );
 
 const gradientProperty = new DerivedProperty( [ colorProperty ], color => new RadialGradient( 0, 0, 0, 0, 0, DIAMETER + GRADIENT_OFFSET )
-    .addColorStop( 0, color.colorUtilsBrighter( 0.3 ) )
-    .addColorStop( 0.3, color )
-    .addColorStop( 0.5, color.colorUtilsDarker( 0.1 ) )
-    .addColorStop( 0.8, color.colorUtilsDarker( 0.3 ) ) );
+  .addColorStop( 0, color.colorUtilsBrighter( 0.3 ) )
+  .addColorStop( 0.3, color )
+  .addColorStop( 0.5, color.colorUtilsDarker( 0.1 ) )
+  .addColorStop( 0.8, color.colorUtilsDarker( 0.3 ) ) );
 
 const scratchMatrix3 = new Matrix3();
 
