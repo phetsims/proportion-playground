@@ -26,7 +26,7 @@ const simOptions = {
   }
 };
 
-simLauncher.launch( function() {
+simLauncher.launch( () => {
   const sim = new Sim( proportionPlaygroundTitleString, [
     new ExploreScreen( Tandem.ROOT.createTandem( 'exporeScreen' ) ),
     new PredictScreen( Tandem.ROOT.createTandem( 'predictScreen' ) )

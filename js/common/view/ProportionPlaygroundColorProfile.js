@@ -66,7 +66,7 @@ proportionPlayground.register( 'ProportionPlaygroundColorProfile', ProportionPla
  * @returns {Property.<Color>}
  */
 function adjustedColorUtilsBrightness( colorProperty, amount ) {
-  return new DerivedProperty( [ colorProperty ], function( color ) {
+  return new DerivedProperty( [ colorProperty ], ( color => {
     if ( amount > 0 ) {
       return color.colorUtilsBrighter( amount );
     }
@@ -76,7 +76,7 @@ function adjustedColorUtilsBrightness( colorProperty, amount ) {
     else {
       return color;
     }
-  } );
+  } ) );
 }
 
 /**

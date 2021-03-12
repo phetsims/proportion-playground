@@ -120,17 +120,17 @@ proportionPlayground.register( 'Splotch', Splotch );
  * @returns {PaintQuantity}
  */
 function createPaintQuantity( initialCount, side, balloons, drips, getVisibleColorProperty, tandem ) {
-  return new PaintQuantity( initialCount, function createBalloon( hitCallback ) {
+  return new PaintQuantity( initialCount, ( hitCallback => {
     balloons.push( new PaintBalloon( side, balloon => {
       balloons.remove( balloon );
       hitCallback();
     } ) );
-  }, function createDrip( amountToDrip, removeCallback ) {
+  } ), ( ( amountToDrip, removeCallback ) => {
     const visibleColorProperty = getVisibleColorProperty();
     drips.push( new PaintDrip( side, drip => {
       drips.remove( drip );
     }, amountToDrip, removeCallback, visibleColorProperty.value ) );
-  }, tandem );
+  } ), tandem );
 }
 
 export default Splotch;
