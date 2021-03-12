@@ -76,11 +76,11 @@ class Splotch extends SceneRatio {
    */
   step( dt ) {
     // Step balloons in reverse order, since they can remove themselves
-    for ( var i = this.balloons.length - 1; i >= 0; i-- ) {
+    for ( let i = this.balloons.length - 1; i >= 0; i-- ) {
       this.balloons.get( i ).step( dt );
     }
 
-    for ( i = this.drips.length - 1; i >= 0; i-- ) {
+    for ( let i = this.drips.length - 1; i >= 0; i-- ) {
       this.drips.get( i ).step( dt );
     }
   }

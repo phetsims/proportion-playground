@@ -127,12 +127,12 @@ class SplotchControl extends SceneRatioControl {
         visibleBounds.bottom * 0.8 );
 
       // Update balloon positions
-      for ( var i = 0; i < this.balloonNodes.length; i++ ) {
+      for ( let i = 0; i < this.balloonNodes.length; i++ ) {
         this.balloonNodes[ i ].position( startPosition, SPLOTCH_POSITION );
       }
 
       // Update drip positions
-      for ( i = this.dripNodes.length - 1; i >= 0; i-- ) {
+      for ( let i = this.dripNodes.length - 1; i >= 0; i-- ) {
         this.dripNodes[ i ].position( SPLOTCH_POSITION, visibleBounds.bottom );
       }
     }

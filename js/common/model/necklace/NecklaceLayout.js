@@ -168,8 +168,8 @@ class NecklaceLayout {
 
       // loop through vertices and change according to repulsion points
       const vertices = [];
-      for ( var i = 0; i < numVertices; i++ ) {
-        var angle = ( i + 0.5 ) * angelBetweenVertices - Math.PI / 2;
+      for ( let i = 0; i < numVertices; i++ ) {
+        const angle = ( i + 0.5 ) * angelBetweenVertices - Math.PI / 2;
         const perfectVertex = Vector2.createPolar( R, angle );
         let newRadius = R;
 
@@ -189,7 +189,7 @@ class NecklaceLayout {
 
       // Set up pairs of vertices - between each pair of vertices will be a bead
       const pairs = [];
-      for ( i = 0; i < vertices.length - 1; i++ ) {
+      for ( let i = 0; i < vertices.length - 1; i++ ) {
         pairs.push( { start: vertices[ i ], end: vertices[ i + 1 ] } );
       }
       // join last->first
@@ -203,15 +203,15 @@ class NecklaceLayout {
 
       // Between each pair of vertices, we must put a bead in the center
       const centers = [];
-      for ( i = 0; i < pairs.length; i++ ) {
+      for ( let i = 0; i < pairs.length; i++ ) {
         const pair = pairs[ i ];
-        var center = pair.start.blend( pair.end, 0.5 );
+        const center = pair.start.blend( pair.end, 0.5 );
         centers.push( center );
       }
 
       // Find the shortest distance between any two centers
       let minSideLength = centers[ centers.length - 1 ].distance( centers[ 0 ] );
-      for ( i = 0; i < centers.length - 1; i++ ) {
+      for ( let i = 0; i < centers.length - 1; i++ ) {
         const newLength = centers[ i ].distance( centers[ i + 1 ] );
         if ( newLength < minSideLength ) {
           minSideLength = newLength;
@@ -221,7 +221,7 @@ class NecklaceLayout {
       // Resize necklace to be smaller so beads are closer together
       const radiusScale = BEAD_DIAMETER / minSideLength;
 
-      for ( i = 0; i < centers.length; i++ ) {
+      for ( let i = 0; i < centers.length; i++ ) {
         const oldCenter = centers[ i ];
 
         // Add 5 to the radius to give some more space between beads
@@ -229,8 +229,11 @@ class NecklaceLayout {
         centers[ i ] = Vector2.createPolar( radiusScale * oldCenter.magnitude + extraSpace, oldCenter.angle );
       }
 
+      let center;
+      let angle;
+
       // Instantiate the beads between each vertex
-      for ( i = 0; i < centers.length; i++ ) {
+      for ( let i = 0; i < centers.length; i++ ) {
         center = centers[ i ];
         angle = pairs[ i ].end.minus( pairs[ i ].start ).angle;
 
@@ -251,7 +254,7 @@ class NecklaceLayout {
       }
 
       // the black line of the necklace
-      for ( i = 0; i < centers.length - 1; i++ ) {
+      for ( let i = 0; i < centers.length - 1; i++ ) {
         center = centers[ i ];
 
         // Have the last bead connect to the first bead.
