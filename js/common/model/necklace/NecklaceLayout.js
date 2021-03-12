@@ -295,7 +295,7 @@ class NecklaceLayout {
    */
   static getLayout( roundBeadCount, squareBeadCount ) {
 
-    const key = roundBeadCount + ',' + squareBeadCount;
+    const key = `${roundBeadCount},${squareBeadCount}`;
     if ( layoutMap[ key ] ) {
       return layoutMap[ key ];
     }
