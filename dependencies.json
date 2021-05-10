@@ -1,5 +1,5 @@
 {
-  "comment": "# proportion-playground 1.0.15 Mon Oct 28 2019 14:58:03 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# proportion-playground 1.0.15 Mon May 10 2021 16:31:38 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "proportion-playground": {
-    "sha": "3b67ad09c45638aac79a987fad465064110bcbf6",
+    "sha": "ca9fd8d9670d8b5dce4ef28f4766bd9fb4867f99",
     "branch": "1.0"
   },
   "query-string-machine": {
@@ -49,8 +49,8 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "4679f3fd11d2663896e027054a6a71bed5447bd5",
-    "branch": "HEAD"
+    "sha": "34ae02c7ce80660ebe1ba1125dbe5534d7acbddb",
+    "branch": "proportion-playground-1.0"
   },
   "scenery-phet": {
     "sha": "719d451fbf7bdaf043f467aa58d9b4a52b53a1c8",
