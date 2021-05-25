@@ -1,4 +1,4 @@
-// Copyright 2016-2020, University of Colorado Boulder
+// Copyright 2016-2021, University of Colorado Boulder
 
 /**
  * The model for a single paint splotch. Colors are combined in the view.
