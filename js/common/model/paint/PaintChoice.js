@@ -13,6 +13,7 @@ import Color from '../../../../../scenery/js/util/Color.js';
 import PhetioObject from '../../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
+import StringIO from '../../../../../tandem/js/types/StringIO.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundColorProfile from '../../view/ProportionPlaygroundColorProfile.js';
 import Side from '../Side.js';
@@ -138,6 +139,11 @@ const PaintChoiceIO = new IOType( 'PaintChoiceIO', {
         choice: ( paintChoice === PaintChoice.BLUE_YELLOW ) ? 'BLUE_YELLOW' : ( paintChoice === PaintChoice.RED_YELLOW ? 'RED_YELLOW' : 'BLACK_WHITE' )
       }
     };
+  },
+  stateSchema: {
+    private: {
+      choice: StringIO
+    }
   },
   fromStateObject( stateObject ) {
     return PaintChoice[ stateObject.private.choice ];
