@@ -146,7 +146,7 @@ const PaintChoiceIO = new IOType( 'PaintChoiceIO', {
     }
   },
   fromStateObject( stateObject ) {
-    return PaintChoice[ stateObject.private.choice ];
+    return PaintChoice[ stateObject._private.choice ];
   }
 } );
 PaintChoice.PaintChoiceIO = PaintChoiceIO;
