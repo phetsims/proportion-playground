@@ -135,13 +135,13 @@ const PaintChoiceIO = new IOType( 'PaintChoiceIO', {
   documentation: 'A combination of a left and right effective color',
   toStateObject( paintChoice ) {
     return {
-      private: {
+      _private: {
         choice: ( paintChoice === PaintChoice.BLUE_YELLOW ) ? 'BLUE_YELLOW' : ( paintChoice === PaintChoice.RED_YELLOW ? 'RED_YELLOW' : 'BLACK_WHITE' )
       }
     };
   },
   stateSchema: {
-    private: {
+    _private: {
       choice: StringIO
     }
   },
