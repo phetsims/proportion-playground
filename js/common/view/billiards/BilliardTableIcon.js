@@ -9,7 +9,7 @@
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
+import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
 
 class BilliardTableIcon extends Node {
   /**
@@ -22,11 +22,11 @@ class BilliardTableIcon extends Node {
     super( {
       children: [
         new Rectangle( -inset, -inset, width, height, {
-          fill: ProportionPlaygroundColorProfile.billiardsBorderProperty,
+          fill: proportionPlaygroundColorProfile.billiardsBorderProperty,
           cornerRadius: inset
         } ),
         new Rectangle( 0, 0, width - inset * 2, height - inset * 2, {
-          fill: ProportionPlaygroundColorProfile.billiardsInsideProperty
+          fill: proportionPlaygroundColorProfile.billiardsInsideProperty
         } )
       ]
     } );

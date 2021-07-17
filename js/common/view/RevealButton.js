@@ -12,7 +12,7 @@ import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSoli
 import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import proportionPlayground from '../../proportionPlayground.js';
-import ProportionPlaygroundColorProfile from './ProportionPlaygroundColorProfile.js';
+import proportionPlaygroundColorProfile from './proportionPlaygroundColorProfile.js';
 
 class RevealButton extends BooleanRoundToggleButton {
   /**
@@ -26,7 +26,7 @@ class RevealButton extends BooleanRoundToggleButton {
     options = merge( {
       xMargin: 10,
       yMargin: 10,
-      baseColor: ProportionPlaygroundColorProfile.revealButtonProperty
+      baseColor: proportionPlaygroundColorProfile.revealButtonProperty
     }, options );
 
     super( revealedNode, hiddenNode, revealingProperty, options );
