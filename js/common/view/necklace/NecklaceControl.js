@@ -1,4 +1,4 @@
-// Copyright 2016-2020, University of Colorado Boulder
+// Copyright 2016-2021, University of Colorado Boulder
 
 /**
  * Combines a mutable NecklaceNode with NumberPickers to change the amount of each type of bead.
