@@ -7,53 +7,59 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import ColorProfile from '../../../../scenery-phet/js/ColorProfile.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import Color from '../../../../scenery/js/util/Color.js';
+import ProfileColorProperty from '../../../../scenery/js/util/ProfileColorProperty.js';
 import proportionPlayground from '../../proportionPlayground.js';
 
 // Initial colors for each profile, by string key. Only profile currently is default (still helpful for making color
 // tweaks with the top-level proportion-playground-colors.html)
-const proportionPlaygroundColorProfile = new ColorProfile( [ 'default' ], {
 
-  exploreBackground: { default: new Color( '#fcf3eb' ) },
-  predictBackground: { default: new Color( '#eaeefd' ) },
-  refreshBackground: { default: new Color( 242, 242, 242 ) },
-  revealButton: { default: PhetColorScheme.BUTTON_YELLOW },
-  sceneSelectionBorder: { default: Color.BLACK },
-  sceneSelectionBackground: { default: Color.WHITE },
+class ProportionPlaygroundColorProfile {
+  constructor() {
 
-  // Apple scenes
-  apple: { default: new Color( 237, 28, 36 ) },
-  appleCostPicker: { default: Color.BLACK },
-  applePriceTagBackground: { default: Color.WHITE },
-  applePriceTagBorder: { default: Color.BLACK },
-  applePriceTagText: { default: Color.BLACK },
+    // @public
+    this.exploreBackgroundProperty = new ProfileColorProperty( 'exploreBackground', { default: new Color( '#fcf3eb' ) } );
+    this.predictBackgroundProperty = new ProfileColorProperty( 'predictBackground', { default: new Color( '#eaeefd' ) } );
+    this.refreshBackgroundProperty = new ProfileColorProperty( 'refreshBackground', { default: new Color( 242, 242, 242 ) } );
+    this.revealButtonProperty = new ProfileColorProperty( 'revealButton', { default: PhetColorScheme.BUTTON_YELLOW } );
+    this.sceneSelectionBorderProperty = new ProfileColorProperty( 'sceneSelectionBorder', { default: Color.BLACK } );
+    this.sceneSelectionBackgroundProperty = new ProfileColorProperty( 'sceneSelectionBackground', { default: Color.WHITE } );
 
-  // Billiards scenes
-  billiardsBorder: { default: new Color( 85, 55, 0 ) },
-  billiardsInside: { default: new Color( 15, 102, 34 ) },
-  billiardsPath: { default: Color.WHITE },
-  billiardsGripDots: { default: new Color( 190, 190, 190 ) },
-  billiardsGridLine: { default: new Color( 168, 168, 168 ) },
-  billiardsPocket: { default: Color.BLACK },
-  billiardsBallMain: { default: new Color( 244, 244, 244 ) },
-  billiardsBallHighlight: { default: Color.WHITE },
+    // Apple scenes
+    this.appleProperty = new ProfileColorProperty( 'apple', { default: new Color( 237, 28, 36 ) } );
+    this.appleCostPickerProperty = new ProfileColorProperty( 'appleCostPicker', { default: Color.BLACK } );
+    this.applePriceTagBackgroundProperty = new ProfileColorProperty( 'applePriceTagBackground', { default: Color.WHITE } );
+    this.applePriceTagBorderProperty = new ProfileColorProperty( 'applePriceTagBorder', { default: Color.BLACK } );
+    this.applePriceTagTextProperty = new ProfileColorProperty( 'applePriceTagText', { default: Color.BLACK } );
 
-  // Paint scenes
-  paintStroke: { default: Color.BLACK },
-  paintBlue: { default: new Color( 0x05, 0x70, 0xFF ) },
-  paintYellow: { default: new Color( 0xFF, 0xE0, 0x05 ) },
-  paintRed: { default: new Color( 0xFF, 0x25, 0x05 ) },
-  paintBlack: { default: new Color( 0x25, 0x25, 0x25 ) },
-  paintWhite: { default: new Color( 0xFF, 0xFF, 0xFF ) },
+    // Billiards scenes
+    this.billiardsBorderProperty = new ProfileColorProperty( 'billiardsBorder', { default: new Color( 85, 55, 0 ) } );
+    this.billiardsInsideProperty = new ProfileColorProperty( 'billiardsInside', { default: new Color( 15, 102, 34 ) } );
+    this.billiardsPathProperty = new ProfileColorProperty( 'billiardsPath', { default: Color.WHITE } );
+    this.billiardsGripDotsProperty = new ProfileColorProperty( 'billiardsGripDots', { default: new Color( 190, 190, 190 ) } );
+    this.billiardsGridLineProperty = new ProfileColorProperty( 'billiardsGridLine', { default: new Color( 168, 168, 168 ) } );
+    this.billiardsPocketProperty = new ProfileColorProperty( 'billiardsPocket', { default: Color.BLACK } );
+    this.billiardsBallMainProperty = new ProfileColorProperty( 'billiardsBallMain', { default: new Color( 244, 244, 244 ) } );
+    this.billiardsBallHighlightProperty = new ProfileColorProperty( 'billiardsBallHighlight', { default: Color.WHITE } );
 
-  // Necklace scenes
-  necklaceRoundBead: { default: new Color( 'hsl(355,75%,53%)' ) },
-  necklaceSquareBead: { default: new Color( 'hsl(206,65%,48%)' ) },
-  necklaceString: { default: Color.BLACK },
-  necklacePatternBorder: { default: new Color( '#B3B3B3' ) }
-} );
+    // Paint scenes
+    this.paintStrokeProperty = new ProfileColorProperty( 'paintStroke', { default: Color.BLACK } );
+    this.paintBlueProperty = new ProfileColorProperty( 'paintBlue', { default: new Color( 0x05, 0x70, 0xFF ) } );
+    this.paintYellowProperty = new ProfileColorProperty( 'paintYellow', { default: new Color( 0xFF, 0xE0, 0x05 ) } );
+    this.paintRedProperty = new ProfileColorProperty( 'paintRed', { default: new Color( 0xFF, 0x25, 0x05 ) } );
+    this.paintBlackProperty = new ProfileColorProperty( 'paintBlack', { default: new Color( 0x25, 0x25, 0x25 ) } );
+    this.paintWhiteProperty = new ProfileColorProperty( 'paintWhite', { default: new Color( 0xFF, 0xFF, 0xFF ) } );
+
+    // Necklace scenes
+    this.necklaceRoundBeadProperty = new ProfileColorProperty( 'necklaceRoundBead', { default: new Color( 'hsl(355,75%,53%)' ) } );
+    this.necklaceSquareBeadProperty = new ProfileColorProperty( 'necklaceSquareBead', { default: new Color( 'hsl(206,65%,48%)' ) } );
+    this.necklaceStringProperty = new ProfileColorProperty( 'necklaceString', { default: Color.BLACK } );
+    this.necklacePatternBorderProperty = new ProfileColorProperty( 'necklacePatternBorder', { default: new Color( '#B3B3B3' ) } );
+  }
+}
+
+const proportionPlaygroundColorProfile = new ProportionPlaygroundColorProfile();
 
 proportionPlayground.register( 'proportionPlaygroundColorProfile', proportionPlaygroundColorProfile );
 
