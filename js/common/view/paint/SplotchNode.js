@@ -18,7 +18,7 @@ import Color from '../../../../../scenery/js/util/Color.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
-import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
 import SceneRatioNode from '../SceneRatioNode.js';
 
 // {Shape} SVG declaration for the splotch shape. Generated from AI file => cut shape => save svg => cut newlines.
@@ -74,7 +74,7 @@ class SplotchNode extends SceneRatioNode {
     } );
 
     const splotchPath = new Path( splotchShape, {
-      stroke: proportionPlaygroundColorProfile.paintStrokeProperty,
+      stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
       lineWidth: 0.7,
       fill: colorProperty
     } );

@@ -14,7 +14,7 @@ import ABSwitch from '../../../../sun/js/ABSwitch.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../ProportionPlaygroundConstants.js';
-import proportionPlaygroundColorProfile from './proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColorProfile from './ProportionPlaygroundColorProfile.js';
 import RevealButton from './RevealButton.js';
 
 // left and right labels for the switches should all share
@@ -91,7 +91,7 @@ class SceneNode extends Node {
             sceneRatio.reset();
           } );
         },
-        baseColor: proportionPlaygroundColorProfile.refreshBackgroundProperty,
+        baseColor: ProportionPlaygroundColorProfile.refreshBackgroundProperty,
         tandem: config.tandem.createTandem( 'refreshButton' )
       } );
     }

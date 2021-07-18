@@ -19,7 +19,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import ProportionModel from '../common/model/ProportionModel.js';
 import PaintChoice from '../common/model/paint/PaintChoice.js';
 import Splotch from '../common/model/paint/Splotch.js';
-import proportionPlaygroundColorProfile from '../common/view/proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColorProfile from '../common/view/ProportionPlaygroundColorProfile.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
 import SplotchNode from '../common/view/paint/SplotchNode.js';
 import proportionPlayground from '../proportionPlayground.js';
@@ -45,7 +45,7 @@ class PredictScreen extends Screen {
       () => new ProportionModel( true, tandem.createTandem( 'model' ) ),
       model => new ProportionScreenView( model, tandem.createTandem( 'view' ) ), {
         name: proportionPlaygroundStrings.screen.predict,
-        backgroundColorProperty: proportionPlaygroundColorProfile.predictBackgroundProperty,
+        backgroundColorProperty: ProportionPlaygroundColorProfile.predictBackgroundProperty,
         homeScreenIcon: new ScreenIcon( createHomeScreenIcon( splotchNode ), {
           maxIconWidthProportion: 1,
           maxIconHeightProportion: 1
@@ -72,7 +72,7 @@ function createHomeScreenIcon( splotchNode ) {
   return new Node( {
     children: [
       Rectangle.bounds( HOME_SCREEN_ICON_BOUNDS, {
-        fill: proportionPlaygroundColorProfile.predictBackgroundProperty
+        fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
       } ),
       // Centered splotch with home-screen text
       new AlignBox( new Node( { children: [ splotchNode, homeScreenQuestionText ] } ), {
@@ -94,7 +94,7 @@ function createNavigationBarIcon( splotchNode ) {
   return new Node( {
     children: [
       Rectangle.bounds( HOME_SCREEN_ICON_BOUNDS, {
-        fill: proportionPlaygroundColorProfile.predictBackgroundProperty
+        fill: ProportionPlaygroundColorProfile.predictBackgroundProperty
       } ),
       // Centered splotch with nav-bar text
       new AlignBox( new Node( { children: [ splotchNode, navigationBarQuestionText ] } ), {

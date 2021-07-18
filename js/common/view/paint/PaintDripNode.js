@@ -11,7 +11,7 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
-import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
 import SplotchNode from './SplotchNode.js';
 
 // {number} - Area of a single splotch (view coordinates)
@@ -55,7 +55,7 @@ class PaintDripNode extends Node {
     this.path = new Path( dropletShape, {
       scale: Math.sqrt( SPLOTCH_AREA / SHAPE_AREA ),
       rotation: -Math.PI / 2,
-      stroke: proportionPlaygroundColorProfile.paintStrokeProperty,
+      stroke: ProportionPlaygroundColorProfile.paintStrokeProperty,
       lineWidth: 0.6,
       fill: this.fillColorProperty
     } );

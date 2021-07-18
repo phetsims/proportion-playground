@@ -9,7 +9,7 @@
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
-import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
 import SceneRatioControl from '../SceneRatioControl.js';
 import AppleGroupNode from './AppleGroupNode.js';
 
@@ -28,8 +28,8 @@ class AppleGroupControl extends SceneRatioControl {
 
     super(
       appleGroup,
-      proportionPlaygroundColorProfile.appleCostPickerProperty,
-      proportionPlaygroundColorProfile.appleProperty,
+      ProportionPlaygroundColorProfile.appleCostPickerProperty,
+      ProportionPlaygroundColorProfile.appleProperty,
       tandem,
       {
         leftPickerLabel: totalCostString,

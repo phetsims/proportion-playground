@@ -20,7 +20,7 @@ import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import Side from '../../model/Side.js';
 import Necklace from '../../model/necklace/Necklace.js';
-import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
 import PatternNode from './PatternNode.js';
 
 const patternString = proportionPlaygroundStrings.pattern;
@@ -80,7 +80,7 @@ class PatternPanel extends Panel {
 
     super( content, merge( {
       cornerRadius: 3,
-      stroke: proportionPlaygroundColorProfile.necklacePatternBorderProperty,
+      stroke: ProportionPlaygroundColorProfile.necklacePatternBorderProperty,
       xMargin: 10
     }, options ) );
   }

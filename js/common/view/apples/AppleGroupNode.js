@@ -25,7 +25,7 @@ import crateFrontImage from '../../../../mipmaps/crate-front_png.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
-import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
 import SceneRatioNode from '../SceneRatioNode.js';
 
 const appleString = proportionPlaygroundStrings.apple;
@@ -118,7 +118,7 @@ class AppleGroupNode extends SceneRatioNode {
       }
       const textOptions = {
         font: ProportionPlaygroundConstants.APPLE_PRICE_FONT,
-        fill: proportionPlaygroundColorProfile.applePriceTagTextProperty,
+        fill: ProportionPlaygroundColorProfile.applePriceTagTextProperty,
         maxWidth: 200
       };
       const labelBox = new AlignBox( new VBox( {
@@ -127,7 +127,7 @@ class AppleGroupNode extends SceneRatioNode {
           new Text( fixed, textOptions ),
           new Line( 0, 0, 100, 0, {
             lineWidth: 2,
-            stroke: proportionPlaygroundColorProfile.applePriceTagTextProperty
+            stroke: ProportionPlaygroundColorProfile.applePriceTagTextProperty
           } ),
           new Text( appleString, textOptions )
         ]
@@ -144,8 +144,8 @@ class AppleGroupNode extends SceneRatioNode {
         .close();
       priceTagLayer.children = [
         new Path( labelShape, {
-          fill: proportionPlaygroundColorProfile.applePriceTagBackgroundProperty,
-          stroke: proportionPlaygroundColorProfile.applePriceTagBorderProperty,
+          fill: ProportionPlaygroundColorProfile.applePriceTagBackgroundProperty,
+          stroke: ProportionPlaygroundColorProfile.applePriceTagBorderProperty,
           lineWidth: 1.5
         } ),
         labelBox

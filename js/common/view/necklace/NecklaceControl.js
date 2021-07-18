@@ -7,7 +7,7 @@
  */
 
 import proportionPlayground from '../../../proportionPlayground.js';
-import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
 import SceneRatioControl from '../SceneRatioControl.js';
 import NecklaceNode from './NecklaceNode.js';
 import RoundBeadNode from './RoundBeadNode.js';
@@ -23,8 +23,8 @@ class NecklaceControl extends SceneRatioControl {
 
     super(
       necklace,
-      proportionPlaygroundColorProfile.necklaceRoundBeadProperty,
-      proportionPlaygroundColorProfile.necklaceSquareBeadProperty,
+      ProportionPlaygroundColorProfile.necklaceRoundBeadProperty,
+      ProportionPlaygroundColorProfile.necklaceSquareBeadProperty,
       tandem,
       {
         leftPickerLabel: new RoundBeadNode(),
