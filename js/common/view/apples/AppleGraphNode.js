@@ -18,7 +18,7 @@ import proportionPlayground from '../../../proportionPlayground.js';
 import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import Side from '../../model/Side.js';
-import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
+import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
 import TriangleNode from '../TriangleNode.js';
 
 const appleCostString = proportionPlaygroundStrings.appleCost;
@@ -71,7 +71,7 @@ class AppleGraphNode extends Node {
 
     // Update the indicator fills when salient properties change
     Property.multilink( scene.quantityProperties.concat( [ scene.showBothProperty ] ), () => {
-      const colorProperty = scene.predictMode ? ProportionPlaygroundColorProfile.predictBackgroundProperty : ProportionPlaygroundColorProfile.exploreBackgroundProperty;
+      const colorProperty = scene.predictMode ? proportionPlaygroundColorProfile.predictBackgroundProperty : proportionPlaygroundColorProfile.exploreBackgroundProperty;
       const fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : colorProperty;
       rightIndicator.fill = fill;
       leftIndicator.fill = fill;

@@ -26,7 +26,7 @@ import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import MutableOptionsNode from '../../../../../sun/js/MutableOptionsNode.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
-import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
+import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
 import SceneRatioNode from '../SceneRatioNode.js';
 import BilliardsPath from './BilliardsPath.js';
 
@@ -61,11 +61,11 @@ class BilliardsTableNode extends SceneRatioNode {
 
     // Model the edge outside of the green area (not as a stroke) since there is no way to do "outer" stroke
     const borderRectangle = new Rectangle( {
-      fill: ProportionPlaygroundColorProfile.billiardsBorderProperty,
+      fill: proportionPlaygroundColorProfile.billiardsBorderProperty,
       cornerRadius: 9
     } );
     const insideRectangle = new Rectangle( {
-      fill: ProportionPlaygroundColorProfile.billiardsInsideProperty
+      fill: proportionPlaygroundColorProfile.billiardsInsideProperty
     } );
 
     // Create drag-handle parts to be used as children.
@@ -73,7 +73,7 @@ class BilliardsTableNode extends SceneRatioNode {
       pickable: false, // use the mouse/touch areas directly, don't test these
       spacing: 1.3,
       children: [ 0, 1, 2 ].map( () => new Circle( 1.2, {
-        fill: ProportionPlaygroundColorProfile.billiardsGripDotsProperty
+        fill: proportionPlaygroundColorProfile.billiardsGripDotsProperty
       } ) ),
       center: Vector2.ZERO
     } );
@@ -98,15 +98,15 @@ class BilliardsTableNode extends SceneRatioNode {
     const ballNode = new MutableOptionsNode( ShadedSphereNode, [ BALL_DIAMETER ], {
       pickable: false
     }, {
-      mainColor: ProportionPlaygroundColorProfile.billiardsBallMainProperty,
-      highlightColor: ProportionPlaygroundColorProfile.billiardsBallHighlightProperty
+      mainColor: proportionPlaygroundColorProfile.billiardsBallMainProperty,
+      highlightColor: proportionPlaygroundColorProfile.billiardsBallHighlightProperty
     } );
     billiardsTable.ballPositionProperty.link( ballModelPosition => {
       ballNode.translation = modelViewTransform.modelToViewPosition( ballModelPosition );
     } );
 
     // Create the holes for top-left, top-right and bottom-right
-    const createCircle = () => new Circle( BALL_DIAMETER / 2, { fill: ProportionPlaygroundColorProfile.billiardsPocketProperty } );
+    const createCircle = () => new Circle( BALL_DIAMETER / 2, { fill: proportionPlaygroundColorProfile.billiardsPocketProperty } );
     const topLeftHoleNode = createCircle();
     const topRightHoleNode = createCircle();
     const bottomRightHoleNode = createCircle();
@@ -265,7 +265,7 @@ class BilliardsTableNode extends SceneRatioNode {
 
     return new Path( shape, {
       scale: MODEL_VIEW_SCALE,
-      stroke: ProportionPlaygroundColorProfile.billiardsGridLineProperty,
+      stroke: proportionPlaygroundColorProfile.billiardsGridLineProperty,
       lineWidth: GRID_LINE_WIDTH
     } );
   }

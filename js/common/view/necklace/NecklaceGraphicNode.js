@@ -14,7 +14,7 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import NecklaceLayout from '../../model/necklace/NecklaceLayout.js';
-import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
+import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
 import RoundBeadNode from './RoundBeadNode.js';
 import SquareBeadNode from './SquareBeadNode.js';
 
@@ -33,7 +33,7 @@ class NecklaceGraphicNode extends Node {
 
     // @private {Path} - The chain/string behind the beads
     this.chain = new Path( null, {
-      stroke: ProportionPlaygroundColorProfile.necklaceStringProperty,
+      stroke: proportionPlaygroundColorProfile.necklaceStringProperty,
       lineWidth: 2
     } );
     this.container.addChild( this.chain );

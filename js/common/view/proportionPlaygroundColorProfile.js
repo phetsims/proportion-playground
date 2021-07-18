@@ -14,7 +14,7 @@ import proportionPlayground from '../../proportionPlayground.js';
 
 // Initial colors for each profile, by string key. Only profile currently is default (still helpful for making color
 // tweaks with the top-level proportion-playground-colors.html)
-const ProportionPlaygroundColorProfile = new ColorProfile( [ 'default' ], {
+const proportionPlaygroundColorProfile = new ColorProfile( [ 'default' ], {
 
   exploreBackground: { default: new Color( '#fcf3eb' ) },
   predictBackground: { default: new Color( '#eaeefd' ) },
@@ -55,7 +55,7 @@ const ProportionPlaygroundColorProfile = new ColorProfile( [ 'default' ], {
   necklacePatternBorder: { default: new Color( '#B3B3B3' ) }
 } );
 
-proportionPlayground.register( 'ProportionPlaygroundColorProfile', ProportionPlaygroundColorProfile );
+proportionPlayground.register( 'proportionPlaygroundColorProfile', proportionPlaygroundColorProfile );
 
 /**
  * Creates a color property that is always an adjusted amount brighter/darker than the defined colorProperty.
@@ -86,9 +86,9 @@ function adjustedColorUtilsBrightness( colorProperty, amount ) {
  * @param {number} amount
  * @returns {Property.<Color>}
  */
-ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty =
-  adjustedColorUtilsBrightness.bind( null, ProportionPlaygroundColorProfile.necklaceRoundBeadProperty );
-ProportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty =
-  adjustedColorUtilsBrightness.bind( null, ProportionPlaygroundColorProfile.necklaceSquareBeadProperty );
+proportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty =
+  adjustedColorUtilsBrightness.bind( null, proportionPlaygroundColorProfile.necklaceRoundBeadProperty );
+proportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty =
+  adjustedColorUtilsBrightness.bind( null, proportionPlaygroundColorProfile.necklaceSquareBeadProperty );
 
-export default ProportionPlaygroundColorProfile;
+export default proportionPlaygroundColorProfile;

@@ -18,7 +18,7 @@ import VBox from '../../../scenery/js/nodes/VBox.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import ProportionModel from '../common/model/ProportionModel.js';
 import BilliardsTable from '../common/model/billiards/BilliardsTable.js';
-import ProportionPlaygroundColorProfile from '../common/view/ProportionPlaygroundColorProfile.js';
+import proportionPlaygroundColorProfile from '../common/view/proportionPlaygroundColorProfile.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
 import BilliardsTableNode from '../common/view/billiards/BilliardsTableNode.js';
 import NecklaceGraphicNode from '../common/view/necklace/NecklaceGraphicNode.js';
@@ -38,7 +38,7 @@ class ExploreScreen extends Screen {
       model => new ProportionScreenView( model, tandem.createTandem( 'view' ) ),
       {
         name: proportionPlaygroundStrings.screen.explore,
-        backgroundColorProperty: ProportionPlaygroundColorProfile.exploreBackgroundProperty,
+        backgroundColorProperty: proportionPlaygroundColorProfile.exploreBackgroundProperty,
         homeScreenIcon: new ScreenIcon( createHomeScreenIcon(), {
           maxIconWidthProportion: 1,
           maxIconHeightProportion: 1
@@ -91,7 +91,7 @@ function createHomeScreenIcon() {
   return new Node( {
     children: [
       Rectangle.bounds( HOME_SCREEN_ICON_BOUNDS, {
-        fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
+        fill: proportionPlaygroundColorProfile.exploreBackgroundProperty
       } ),
       new AlignBox( homeScreenIconContent, {
         alignBounds: HOME_SCREEN_ICON_BOUNDS
@@ -105,7 +105,7 @@ function createNavigationBarIcon() {
   return new Node( {
     children: [
       Rectangle.bounds( HOME_SCREEN_ICON_BOUNDS, {
-        fill: ProportionPlaygroundColorProfile.exploreBackgroundProperty
+        fill: proportionPlaygroundColorProfile.exploreBackgroundProperty
       } ),
       // Just a simple necklace for the nav-bar
       new AlignBox( NecklaceGraphicNode.createStaticNecklace( 6, 3, { scale: 3.5, pickable: false } ), {

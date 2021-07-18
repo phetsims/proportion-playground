@@ -14,7 +14,7 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import MutableOptionsNode from '../../../../../sun/js/MutableOptionsNode.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
-import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
+import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
 
 // constants
 const DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
@@ -25,14 +25,14 @@ const shadedNode = new MutableOptionsNode( ShadedSphereNode, [ DIAMETER ], {
   highlightXOffset: -0.3,
   highlightYOffset: -0.3
 }, {
-  mainColor: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.1 ),
-  shadowColor: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.5 ),
-  highlightColor: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( 0.5 )
+  mainColor: proportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.1 ),
+  shadowColor: proportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.5 ),
+  highlightColor: proportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( 0.5 )
 } );
 
 // {Node} - Background
 const backgroundNode = new Circle( DIAMETER * 0.51, {
-  fill: ProportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.6 ),
+  fill: proportionPlaygroundColorProfile.adjustedNecklaceRoundBeadProperty( -0.6 ),
   x: DIAMETER / 30,
   y: DIAMETER / 30
 } );

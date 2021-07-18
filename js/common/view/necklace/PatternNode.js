@@ -15,19 +15,19 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
-import ProportionPlaygroundColorProfile from '../ProportionPlaygroundColorProfile.js';
+import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
 
 // constants
 const BEAD_SIZE = 9;
 
 // {Node} - Will have multiple parents, used as a single graphic node
 const roundBeadNode = new Circle( BEAD_SIZE / 2, {
-  fill: ProportionPlaygroundColorProfile.necklaceRoundBeadProperty
+  fill: proportionPlaygroundColorProfile.necklaceRoundBeadProperty
 } );
 
 // {Node} - Will have multiple parents, used as a single graphic node
 const squareBeadNode = new Rectangle( 0, 0, BEAD_SIZE, BEAD_SIZE, {
-  fill: ProportionPlaygroundColorProfile.necklaceSquareBeadProperty,
+  fill: proportionPlaygroundColorProfile.necklaceSquareBeadProperty,
   center: Vector2.ZERO
 } );
 
