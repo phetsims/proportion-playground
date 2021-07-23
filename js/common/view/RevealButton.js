@@ -8,8 +8,8 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
-import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
+import eyeRegularShape from '../../../../sherpa/js/fontawesome-5/eyeRegularShape.js';
+import eyeSlashRegularShape from '../../../../sherpa/js/fontawesome-5/eyeSlashRegularShape.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import proportionPlaygroundColorProfile from './proportionPlaygroundColorProfile.js';
@@ -20,8 +20,8 @@ class RevealButton extends BooleanRoundToggleButton {
    * @param {Object} [options]
    */
   constructor( revealingProperty, options ) {
-    const revealedNode = new Path( eyeSolidShape, { scale: 0.07, fill: 'black' } );
-    const hiddenNode = new Path( eyeSlashSolidShape, { scale: 0.07, fill: 'black' } );
+    const revealedNode = new Path( eyeRegularShape, { scale: 0.07, fill: 'black' } );
+    const hiddenNode = new Path( eyeSlashRegularShape, { scale: 0.07, fill: 'black' } );
 
     options = merge( {
       xMargin: 10,
