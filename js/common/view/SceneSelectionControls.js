@@ -11,7 +11,7 @@ import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import proportionPlayground from '../../proportionPlayground.js';
-import proportionPlaygroundColorProfile from './proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColors from './ProportionPlaygroundColors.js';
 
 class SceneSelectionControls extends RectangularRadioButtonGroup {
   /**
@@ -33,8 +33,8 @@ class SceneSelectionControls extends RectangularRadioButtonGroup {
       buttonContentXMargin: 20,
       buttonContentYMargin: 12,
       selectedLineWidth: 2,
-      selectedStroke: proportionPlaygroundColorProfile.sceneSelectionBorderProperty,
-      baseColor: proportionPlaygroundColorProfile.sceneSelectionBackgroundProperty,
+      selectedStroke: ProportionPlaygroundColors.sceneSelectionBorderProperty,
+      baseColor: ProportionPlaygroundColors.sceneSelectionBackgroundProperty,
       tandem: tandem
     }, options );
 

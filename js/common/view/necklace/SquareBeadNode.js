@@ -15,17 +15,17 @@ import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import RadialGradient from '../../../../../scenery/js/util/RadialGradient.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
-import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 
 // constants
 const DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
 const RADIUS = DIAMETER / 2;
 const GRADIENT_OFFSET = RADIUS * 0.6;
 const ROUND = RADIUS / 5;
-const colorProperty = proportionPlaygroundColorProfile.necklaceSquareBeadProperty;
+const colorProperty = ProportionPlaygroundColors.necklaceSquareBeadProperty;
 
-const dark7Property = proportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.7 );
-const dark4Property = proportionPlaygroundColorProfile.adjustedNecklaceSquareBeadProperty( -0.4 );
+const dark7Property = ProportionPlaygroundColors.adjustedNecklaceSquareBeadProperty( -0.7 );
+const dark4Property = ProportionPlaygroundColors.adjustedNecklaceSquareBeadProperty( -0.4 );
 
 const gradientProperty = new DerivedProperty( [ colorProperty ], color => new RadialGradient( 0, 0, 0, 0, 0, DIAMETER + GRADIENT_OFFSET )
   .addColorStop( 0, color.colorUtilsBrighter( 0.3 ) )

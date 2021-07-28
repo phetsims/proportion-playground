@@ -10,11 +10,11 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import Line from '../../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 
 // constants
 const LINE_OPTIONS = {
-  stroke: proportionPlaygroundColorProfile.billiardsPathProperty,
+  stroke: ProportionPlaygroundColors.billiardsPathProperty,
   lineWidth: 2,
   lineCap: 'round'
 };

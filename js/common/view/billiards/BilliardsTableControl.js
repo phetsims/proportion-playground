@@ -12,7 +12,7 @@ import VBox from '../../../../../scenery/js/nodes/VBox.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import Side from '../../model/Side.js';
-import proportionPlaygroundColorProfile from '../proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import SceneRatioControl from '../SceneRatioControl.js';
 import BilliardsTableNode from './BilliardsTableNode.js';
 
@@ -28,8 +28,8 @@ class BilliardsTableControl extends SceneRatioControl {
   constructor( billiardsTable, tandem, config ) {
     super(
       billiardsTable,
-      proportionPlaygroundColorProfile.billiardsBorderProperty,
-      proportionPlaygroundColorProfile.billiardsBorderProperty,
+      ProportionPlaygroundColors.billiardsBorderProperty,
+      ProportionPlaygroundColors.billiardsBorderProperty,
       tandem,
       {
         leftPickerLabel: lengthString,

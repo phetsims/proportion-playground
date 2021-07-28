@@ -15,7 +15,7 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import StringIO from '../../../../../tandem/js/types/StringIO.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import proportionPlaygroundColorProfile from '../../view/proportionPlaygroundColorProfile.js';
+import ProportionPlaygroundColors from '../../view/ProportionPlaygroundColors.js';
 import Side from '../Side.js';
 
 /**
@@ -153,11 +153,11 @@ PaintChoice.PaintChoiceIO = PaintChoiceIO;
 
 proportionPlayground.register( 'PaintChoice', PaintChoice );
 
-PaintChoice.BLUE = proportionPlaygroundColorProfile.paintBlueProperty;
-PaintChoice.YELLOW = proportionPlaygroundColorProfile.paintYellowProperty;
-PaintChoice.RED = proportionPlaygroundColorProfile.paintRedProperty;
-PaintChoice.BLACK = proportionPlaygroundColorProfile.paintBlackProperty;
-PaintChoice.WHITE = proportionPlaygroundColorProfile.paintWhiteProperty;
+PaintChoice.BLUE = ProportionPlaygroundColors.paintBlueProperty;
+PaintChoice.YELLOW = ProportionPlaygroundColors.paintYellowProperty;
+PaintChoice.RED = ProportionPlaygroundColors.paintRedProperty;
+PaintChoice.BLACK = ProportionPlaygroundColors.paintBlackProperty;
+PaintChoice.WHITE = ProportionPlaygroundColors.paintWhiteProperty;
 
 // Assign unique IDs to the individual paints, so that they can be differentiated for balloon handling.
 PaintChoice.BLUE.paintId = 1;
