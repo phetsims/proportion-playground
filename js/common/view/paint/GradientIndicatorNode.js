@@ -8,7 +8,7 @@
  */
 
 import Property from '../../../../../axon/js/Property.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../../scenery/js/imports.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import Side from '../../model/Side.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';

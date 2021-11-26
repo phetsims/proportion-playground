@@ -7,9 +7,9 @@
  */
 
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
-import AlignBox from '../../../../../scenery/js/nodes/AlignBox.js';
-import HBox from '../../../../../scenery/js/nodes/HBox.js';
-import Image from '../../../../../scenery/js/nodes/Image.js';
+import { AlignBox } from '../../../../../scenery/js/imports.js';
+import { HBox } from '../../../../../scenery/js/imports.js';
+import { Image } from '../../../../../scenery/js/imports.js';
 import VerticalAquaRadioButtonGroup from '../../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import paintSceneImage from '../../../../mipmaps/paint-scene_png.js';

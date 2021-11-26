@@ -8,8 +8,8 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
-import Color from '../../../../scenery/js/util/Color.js';
-import ProfileColorProperty from '../../../../scenery/js/util/ProfileColorProperty.js';
+import { Color } from '../../../../scenery/js/imports.js';
+import { ProfileColorProperty } from '../../../../scenery/js/imports.js';
 import proportionPlayground from '../../proportionPlayground.js';
 
 // Initial colors for each profile, by string key. Only profile currently is default (still helpful for making color

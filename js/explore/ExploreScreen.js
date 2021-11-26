@@ -9,12 +9,12 @@
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import AlignBox from '../../../scenery/js/nodes/AlignBox.js';
-import HBox from '../../../scenery/js/nodes/HBox.js';
-import Node from '../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
-import Text from '../../../scenery/js/nodes/Text.js';
-import VBox from '../../../scenery/js/nodes/VBox.js';
+import { AlignBox } from '../../../scenery/js/imports.js';
+import { HBox } from '../../../scenery/js/imports.js';
+import { Node } from '../../../scenery/js/imports.js';
+import { Rectangle } from '../../../scenery/js/imports.js';
+import { Text } from '../../../scenery/js/imports.js';
+import { VBox } from '../../../scenery/js/imports.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import ProportionModel from '../common/model/ProportionModel.js';
 import BilliardsTable from '../common/model/billiards/BilliardsTable.js';

@@ -9,8 +9,8 @@
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import ShadedSphereNode from '../../../../../scenery-phet/js/ShadedSphereNode.js';
-import Circle from '../../../../../scenery/js/nodes/Circle.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
+import { Circle } from '../../../../../scenery/js/imports.js';
+import { Node } from '../../../../../scenery/js/imports.js';
 import MutableOptionsNode from '../../../../../sun/js/MutableOptionsNode.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';

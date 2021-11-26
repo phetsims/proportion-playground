@@ -8,8 +8,8 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import ResetButton from '../../../../scenery-phet/js/buttons/ResetButton.js';
-import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { AlignGroup } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import ABSwitch from '../../../../sun/js/ABSwitch.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import proportionPlayground from '../../proportionPlayground.js';

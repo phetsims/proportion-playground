@@ -8,8 +8,8 @@
 
 import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import Image from '../../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
+import { Image } from '../../../../../scenery/js/imports.js';
+import { Node } from '../../../../../scenery/js/imports.js';
 import blackBalloon1Image from '../../../../mipmaps/black-balloon-1_png.js';
 import blackBalloon2Image from '../../../../mipmaps/black-balloon-2_png.js';
 import blackBalloon3Image from '../../../../mipmaps/black-balloon-3_png.js';
