@@ -6,10 +6,10 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import proportionPlayground from '../../proportionPlayground.js';
 
-const Side = Enumeration.byKeys( [
+const Side = EnumerationDeprecated.byKeys( [
   'LEFT',
   'RIGHT'
 ], {
