@@ -12,7 +12,7 @@ import { HBox } from '../../../../../scenery/js/imports.js';
 import { Image } from '../../../../../scenery/js/imports.js';
 import VerticalAquaRadioButtonGroup from '../../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import paintSceneImage from '../../../../mipmaps/paint-scene_png.js';
+import paintScene_png from '../../../../mipmaps/paintScene_png.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import Side from '../../model/Side.js';
@@ -47,7 +47,7 @@ class PaintSceneNode extends SceneNode {
     const rightSplotchControl = new SplotchControl( scene.rightSplotch, scene.paintChoiceProperty, !scene.predictMode, Side.RIGHT, tandem.createTandem( 'rightSplotchControl' ) );
 
     super( scene, layoutBounds, {
-      sceneIcon: new Image( paintSceneImage, { scale: 0.17 } ),
+      sceneIcon: new Image( paintScene_png, { scale: 0.17 } ),
       leftControl: leftSplotchControl,
       rightControl: rightSplotchControl,
       leftSwitchIcon: new HBox( {

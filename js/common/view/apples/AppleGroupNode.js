@@ -18,10 +18,10 @@ import { Node } from '../../../../../scenery/js/imports.js';
 import { Path } from '../../../../../scenery/js/imports.js';
 import { Text } from '../../../../../scenery/js/imports.js';
 import { VBox } from '../../../../../scenery/js/imports.js';
-import redAppleImage from '../../../../mipmaps/apple-red_png.js';
-import coinImage from '../../../../mipmaps/coin_png.js';
-import crateBackImage from '../../../../mipmaps/crate-back_png.js';
-import crateFrontImage from '../../../../mipmaps/crate-front_png.js';
+import appleRed_png from '../../../../mipmaps/appleRed_png.js';
+import coin_png from '../../../../mipmaps/coin_png.js';
+import crateBack_png from '../../../../mipmaps/crateBack_png.js';
+import crateFront_png from '../../../../mipmaps/crateFront_png.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
@@ -50,8 +50,8 @@ class AppleGroupNode extends SceneRatioNode {
     showCostPerAppleProperty.linkAttribute( priceTagLayer, 'visible' );
 
     // {Image}
-    const appleImageNode = new Image( redAppleImage, { scale: APPLE_IMAGE_SCALE } );
-    const coinImageNode = new Image( coinImage, { scale: COIN_IMAGE_SCALE } );
+    const appleImageNode = new Image( appleRed_png, { scale: APPLE_IMAGE_SCALE } );
+    const coinImageNode = new Image( coin_png, { scale: COIN_IMAGE_SCALE } );
 
     // {Array.<Array.<Node>>} - Array of rows, each of which is an array of apple nodes
     const appleRows = _.range( 0, ProportionPlaygroundConstants.APPLE_COUNT_RANGE.max / APPLES_PER_ROW ).map( row => _.range( 0, APPLES_PER_ROW ).map( column => new Node( {
@@ -70,11 +70,11 @@ class AppleGroupNode extends SceneRatioNode {
     // @public {Node} - Exposed so we can properly align controls with the apples
     this.appleCrate = new Node( {
       children: [
-        new Image( crateBackImage, {
+        new Image( crateBack_png, {
           translation: crateImageOffset
         } )
       ].concat( stackedAppleNodes ).concat( [
-        new Image( crateFrontImage, {
+        new Image( crateFront_png, {
           translation: crateImageOffset
         } )
       ] )

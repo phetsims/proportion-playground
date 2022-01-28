@@ -10,21 +10,21 @@ import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Image } from '../../../../../scenery/js/imports.js';
 import { Node } from '../../../../../scenery/js/imports.js';
-import blackBalloon1Image from '../../../../mipmaps/black-balloon-1_png.js';
-import blackBalloon2Image from '../../../../mipmaps/black-balloon-2_png.js';
-import blackBalloon3Image from '../../../../mipmaps/black-balloon-3_png.js';
-import blueBalloon1Image from '../../../../mipmaps/blue-balloon-1_png.js';
-import blueBalloon2Image from '../../../../mipmaps/blue-balloon-2_png.js';
-import blueBalloon3Image from '../../../../mipmaps/blue-balloon-3_png.js';
-import redBalloon1Image from '../../../../mipmaps/red-balloon-1_png.js';
-import redBalloon2Image from '../../../../mipmaps/red-balloon-2_png.js';
-import redBalloon3Image from '../../../../mipmaps/red-balloon-3_png.js';
-import whiteBalloon1Image from '../../../../mipmaps/white-balloon-1_png.js';
-import whiteBalloon2Image from '../../../../mipmaps/white-balloon-2_png.js';
-import whiteBalloon3Image from '../../../../mipmaps/white-balloon-3_png.js';
-import yellowBalloon1Image from '../../../../mipmaps/yellow-balloon-1_png.js';
-import yellowBalloon2Image from '../../../../mipmaps/yellow-balloon-2_png.js';
-import yellowBalloon3Image from '../../../../mipmaps/yellow-balloon-3_png.js';
+import blackBalloon1_png from '../../../../mipmaps/blackBalloon1_png.js';
+import blackBalloon2_png from '../../../../mipmaps/blackBalloon2_png.js';
+import blackBalloon3_png from '../../../../mipmaps/blackBalloon3_png.js';
+import blueBalloon1_png from '../../../../mipmaps/blueBalloon1_png.js';
+import blueBalloon2_png from '../../../../mipmaps/blueBalloon2_png.js';
+import blueBalloon3_png from '../../../../mipmaps/blueBalloon3_png.js';
+import redBalloon1_png from '../../../../mipmaps/redBalloon1_png.js';
+import redBalloon2_png from '../../../../mipmaps/redBalloon2_png.js';
+import redBalloon3_png from '../../../../mipmaps/redBalloon3_png.js';
+import whiteBalloon1_png from '../../../../mipmaps/whiteBalloon1_png.js';
+import whiteBalloon2_png from '../../../../mipmaps/whiteBalloon2_png.js';
+import whiteBalloon3_png from '../../../../mipmaps/whiteBalloon3_png.js';
+import yellowBalloon1_png from '../../../../mipmaps/yellowBalloon1_png.js';
+import yellowBalloon2_png from '../../../../mipmaps/yellowBalloon2_png.js';
+import yellowBalloon3_png from '../../../../mipmaps/yellowBalloon3_png.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
 import SplotchNode from './SplotchNode.js';
@@ -43,11 +43,11 @@ const BALLON_IMAGE_SCALE = 2 * BALLOON_RADIUS / 130; // Assuming the balloons in
 
 // After construction, will map color.paintId => scenery.Image, which will be scaled and centered around the origin.
 const balloonImageMap = {};
-balloonImageMap[ PaintChoice.BLACK.paintId ] = [ blackBalloon1Image, blackBalloon2Image, blackBalloon3Image ];
-balloonImageMap[ PaintChoice.BLUE.paintId ] = [ blueBalloon1Image, blueBalloon2Image, blueBalloon3Image ];
-balloonImageMap[ PaintChoice.RED.paintId ] = [ redBalloon1Image, redBalloon2Image, redBalloon3Image ];
-balloonImageMap[ PaintChoice.WHITE.paintId ] = [ whiteBalloon1Image, whiteBalloon2Image, whiteBalloon3Image ];
-balloonImageMap[ PaintChoice.YELLOW.paintId ] = [ yellowBalloon1Image, yellowBalloon2Image, yellowBalloon3Image ];
+balloonImageMap[ PaintChoice.BLACK.paintId ] = [ blackBalloon1_png, blackBalloon2_png, blackBalloon3_png ];
+balloonImageMap[ PaintChoice.BLUE.paintId ] = [ blueBalloon1_png, blueBalloon2_png, blueBalloon3_png ];
+balloonImageMap[ PaintChoice.RED.paintId ] = [ redBalloon1_png, redBalloon2_png, redBalloon3_png ];
+balloonImageMap[ PaintChoice.WHITE.paintId ] = [ whiteBalloon1_png, whiteBalloon2_png, whiteBalloon3_png ];
+balloonImageMap[ PaintChoice.YELLOW.paintId ] = [ yellowBalloon1_png, yellowBalloon2_png, yellowBalloon3_png ];
 _.each( PaintChoice.COLORS, paintColor => {
   balloonImageMap[ paintColor.paintId ] = balloonImageMap[ paintColor.paintId ].map( imageElement => new Image( imageElement, {
     centerX: 0,

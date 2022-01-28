@@ -11,7 +11,7 @@ import { Image } from '../../../../../scenery/js/imports.js';
 import { Node } from '../../../../../scenery/js/imports.js';
 import { Text } from '../../../../../scenery/js/imports.js';
 import Checkbox from '../../../../../sun/js/Checkbox.js';
-import redAppleImage from '../../../../mipmaps/apple-red_png.js';
+import appleRed_png from '../../../../mipmaps/appleRed_png.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
@@ -38,7 +38,7 @@ class AppleSceneNode extends SceneNode {
     } );
 
     // Create icons for the ABSwitch
-    const appleImageNode = new Image( redAppleImage, { scale: 0.2 } );
+    const appleImageNode = new Image( appleRed_png, { scale: 0.2 } );
 
     // Checkbox that shows the cost per apple in a price tag
     const showCostPerAppleCheckbox = new Checkbox( new Text( costPerAppleString, {
@@ -50,7 +50,7 @@ class AppleSceneNode extends SceneNode {
 
     // Super call and add children
     super( scene, layoutBounds, {
-      sceneIcon: new Image( redAppleImage, { scale: 0.25 } ),
+      sceneIcon: new Image( appleRed_png, { scale: 0.25 } ),
       leftControl: leftAppleGroupControl,
       rightControl: rightAppleGroupControl,
       leftSwitchIcon: new Node( { children: [ appleImageNode ] } ),
