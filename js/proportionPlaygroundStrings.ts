@@ -9,21 +9,21 @@ import proportionPlayground from './proportionPlayground.js';
 
 type StringsType = {
   'proportion-playground': {
-    'title': string
-  },
+    'title': string;
+  };
   'screen': {
-    'explore': string,
-    'predict': string
-  },
-  'costPerApple': string,
-  'totalCost': string,
-  'appleCost': string,
-  'apples': string,
-  'apple': string,
-  'length': string,
-  'pricePattern': string,
-  'pattern': string,
-  'width': string
+    'explore': string;
+    'predict': string;
+  };
+  'costPerApple': string;
+  'totalCost': string;
+  'appleCost': string;
+  'apples': string;
+  'apple': string;
+  'length': string;
+  'pricePattern': string;
+  'pattern': string;
+  'width': string;
 };
 
 const proportionPlaygroundStrings = getStringModule( 'PROPORTION_PLAYGROUND' ) as StringsType;
