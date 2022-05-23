@@ -8,7 +8,7 @@
  * @author Andrea Lin
  */
 
-import Property from '../../../../../axon/js/Property.js';
+import Multilink from '../../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Matrix3 from '../../../../../dot/js/Matrix3.js';
 import Utils from '../../../../../dot/js/Utils.js';
@@ -149,7 +149,7 @@ class BilliardsTableNode extends SceneRatioNode {
     createDragListener( bottomDragHandle, billiardsTable.lengthProperty, 'y', 1, tandem.createTandem( 'bottomDragListener' ) );
 
     // When the table is resized, redraw it.
-    Property.multilink( [
+    Multilink.multilink( [
       billiardsTable.lengthProperty,
       billiardsTable.widthProperty
     ], () => {

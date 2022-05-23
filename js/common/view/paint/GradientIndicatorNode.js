@@ -7,7 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Property from '../../../../../axon/js/Property.js';
+import Multilink from '../../../../../axon/js/Multilink.js';
 import { Node } from '../../../../../scenery/js/imports.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import Side from '../../model/Side.js';
@@ -75,14 +75,14 @@ class GradientIndicatorNode extends Node {
     };
 
     // Update the left triangle indicator node when its parameters change.
-    Property.multilink( [
+    Multilink.multilink( [
       scene.leftSplotch.visibleLeftColorProperty,
       scene.leftSplotch.visibleRightColorProperty,
       revealProperty
     ], createIndicatorUpdateFunction( leftIndicator, scene.leftSplotch, () => true ) );
 
     // Update the right triangle indicator node when its parameters change.
-    Property.multilink( [
+    Multilink.multilink( [
       scene.rightSplotch.visibleLeftColorProperty,
       scene.rightSplotch.visibleRightColorProperty,
       scene.showBothProperty,
@@ -90,7 +90,7 @@ class GradientIndicatorNode extends Node {
     ], createIndicatorUpdateFunction( rightIndicator, scene.rightSplotch, () => scene.showBothProperty.value ) );
 
     // Update the fills of the triangle indicator nodes
-    Property.multilink( [
+    Multilink.multilink( [
       scene.leftSplotch.visibleLeftColorProperty,
       scene.leftSplotch.visibleRightColorProperty,
       scene.rightSplotch.visibleLeftColorProperty,

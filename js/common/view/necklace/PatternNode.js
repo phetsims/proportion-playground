@@ -7,7 +7,7 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-import Property from '../../../../../axon/js/Property.js';
+import Multilink from '../../../../../axon/js/Multilink.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Circle } from '../../../../../scenery/js/imports.js';
@@ -58,7 +58,7 @@ class PatternNode extends Node {
     squareBeadNodes.forEach( this.addChild.bind( this ) );
 
     // Toggle visibility based on current counts
-    Property.multilink( [ necklace.roundBeadCountProperty, necklace.squareBeadCountProperty ], ( roundBeadCount, squareBeadCount ) => {
+    Multilink.multilink( [ necklace.roundBeadCountProperty, necklace.squareBeadCountProperty ], ( roundBeadCount, squareBeadCount ) => {
       const gcd = Utils.gcd( roundBeadCount, squareBeadCount );
       if ( gcd !== 0 ) {
         roundBeadCount /= gcd;

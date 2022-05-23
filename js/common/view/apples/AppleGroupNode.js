@@ -6,7 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Property from '../../../../../axon/js/Property.js';
+import Multilink from '../../../../../axon/js/Multilink.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../../kite/js/imports.js';
@@ -105,7 +105,7 @@ class AppleGroupNode extends SceneRatioNode {
     } );
 
     // Update the price tag
-    Property.multilink( [ appleGroup.totalCostProperty, appleGroup.numberOfApplesProperty ], ( totalCost, numberOfApples ) => {
+    Multilink.multilink( [ appleGroup.totalCostProperty, appleGroup.numberOfApplesProperty ], ( totalCost, numberOfApples ) => {
       const pricePerApple = totalCost / numberOfApples;
       let fixed = Utils.toFixed( pricePerApple, 2 );
       if ( numberOfApples === 0 ) {

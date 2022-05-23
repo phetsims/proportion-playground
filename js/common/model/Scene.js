@@ -8,7 +8,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import proportionPlayground from '../../proportionPlayground.js';
@@ -72,7 +72,7 @@ class Scene extends PhetioObject {
 
     if ( this.predictMode ) {
       // In the predict screen, hide representations when one of the spinners is changed
-      Property.multilink( this.quantityProperties, this.revealProperty.set.bind( this.revealProperty, false ) );
+      Multilink.multilink( this.quantityProperties, this.revealProperty.set.bind( this.revealProperty, false ) );
     }
   }
 

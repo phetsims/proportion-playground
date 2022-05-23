@@ -7,7 +7,7 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../../axon/js/Property.js';
+import Multilink from '../../../../../axon/js/Multilink.js';
 import Matrix3 from '../../../../../dot/js/Matrix3.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
@@ -81,7 +81,7 @@ class SplotchNode extends SceneRatioNode {
     this.addChild( splotchPath );
 
     // When the color amounts change, update the size and color of the splotch.
-    Property.multilink( [ leftColorProperty, rightColorProperty ], ( leftColor, rightColor ) => {
+    Multilink.multilink( [ leftColorProperty, rightColorProperty ], ( leftColor, rightColor ) => {
       const total = leftColor + rightColor;
 
       // Don't fully zero our transform

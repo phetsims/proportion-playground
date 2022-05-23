@@ -7,7 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Property from '../../../../../axon/js/Property.js';
+import Multilink from '../../../../../axon/js/Multilink.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import { Shape } from '../../../../../kite/js/imports.js';
 import ArrowNode from '../../../../../scenery-phet/js/ArrowNode.js';
@@ -70,7 +70,7 @@ class AppleGraphNode extends Node {
     updateRightIndicator();
 
     // Update the indicator fills when salient properties change
-    Property.multilink( scene.quantityProperties.concat( [ scene.showBothProperty ] ), () => {
+    Multilink.multilink( scene.quantityProperties.concat( [ scene.showBothProperty ] ), () => {
       const colorProperty = scene.predictMode ? ProportionPlaygroundColors.predictBackgroundProperty : ProportionPlaygroundColors.exploreBackgroundProperty;
       const fill = ( scene.areRatiosEquivalent() && scene.showBothProperty.value ) ? 'black' : colorProperty;
       rightIndicator.fill = fill;
