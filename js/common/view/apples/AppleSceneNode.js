@@ -41,10 +41,10 @@ class AppleSceneNode extends SceneNode {
     const appleImageNode = new Image( appleRed_png, { scale: 0.2 } );
 
     // Checkbox that shows the cost per apple in a price tag
-    const showCostPerAppleCheckbox = new Checkbox( new Text( costPerAppleString, {
+    const showCostPerAppleCheckbox = new Checkbox( scene.showCostPerAppleProperty, new Text( costPerAppleString, {
       maxWidth: 293, // ceiling value from ?stringTest=double for English
       font: ProportionPlaygroundConstants.CONTROL_FONT
-    } ), scene.showCostPerAppleProperty, {
+    } ), {
       tandem: tandem.createTandem( 'showCostPerAppleCheckbox' )
     } );
 
