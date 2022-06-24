@@ -29,7 +29,7 @@ class RevealButton extends BooleanRoundToggleButton {
       baseColor: ProportionPlaygroundColors.revealButtonProperty
     }, options );
 
-    super( revealedNode, hiddenNode, revealingProperty, options );
+    super( revealingProperty, revealedNode, hiddenNode, options );
   }
 }
 
