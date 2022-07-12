@@ -11,21 +11,18 @@ import Multilink from '../../../../../axon/js/Multilink.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import { Shape } from '../../../../../kite/js/imports.js';
 import ArrowNode from '../../../../../scenery-phet/js/ArrowNode.js';
-import { Node } from '../../../../../scenery/js/imports.js';
-import { Path } from '../../../../../scenery/js/imports.js';
-import { Text } from '../../../../../scenery/js/imports.js';
+import TriangleNode from '../../../../../scenery-phet/js/TriangleNode.js';
+import { Node, Path, Text } from '../../../../../scenery/js/imports.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
-import Side from '../../model/Side.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
-import TriangleNode from '../TriangleNode.js';
 
 const appleCostString = proportionPlaygroundStrings.appleCost;
 
 // constants
 const ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick
-const ARROW_WIDTH = 3;
+// const ARROW_WIDTH = 3;
 const ARROW_HEIGHT = 290;
 const ARROW_LINE_WIDTH = 2;
 
@@ -51,8 +48,18 @@ class AppleGraphNode extends Node {
     } ) );
 
     // Create the triangle indicators
-    const leftIndicator = new TriangleNode( Side.LEFT, { right: -ARROW_WIDTH / 2 } );
-    const rightIndicator = new TriangleNode( Side.RIGHT, { left: ARROW_WIDTH / 2 } );
+    const leftIndicator = new TriangleNode( {
+      pointDirection: 'right',
+      left: -3.25,
+      triangleHeight: 10,
+      triangleWidth: 17
+    } );
+    const rightIndicator = new TriangleNode( {
+      pointDirection: 'left',
+      left: 1.25,
+      triangleHeight: 10,
+      triangleWidth: 17
+    } );
 
     const label = new Text( appleCostString, {
       font: ProportionPlaygroundConstants.CONTROL_FONT,
