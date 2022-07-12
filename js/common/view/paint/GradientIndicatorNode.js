@@ -10,9 +10,8 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import { Node } from '../../../../../scenery/js/imports.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import Side from '../../model/Side.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
-import TriangleNode from '../TriangleNode.js';
+import TriangleNode from '../../../../../scenery-phet/js/TriangleNode.js';
 import PaintChoiceGradientNode from './PaintChoiceGradientNode.js';
 
 // constants
@@ -36,8 +35,10 @@ class GradientIndicatorNode extends Node {
     } );
 
     // Triangle indicators on the left/right
-    const leftIndicator = new TriangleNode( Side.LEFT, { right: 0 } );
-    const rightIndicator = new TriangleNode( Side.RIGHT, { left: GRADIENT_WIDTH } );
+    const leftIndicator = new TriangleNode( { pointDirection: 'right', left: -2, triangleHeight: 10,
+      triangleWidth: 17 } );
+    const rightIndicator = new TriangleNode( { pointDirection: 'left', left: GRADIENT_WIDTH, triangleHeight: 10,
+      triangleWidth: 17 } );
 
     // Show colored/gray based on the user selection
     scene.paintChoiceProperty.link( paintChoice => {
