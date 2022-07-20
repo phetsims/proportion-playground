@@ -7,8 +7,7 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import { Line } from '../../../../../scenery/js/imports.js';
-import { Node } from '../../../../../scenery/js/imports.js';
+import { Line, Node } from '../../../../../scenery/js/imports.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 

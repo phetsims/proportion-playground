@@ -10,11 +10,11 @@ import Property from '../../../../axon/js/Property.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundQueryParameters from '../ProportionPlaygroundQueryParameters.js';
-import Scene from './Scene.js';
 import AppleScene from './apples/AppleScene.js';
 import BilliardsScene from './billiards/BilliardsScene.js';
 import NecklaceScene from './necklace/NecklaceScene.js';
 import PaintScene from './paint/PaintScene.js';
+import Scene from './Scene.js';
 
 class ProportionModel {
   /**

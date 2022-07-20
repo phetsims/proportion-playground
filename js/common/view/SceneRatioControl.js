@@ -9,14 +9,11 @@
 
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import { HBox, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import NumberPicker from '../../../../sun/js/NumberPicker.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
 import proportionPlayground from '../../proportionPlayground.js';
-import ProportionPlaygroundConstants from '../ProportionPlaygroundConstants.js';
 import Side from '../model/Side.js';
+import ProportionPlaygroundConstants from '../ProportionPlaygroundConstants.js';
 
 // Bottom y value in layoutBounds for the pickers
 const PICKER_BOTTOM = 540;

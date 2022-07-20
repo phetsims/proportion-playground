@@ -6,8 +6,8 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import createObservableArray from '../../../../../axon/js/createObservableArray.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import SceneRatio from '../SceneRatio.js';

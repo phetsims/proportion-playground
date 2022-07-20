@@ -10,8 +10,8 @@ import { HBox } from '../../../../../scenery/js/imports.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import Side from '../../model/Side.js';
 import SceneNode from '../SceneNode.js';
-import BilliardTableIcon from './BilliardTableIcon.js';
 import BilliardsTableControl from './BilliardsTableControl.js';
+import BilliardTableIcon from './BilliardTableIcon.js';
 
 // constants
 const ICON_SCALE_OPTIONS = { scale: 0.3 };

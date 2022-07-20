@@ -7,9 +7,9 @@
  */
 
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
+import createObservableArray from '../../../../../axon/js/createObservableArray.js';
 import Emitter from '../../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import createObservableArray from '../../../../../axon/js/createObservableArray.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../../dot/js/Vector2Property.js';
 import merge from '../../../../../phet-core/js/merge.js';

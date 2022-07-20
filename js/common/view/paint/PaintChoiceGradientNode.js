@@ -9,9 +9,7 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Utils from '../../../../../dot/js/Utils.js';
-import { Image } from '../../../../../scenery/js/imports.js';
-import { Node } from '../../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../../scenery/js/imports.js';
+import { Image, Node, Rectangle } from '../../../../../scenery/js/imports.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 
 class PaintChoiceGradientNode extends Node {

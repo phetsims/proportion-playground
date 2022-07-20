@@ -9,19 +9,14 @@
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { AlignBox } from '../../../scenery/js/imports.js';
-import { HBox } from '../../../scenery/js/imports.js';
-import { Node } from '../../../scenery/js/imports.js';
-import { Rectangle } from '../../../scenery/js/imports.js';
-import { Text } from '../../../scenery/js/imports.js';
-import { VBox } from '../../../scenery/js/imports.js';
+import { AlignBox, HBox, Node, Rectangle, Text, VBox } from '../../../scenery/js/imports.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import ProportionModel from '../common/model/ProportionModel.js';
 import BilliardsTable from '../common/model/billiards/BilliardsTable.js';
-import ProportionPlaygroundColors from '../common/view/ProportionPlaygroundColors.js';
-import ProportionScreenView from '../common/view/ProportionScreenView.js';
+import ProportionModel from '../common/model/ProportionModel.js';
 import BilliardsTableNode from '../common/view/billiards/BilliardsTableNode.js';
 import NecklaceGraphicNode from '../common/view/necklace/NecklaceGraphicNode.js';
+import ProportionPlaygroundColors from '../common/view/ProportionPlaygroundColors.js';
+import ProportionScreenView from '../common/view/ProportionScreenView.js';
 import proportionPlayground from '../proportionPlayground.js';
 import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
 

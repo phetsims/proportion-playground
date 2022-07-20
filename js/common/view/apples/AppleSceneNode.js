@@ -6,10 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import { HBox } from '../../../../../scenery/js/imports.js';
-import { Image } from '../../../../../scenery/js/imports.js';
-import { Node } from '../../../../../scenery/js/imports.js';
-import { Text } from '../../../../../scenery/js/imports.js';
+import { HBox, Image, Node, Text } from '../../../../../scenery/js/imports.js';
 import Checkbox from '../../../../../sun/js/Checkbox.js';
 import appleRed_png from '../../../../mipmaps/appleRed_png.js';
 import proportionPlayground from '../../../proportionPlayground.js';

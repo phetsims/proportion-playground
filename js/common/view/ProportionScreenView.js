@@ -12,11 +12,11 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import { Node } from '../../../../scenery/js/imports.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../ProportionPlaygroundConstants.js';
-import SceneSelectionControls from './SceneSelectionControls.js';
 import AppleSceneNode from './apples/AppleSceneNode.js';
 import BilliardsSceneNode from './billiards/BilliardsSceneNode.js';
 import NecklaceSceneNode from './necklace/NecklaceSceneNode.js';
 import PaintSceneNode from './paint/PaintSceneNode.js';
+import SceneSelectionControls from './SceneSelectionControls.js';
 
 class ProportionScreenView extends ScreenView {
 

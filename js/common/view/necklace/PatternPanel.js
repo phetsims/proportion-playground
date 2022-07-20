@@ -9,17 +9,14 @@
 
 import Property from '../../../../../axon/js/Property.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import { AlignBox } from '../../../../../scenery/js/imports.js';
-import { Node } from '../../../../../scenery/js/imports.js';
-import { Text } from '../../../../../scenery/js/imports.js';
-import { VBox } from '../../../../../scenery/js/imports.js';
+import { AlignBox, Node, Text, VBox } from '../../../../../scenery/js/imports.js';
 import Panel from '../../../../../sun/js/Panel.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
-import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
-import Side from '../../model/Side.js';
 import Necklace from '../../model/necklace/Necklace.js';
+import Side from '../../model/Side.js';
+import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import PatternNode from './PatternNode.js';
 

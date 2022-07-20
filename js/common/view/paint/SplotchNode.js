@@ -13,11 +13,10 @@ import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../../kite/js/imports.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import { Path } from '../../../../../scenery/js/imports.js';
-import { Color } from '../../../../../scenery/js/imports.js';
+import { Color, Path } from '../../../../../scenery/js/imports.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
+import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import SceneRatioNode from '../SceneRatioNode.js';
 

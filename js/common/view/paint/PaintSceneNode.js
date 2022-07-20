@@ -7,17 +7,15 @@
  */
 
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
-import { AlignBox } from '../../../../../scenery/js/imports.js';
-import { HBox } from '../../../../../scenery/js/imports.js';
-import { Image } from '../../../../../scenery/js/imports.js';
+import { AlignBox, HBox, Image } from '../../../../../scenery/js/imports.js';
 import VerticalAquaRadioButtonGroup from '../../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import paintScene_png from '../../../../mipmaps/paintScene_png.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
-import Side from '../../model/Side.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
 import Splotch from '../../model/paint/Splotch.js';
+import Side from '../../model/Side.js';
+import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import SceneNode from '../SceneNode.js';
 import GradientIndicatorNode from './GradientIndicatorNode.js';
 import PaintChoiceGradientNode from './PaintChoiceGradientNode.js';
