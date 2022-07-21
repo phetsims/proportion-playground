@@ -30,11 +30,13 @@ class SceneSelectionControls extends RectangularRadioButtonGroup {
     options = merge( {
       orientation: 'horizontal',
       radioButtonOptions: {
+        baseColor: ProportionPlaygroundColors.sceneSelectionBackgroundProperty,
         xMargin: 20,
         yMargin: 12,
-        selectedLineWidth: 2,
-        selectedStroke: ProportionPlaygroundColors.sceneSelectionBorderProperty,
-        baseColor: ProportionPlaygroundColors.sceneSelectionBackgroundProperty
+        buttonAppearanceStrategyOptions: {
+          selectedLineWidth: 2,
+          selectedStroke: ProportionPlaygroundColors.sceneSelectionBorderProperty
+        }
       },
       tandem: tandem
     }, options );
