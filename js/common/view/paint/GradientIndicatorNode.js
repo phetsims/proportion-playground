@@ -35,15 +35,19 @@ class GradientIndicatorNode extends Node {
     } );
 
     // Triangle indicators on the left/right
-    const leftIndicator = new TriangleNode( { pointDirection: 'right', left: -2, triangleHeight: 10,
+    const leftIndicator = new TriangleNode( { pointDirection: 'right', triangleHeight: 10,
       triangleWidth: 17 } );
-    const rightIndicator = new TriangleNode( { pointDirection: 'left', left: GRADIENT_WIDTH, triangleHeight: 10,
+    const rightIndicator = new TriangleNode( { pointDirection: 'left', triangleHeight: 10,
       triangleWidth: 17 } );
 
     // Show colored/gray based on the user selection
     scene.paintChoiceProperty.link( paintChoice => {
       gradientNodes.forEach( gradientNode => {
         gradientNode.visible = gradientNode.paintChoice === paintChoice;
+        if ( gradientNode.visible ) {
+          leftIndicator.right = gradientNode.left;
+          rightIndicator.left = gradientNode.right;
+        }
       } );
     } );
 
