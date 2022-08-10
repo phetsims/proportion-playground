@@ -38,7 +38,7 @@ class ProportionModel {
 
     // @public {Property.<Scene>} - Our currently-selected scene (can change with a query parameter)
     this.sceneProperty = new Property( this.scenes[ ProportionPlaygroundQueryParameters.scene ], {
-      phetioType: Property.PropertyIO( ReferenceIO( Scene.SceneIO ) ),
+      phetioValueType: ReferenceIO( Scene.SceneIO ),
       tandem: tandem.createTandem( 'sceneProperty' )
     } );
 
