@@ -91,7 +91,9 @@ class SceneNode extends Node {
           } );
         },
         baseColor: ProportionPlaygroundColors.refreshBackgroundProperty,
-        tandem: config.tandem.createTandem( 'refreshButton' )
+
+        // refreshButton
+        tandem: config.tandem.createTandem( 'resetButton' )
       } );
     }
     this.addChild( this.controlButton );

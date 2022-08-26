@@ -48,7 +48,7 @@ class ProportionScreenView extends ScreenView {
     ];
 
     // Scene selection radio buttons
-    this.addChild( new SceneSelectionControls( model.sceneProperty, this.sceneNodes, tandem.createTandem( 'sceneSelectionControls' ), {
+    this.addChild( new SceneSelectionControls( model.sceneProperty, this.sceneNodes, tandem.createTandem( 'sceneSelectionButtonGroup' ), {
       centerX: this.layoutBounds.centerX,
       top: 5
     } ) );
