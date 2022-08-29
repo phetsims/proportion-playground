@@ -11,32 +11,32 @@ import proportionPlayground from './proportionPlayground.js';
 type StringsType = {
   'proportion-playground': {
     'title': string;
-    'titleProperty': TReadOnlyProperty<string>;
+    'titleStringProperty': TReadOnlyProperty<string>;
   };
   'screen': {
     'explore': string;
-    'exploreProperty': TReadOnlyProperty<string>;
+    'exploreStringProperty': TReadOnlyProperty<string>;
     'predict': string;
-    'predictProperty': TReadOnlyProperty<string>;
+    'predictStringProperty': TReadOnlyProperty<string>;
   };
   'costPerApple': string;
-  'costPerAppleProperty': TReadOnlyProperty<string>;
+  'costPerAppleStringProperty': TReadOnlyProperty<string>;
   'totalCost': string;
-  'totalCostProperty': TReadOnlyProperty<string>;
+  'totalCostStringProperty': TReadOnlyProperty<string>;
   'appleCost': string;
-  'appleCostProperty': TReadOnlyProperty<string>;
+  'appleCostStringProperty': TReadOnlyProperty<string>;
   'apples': string;
-  'applesProperty': TReadOnlyProperty<string>;
+  'applesStringProperty': TReadOnlyProperty<string>;
   'apple': string;
-  'appleProperty': TReadOnlyProperty<string>;
+  'appleStringProperty': TReadOnlyProperty<string>;
   'length': string;
-  'lengthProperty': TReadOnlyProperty<string>;
+  'lengthStringProperty': TReadOnlyProperty<string>;
   'pricePattern': string;
-  'pricePatternProperty': TReadOnlyProperty<string>;
+  'pricePatternStringProperty': TReadOnlyProperty<string>;
   'pattern': string;
-  'patternProperty': TReadOnlyProperty<string>;
+  'patternStringProperty': TReadOnlyProperty<string>;
   'width': string;
-  'widthProperty': TReadOnlyProperty<string>;
+  'widthStringProperty': TReadOnlyProperty<string>;
 };
 
 const proportionPlaygroundStrings = getStringModule( 'PROPORTION_PLAYGROUND' ) as StringsType;
