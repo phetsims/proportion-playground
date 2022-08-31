@@ -1,5 +1,5 @@
 {
-  "comment": "# proportion-playground 1.1.0-dev.2 Wed Aug 31 2022 11:20:58 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# proportion-playground 1.1.0-dev.3 Wed Aug 31 2022 11:27:55 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
     "branch": "master"
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "proportion-playground": {
-    "sha": "c371b111c2483dc230a0241cd50cea2f2ee43166",
+    "sha": "e95fbc7a3802f2a112f5d3915f3dc8f78bcd3f47",
     "branch": "master"
   },
   "query-string-machine": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "1e2fe694e1c920abddcf58a2c69b83e8252e1b94",
+    "sha": "8d941f41e45d5f22f5c6664bde4545d7e1291ce2",
     "branch": "master"
   },
   "tambo": {
