@@ -13,7 +13,7 @@ import ExploreScreen from './explore/ExploreScreen.js';
 import PredictScreen from './predict/PredictScreen.js';
 import proportionPlaygroundStrings from './proportionPlaygroundStrings.js';
 
-const proportionPlaygroundTitleString = proportionPlaygroundStrings[ 'proportion-playground' ].title;
+const proportionPlaygroundTitleStringProperty = proportionPlaygroundStrings[ 'proportion-playground' ].titleStringProperty;
 
 const simOptions = {
   credits: {
@@ -27,7 +27,7 @@ const simOptions = {
 };
 
 simLauncher.launch( () => {
-  const sim = new Sim( proportionPlaygroundTitleString, [
+  const sim = new Sim( proportionPlaygroundTitleStringProperty, [
     new ExploreScreen( Tandem.ROOT.createTandem( 'exporeScreen' ) ),
     new PredictScreen( Tandem.ROOT.createTandem( 'predictScreen' ) )
   ], simOptions );
