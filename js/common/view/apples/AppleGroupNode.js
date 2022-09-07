@@ -17,13 +17,13 @@ import coin_png from '../../../../mipmaps/coin_png.js';
 import crateBack_png from '../../../../mipmaps/crateBack_png.js';
 import crateFront_png from '../../../../mipmaps/crateFront_png.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
+import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import SceneRatioNode from '../SceneRatioNode.js';
 
-const appleString = proportionPlaygroundStrings.apple;
-const pricePatternString = proportionPlaygroundStrings.pricePattern;
+const appleString = ProportionPlaygroundStrings.apple;
+const pricePatternString = ProportionPlaygroundStrings.pricePattern;
 
 // constants
 const APPLE_IMAGE_SCALE = 0.35; // Reduction factor for showing the image

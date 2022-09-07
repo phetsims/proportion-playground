@@ -39,8 +39,8 @@ type StringsType = {
   'widthStringProperty': TReadOnlyProperty<string>;
 };
 
-const proportionPlaygroundStrings = getStringModule( 'PROPORTION_PLAYGROUND' ) as StringsType;
+const ProportionPlaygroundStrings = getStringModule( 'PROPORTION_PLAYGROUND' ) as StringsType;
 
-proportionPlayground.register( 'proportionPlaygroundStrings', proportionPlaygroundStrings );
+proportionPlayground.register( 'ProportionPlaygroundStrings', ProportionPlaygroundStrings );
 
-export default proportionPlaygroundStrings;
+export default ProportionPlaygroundStrings;

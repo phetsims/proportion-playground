@@ -20,7 +20,7 @@ import SplotchNode from '../common/view/paint/SplotchNode.js';
 import ProportionPlaygroundColors from '../common/view/ProportionPlaygroundColors.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
 import proportionPlayground from '../proportionPlayground.js';
-import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
+import ProportionPlaygroundStrings from '../ProportionPlaygroundStrings.js';
 
 // Our splotch's "visual center" is not in the center of its bounds, so we need to shift the text slightly.
 const SCREEN_ICON_TEXT_OFFSET = new Vector2( 14, 14 );
@@ -41,7 +41,7 @@ class PredictScreen extends Screen {
     super(
       () => new ProportionModel( true, tandem.createTandem( 'model' ) ),
       model => new ProportionScreenView( model, tandem.createTandem( 'view' ) ), {
-        name: proportionPlaygroundStrings.screen.predict,
+        name: ProportionPlaygroundStrings.screen.predict,
         backgroundColorProperty: ProportionPlaygroundColors.predictBackgroundProperty,
         homeScreenIcon: new ScreenIcon( createHomeScreenIcon( splotchNode ), {
           maxIconWidthProportion: 1,

@@ -18,7 +18,7 @@ import NecklaceGraphicNode from '../common/view/necklace/NecklaceGraphicNode.js'
 import ProportionPlaygroundColors from '../common/view/ProportionPlaygroundColors.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
 import proportionPlayground from '../proportionPlayground.js';
-import proportionPlaygroundStrings from '../proportionPlaygroundStrings.js';
+import ProportionPlaygroundStrings from '../ProportionPlaygroundStrings.js';
 
 // constants
 const HOME_SCREEN_ICON_BOUNDS = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.toBounds();
@@ -32,7 +32,7 @@ class ExploreScreen extends Screen {
       () => new ProportionModel( false, tandem.createTandem( 'model' ) ),
       model => new ProportionScreenView( model, tandem.createTandem( 'view' ) ),
       {
-        name: proportionPlaygroundStrings.screen.explore,
+        name: ProportionPlaygroundStrings.screen.explore,
         backgroundColorProperty: ProportionPlaygroundColors.exploreBackgroundProperty,
         homeScreenIcon: new ScreenIcon( createHomeScreenIcon(), {
           maxIconWidthProportion: 1,

@@ -14,11 +14,11 @@ import ArrowNode from '../../../../../scenery-phet/js/ArrowNode.js';
 import TriangleNode from '../../../../../scenery-phet/js/TriangleNode.js';
 import { Node, Path, Text } from '../../../../../scenery/js/imports.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
+import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 
-const appleCostString = proportionPlaygroundStrings.appleCost;
+const appleCostString = ProportionPlaygroundStrings.appleCost;
 
 // constants
 const ARROW_OVERSHOOT = 30; // how far the arrowhead goes past the top tick

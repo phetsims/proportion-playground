@@ -13,14 +13,14 @@ import { AlignBox, Node, Text, VBox } from '../../../../../scenery/js/imports.js
 import Panel from '../../../../../sun/js/Panel.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
+import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import Necklace from '../../model/necklace/Necklace.js';
 import Side from '../../model/Side.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import PatternNode from './PatternNode.js';
 
-const patternString = proportionPlaygroundStrings.pattern;
+const patternString = ProportionPlaygroundStrings.pattern;
 
 class PatternPanel extends Panel {
   /**

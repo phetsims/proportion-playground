@@ -8,14 +8,14 @@
 
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
+import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import SceneRatioControl from '../SceneRatioControl.js';
 import AppleGroupNode from './AppleGroupNode.js';
 
-const applesString = proportionPlaygroundStrings.apples;
-const pricePatternString = proportionPlaygroundStrings.pricePattern;
-const totalCostString = proportionPlaygroundStrings.totalCost;
+const applesString = ProportionPlaygroundStrings.apples;
+const pricePatternString = ProportionPlaygroundStrings.pricePattern;
+const totalCostString = ProportionPlaygroundStrings.totalCost;
 
 class AppleGroupControl extends SceneRatioControl {
   /**

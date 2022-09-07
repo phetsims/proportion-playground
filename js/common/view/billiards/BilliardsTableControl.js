@@ -9,14 +9,14 @@
 import merge from '../../../../../phet-core/js/merge.js';
 import { HBox, VBox } from '../../../../../scenery/js/imports.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
+import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import Side from '../../model/Side.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import SceneRatioControl from '../SceneRatioControl.js';
 import BilliardsTableNode from './BilliardsTableNode.js';
 
-const lengthString = proportionPlaygroundStrings.length;
-const widthString = proportionPlaygroundStrings.width;
+const lengthString = ProportionPlaygroundStrings.length;
+const widthString = ProportionPlaygroundStrings.width;
 
 class BilliardsTableControl extends SceneRatioControl {
   /**

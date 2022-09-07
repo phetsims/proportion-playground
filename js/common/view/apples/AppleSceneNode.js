@@ -10,13 +10,13 @@ import { HBox, Image, Node, Text } from '../../../../../scenery/js/imports.js';
 import Checkbox from '../../../../../sun/js/Checkbox.js';
 import appleRed_png from '../../../../mipmaps/appleRed_png.js';
 import proportionPlayground from '../../../proportionPlayground.js';
-import proportionPlaygroundStrings from '../../../proportionPlaygroundStrings.js';
+import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import SceneNode from '../SceneNode.js';
 import AppleGraphNode from './AppleGraphNode.js';
 import AppleGroupControl from './AppleGroupControl.js';
 
-const costPerAppleString = proportionPlaygroundStrings.costPerApple;
+const costPerAppleString = ProportionPlaygroundStrings.costPerApple;
 
 class AppleSceneNode extends SceneNode {
   /**

@@ -11,9 +11,9 @@ import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import ExploreScreen from './explore/ExploreScreen.js';
 import PredictScreen from './predict/PredictScreen.js';
-import proportionPlaygroundStrings from './proportionPlaygroundStrings.js';
+import ProportionPlaygroundStrings from './ProportionPlaygroundStrings.js';
 
-const proportionPlaygroundTitleStringProperty = proportionPlaygroundStrings[ 'proportion-playground' ].titleStringProperty;
+const proportionPlaygroundTitleStringProperty = ProportionPlaygroundStrings[ 'proportion-playground' ].titleStringProperty;
 
 const simOptions = {
   credits: {
