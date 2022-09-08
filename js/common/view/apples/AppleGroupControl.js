@@ -1,4 +1,4 @@
-// Copyright 2016-2021, University of Colorado Boulder
+// Copyright 2016-2022, University of Colorado Boulder
 
 /**
  * Combines an AppleGroupNode with NumberPickers (spinners) that let you change the number of apples and coins.
