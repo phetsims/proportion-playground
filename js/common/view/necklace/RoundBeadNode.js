@@ -20,7 +20,7 @@ const DIAMETER = ProportionPlaygroundConstants.BEAD_DIAMETER;
 
 // {Node} - Our colors need to be updated on the shaded sphere, so it's wrapped in a MutableOptionsNode.
 const shadedNode = new MutableOptionsNode( ShadedSphereNode, [ DIAMETER ], {
-  highlightDiameter: DIAMETER * 0.3,
+  highlightDiameterRatio: 0.3,
   highlightXOffset: -0.3,
   highlightYOffset: -0.3
 }, {
