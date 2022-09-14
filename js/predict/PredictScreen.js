@@ -41,7 +41,7 @@ class PredictScreen extends Screen {
     super(
       () => new ProportionModel( true, tandem.createTandem( 'model' ) ),
       model => new ProportionScreenView( model, tandem.createTandem( 'view' ) ), {
-        name: ProportionPlaygroundStrings.screen.predict,
+        name: ProportionPlaygroundStrings.screen.predictStringProperty,
         backgroundColorProperty: ProportionPlaygroundColors.predictBackgroundProperty,
         homeScreenIcon: new ScreenIcon( createHomeScreenIcon( splotchNode ), {
           maxIconWidthProportion: 1,

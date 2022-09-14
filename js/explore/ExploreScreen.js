@@ -32,7 +32,7 @@ class ExploreScreen extends Screen {
       () => new ProportionModel( false, tandem.createTandem( 'model' ) ),
       model => new ProportionScreenView( model, tandem.createTandem( 'view' ) ),
       {
-        name: ProportionPlaygroundStrings.screen.explore,
+        name: ProportionPlaygroundStrings.screen.exploreStringProperty,
         backgroundColorProperty: ProportionPlaygroundColors.exploreBackgroundProperty,
         homeScreenIcon: new ScreenIcon( createHomeScreenIcon(), {
           maxIconWidthProportion: 1,
