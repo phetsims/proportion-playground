@@ -5,38 +5,38 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import TReadOnlyProperty from '../../axon/js/TReadOnlyProperty.js';
+import LinkableProperty from '../../axon/js/LinkableProperty.js';
 import proportionPlayground from './proportionPlayground.js';
 
 type StringsType = {
   'proportion-playground': {
     'title': string;
-    'titleStringProperty': TReadOnlyProperty<string>;
+    'titleStringProperty': LinkableProperty<string>;
   };
   'screen': {
     'explore': string;
-    'exploreStringProperty': TReadOnlyProperty<string>;
+    'exploreStringProperty': LinkableProperty<string>;
     'predict': string;
-    'predictStringProperty': TReadOnlyProperty<string>;
+    'predictStringProperty': LinkableProperty<string>;
   };
   'costPerApple': string;
-  'costPerAppleStringProperty': TReadOnlyProperty<string>;
+  'costPerAppleStringProperty': LinkableProperty<string>;
   'totalCost': string;
-  'totalCostStringProperty': TReadOnlyProperty<string>;
+  'totalCostStringProperty': LinkableProperty<string>;
   'appleCost': string;
-  'appleCostStringProperty': TReadOnlyProperty<string>;
+  'appleCostStringProperty': LinkableProperty<string>;
   'apples': string;
-  'applesStringProperty': TReadOnlyProperty<string>;
+  'applesStringProperty': LinkableProperty<string>;
   'apple': string;
-  'appleStringProperty': TReadOnlyProperty<string>;
+  'appleStringProperty': LinkableProperty<string>;
   'length': string;
-  'lengthStringProperty': TReadOnlyProperty<string>;
+  'lengthStringProperty': LinkableProperty<string>;
   'pricePattern': string;
-  'pricePatternStringProperty': TReadOnlyProperty<string>;
+  'pricePatternStringProperty': LinkableProperty<string>;
   'pattern': string;
-  'patternStringProperty': TReadOnlyProperty<string>;
+  'patternStringProperty': LinkableProperty<string>;
   'width': string;
-  'widthStringProperty': TReadOnlyProperty<string>;
+  'widthStringProperty': LinkableProperty<string>;
 };
 
 const ProportionPlaygroundStrings = getStringModule( 'PROPORTION_PLAYGROUND' ) as StringsType;
