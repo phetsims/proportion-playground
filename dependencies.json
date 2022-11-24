@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "proportion-playground": {
-    "sha": "2521bf6c7042e2346ec5342cc256c86c76109273",
+    "sha": "b5c0c7ae7ab574d6fbe902a89aa3b7cf619173fa",
     "branch": "1.0"
   },
   "query-string-machine": {
@@ -49,7 +49,7 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "caaaec3048a5480b8dcb2c0e208dd1d59498150d",
+    "sha": "fba0effb2feadee0b3785b72b61eefd6a2248494",
     "branch": "HEAD"
   },
   "scenery-phet": {
