@@ -83,7 +83,7 @@ class PaintSceneNode extends SceneNode {
           rotation: -Math.PI / 2, scale: 0.5
         } );
         return {
-          createNode: tandem => new AlignBox( gradientNode, { leftMargin: 5 } ),
+          createNode: () => new AlignBox( gradientNode, { leftMargin: 5 } ),
           tandemName: `${paintChoice.tandem.name}RadioButton`,
           value: paintChoice
         };

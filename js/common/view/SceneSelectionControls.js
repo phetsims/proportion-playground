@@ -23,7 +23,7 @@ class SceneSelectionControls extends RectangularRadioButtonGroup {
     const group = new AlignGroup();
     const ratioItems = sceneNodes.map( sceneNode => ( {
       value: sceneNode.scene,
-      createNode: tandem => new AlignBox( sceneNode.sceneIcon, { group: group } ),
+      createNode: () => new AlignBox( sceneNode.sceneIcon, { group: group } ),
       tandemName: `${sceneNode.tandem.name}RadioButton`
     } ) );
 
