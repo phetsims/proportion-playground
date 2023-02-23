@@ -40,7 +40,7 @@ const SPLOTCH_AREA = SplotchNode.getSingleSplotchArea();
 const BALLOON_RADIUS = Math.sqrt( SPLOTCH_AREA / Math.PI ); // A = pi * r^2, r = sqrt( A / pi )
 const BALLON_IMAGE_SCALE = 2 * BALLOON_RADIUS / 130; // Assuming the balloons in the images have a diameter of 130px
 
-// After construction, will map color.paintId => scenery.Image, which will be scaled and centered around the origin.
+// After construction, will map color.paintId => phet.scenery.Image, which will be scaled and centered around the origin.
 const balloonImageMap = {};
 balloonImageMap[ PaintChoice.BLACK.paintId ] = [ blackBalloon1_png, blackBalloon2_png, blackBalloon3_png ];
 balloonImageMap[ PaintChoice.BLUE.paintId ] = [ blueBalloon1_png, blueBalloon2_png, blueBalloon3_png ];
