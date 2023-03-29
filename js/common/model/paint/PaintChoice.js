@@ -1,4 +1,4 @@
-// Copyright 2016-2021, University of Colorado Boulder
+// Copyright 2016-2023, University of Colorado Boulder
 
 /**
  * Represents two colors that can be blended together with a different ratio. Provides parametric (0-1) computation of
