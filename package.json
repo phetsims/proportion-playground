@@ -10,6 +10,10 @@
     "grunt": "~1.0.0"
   },
   "phet": {
-    "requirejsNamespace": "PROPORTION_PLAYGROUND"
+    "requirejsNamespace": "PROPORTION_PLAYGROUND",
+    "screenNameKeys": [
+      "PROPORTION_PLAYGROUND/screen.explore",
+      "PROPORTION_PLAYGROUND/screen.predict"
+    ]
   }
 }
