@@ -5,38 +5,38 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import LinkableProperty from '../../axon/js/LinkableProperty.js';
+import type LocalizedStringProperty from '../../chipper/js/LocalizedStringProperty.js';
 import proportionPlayground from './proportionPlayground.js';
 
 type StringsType = {
   'proportion-playground': {
     'title': string;
-    'titleStringProperty': LinkableProperty<string>;
+    'titleStringProperty': LocalizedStringProperty;
   };
   'screen': {
     'explore': string;
-    'exploreStringProperty': LinkableProperty<string>;
+    'exploreStringProperty': LocalizedStringProperty;
     'predict': string;
-    'predictStringProperty': LinkableProperty<string>;
+    'predictStringProperty': LocalizedStringProperty;
   };
   'costPerApple': string;
-  'costPerAppleStringProperty': LinkableProperty<string>;
+  'costPerAppleStringProperty': LocalizedStringProperty;
   'totalCost': string;
-  'totalCostStringProperty': LinkableProperty<string>;
+  'totalCostStringProperty': LocalizedStringProperty;
   'appleCost': string;
-  'appleCostStringProperty': LinkableProperty<string>;
+  'appleCostStringProperty': LocalizedStringProperty;
   'apples': string;
-  'applesStringProperty': LinkableProperty<string>;
+  'applesStringProperty': LocalizedStringProperty;
   'apple': string;
-  'appleStringProperty': LinkableProperty<string>;
+  'appleStringProperty': LocalizedStringProperty;
   'length': string;
-  'lengthStringProperty': LinkableProperty<string>;
+  'lengthStringProperty': LocalizedStringProperty;
   'pricePattern': string;
-  'pricePatternStringProperty': LinkableProperty<string>;
+  'pricePatternStringProperty': LocalizedStringProperty;
   'pattern': string;
-  'patternStringProperty': LinkableProperty<string>;
+  'patternStringProperty': LocalizedStringProperty;
   'width': string;
-  'widthStringProperty': LinkableProperty<string>;
+  'widthStringProperty': LocalizedStringProperty;
 };
 
 const ProportionPlaygroundStrings = getStringModule( 'PROPORTION_PLAYGROUND' ) as StringsType;
