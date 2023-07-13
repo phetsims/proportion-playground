@@ -21,7 +21,7 @@ const switchAlignGroup = new AlignGroup();
 
 class SceneNode extends Node {
   /**
-   * @param {FBScene} scene - Our scene to display
+   * @param {Scene} scene - Our scene to display
    * @param {Bounds2} layoutBounds - visible bounds within which the UI must fit
    * @param {Object} config
    */
