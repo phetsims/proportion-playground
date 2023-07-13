@@ -14,7 +14,7 @@ import ProportionPlaygroundColors from './ProportionPlaygroundColors.js';
 
 class SceneSelectionControls extends RectangularRadioButtonGroup {
   /**
-   * @param {Property.<Scene>} sceneProperty - Determines which scene is visible
+   * @param {Property.<FBScene>} sceneProperty - Determines which scene is visible
    * @param {Array.<SceneNode>} sceneNodes - Each sceneNode has a scene and an icon
    * @param {Tandem} tandem
    * @param {Object} [options] - node options
