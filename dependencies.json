@@ -1,5 +1,5 @@
 {
-  "comment": "# proportion-playground 1.0.27-rc.1 Thu Feb 29 2024 15:35:13 GMT-0700 (Mountain Standard Time)",
+  "comment": "# proportion-playground 1.0.27 Mon Mar 11 2024 12:44:02 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "proportion-playground": {
-    "sha": "5b4387c26239158e5a960bc6bd6e58565d4d1605",
+    "sha": "142711f3d2db9914244dca427603e9b1ae6586ad",
     "branch": "1.0"
   },
   "query-string-machine": {
