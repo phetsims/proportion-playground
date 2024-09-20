@@ -34,7 +34,7 @@
         ],
         "parserOptions": {
           "project": [
-            "../proportion-playground/tsconfig.json"
+            "../chipper/tsconfig/eslint-all/tsconfig.json"
           ]
         }
       }
