@@ -23,7 +23,8 @@ class AppleScene extends Scene {
 
     // @public {BooleanProperty}
     this.showCostPerAppleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showCostPerAppleProperty' )
+      tandem: tandem.createTandem( 'showCostPerAppleProperty' ),
+      phetioFeatured: true
     } );
 
     const initialCost = predictMode ? 5 : 0;
