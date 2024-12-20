@@ -146,7 +146,9 @@ class SceneNode extends Node {
         }
         this.controlButton.centerY = this.layoutBounds.bottom - 128;
       }
-      else {
+
+      // TODO: we still need to layout when the pickerContainer is empty (all number pickers hidden from PhET-iO), https://github.com/phetsims/proportion-playground/issues/107
+      else if ( this.leftControl.pickerContainer.bounds.isFinite() ) {
         const pickerContainerBounds = this.leftControl.localToParentBounds( this.leftControl.pickerContainer.bounds );
         this.controlButton.centerX = pickerContainerBounds.right + 62; // 30 amount of space for the larger button
         this.controlButton.centerY = this.layoutBounds.bottom - 128;
