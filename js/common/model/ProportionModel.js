@@ -39,7 +39,8 @@ class ProportionModel {
     // @public {Property.<Scene>} - Our currently-selected scene (can change with a query parameter)
     this.sceneProperty = new Property( this.scenes[ ProportionPlaygroundQueryParameters.scene ], {
       phetioValueType: ReferenceIO( Scene.SceneIO ),
-      tandem: tandem.createTandem( 'sceneProperty' )
+      tandem: tandem.createTandem( 'sceneProperty' ),
+      phetioFeatured: true
     } );
 
     // @public (read-only) - for the Predict screen, show a reveal button

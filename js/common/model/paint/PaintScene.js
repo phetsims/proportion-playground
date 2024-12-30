@@ -27,7 +27,8 @@ class PaintScene extends Scene {
     // @public {Property.<PaintChoice>} - What two paints (left and right) are currently used.
     this.paintChoiceProperty = new Property( PaintChoice.BLUE_YELLOW, {
       phetioValueType: ReferenceIO( PaintChoice.PaintChoiceIO ),
-      tandem: tandem.createTandem( 'paintChoiceProperty' )
+      tandem: tandem.createTandem( 'paintChoiceProperty' ),
+      phetioFeatured: true
     } );
 
     const initialCount = predictMode ? 5 : 0;
