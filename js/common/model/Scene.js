@@ -36,7 +36,8 @@ class Scene extends PhetioObject {
 
     // @public {BooleanProperty} - Whether the visual representation is being shown
     this.revealProperty = new BooleanProperty( !predictMode, {
-      tandem: tandem.createTandem( 'revealProperty' )
+      tandem: tandem.createTandem( 'revealProperty' ),
+      phetioFeatured: true
     } );
 
     // @public {BooleanProperty} - Whether both representations are shown
