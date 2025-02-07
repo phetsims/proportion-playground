@@ -10,7 +10,8 @@
 
 import Property from '../../../../../axon/js/Property.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import { Node, Path } from '../../../../../scenery/js/imports.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../../scenery/js/nodes/Path.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import NecklaceLayout from '../../model/necklace/NecklaceLayout.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';

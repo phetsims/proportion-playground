@@ -7,7 +7,8 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { AlignBox, AlignGroup } from '../../../../scenery/js/imports.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundColors from './ProportionPlaygroundColors.js';

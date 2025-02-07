@@ -6,7 +6,8 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import { Node, Rectangle } from '../../../../../scenery/js/imports.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 

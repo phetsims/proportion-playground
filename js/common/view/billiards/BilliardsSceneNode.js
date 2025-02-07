@@ -6,7 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import { HBox } from '../../../../../scenery/js/imports.js';
+import HBox from '../../../../../scenery/js/layout/nodes/HBox.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import Side from '../../model/Side.js';
 import SceneNode from '../SceneNode.js';

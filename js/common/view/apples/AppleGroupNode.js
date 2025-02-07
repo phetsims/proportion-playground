@@ -9,9 +9,15 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import { Shape } from '../../../../../kite/js/imports.js';
+import Shape from '../../../../../kite/js/Shape.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
-import { AlignBox, Image, Line, Node, Path, Text, VBox } from '../../../../../scenery/js/imports.js';
+import AlignBox from '../../../../../scenery/js/layout/nodes/AlignBox.js';
+import VBox from '../../../../../scenery/js/layout/nodes/VBox.js';
+import Image from '../../../../../scenery/js/nodes/Image.js';
+import Line from '../../../../../scenery/js/nodes/Line.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../../scenery/js/nodes/Path.js';
+import Text from '../../../../../scenery/js/nodes/Text.js';
 import appleRed_png from '../../../../mipmaps/appleRed_png.js';
 import coin_png from '../../../../mipmaps/coin_png.js';
 import crateBack_png from '../../../../mipmaps/crateBack_png.js';

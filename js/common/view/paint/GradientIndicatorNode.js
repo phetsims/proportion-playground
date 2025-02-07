@@ -9,7 +9,7 @@
 
 import Multilink from '../../../../../axon/js/Multilink.js';
 import TriangleNode from '../../../../../scenery-phet/js/TriangleNode.js';
-import { Node } from '../../../../../scenery/js/imports.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
 import PaintChoiceGradientNode from './PaintChoiceGradientNode.js';

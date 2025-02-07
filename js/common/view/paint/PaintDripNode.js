@@ -6,8 +6,9 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-import { Shape } from '../../../../../kite/js/imports.js';
-import { Node, Path } from '../../../../../scenery/js/imports.js';
+import Shape from '../../../../../kite/js/Shape.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../../scenery/js/nodes/Path.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';

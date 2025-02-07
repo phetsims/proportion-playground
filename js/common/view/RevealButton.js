@@ -7,7 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { Path } from '../../../../scenery/js/imports.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';

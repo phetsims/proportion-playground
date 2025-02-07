@@ -9,7 +9,10 @@
 
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { HBox, Node, Text, VBox } from '../../../../scenery/js/imports.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import NumberPicker from '../../../../sun/js/NumberPicker.js';
 import proportionPlayground from '../../proportionPlayground.js';
 import Side from '../model/Side.js';

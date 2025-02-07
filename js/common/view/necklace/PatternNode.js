@@ -10,7 +10,9 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import { Circle, Node, Rectangle } from '../../../../../scenery/js/imports.js';
+import Circle from '../../../../../scenery/js/nodes/Circle.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';

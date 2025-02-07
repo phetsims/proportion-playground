@@ -7,7 +7,8 @@
  */
 
 import merge from '../../../../../phet-core/js/merge.js';
-import { HBox, VBox } from '../../../../../scenery/js/imports.js';
+import HBox from '../../../../../scenery/js/layout/nodes/HBox.js';
+import VBox from '../../../../../scenery/js/layout/nodes/VBox.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import Side from '../../model/Side.js';

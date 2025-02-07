@@ -8,7 +8,7 @@
 
 import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import { Node } from '../../../../../scenery/js/imports.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
 import proportionPlayground from '../../../proportionPlayground.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
 import Side from '../../model/Side.js';
