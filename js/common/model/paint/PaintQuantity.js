@@ -3,7 +3,7 @@
 /**
  * Models the quantity of a specific color/choice of paint, that can be added (with balloons) and removed (with drips)
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';

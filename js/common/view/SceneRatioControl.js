@@ -4,7 +4,7 @@
  * Base type for a combined visual representation with controls (spinners, etc.) for the ratio-based items
  * (necklaces, billiard tables, splotches, etc.)
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import Property from '../../../../axon/js/Property.js';

@@ -4,7 +4,7 @@
  * Encodes layout information about how the square/round beads and chain/string are positioned, given a count of
  * round and square beads.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Andrea Lin
  */

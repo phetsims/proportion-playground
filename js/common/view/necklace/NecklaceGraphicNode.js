@@ -3,7 +3,7 @@
 /**
  * Scenery-Node-based Necklace display based on a Layout property.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Andrea Lin
  */

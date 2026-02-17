@@ -3,7 +3,7 @@
 /**
  * Enumeration for which side our ratio is on (the left or right, where if only one is visible, it's the left)
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';

@@ -3,7 +3,7 @@
 /**
  * Base type for the ratio-based items (necklaces, billiard tables, splotches, etc.)
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
