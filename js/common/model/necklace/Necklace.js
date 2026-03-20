@@ -1,4 +1,4 @@
-// Copyright 2016-2020, University of Colorado Boulder
+// Copyright 2016-2026, University of Colorado Boulder
 
 /**
  * The model for a single necklace, which is a collection of round and square beads.  The pattern (order of beads)
