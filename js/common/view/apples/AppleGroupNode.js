@@ -22,7 +22,6 @@ import appleRed_png from '../../../../mipmaps/appleRed_png.js';
 import coin_png from '../../../../mipmaps/coin_png.js';
 import crateBack_png from '../../../../mipmaps/crateBack_png.js';
 import crateFront_png from '../../../../mipmaps/crateFront_png.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
@@ -160,7 +159,5 @@ class AppleGroupNode extends SceneRatioNode {
     this.children = [ this.coinStack, this.appleCrate, priceTagLayer ];
   }
 }
-
-proportionPlayground.register( 'AppleGroupNode', AppleGroupNode );
 
 export default AppleGroupNode;

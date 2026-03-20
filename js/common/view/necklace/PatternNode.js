@@ -13,7 +13,6 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import Circle from '../../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 
@@ -73,7 +72,5 @@ class PatternNode extends Node {
     this.mutate( options );
   }
 }
-
-proportionPlayground.register( 'PatternNode', PatternNode );
 
 export default PatternNode;

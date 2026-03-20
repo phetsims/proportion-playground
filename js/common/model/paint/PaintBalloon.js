@@ -6,8 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import proportionPlayground from '../../../proportionPlayground.js';
-
 // {number} - In seconds, the time from "launch" to when the balloon "hits" the splotch.
 const TIME_TO_HIT = 0.5;
 
@@ -65,7 +63,5 @@ class PaintBalloon {
     return ( TIME_TO_HIT - this.timeToHit ) / TIME_TO_HIT;
   }
 }
-
-proportionPlayground.register( 'PaintBalloon', PaintBalloon );
 
 export default PaintBalloon;

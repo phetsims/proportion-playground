@@ -10,7 +10,6 @@
 import Multilink from '../../../../../axon/js/Multilink.js';
 import TriangleNode from '../../../../../scenery-phet/js/TriangleNode.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
 import PaintChoiceGradientNode from './PaintChoiceGradientNode.js';
 
@@ -115,7 +114,5 @@ class GradientIndicatorNode extends Node {
     this.mutate( options );
   }
 }
-
-proportionPlayground.register( 'GradientIndicatorNode', GradientIndicatorNode );
 
 export default GradientIndicatorNode;

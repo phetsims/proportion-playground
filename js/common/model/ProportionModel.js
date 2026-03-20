@@ -8,7 +8,6 @@
 
 import Property from '../../../../axon/js/Property.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
-import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundQueryParameters from '../ProportionPlaygroundQueryParameters.js';
 import AppleScene from './apples/AppleScene.js';
 import BilliardsScene from './billiards/BilliardsScene.js';
@@ -72,7 +71,5 @@ class ProportionModel {
     this.sceneProperty.value.step( dt );
   }
 }
-
-proportionPlayground.register( 'ProportionModel', ProportionModel );
 
 export default ProportionModel;

@@ -12,7 +12,6 @@ import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js'
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ABSwitch from '../../../../sun/js/ABSwitch.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from './ProportionPlaygroundColors.js';
 import RevealButton from './RevealButton.js';
@@ -161,7 +160,5 @@ class SceneNode extends Node {
     }
   }
 }
-
-proportionPlayground.register( 'SceneNode', SceneNode );
 
 export default SceneNode;

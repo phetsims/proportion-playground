@@ -24,7 +24,6 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import MutableOptionsNode from '../../../../../sun/js/MutableOptionsNode.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import SceneRatioNode from '../SceneRatioNode.js';
@@ -270,7 +269,5 @@ class BilliardsTableNode extends SceneRatioNode {
     } );
   }
 }
-
-proportionPlayground.register( 'BilliardsTableNode', BilliardsTableNode );
 
 export default BilliardsTableNode;

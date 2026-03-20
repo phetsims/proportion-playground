@@ -8,7 +8,6 @@
 
 import Range from '../../../dot/js/Range.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import proportionPlayground from '../proportionPlayground.js';
 
 const ProportionPlaygroundConstants = {
   // @public {number} - Diameter/width of the beads in the necklace scene
@@ -29,7 +28,5 @@ const ProportionPlaygroundConstants = {
   APPLE_COUNT_RANGE: new Range( 1, 20 ),
   PAINT_COUNT_RANGE: new Range( 0, 20 )
 };
-
-proportionPlayground.register( 'ProportionPlaygroundConstants', ProportionPlaygroundConstants );
 
 export default ProportionPlaygroundConstants;

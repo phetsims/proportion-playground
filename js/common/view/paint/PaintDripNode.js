@@ -9,7 +9,6 @@
 import Shape from '../../../../../kite/js/Shape.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import SplotchNode from './SplotchNode.js';
@@ -104,7 +103,5 @@ class PaintDripNode extends Node {
     super.dispose();
   }
 }
-
-proportionPlayground.register( 'PaintDripNode', PaintDripNode );
 
 export default PaintDripNode;

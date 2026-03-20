@@ -9,7 +9,6 @@
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Line from '../../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 
 // constants
@@ -87,7 +86,5 @@ class BilliardsPath extends Node {
     this.collisionPoints.forEach( this.collisionListener );
   }
 }
-
-proportionPlayground.register( 'BilliardsPath', BilliardsPath );
 
 export default BilliardsPath;

@@ -6,7 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import proportionPlayground from '../../../proportionPlayground.js';
 import Scene from '../Scene.js';
 import Necklace from './Necklace.js';
 
@@ -29,7 +28,5 @@ class NecklaceScene extends Scene {
     this.initializeRatios( this.leftNecklace, this.rightNecklace );
   }
 }
-
-proportionPlayground.register( 'NecklaceScene', NecklaceScene );
 
 export default NecklaceScene;

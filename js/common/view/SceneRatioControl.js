@@ -14,7 +14,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import NumberPicker from '../../../../sun/js/NumberPicker.js';
-import proportionPlayground from '../../proportionPlayground.js';
 import Side from '../model/Side.js';
 import ProportionPlaygroundConstants from '../ProportionPlaygroundConstants.js';
 
@@ -129,7 +128,5 @@ class SceneRatioControl extends Node {
     this.addChild( this.pickerContainer );
   }
 }
-
-proportionPlayground.register( 'SceneRatioControl', SceneRatioControl );
 
 export default SceneRatioControl;

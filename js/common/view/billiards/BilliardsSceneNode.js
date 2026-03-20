@@ -7,7 +7,6 @@
  */
 
 import HBox from '../../../../../scenery/js/layout/nodes/HBox.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import Side from '../../model/Side.js';
 import SceneNode from '../SceneNode.js';
 import BilliardsTableControl from './BilliardsTableControl.js';
@@ -67,7 +66,5 @@ class BilliardsSceneNode extends SceneNode {
     } );
   }
 }
-
-proportionPlayground.register( 'BilliardsSceneNode', BilliardsSceneNode );
 
 export default BilliardsSceneNode;

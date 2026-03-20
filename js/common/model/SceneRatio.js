@@ -7,7 +7,6 @@
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
-import proportionPlayground from '../../proportionPlayground.js';
 import Side from './Side.js';
 
 class SceneRatio {
@@ -113,7 +112,5 @@ class SceneRatio {
            ( a2 / a1 === b2 / b1 || Math.abs( a2 / a1 - b2 / b1 ) < 1e-6 );
   }
 }
-
-proportionPlayground.register( 'SceneRatio', SceneRatio );
 
 export default SceneRatio;

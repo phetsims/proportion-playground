@@ -7,7 +7,6 @@
  */
 
 import Node from '../../../../scenery/js/nodes/Node.js';
-import proportionPlayground from '../../proportionPlayground.js';
 
 class SceneRatioNode extends Node {
   /**
@@ -19,7 +18,5 @@ class SceneRatioNode extends Node {
     sceneRatio.visibleProperty.linkAttribute( this, 'visible' );
   }
 }
-
-proportionPlayground.register( 'SceneRatioNode', SceneRatioNode );
 
 export default SceneRatioNode;

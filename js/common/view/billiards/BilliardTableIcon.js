@@ -8,7 +8,6 @@
 
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 
 class BilliardTableIcon extends Node {
@@ -33,7 +32,5 @@ class BilliardTableIcon extends Node {
     this.mutate( options );
   }
 }
-
-proportionPlayground.register( 'BilliardTableIcon', BilliardTableIcon );
 
 export default BilliardTableIcon;

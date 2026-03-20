@@ -14,7 +14,6 @@ import PhetioObject from '../../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import IOType from '../../../../../tandem/js/types/IOType.js';
 import StringIO from '../../../../../tandem/js/types/StringIO.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundColors from '../../view/ProportionPlaygroundColors.js';
 import Side from '../Side.js';
 
@@ -146,8 +145,6 @@ const PaintChoiceIO = new IOType( 'PaintChoiceIO', {
   }
 } );
 PaintChoice.PaintChoiceIO = PaintChoiceIO;
-
-proportionPlayground.register( 'PaintChoice', PaintChoice );
 
 PaintChoice.BLUE = ProportionPlaygroundColors.paintBlueProperty;
 PaintChoice.YELLOW = ProportionPlaygroundColors.paintYellowProperty;

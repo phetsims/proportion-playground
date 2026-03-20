@@ -7,7 +7,6 @@
  */
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 
 class PaintQuantity {
@@ -132,7 +131,5 @@ class PaintQuantity {
     }
   }
 }
-
-proportionPlayground.register( 'PaintQuantity', PaintQuantity );
 
 export default PaintQuantity;

@@ -12,7 +12,6 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../../sun/js/Checkbox.js';
 import appleRed_png from '../../../../mipmaps/appleRed_png.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import SceneNode from '../SceneNode.js';
@@ -85,7 +84,5 @@ class AppleSceneNode extends SceneNode {
     showCostPerAppleCheckbox.leftBottom = layoutBounds.leftBottom.plusXY( checkboxInset, -checkboxInset );
   }
 }
-
-proportionPlayground.register( 'AppleSceneNode', AppleSceneNode );
 
 export default AppleSceneNode;

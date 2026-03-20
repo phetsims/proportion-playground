@@ -25,7 +25,6 @@ import whiteBalloon3_png from '../../../../mipmaps/whiteBalloon3_png.js';
 import yellowBalloon1_png from '../../../../mipmaps/yellowBalloon1_png.js';
 import yellowBalloon2_png from '../../../../mipmaps/yellowBalloon2_png.js';
 import yellowBalloon3_png from '../../../../mipmaps/yellowBalloon3_png.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
 import SplotchNode from './SplotchNode.js';
 
@@ -136,7 +135,5 @@ class PaintBalloonNode extends Node {
     super.dispose();
   }
 }
-
-proportionPlayground.register( 'PaintBalloonNode', PaintBalloonNode );
 
 export default PaintBalloonNode;

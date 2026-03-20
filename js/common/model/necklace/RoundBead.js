@@ -6,8 +6,6 @@
  * @author Jonathan Olson
  */
 
-import proportionPlayground from '../../../proportionPlayground.js';
-
 class RoundBead {
   /**
    * @param {Vector2} center - The center (in model coordinates) of the bead
@@ -18,7 +16,5 @@ class RoundBead {
     this.center = center;
   }
 }
-
-proportionPlayground.register( 'RoundBead', RoundBead );
 
 export default RoundBead;

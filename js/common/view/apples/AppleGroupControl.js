@@ -7,7 +7,6 @@
  */
 
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import SceneRatioControl from '../SceneRatioControl.js';
@@ -53,7 +52,5 @@ class AppleGroupControl extends SceneRatioControl {
     appleGroupNode.bottom = this.pickerContainer.top - 30;
   }
 }
-
-proportionPlayground.register( 'AppleGroupControl', AppleGroupControl );
 
 export default AppleGroupControl;

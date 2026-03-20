@@ -12,7 +12,6 @@ import Utils from '../../../../../dot/js/Utils.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 
 class PaintChoiceGradientNode extends Node {
   /**
@@ -58,7 +57,5 @@ class PaintChoiceGradientNode extends Node {
     this.mutate( options );
   }
 }
-
-proportionPlayground.register( 'PaintChoiceGradientNode', PaintChoiceGradientNode );
 
 export default PaintChoiceGradientNode;

@@ -6,8 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import proportionPlayground from '../../../proportionPlayground.js';
-
 class PaintDrip {
   /**
    * @param {Side} side - Whether this balloon contains the left-most color
@@ -70,7 +68,5 @@ class PaintDrip {
     this.leaveCallback( this );
   }
 }
-
-proportionPlayground.register( 'PaintDrip', PaintDrip );
 
 export default PaintDrip;

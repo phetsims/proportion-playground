@@ -7,7 +7,6 @@
  */
 
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
-import proportionPlayground from '../proportionPlayground.js';
 
 const ProportionPlaygroundQueryParameters = QueryStringMachine.getAll( {
 
@@ -17,7 +16,5 @@ const ProportionPlaygroundQueryParameters = QueryStringMachine.getAll( {
     defaultValue: 0
   }
 } );
-
-proportionPlayground.register( 'ProportionPlaygroundQueryParameters', ProportionPlaygroundQueryParameters );
 
 export default ProportionPlaygroundQueryParameters;

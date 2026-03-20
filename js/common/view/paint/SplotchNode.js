@@ -15,7 +15,6 @@ import Shape from '../../../../../kite/js/Shape.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../../scenery/js/util/Color.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
@@ -121,7 +120,5 @@ class SplotchNode extends SceneRatioNode {
     return scale * scale * TARGET_SHAPE_AREA; // Area proportional to scale squared
   }
 }
-
-proportionPlayground.register( 'SplotchNode', SplotchNode );
 
 export default SplotchNode;

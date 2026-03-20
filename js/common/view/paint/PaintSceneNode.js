@@ -13,7 +13,6 @@ import Image from '../../../../../scenery/js/nodes/Image.js';
 import VerticalAquaRadioButtonGroup from '../../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import paintScene_png from '../../../../mipmaps/paintScene_png.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import PaintChoice from '../../model/paint/PaintChoice.js';
 import Splotch from '../../model/paint/Splotch.js';
 import Side from '../../model/Side.js';
@@ -104,7 +103,5 @@ class PaintSceneNode extends SceneNode {
     } ) );
   }
 }
-
-proportionPlayground.register( 'PaintSceneNode', PaintSceneNode );
 
 export default PaintSceneNode;

@@ -9,7 +9,6 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import SceneRatio from '../SceneRatio.js';
 import NecklaceLayout from './NecklaceLayout.js';
@@ -52,7 +51,5 @@ class Necklace extends SceneRatio {
       ( roundBeadCount, squareBeadCount ) => NecklaceLayout.getLayout( roundBeadCount, squareBeadCount ) );
   }
 }
-
-proportionPlayground.register( 'Necklace', Necklace );
 
 export default Necklace;

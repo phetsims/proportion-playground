@@ -9,7 +9,6 @@
 import merge from '../../../../../phet-core/js/merge.js';
 import HBox from '../../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../../scenery/js/layout/nodes/VBox.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import Side from '../../model/Side.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
@@ -79,7 +78,5 @@ class BilliardsTableControl extends SceneRatioControl {
     this.x = centerX - this.billiardsTableNode.centerX;
   }
 }
-
-proportionPlayground.register( 'BilliardsTableControl', BilliardsTableControl );
 
 export default BilliardsTableControl;

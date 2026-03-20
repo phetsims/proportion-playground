@@ -6,8 +6,6 @@
  * @author Jonathan Olson
  */
 
-import proportionPlayground from '../../../proportionPlayground.js';
-
 class SquareBead {
   /**
    * @param {Vector2} center - The center (in model coordinates) of the bead.
@@ -22,7 +20,5 @@ class SquareBead {
     this.angle = angle;
   }
 }
-
-proportionPlayground.register( 'SquareBead', SquareBead );
 
 export default SquareBead;

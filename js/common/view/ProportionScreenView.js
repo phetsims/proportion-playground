@@ -10,7 +10,6 @@
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../ProportionPlaygroundConstants.js';
 import AppleSceneNode from './apples/AppleSceneNode.js';
 import BilliardsSceneNode from './billiards/BilliardsSceneNode.js';
@@ -96,5 +95,4 @@ class ProportionScreenView extends ScreenView {
   }
 }
 
-proportionPlayground.register( 'ProportionScreenView', ProportionScreenView );
 export default ProportionScreenView;

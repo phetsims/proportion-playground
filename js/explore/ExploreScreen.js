@@ -22,7 +22,6 @@ import BilliardsTableNode from '../common/view/billiards/BilliardsTableNode.js';
 import NecklaceGraphicNode from '../common/view/necklace/NecklaceGraphicNode.js';
 import ProportionPlaygroundColors from '../common/view/ProportionPlaygroundColors.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
-import proportionPlayground from '../proportionPlayground.js';
 import ProportionPlaygroundStrings from '../ProportionPlaygroundStrings.js';
 
 // constants
@@ -115,5 +114,4 @@ function createNavigationBarIcon() {
   } );
 }
 
-proportionPlayground.register( 'ExploreScreen', ExploreScreen );
 export default ExploreScreen;

@@ -6,7 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import SceneRatioControl from '../SceneRatioControl.js';
 import NecklaceNode from './NecklaceNode.js';
@@ -37,7 +36,5 @@ class NecklaceControl extends SceneRatioControl {
     this.addBottomPickers();
   }
 }
-
-proportionPlayground.register( 'NecklaceControl', NecklaceControl );
 
 export default NecklaceControl;

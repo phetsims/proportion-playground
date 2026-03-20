@@ -6,7 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import proportionPlayground from '../../../proportionPlayground.js';
 import Scene from '../Scene.js';
 import BilliardsTable from './BilliardsTable.js';
 
@@ -51,7 +50,5 @@ class BilliardsScene extends Scene {
     }
   }
 }
-
-proportionPlayground.register( 'BilliardsScene', BilliardsScene );
 
 export default BilliardsScene;

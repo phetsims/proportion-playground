@@ -12,7 +12,6 @@ import Property from '../../../../../axon/js/Property.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import NecklaceLayout from '../../model/necklace/NecklaceLayout.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 import RoundBeadNode from './RoundBeadNode.js';
@@ -123,7 +122,5 @@ class NecklaceGraphicNode extends Node {
     return new NecklaceGraphicNode( new Property( NecklaceLayout.getLayout( roundBeadCount, squareBeadCount ) ), options );
   }
 }
-
-proportionPlayground.register( 'NecklaceGraphicNode', NecklaceGraphicNode );
 
 export default NecklaceGraphicNode;

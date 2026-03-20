@@ -10,7 +10,6 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import proportionPlayground from '../../proportionPlayground.js';
 import Side from '../model/Side.js';
 
 // constants
@@ -39,7 +38,5 @@ class TriangleNode extends Path {
     super( side === Side.LEFT ? LEFT_TRIANGLE_SHAPE : RIGHT_TRIANGLE_SHAPE, options );
   }
 }
-
-proportionPlayground.register( 'TriangleNode', TriangleNode );
 
 export default TriangleNode;

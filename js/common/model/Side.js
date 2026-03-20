@@ -7,7 +7,6 @@
  */
 
 import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
-import proportionPlayground from '../../proportionPlayground.js';
 
 const Side = EnumerationDeprecated.byKeys( [
   'LEFT',
@@ -22,5 +21,4 @@ const Side = EnumerationDeprecated.byKeys( [
   }
 } );
 
-proportionPlayground.register( 'Side', Side );
 export default Side;

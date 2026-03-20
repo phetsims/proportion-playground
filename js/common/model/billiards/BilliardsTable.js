@@ -13,7 +13,6 @@ import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../../dot/js/Vector2Property.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import SceneRatio from '../SceneRatio.js';
 
@@ -211,7 +210,5 @@ class BilliardsTable extends SceneRatio {
     this.ballPositionProperty.value = position.copy();
   }
 }
-
-proportionPlayground.register( 'BilliardsTable', BilliardsTable );
 
 export default BilliardsTable;

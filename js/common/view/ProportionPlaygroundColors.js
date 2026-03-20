@@ -56,8 +56,6 @@ const ProportionPlaygroundColors = {
   necklacePatternBorderProperty: new ProfileColorProperty( proportionPlayground, 'necklacePatternBorder', { default: new Color( '#B3B3B3' ) } )
 };
 
-proportionPlayground.register( 'ProportionPlaygroundColors', ProportionPlaygroundColors );
-
 /**
  * Creates a color property that is always an adjusted amount brighter/darker than the defined colorProperty.
  * @public

@@ -13,7 +13,6 @@ import Random from '../../../../../dot/js/Random.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import RoundBead from './RoundBead.js';
 import SquareBead from './SquareBead.js';
@@ -360,7 +359,5 @@ NecklaceLayout.TWO_MIXED_BEADS_SHAPE = shapeFromSplintPoints( [
   new Vector2( TWO_BEAD_OFFSET, -2.22 * BEAD_DIAMETER ),
   new Vector2( 1.11 * BEAD_DIAMETER + TWO_BEAD_OFFSET, -0.94 * BEAD_DIAMETER )
 ] );
-
-proportionPlayground.register( 'NecklaceLayout', NecklaceLayout );
 
 export default NecklaceLayout;

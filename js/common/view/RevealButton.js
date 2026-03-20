@@ -11,7 +11,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
-import proportionPlayground from '../../proportionPlayground.js';
 import ProportionPlaygroundColors from './ProportionPlaygroundColors.js';
 
 class RevealButton extends BooleanRoundToggleButton {
@@ -32,7 +31,5 @@ class RevealButton extends BooleanRoundToggleButton {
     super( revealingProperty, revealedNode, hiddenNode, options );
   }
 }
-
-proportionPlayground.register( 'RevealButton', RevealButton );
 
 export default RevealButton;

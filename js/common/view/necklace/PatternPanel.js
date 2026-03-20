@@ -15,7 +15,6 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Panel from '../../../../../sun/js/Panel.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import Necklace from '../../model/necklace/Necklace.js';
 import Side from '../../model/Side.js';
@@ -86,5 +85,4 @@ class PatternPanel extends Panel {
   }
 }
 
-proportionPlayground.register( 'PatternPanel', PatternPanel );
 export default PatternPanel;

@@ -7,7 +7,6 @@
  */
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import SceneRatio from '../SceneRatio.js';
 
@@ -44,7 +43,5 @@ class AppleGroup extends SceneRatio {
     this.numberOfApplesProperty = numberOfApplesProperty;
   }
 }
-
-proportionPlayground.register( 'AppleGroup', AppleGroup );
 
 export default AppleGroup;

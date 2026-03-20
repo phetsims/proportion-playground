@@ -7,7 +7,6 @@
  */
 
 import HBox from '../../../../../scenery/js/layout/nodes/HBox.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import SceneNode from '../SceneNode.js';
 import NecklaceControl from './NecklaceControl.js';
 import NecklaceGraphicNode from './NecklaceGraphicNode.js';
@@ -71,7 +70,5 @@ class NecklaceSceneNode extends SceneNode {
     } );
   }
 }
-
-proportionPlayground.register( 'NecklaceSceneNode', NecklaceSceneNode );
 
 export default NecklaceSceneNode;

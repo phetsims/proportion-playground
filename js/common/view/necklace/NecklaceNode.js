@@ -6,7 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import proportionPlayground from '../../../proportionPlayground.js';
 import SceneRatioNode from '../SceneRatioNode.js';
 import NecklaceGraphicNode from './NecklaceGraphicNode.js';
 
@@ -26,7 +25,5 @@ class NecklaceNode extends SceneRatioNode {
     } ) );
   }
 }
-
-proportionPlayground.register( 'NecklaceNode', NecklaceNode );
 
 export default NecklaceNode;

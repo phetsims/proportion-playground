@@ -11,7 +11,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
-import proportionPlayground from '../../proportionPlayground.js';
 
 class Scene extends PhetioObject {
   /**
@@ -120,7 +119,5 @@ const SceneIO = new IOType( 'SceneIO', {
   }
 } );
 Scene.SceneIO = SceneIO;
-
-proportionPlayground.register( 'Scene', Scene );
 
 export default Scene;

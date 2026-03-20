@@ -7,7 +7,6 @@
  */
 
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import Scene from '../Scene.js';
 import AppleGroup from './AppleGroup.js';
 
@@ -48,7 +47,5 @@ class AppleScene extends Scene {
     this.showCostPerAppleProperty.reset();
   }
 }
-
-proportionPlayground.register( 'AppleScene', AppleScene );
 
 export default AppleScene;

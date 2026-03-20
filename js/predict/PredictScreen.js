@@ -22,7 +22,6 @@ import ProportionModel from '../common/model/ProportionModel.js';
 import SplotchNode from '../common/view/paint/SplotchNode.js';
 import ProportionPlaygroundColors from '../common/view/ProportionPlaygroundColors.js';
 import ProportionScreenView from '../common/view/ProportionScreenView.js';
-import proportionPlayground from '../proportionPlayground.js';
 import ProportionPlaygroundStrings from '../ProportionPlaygroundStrings.js';
 
 // Our splotch's "visual center" is not in the center of its bounds, so we need to shift the text slightly.
@@ -104,5 +103,4 @@ function createNavigationBarIcon( splotchNode ) {
   } );
 }
 
-proportionPlayground.register( 'PredictScreen', PredictScreen );
 export default PredictScreen;

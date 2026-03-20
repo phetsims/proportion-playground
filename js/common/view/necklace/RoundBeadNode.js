@@ -12,7 +12,6 @@ import ShadedSphereNode from '../../../../../scenery-phet/js/ShadedSphereNode.js
 import Circle from '../../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import MutableOptionsNode from '../../../../../sun/js/MutableOptionsNode.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 
@@ -52,7 +51,5 @@ class RoundBeadNode extends Node {
     super( merge( { children: [ containerNode ] }, options ) );
   }
 }
-
-proportionPlayground.register( 'RoundBeadNode', RoundBeadNode );
 
 export default RoundBeadNode;

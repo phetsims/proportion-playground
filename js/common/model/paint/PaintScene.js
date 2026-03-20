@@ -8,7 +8,6 @@
 
 import Property from '../../../../../axon/js/Property.js';
 import ReferenceIO from '../../../../../tandem/js/types/ReferenceIO.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import Scene from '../Scene.js';
 import SceneRatio from '../SceneRatio.js';
 import PaintChoice from './PaintChoice.js';
@@ -75,7 +74,5 @@ class PaintScene extends Scene {
     this.paintChoiceProperty.reset();
   }
 }
-
-proportionPlayground.register( 'PaintScene', PaintScene );
 
 export default PaintScene;

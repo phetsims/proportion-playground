@@ -15,7 +15,6 @@ import TriangleNode from '../../../../../scenery-phet/js/TriangleNode.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundStrings from '../../../ProportionPlaygroundStrings.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
@@ -97,8 +96,6 @@ class AppleGraphNode extends Node {
     super( options );
   }
 }
-
-proportionPlayground.register( 'AppleGraphNode', AppleGraphNode );
 
 /**
  * Callback to update a triangular indicator.

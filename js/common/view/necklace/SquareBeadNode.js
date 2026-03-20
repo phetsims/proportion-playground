@@ -13,7 +13,6 @@ import merge from '../../../../../phet-core/js/merge.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import RadialGradient from '../../../../../scenery/js/util/RadialGradient.js';
-import proportionPlayground from '../../../proportionPlayground.js';
 import ProportionPlaygroundConstants from '../../ProportionPlaygroundConstants.js';
 import ProportionPlaygroundColors from '../ProportionPlaygroundColors.js';
 
@@ -103,7 +102,5 @@ class SquareBeadNode extends Node {
     this.container.center = Vector2.ZERO;
   }
 }
-
-proportionPlayground.register( 'SquareBeadNode', SquareBeadNode );
 
 export default SquareBeadNode;
