@@ -44,4 +44,6 @@ type StringsType = {
 
 const ProportionPlaygroundStrings = getStringModule( 'PROPORTION_PLAYGROUND' ) as StringsType;
 
+proportionPlayground.register( 'ProportionPlaygroundStrings', ProportionPlaygroundStrings );
+
 export default ProportionPlaygroundStrings;
