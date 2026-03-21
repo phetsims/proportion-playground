@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "2e1243757043f28f965622e2aa1b47c40b88a8a9",
+    "sha": "dfbeb617aaf6c26823453ac40e81a13f5188312b",
     "branch": "HEAD"
   },
   "kite": {
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "proportion-playground": {
-    "sha": "7f2e3ff3423512f226f7fddcecccf2acbffb1e87",
+    "sha": "64807c7f0d966a8d9d0cc0a839c1e24e665472aa",
     "branch": "1.0"
   },
   "query-string-machine": {
